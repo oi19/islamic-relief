@@ -14,7 +14,7 @@ export const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    paddingTop: getHeight(160),
+    paddingTop: getHeight(20),
     paddingHorizontal: Spacing.S20,
   },
   title: {
@@ -40,7 +40,6 @@ export const styles = StyleSheet.create({
   },
   problemInputStyle: {
     backgroundColor: "white",
-    textAlign: "left",
     width: "95%",
     flex: 0,
     height: "100%",

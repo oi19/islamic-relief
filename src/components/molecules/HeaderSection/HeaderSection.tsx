@@ -12,7 +12,7 @@ import {translate} from "../../../helpers";
 
 const HeaderSection: FC<
   ViewProps & {
-    title: string;
+    title?: string;
     navigateTo?: MainNavigationKeys;
     params?: any;
     textStyle?: TextProps;
@@ -39,7 +39,7 @@ const HeaderSection: FC<
             fontSize: "FS14",
           }}
           textContainerStyle={styles.viewAllButton}
-          text={translate("viewAll") || undefined}
+          text={translate("Common.seeAll") || undefined}
         />
       )}
     </View>

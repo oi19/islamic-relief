@@ -16,6 +16,7 @@ export const styles = StyleSheet.create({
   input: {
     marginTop: Spacing.S20,
   },
+
   button: {
     marginVertical: Spacing.S8,
   },

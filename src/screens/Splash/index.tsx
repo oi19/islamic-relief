@@ -1,9 +1,12 @@
-import {Animated, Easing, StyleSheet, View} from "react-native";
 import React from "react";
-import {Colors} from "../../styles";
+import {Animated, Easing, View} from "react-native";
 import {Svgs} from "../../assets";
+import {Button, ViewRow} from "../../components";
 import {useNavigationHooks} from "../../hooks";
+import {isRTL} from "../../locals/i18n-config";
 import {MainNavigationAllScreensTypes} from "../../navigation/navigation-types";
+import {styles} from "./styles";
+import {changeLanguage} from "../../helpers";
 
 const Splash: React.FC = () => {
   const imageSlideAnim = React.useRef(new Animated.Value(500)).current;
@@ -25,6 +28,10 @@ const Splash: React.FC = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  const chooseLanguageFirstTime = (language: "ar" | "en") => {
+    changeLanguage(language);
+  };
+
   return (
     <View style={styles.rootScreen}>
       <Animated.View
@@ -36,21 +43,28 @@ const Splash: React.FC = () => {
         ]}>
         <Svgs name="slug" />
       </Animated.View>
+      <ViewRow style={styles.buttonGroup}>
+        <Button
+          type={isRTL() ? "standard" : "border"}
+          iconName={isRTL() ? undefined : "checked"}
+          text="English"
+          style={styles.button}
+          onPress={() => {
+            chooseLanguageFirstTime("en");
+          }}
+        />
+        <Button
+          type={isRTL() ? "border" : "standard"}
+          iconName={isRTL() ? "checked" : undefined}
+          text="عربي"
+          style={styles.button}
+          onPress={() => {
+            chooseLanguageFirstTime("ar");
+          }}
+        />
+      </ViewRow>
     </View>
   );
 };
 
 export default Splash;
-
-const styles = StyleSheet.create({
-  rootScreen: {
-    flex: 1,
-    backgroundColor: Colors.PRIMARY,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  imageContainer: {
-    alignSelf: "center",
-    width: "95%",
-  },
-});

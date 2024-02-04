@@ -6,6 +6,7 @@ import {useNavigationHooks} from "../../hooks";
 import {MainNavigationAllScreensTypes} from "../../navigation/navigation-types";
 import {getHeight, getWidth} from "../../styles/dimensions";
 import {styles} from "./styles";
+import {translate} from "../../helpers";
 
 const AllowLocation = () => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
@@ -21,27 +22,27 @@ const AllowLocation = () => {
           fontSize="H1"
           fontFamily="BOLD"
           style={styles.baseText}>
-          What is Your Locarion?
+          {translate("AllowLocation.whatIsYourLocation")}
         </Text>
         <Text
           color="FONT_07101A"
           fontFamily="NORMAL"
           fontSize="FS13"
           style={[styles.baseText, styles.subTitle]}>
-          Allowing your location access help for suggesting nearby service
+          {translate("AllowLocation.allowLocationMessage")}
         </Text>
       </View>
 
       <View>
         <Button
           type="standard"
-          text="Allow Location Access"
+          text={translate("AllowLocation.allowLocationAccess")}
           style={styles.allowLocation}
         />
 
         <Button
           type="border"
-          text="Enter Location Manually"
+          text={translate("AllowLocation.enterLocationManually")}
           onPress={() => navigate("ManuallyLocation")}
         />
       </View>

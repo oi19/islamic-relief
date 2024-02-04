@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.GRAY_EEEEEE,
   },
   container: {
-    paddingTop: getHeight(125),
+    paddingTop: getHeight(20),
     alignItems: "center",
     flex: 1,
     paddingHorizontal: Spacing.S16,
@@ -47,4 +47,5 @@ export const styles = StyleSheet.create({
     marginVertical: Spacing.S16,
     alignSelf: "center",
   },
+  center: {alignItems: "center", justifyContent: "center"},
 });

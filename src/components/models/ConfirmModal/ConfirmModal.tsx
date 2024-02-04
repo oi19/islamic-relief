@@ -6,6 +6,7 @@ import {Button, Text} from "../../atoms";
 import {View} from "react-native";
 import styles from "./styles";
 import {translate} from "../../../helpers";
+import {Spacing} from "../../../styles";
 
 const ConfirmModal = ({
   forwardRef,
@@ -26,26 +27,30 @@ const ConfirmModal = ({
     forwardRef.current?.close();
   };
   return (
-    <BaseModal
-      title={title || "Cancel This Section"}
-      snapPoints={[getHeight(170)]}
-      forwardRef={forwardRef}>
+    <BaseModal snapPoints={[getHeight(200)]} forwardRef={forwardRef}>
       <View style={styles.container}>
-        <Text fontSize="FS14" style={styles.message}>
+        <Text
+          style={{margin: Spacing.S16, width: "75%", textAlign: "left"}}
+          fontFamily="MEDIUM"
+          fontSize="FS16"
+          color="BLUE_4A5970">
+          {title || translate("Model.cancelModelTitle")}
+        </Text>
+        <Text fontSize="FS14" color="BLUE_4A5970" style={styles.message}>
           {message || "Are you sure you want to cancel this session?"}
         </Text>
         <View style={styles.buttonsView}>
           <Button
             onPress={onClose}
             style={styles.button}
-            text={translate("no")}
+            text={translate("Common.no")}
             type="border"
           />
           <Button
             isLoading={isLoading}
             onPress={onConfirm}
             style={styles.button}
-            text={confirmText || "Cancel"}
+            text={confirmText || translate("Common.ok")}
             type="standard"
           />
         </View>

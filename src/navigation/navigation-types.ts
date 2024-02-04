@@ -3,12 +3,11 @@ import {specialType} from "../@types/special-types";
 import {IconsName} from "../assets/svgs";
 
 export type MainNavigationTypes =
-  //   | HomeStackTypes
-  MainAppStackTypes | TabsBottomStack | HomeStackTypes;
-//   | TabButtonStackTypes
-//   | MoreStackTypes
-//   | AdvisingStackTypes
-//   | CoursesStackTypes;
+  | MainAppStackTypes
+  | TabsBottomStack
+  | HomeStackTypes
+  | MyActivityStackTypes
+  | ChatStackTypes;
 
 export type MainAppStackTypes = {
   Splash: undefined;
@@ -18,7 +17,15 @@ export type MainAppStackTypes = {
   ManuallyLocation: undefined;
   SelectPackage: undefined;
   CompletePatientDetails: undefined;
-  Login: {navigateTo: MainNavigationAllScreensTypes | undefined};
+  Login: {navigateTo: MainNavigationKeys | undefined};
+  PaymentMethods: undefined;
+  ReviewSummary: undefined;
+  ManageCards: undefined;
+  ResetPassword: undefined;
+  Favorites: undefined;
+  YourPoints: undefined;
+  Help: undefined;
+  Account: undefined;
 };
 
 export type HomeStackTypes = {
@@ -28,15 +35,30 @@ export type HomeStackTypes = {
   DoctorProfile: {item: Doctor};
 };
 
+export type MyActivityStackTypes = {
+  MyActivity: undefined;
+};
+
+export type ChatStackTypes = {
+  Chat: undefined;
+};
+
 export type TabsBottomStack = {
   HomeStack: {icon: IconsName; text: string};
-  Prescription: {icon: IconsName; text: string};
-  Chat: {icon: IconsName; text: string};
+  MyActivityStack: {icon: IconsName; text: string};
+  ChatStackTypes: {icon: IconsName; text: string};
   Profile: {icon: IconsName; text: string};
+  Notifications: {icon: IconsName; text: string};
 };
 
 export type MainNavigationAllScreensTypes = MainAppStackTypes &
   TabsBottomStack &
-  HomeStackTypes;
+  ChatStackTypes &
+  HomeStackTypes &
+  MyActivityStackTypes;
 
-export type MainNavigationKeys = keyof (TabsBottomStack & MainAppStackTypes);
+export type MainNavigationKeys = keyof (TabsBottomStack &
+  MainAppStackTypes &
+  ChatStackTypes &
+  HomeStackTypes &
+  MyActivityStackTypes);

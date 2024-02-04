@@ -4,3 +4,7 @@ export {default as CitiesModal} from "./CitiesModal/CitiesModal";
 export {default as GenderModal} from "./GenderModal/GenderModal";
 export {default as WarningMessageModel} from "./WarningMessageModel";
 export {default as SuccessModel} from "./SuccessModel";
+export {default as SupportModel} from "./SupportModel";
+export {default as CalenderModel} from "./CalenderModel";
+export {default as LanguageModel} from "./LanguageModel";
+export {default as AddReviewModel} from "./AddReviewModel";

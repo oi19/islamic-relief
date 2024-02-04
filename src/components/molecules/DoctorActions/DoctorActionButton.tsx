@@ -6,7 +6,7 @@ import {Colors, Spacing} from "../../../styles";
 import {IconsName} from "../../../assets/svgs";
 
 type DoctorActionButtonProps = {
-  title: string;
+  title?: string;
   onPress?: () => void;
   style?: ViewStyle;
   icon: IconsName;

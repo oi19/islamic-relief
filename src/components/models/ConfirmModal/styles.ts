@@ -18,7 +18,7 @@ const styles = StyleSheet.create({
   },
   button: {
     width: getWidth(113),
-    height: getHeight(32),
+    height: getHeight(40),
   },
 });
 export default styles;

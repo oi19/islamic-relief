@@ -8,6 +8,8 @@ import {GenderTypes} from "../../../@types";
 import {SelectedItem} from "../../organisms";
 import {translate} from "../../../helpers";
 import {genders} from "../../../dummyData";
+import {Text} from "../../atoms";
+import {Spacing} from "../../../styles";
 
 const GenderModal = ({
   forwardRef,
@@ -40,10 +42,17 @@ const GenderModal = ({
 
   return (
     <BaseModal
-      title={translate("gender")}
+      // title={translate("gender")}
       snapPoints={["25%"]}
       forwardRef={forwardRef}>
       <View style={styles.container}>
+        <Text
+          style={{margin: Spacing.S16, textAlign: "left"}}
+          fontFamily="MEDIUM"
+          fontSize="FS16"
+          color="BLUE_4A5970">
+          {translate("Common.chooseGender")}
+        </Text>
         <FlatList
           showsVerticalScrollIndicator={false}
           style={styles.flatlistStyle}

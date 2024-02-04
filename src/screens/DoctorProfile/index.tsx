@@ -5,6 +5,7 @@ import {BottomSheetModal} from "@gorhom/bottom-sheet";
 
 import {Images} from "../../assets/images";
 import {
+  AddReviewModel,
   Button,
   DoctorAction,
   Header,
@@ -32,6 +33,8 @@ import {styles} from "./styles";
 import {IconsName} from "../../assets/svgs";
 import {Reviews} from "../../dummyData";
 import {useNavigationHooks} from "../../hooks";
+import {Doctor} from "../../@types";
+import {translate} from "../../helpers";
 
 const DoctorProfile = () => {
   const {
@@ -46,6 +49,7 @@ const DoctorProfile = () => {
     timeId: -1,
   });
   const warningModalRef = React.useRef<BottomSheetModal>(null);
+  const addReviewModalRef = React.useRef<BottomSheetModal>(null);
 
   const onOpenWarningModal = () => {
     warningModalRef.current?.present();
@@ -63,30 +67,6 @@ const DoctorProfile = () => {
 
   // {/* Doctor Information section */}
 
-  const renderDoctorCard = () => (
-    <ViewRow>
-      <Image source={Images.default} style={styles.image} />
-
-      <View
-        style={{
-          marginHorizontal: Spacing.S8,
-        }}>
-        <Text fontSize="FS16" fontFamily="MEDIUM">
-          {item?.name}
-        </Text>
-
-        <Text color="GRAY_A7A7A7" fontSize="FS16">
-          {item?.specialty}
-        </Text>
-
-        <TextWithIcon
-          icon="location"
-          text={`${item?.duration} Min , ${item?.distance} KM`}
-          style={{marginHorizontal: Spacing.S8}}
-        />
-      </View>
-    </ViewRow>
-  );
   // Doctor Actions section
 
   const renderActionButton = () => (
@@ -94,13 +74,17 @@ const DoctorProfile = () => {
       style={{
         paddingHorizontal: Spacing.S16,
       }}>
-      <DoctorAction icon="messages" title="Messages" />
+      <DoctorAction icon="messages" title={translate("Common.messages")} />
       <DoctorAction
         icon="video"
-        title="Video call"
+        title={translate("Common.videoCall")}
         style={styles.videoActionButton}
       />
-      <DoctorAction icon="phone" title="call" style={styles.callActionButton} />
+      <DoctorAction
+        icon="phone"
+        title={translate("Common.call")}
+        style={styles.callActionButton}
+      />
     </ViewRow>
   );
 
@@ -108,17 +92,33 @@ const DoctorProfile = () => {
 
   const renderStatisticsSection = () => (
     <ViewRow style={styles.statices}>
-      <RoundedIcon icon="patients" title="100+" subTitle="Patients" />
-      <RoundedIcon icon="bag" title="10+" subTitle="Years Exp." />
+      <RoundedIcon
+        icon="patients"
+        title="100+"
+        subTitle={translate("Common.patients")}
+        textContainerStyle={styles.center}
+      />
+      <RoundedIcon
+        icon="bag"
+        title="10+"
+        subTitle={translate("Common.yearsExp.")}
+        textContainerStyle={styles.center}
+      />
       <RoundedIcon
         icon="inactiveStar"
         iconStyle={{
           color: Colors.PRIMARY,
         }}
         title="4.9+"
-        subTitle="Rating"
+        textContainerStyle={styles.center}
+        subTitle={translate("Common.rating")}
       />
-      <RoundedIcon icon="review" title="30" subTitle="Reviews" />
+      <RoundedIcon
+        icon="review"
+        title="30"
+        subTitle={translate("Common.review")}
+        textContainerStyle={styles.center}
+      />
     </ViewRow>
   );
   // {/* Booking Appointments Doctor section */}
@@ -126,11 +126,11 @@ const DoctorProfile = () => {
   const renderBookingAppointmentSection = () => (
     <>
       <HeaderSection
-        title="Book Appointment"
+        title={translate("Search.bookAppointment")}
         textStyle={{fontFamily: "NORMAL", color: "GRAY_474C5C"}}
         navigateTo="AllowLocation"
       />
-      <Section title="Day" textStyle={{fontSize: "FS16"}}>
+      <Section title={translate("Common.day")} textStyle={{fontSize: "FS16"}}>
         <SelectedOptions
           style={styles.selectedOptions}
           type={"date"}
@@ -145,7 +145,7 @@ const DoctorProfile = () => {
           ]}
         />
       </Section>
-      <Section title="Time" textStyle={{fontSize: "FS16"}}>
+      <Section title={translate("Common.time")} textStyle={{fontSize: "FS16"}}>
         <SelectedOptions
           style={styles.selectedOptions}
           onSelected={(id: number) =>
@@ -161,7 +161,7 @@ const DoctorProfile = () => {
       </Section>
       <Button
         type="standard"
-        text="Make Appointment"
+        text={translate("DoctorProfile.makeAppointment")}
         onPress={() => handleMakeAppointment()}
         style={styles.makeAppointmentButton}
       />
@@ -171,12 +171,13 @@ const DoctorProfile = () => {
   return (
     <View style={styles.rootScreen}>
       <Header
-        title={"Doctor Profile"}
+        title={translate("DoctorProfile.title")}
         style={{height: getHeight(120), paddingTop: Spacing.S20}}
       />
       <View style={styles.container}>
         <Scroll>
-          {renderDoctorCard()}
+          <RenderDoctorCard item={item} />
+          {/* {renderDoctorCard()} */}
           {renderActionButton()}
 
           <Line style={styles.line} />
@@ -184,22 +185,22 @@ const DoctorProfile = () => {
           {renderStatisticsSection()}
 
           {/* About Doctor section */}
-          <ReadTextMore title="About" />
-          <ReadTextMore title="Sub-specialties" />
-          <ReadTextMore title="Experience" />
+          <ReadTextMore title={translate("Common.about")} />
+          <ReadTextMore title={translate("DoctorProfile.sub-specialties")} />
+          <ReadTextMore title={translate("DoctorProfile.experience")} />
           <Line style={styles.line} />
           {/* About Doctor section */}
           <ViewRow>
             <RoundedRowIcon
               icon="wallet"
               title="500 EGP"
-              subTitle="Consultation Fees"
+              subTitle={translate("DoctorProfile.consultationFees")}
             />
             <View style={{marginHorizontal: Spacing.S20}}>
               <RoundedRowIcon
-                icon="wallet"
-                title="500 EGP"
-                subTitle="Consultation Fees"
+                icon="clock"
+                title="30 Min"
+                subTitle={translate("DoctorProfile.waitingTime")}
               />
             </View>
           </ViewRow>
@@ -207,20 +208,37 @@ const DoctorProfile = () => {
 
           {renderBookingAppointmentSection()}
           {/* Latest Reviews */}
-          <HeaderSection
-            title="Latest Reviews"
-            textStyle={{fontSize: "FS16"}}
-          />
+          <ViewRow style={{justifyContent: "space-between"}}>
+            <HeaderSection
+              title={translate("DoctorProfile.latestReviews")}
+              textStyle={{fontSize: "FS16"}}
+              style={{width: "50%"}}
+            />
+            <Button
+              onPress={() => {
+                addReviewModalRef?.current?.present();
+              }}>
+              <Text
+                style={{textDecorationLine: "underline"}}
+                fontSize="FS13"
+                color="PRIMARY"
+                fontFamily="REGULAR">
+                + {translate("DoctorProfile.addReview")}
+              </Text>
+            </Button>
+          </ViewRow>
+
           <ReviewsList reviews={Reviews} />
         </Scroll>
       </View>
       <WarningMessageModel
         forwardRef={warningModalRef}
-        message="Please make sure to select date and time."
+        message={translate("Model.dateAndTimeMessage")}
         onContinuePress={() => {
           warningModalRef.current?.close();
         }}
       />
+      <AddReviewModel forwardRef={addReviewModalRef} />
     </View>
   );
 };
@@ -238,10 +256,44 @@ export const RoundedRowIcon: React.FC<RoundedRowIcon> = ({
   subTitle,
 }) => (
   <View style={styles.row}>
-    <RoundedIcon icon={icon} backgroundColor="TRANSPARENT" />
+    <RoundedIcon
+      icon={icon}
+      iconStyle={{color: Colors.PRIMARY}}
+      backgroundColor="TRANSPARENT"
+    />
     <View>
       <Text color="GRAY_A7A7A7">{title}</Text>
       {subTitle ? <Text color="GRAY_A7A7A7">{subTitle}</Text> : null}
     </View>
   </View>
+);
+
+type RenderDoctorCardProps = {
+  item: Doctor;
+};
+export const RenderDoctorCard: React.FC<RenderDoctorCardProps> = ({item}) => (
+  <ViewRow>
+    <Image source={Images.default} style={styles.image} />
+
+    <View
+      style={{
+        marginHorizontal: Spacing.S8,
+      }}>
+      <Text fontSize="FS16" fontFamily="MEDIUM">
+        {item?.name}
+      </Text>
+
+      <Text color="GRAY_A7A7A7" fontSize="FS16">
+        {item?.specialty}
+      </Text>
+
+      {item?.distance && (
+        <TextWithIcon
+          icon="location"
+          text={`${item?.duration} Min , ${item?.distance} KM`}
+          style={{marginHorizontal: Spacing.S8}}
+        />
+      )}
+    </View>
+  </ViewRow>
 );

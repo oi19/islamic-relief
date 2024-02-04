@@ -87,7 +87,7 @@ export const TRANSPARENT = "rgba(0,0,0,0)";
 export const COLOR_FF409B = "#FF409B";
 export const COLOR_1877F2 = "#1877F2";
 export const MOVE_432E9D = "#432E9D";
-export const PRIMARY_GRADIENT = ["#6222A4", "#7322A7"];
+export const PRIMARY_GRADIENT = ["#FB6107", "#FABC99"];
 export const MOVE_GRADIENR = ["#432E9D", "#432E9D"];
 
 export const RGBA_BLACK = (opacity: number) => `rgba(0,0,0,${opacity})`;

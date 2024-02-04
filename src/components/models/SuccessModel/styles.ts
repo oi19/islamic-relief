@@ -37,4 +37,12 @@ export const styles = StyleSheet.create({
     width: getWidth(300),
     alignSelf: "center",
   },
+  doctorName: {
+    marginBottom: Spacing.S11,
+  },
+  anotherButton: {
+    width: getWidth(300),
+    alignSelf: "center",
+    marginVertical: Spacing.S20,
+  },
 });

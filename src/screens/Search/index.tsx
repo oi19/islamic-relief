@@ -10,7 +10,7 @@ import {
   SpecialItem,
 } from "../../components";
 import {dummyCities, specialties} from "../../dummyData";
-import {getValueFromId} from "../../helpers";
+import {getValueFromId, translate} from "../../helpers";
 import {styles} from "./styles";
 
 const Search = () => {
@@ -42,13 +42,13 @@ const Search = () => {
 
       <Scroll>
         <Section
-          title="Most Popular Specialties"
+          title={translate("Search.mostPopular")}
           data={specialties}
           renderItem={specialRenderItem}
         />
 
         <Section
-          title="Other Specialties"
+          title={translate("Search.otherSpecialties")}
           data={specialties}
           renderItem={specialRenderItem}
         />

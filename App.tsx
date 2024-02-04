@@ -7,25 +7,29 @@ import {PersistGate} from "redux-persist/integration/react";
 import {Colors} from "./src/styles";
 import {persistor, store} from "./src/redux";
 import NavigationApp from "./src/navigation";
+import {SafeAreaProvider} from "react-native-safe-area-context";
+
 const App = () => {
   return (
-    <View style={styles.rootScreen}>
-      <StatusBar
-        translucent
-        barStyle="dark-content"
-        animated
-        backgroundColor={"rgba(0,0,0,0)"}
-      />
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <GestureHandlerRootView style={{flex: 1}}>
-            <BottomSheetModalProvider>
-              <NavigationApp />
-            </BottomSheetModalProvider>
-          </GestureHandlerRootView>
-        </PersistGate>
-      </Provider>
-    </View>
+    <SafeAreaProvider>
+      <View style={styles.rootScreen}>
+        <StatusBar
+          translucent
+          barStyle="dark-content"
+          animated
+          backgroundColor={"rgba(0,0,0,0)"}
+        />
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <GestureHandlerRootView style={{flex: 1}}>
+              <BottomSheetModalProvider>
+                <NavigationApp />
+              </BottomSheetModalProvider>
+            </GestureHandlerRootView>
+          </PersistGate>
+        </Provider>
+      </View>
+    </SafeAreaProvider>
   );
 };
 

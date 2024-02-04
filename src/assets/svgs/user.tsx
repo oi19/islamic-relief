@@ -4,6 +4,7 @@ const User = (props: SvgProps) => (
   <Svg width={24} height={24} viewBox="0 0 24 24" fill="none" {...props}>
     <G
       stroke={props.color || "gray"}
+      fill={props.color || "none"}
       strokeLinecap="round"
       strokeLinejoin="round"
       strokeWidth={2}

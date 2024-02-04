@@ -5,7 +5,7 @@ import {getHeight, getWidth, scale} from "../../../styles/dimensions";
 const styles = StyleSheet.create({
   container: {
     width: "100%",
-    alignItems: "center",
+    // alignItems: "center",
   },
   message: {
     width: getWidth(270),

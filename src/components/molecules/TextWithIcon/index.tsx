@@ -11,7 +11,7 @@ import styles from "./styles";
 
 type TextWithIconProps = {
   icon: IconsName;
-  text: string;
+  text?: string;
   type?: "small" | "large" | "medium";
   textStyle?: TextProps;
   iconStyle?: IconsProps;

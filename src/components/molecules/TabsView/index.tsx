@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from "react";
-import {ListRenderItem} from "react-native";
+import {ListRenderItem, ViewStyle} from "react-native";
 import {FlatList} from "react-native-gesture-handler";
 import {Button} from "../../atoms";
 import {styles} from "./styles";
@@ -9,9 +9,10 @@ import {TabOptionType} from "../../../@types";
 type TabsViewProps = {
   data: TabOptionType[];
   onSelected?: (index: number) => void;
+  buttonStyle?: ViewStyle;
 };
 
-const TabsView: React.FC<TabsViewProps> = ({data, onSelected}) => {
+const TabsView: React.FC<TabsViewProps> = ({data, buttonStyle, onSelected}) => {
   const [selectedIndex, setSelectedIndex] = React.useState(0);
 
   const onTabPressed = (index: number) => {
@@ -28,8 +29,12 @@ const TabsView: React.FC<TabsViewProps> = ({data, onSelected}) => {
       <Button
         text={item?.name}
         type={isSelected ? "standard" : "border"}
-        textStyle={{fontFamily: "NORMAL", fontSize: "FS10"}}
-        style={styles.baseButton}
+        textStyle={{
+          fontFamily: "NORMAL",
+          fontSize: "FS10",
+          color: isSelected ? "WHITE" : "FONT_07101A",
+        }}
+        style={[styles.baseButton, buttonStyle]}
         onPress={() => {
           onTabPressed(index);
         }}

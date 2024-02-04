@@ -1,23 +1,21 @@
 import {OnBoardingTypes} from "../../../@types/onboarding-types";
+import {translate} from "../../../helpers";
 
 export const onBoarding: OnBoardingTypes[] = [
   {
     photo: "findDoctors",
-    title: "Find the best doctor",
-    subTitle:
-      "You can find the best doctor. there are many experienced doctors that you can find",
+    title: translate("OnBoarding.findBestDoctor"),
+    subTitle: translate("OnBoarding.findBestDoctorMsg"),
   },
   {
     photo: "onlineDoctor",
-    title: "Online consultation",
-    subTitle:
-      "too busy to come to the doctor.we have solution, you can do consultations online",
+    title: translate("OnBoarding.onlineConsultation"),
+    subTitle: translate("OnBoarding.onlineConsultationMsg"),
   },
 
   {
     photo: "makeAppointment",
-    title: "Make your appointment",
-    subTitle:
-      "Now it's easy to make an appointment with your doctor and your medication",
+    title: translate("OnBoarding.makeYourAppointment"),
+    subTitle: translate("OnBoarding.makeYourAppointmentMsg"),
   },
 ];

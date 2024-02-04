@@ -4,13 +4,13 @@ import {Button, Text} from "../../atoms";
 import {OnBoardingTypes} from "../../../@types";
 import {Svgs} from "../../../assets";
 import {styles} from "./styles";
-import {getHeight, getWidth} from "../../../styles/dimensions";
+import {translate} from "../../../helpers";
 
 type SliderItemProps = {
   item: OnBoardingTypes;
   index: number;
   onBoarding: OnBoardingTypes[];
-  handleNext: (index: number) => void;
+  handleNext: () => void;
   startAnimation?: boolean;
 };
 const SliderItem: React.FC<SliderItemProps> = ({
@@ -76,8 +76,8 @@ const SliderItem: React.FC<SliderItemProps> = ({
       <View style={styles.nextStyle}>
         <Button
           type="standard"
-          text="Next"
-          onPress={() => handleNext(index)}
+          text={translate("Common.next")}
+          onPress={handleNext}
           style={styles.nextStyle}
         />
       </View>

@@ -11,8 +11,6 @@ import styles from "./styles";
 
 const DropdownButton: FC<TouchableOpacityProps & ButtonProps> = memo(
   ({text, iconName, placeholder, error, ...props}) => {
-    console.log(props.iconStyle);
-
     return (
       <View style={{alignItems: "flex-start"}}>
         <ScaleButton

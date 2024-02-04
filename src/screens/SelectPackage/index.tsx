@@ -6,6 +6,8 @@ import {getHeight} from "../../styles/dimensions";
 import {styles} from "./styles";
 import {useNavigationHooks} from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
+import {packages} from "./data";
+import {translate} from "../../helpers";
 
 const SelectPackage = () => {
   const [selectedItem, setSelectedItem] = React.useState<number>(-1);
@@ -14,7 +16,7 @@ const SelectPackage = () => {
   return (
     <View style={styles.rootScreen}>
       <Header
-        title="Select Package"
+        title={translate("selectPackage.title")}
         style={{height: getHeight(120), paddingTop: Spacing.S20}}
       />
 
@@ -24,12 +26,13 @@ const SelectPackage = () => {
           onSelectedItem={index => {
             setSelectedItem(index);
           }}
-          listItems={[3, 4, 5, 6, 7]}
+          listItems={packages}
         />
         <Button
           disabled={selectedItem === -1}
           type="standard"
-          text="Next"
+          text={translate("Common.next")}
+          style={{marginBottom: Spacing.S35}}
           onPress={() => navigate("CompletePatientDetails")}
         />
       </View>

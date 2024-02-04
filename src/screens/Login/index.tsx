@@ -20,6 +20,7 @@ import {Colors, Spacing} from "../../styles";
 import {styles} from "./styles";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {RouteProp, useRoute} from "@react-navigation/native";
+import {translate} from "../../helpers";
 
 const Login = () => {
   const {
@@ -55,26 +56,26 @@ const Login = () => {
       />
       <View style={styles.content}>
         <Text fontFamily="MEDIUM" fontSize="H1">
-          Create an account or log in
+          {translate("Form.createAccountMessage")}
         </Text>
         <Input
-          label="Phone"
-          placeholder="+20 Mobile Number"
+          label={translate("Form.phone")}
+          placeholder={`+20 ${translate("Form.phone")}`}
           style={styles.input}
           keyboardType="phone-pad"
           inputContainerStyle={styles.inputContainer}
         />
         <Input
           password
-          label="Password"
-          placeholder="Enter Your Password"
+          label={translate("Form.password")}
+          placeholder={translate("Form.enterPassword")}
           style={styles.input}
           inputContainerStyle={styles.inputContainer}
         />
         <ViewRow style={{justifyContent: "space-between"}}>
-          <CheckBox text="Remember me" />
+          <CheckBox text={translate("Form.rememberMe")} />
           <Button
-            text="Forget Password"
+            text={translate("Form.forgotPassword")}
             textStyle={{
               fontFamily: "NORMAL",
               fontSize: "FS13",
@@ -84,16 +85,20 @@ const Login = () => {
         </ViewRow>
         <View style={styles.buttonGroup}>
           <Button
-            text="Login"
+            text={translate("Form.login")}
             type="standard"
             onPress={() => handleLoginPressed()}
             style={styles.button}
           />
-          <Button text="Create Account" type="border" style={styles.button} />
+          <Button
+            text={translate("Form.createAccount")}
+            type="border"
+            style={styles.button}
+          />
         </View>
         <ViewRow style={{justifyContent: "space-between"}}>
           <Line style={styles.line} />
-          <Text fontSize="FS14">Or Sign in with</Text>
+          <Text fontSize="FS14">{translate("Form.orSignIn")}</Text>
           <Line style={styles.line} />
         </ViewRow>
 
@@ -116,21 +121,25 @@ const Login = () => {
           />
         </ViewRow>
         <Text fontSize="FS13" style={styles.hintText}>
-          By Continuing, you agree to Doctors
+          {translate("Form.byContinuing")}
           <Text fontSize="FS13" color="PRIMARY">
             {" "}
-            Terms & Conditions
+            {translate("Form.terms&Conditions")}
           </Text>
         </Text>
       </View>
       <SuccessModel
         forwardRef={successModalRef}
-        message="Congratulations,Your account created successfully."
+        message={translate("Model.congratulationsMessage")}
         onContinuePress={() => {
           if (navigateTo) {
             navigate("SelectPackage");
-            successModalRef.current?.close();
+          } else {
+            goBack();
           }
+          setTimeout(() => {
+            successModalRef.current?.close();
+          }, 5);
         }}
       />
     </View>

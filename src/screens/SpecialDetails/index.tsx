@@ -8,6 +8,7 @@ import {getHeight} from "../../styles/dimensions";
 import {styles} from "./styles";
 import {TabOptionType} from "../../@types";
 import {doctors} from "../../dummyData";
+import {translate} from "../../helpers";
 
 const SpecialDetails = () => {
   const {
@@ -17,17 +18,17 @@ const SpecialDetails = () => {
   const tabs: TabOptionType[] = useMemo(
     () => [
       {
-        name: "Most Recommended",
+        name: translate("Search.mostRecommended"),
         content: <DoctorsList listItems={doctors} />,
       },
       {
-        name: "Price Low to High",
+        name: translate("Search.priceToHigh"),
       },
       {
-        name: "Price High to Low",
+        name: translate("Search.priceToLow"),
       },
       {
-        name: "Short Waiting Times",
+        name: translate("Search.shortTimes"),
       },
     ],
     [],
@@ -41,7 +42,7 @@ const SpecialDetails = () => {
       <View style={styles.container}>
         <SearchBar
           style={styles.searchBar}
-          placeholder="Search for specialty or doctor"
+          placeholder={translate("Home.searchTitle")}
         />
 
         <TabsView

@@ -15,6 +15,7 @@ import {Button, Text} from "../../atoms";
 import styles from "./styles";
 import {Colors} from "../../../styles";
 import {isRTL} from "../../../locals/i18n-config";
+import {translate} from "../../../helpers";
 
 type AnimatedHeaderProps = {
   title?: string;
@@ -118,7 +119,7 @@ const AnimatedHeader = ({
             autoFocus={autoFocus}
             onSearch={onSearch}
             style={styles.searchBar}
-            placeholder={placeholder || "Search"}
+            placeholder={placeholder || translate("Common.search")}
             onFilter={onFilter}
             onReset={onReset}
           />

@@ -3,10 +3,16 @@ import React from "react";
 import {MainAppStackTypes} from "./navigation-types";
 import TabButtonsStack from "./tab-buttons-stack";
 import {
+  Account,
   CompletePatientDetails,
+  Favorites,
   Login,
+  ManageCards,
   ManuallyLocation,
   OnBoarding,
+  PaymentMethods,
+  ResetPassword,
+  ReviewSummary,
   SelectPackage,
   Splash,
 } from "../screens";
@@ -30,6 +36,12 @@ const MainStack = () => {
         name="CompletePatientDetails"
         component={CompletePatientDetails}
       />
+      <Stack.Screen name="PaymentMethods" component={PaymentMethods} />
+      <Stack.Screen name="ReviewSummary" component={ReviewSummary} />
+      <Stack.Screen name="Account" component={Account} />
+      <Stack.Screen name="ResetPassword" component={ResetPassword} />
+      <Stack.Screen name="ManageCards" component={ManageCards} />
+      <Stack.Screen name="Favorites" component={Favorites} />
     </Stack.Navigator>
   );
 };

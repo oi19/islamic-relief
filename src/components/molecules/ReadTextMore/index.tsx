@@ -2,6 +2,7 @@ import {StyleSheet, View} from "react-native";
 import React from "react";
 import {Text} from "../../atoms";
 import {Spacing} from "../../../styles";
+import {translate} from "../../../helpers";
 
 type ReadTextMoreProps = {
   text?: string;
@@ -31,7 +32,9 @@ const ReadTextMore: React.FC<ReadTextMoreProps> = ({title}) => {
             fontSize="FS11"
             style={styles.seeMore}
             onPress={toggleText}>
-            {showFullText ? "Read Less" : "Read More"}
+            {showFullText
+              ? translate("Common.readLess")
+              : translate("Common.readMore")}
           </Text>
         </Text>
       </View>

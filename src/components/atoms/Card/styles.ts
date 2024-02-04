@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     borderWidth: 1,
     borderColor: Colors.GRAY_F9F9F9,
+    paddingBottom: 0,
   },
 });
 

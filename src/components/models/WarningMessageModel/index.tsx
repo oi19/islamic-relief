@@ -4,6 +4,7 @@ import {View} from "react-native";
 import {Button, RoundedIcon, Text} from "../../atoms";
 import BaseModal from "../BaseModal/BaseModal";
 import {styles} from "./styles";
+import {translate} from "../../../helpers";
 
 type WarningMessageModelProps = {
   forwardRef: RefObject<BottomSheetModal>;
@@ -28,14 +29,14 @@ const WarningMessageModel: React.FC<WarningMessageModelProps> = ({
             style={styles.roundedIcon}
             backgroundColor="PRIMARY"
             icon="warning"
-            title={title || "Warning Message"}
+            title={title || translate("Model.warningTitle")}
             titleStyle={styles.title}
           />
           <Text fontSize="FS14" style={styles.message}>
             {message}
           </Text>
           <Button
-            text="OK"
+            text={translate("Common.ok")}
             onPress={onContinuePress}
             type="standard"
             style={styles.okButton}

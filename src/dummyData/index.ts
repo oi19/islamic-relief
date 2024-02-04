@@ -1,6 +1,7 @@
 import {CityTypes, Doctor, GenderTypes, Review, ServiceType} from "../@types";
 import {specialType} from "../@types/special-types";
 import {Images} from "../assets/images";
+import {translate} from "../helpers";
 
 const dummyCities: CityTypes[] = [
   {
@@ -45,15 +46,15 @@ const dummyCities: CityTypes[] = [
 const serviceList: ServiceType[] = [
   {
     photo: "findDoctors",
-    name: "Visit Doctor",
+    name: translate("Home.homeVisit"),
   },
   {
     photo: "makeAppointment",
-    name: "Home Visit",
+    name: translate("Home.clinicVisit"),
   },
   {
     photo: "onlineDoctor",
-    name: "Online consultation",
+    name: translate("OnBoarding.onlineConsultation"),
   },
 ];
 

@@ -1,14 +1,22 @@
 import {combineReducers} from "@reduxjs/toolkit";
 import AsyncStorage from "@react-native-community/async-storage";
-// import {persistReducer} from "redux-persist";
+import {persistReducer} from "redux-persist";
 
 import loadingReducer from "./loadingReducer";
+import globalReducer from "./globalReducer";
 
 const rootPersistConfig = {
   key: "root",
   storage: AsyncStorage,
   keyPrefix: "redux-root",
   whitelist: [],
+};
+
+const globalPersistConfig = {
+  key: "global",
+  storage: AsyncStorage,
+  keyPrefix: "redux-global",
+  whitelist: ["firstTime", "chooseLanguageFirstTime"],
 };
 
 // const userPersistConfig = {
@@ -20,6 +28,8 @@ const rootPersistConfig = {
 
 const rootReducers = combineReducers({
   loadingReducer,
+  globalReduce: persistReducer(globalPersistConfig, globalReducer),
+
   //   userReducer: persistReducer(userPersistConfig, userReducer),
 });
 

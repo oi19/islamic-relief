@@ -18,6 +18,7 @@ type RoundedIconProps = {
   titleStyle?: StyleProp<TextStyle>;
   onPress?: () => void;
   textContainerStyle?: StyleProp<ViewStyle>;
+  containerStyle?: ViewStyle;
 };
 const RoundedIcon: React.FC<RoundedIconProps> = ({
   icon,
@@ -29,6 +30,7 @@ const RoundedIcon: React.FC<RoundedIconProps> = ({
   style,
   textContainerStyle,
   titleStyle,
+  containerStyle,
   onPress,
 }) => {
   return (
@@ -37,12 +39,15 @@ const RoundedIcon: React.FC<RoundedIconProps> = ({
         iconName={icon}
         disabled={!onPress}
         iconContainerStyle={{marginLeft: 0}}
-        style={{
-          backgroundColor: Colors[backgroundColor || "WHITE"],
-          width: scale(size || 50),
-          height: scale(size || 50),
-          borderRadius: scale(size / 2 || 25),
-        }}
+        style={[
+          {
+            backgroundColor: Colors[backgroundColor || "WHITE"],
+            width: scale(size || 50),
+            height: scale(size || 50),
+            borderRadius: scale(size / 2 || 50),
+          },
+          containerStyle,
+        ]}
         iconStyle={iconStyle}
         onPress={() => onPress && onPress()}
       />
@@ -57,7 +62,10 @@ const RoundedIcon: React.FC<RoundedIconProps> = ({
         ) : null}
 
         {subTitle ? (
-          <Text color="GRAY_A7A7A7" fontSize="FS11">
+          <Text
+            color="GRAY_A7A7A7"
+            fontSize="FS11"
+            style={{textAlign: "center"}}>
             {subTitle}
           </Text>
         ) : null}

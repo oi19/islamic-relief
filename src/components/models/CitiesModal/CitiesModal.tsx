@@ -58,7 +58,7 @@ const CitiesModal = ({
         <View style={styles.searchAndCloseButton}>
           <Input
             onChangeText={onFilter}
-            placeholder={translate("search for city")}
+            placeholder={translate("Search.searchForCity")}
             icon="search"
             style={styles.input}
           />

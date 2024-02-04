@@ -4,6 +4,7 @@ import {Button, Input} from "../../../components";
 
 import {styles} from "./styles";
 import {Colors} from "../../../styles";
+import {translate} from "../../../helpers";
 
 type SearchBarProps = {
   onComparison?: () => void;
@@ -34,7 +35,7 @@ const SearchBar: FC<ViewProps & SearchBarProps> = ({
         onFocus={onFocus}
         autoFocus={autoFocus}
         onChangeText={onSearch}
-        placeholder={placeholder || "Search"}
+        placeholder={placeholder || translate("Common.search")}
         inputContainerStyle={{marginTop: 0}}
         style={[styles.searchInput, inputStyle]}
         icon="search"

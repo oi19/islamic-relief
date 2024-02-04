@@ -4,6 +4,7 @@ import {Button, Header, Line, Text, TextWithIcon} from "../../components";
 import {useNavigationHooks} from "../../hooks";
 import {MainNavigationAllScreensTypes} from "../../navigation/navigation-types";
 import {styles} from "./styles";
+import {translate} from "../../helpers";
 
 const ManuallyLocation: React.FC = () => {
   const {navigate, goBack} =
@@ -13,7 +14,7 @@ const ManuallyLocation: React.FC = () => {
     <View style={styles.rootScreen}>
       <Header
         type="animatedHeader"
-        title="Enter Your Location"
+        title={translate("AllowLocation.enterLocationManually")}
         onReset={() => {}}
         onSearch={() => {}}
         onBack={() => goBack()}
@@ -23,7 +24,7 @@ const ManuallyLocation: React.FC = () => {
         <TextWithIcon
           type="large"
           icon="location"
-          text="Use My Current Location"
+          text={translate("AllowLocation.useCurrentLocation")}
           onPress={() => {}}
         />
         <Line style={styles.line} />
@@ -32,7 +33,7 @@ const ManuallyLocation: React.FC = () => {
       <View style={styles.buttonContainer}>
         <Button
           type="standard"
-          text="Continue"
+          text={translate("Common.Continue")}
           onPress={() => navigate("TabsBottomStack")}
         />
       </View>

@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     flex: 1,
   },
   container: {
-    paddingTop: getHeight(240),
+    paddingTop: getHeight(20),
     alignItems: "flex-start",
     paddingHorizontal: Spacing.S20,
   },

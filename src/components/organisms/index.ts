@@ -6,3 +6,7 @@ export {default as SpecialItem} from "./SpecialItem";
 export {default as ReviewItem} from "./ReviewItem";
 export {default as SelectedItemWithCheck} from "./SelectedItemWithCheck";
 export {default as SliderItem} from "./SliderItem";
+export {default as ActivityCard} from "./ActivityCard";
+export {default as ProfileRowCard} from "./ProfileRowCard";
+export {default as LanguageItemCard} from "./LanguageItemCard";
+export {default as SelectedMultiPhotosItem} from "./SelectedMultiPhotosItem";

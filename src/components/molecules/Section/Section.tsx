@@ -10,7 +10,7 @@ import styles from "./styles";
 
 const Section: FC<
   ViewProps & {
-    title: string;
+    title?: string;
     data?: ReadonlyArray<any>;
     renderItem?: ListRenderItem<any> | null | undefined;
     navigateTo?: MainNavigationKeys;

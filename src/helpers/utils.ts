@@ -24,3 +24,15 @@ export function formatTimeAgo(currentDate: Date): string {
     return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
   }
 }
+
+export function formateDate(date: Date): string {
+  // Get the year, month, and day components
+  const year = date.getFullYear();
+  const month = ("0" + (date.getMonth() + 1)).slice(-2); // Months are zero-based
+  const day = ("0" + date.getDate()).slice(-2);
+
+  // Format the date as "YYYY-MM-DD"
+  const formattedDate = year + "-" + month + "-" + day;
+
+  return formattedDate;
+}

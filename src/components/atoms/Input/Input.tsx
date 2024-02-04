@@ -15,8 +15,9 @@ import {IconsName} from "../../../assets/svgs";
 import {Colors, Spacing} from "../../../styles";
 import {scale} from "../../../styles/dimensions";
 import Button from "../Button/Button";
-import Text from "../Text/Text";
+import Text, {TextProps} from "../Text/Text";
 import styles from "./styles";
+import {isRTL} from "../../../locals/i18n-config";
 
 type InputProps = {
   password?: boolean;
@@ -26,6 +27,7 @@ type InputProps = {
   error?: string;
   leftText?: string;
   label?: string;
+  labelStyle?: TextProps;
   inputContainerStyle?: ViewStyle;
   inputRef?: React.RefObject<TextInput>;
 };
@@ -39,6 +41,7 @@ const Input: FC<TextInputProps & InputProps> = ({
   label,
   inputContainerStyle,
   inputRef,
+  labelStyle,
   ...props
 }) => {
   let [showPassword, setShowPassword] = useState(password);
@@ -49,7 +52,7 @@ const Input: FC<TextInputProps & InputProps> = ({
   return (
     <View style={[style]}>
       {label && (
-        <Text fontSize="FS14" fontFamily="MEDIUM">
+        <Text fontSize="FS14" fontFamily="MEDIUM" {...labelStyle}>
           {label}
         </Text>
       )}
@@ -79,7 +82,7 @@ const Input: FC<TextInputProps & InputProps> = ({
           secureTextEntry={showPassword}
           style={[
             styles.inputStyle,
-            // {textAlign: isRTL() ? "right" : "left"},
+            {textAlign: isRTL() ? "right" : "left"},
             props.inputStyle,
           ]}
         />

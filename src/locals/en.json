@@ -1,1 +1,190 @@
-{}
+{
+   "Common":{
+      "next":"Next",
+      "getStart":"Get Start",
+      "search":"Search",
+      "Continue": "Continue",
+      "signup":"Sign up",
+      "seeAll":"See All",
+      "about":"About",
+      "ok":"OK",
+      "day":"Day",
+      "time":"Time",
+      "readMore":"Read More",
+      "readLess":"Read Less",
+      "viewMore":"View More",
+      "viewLess":"View Less",
+      "patients":"Patients",
+      "yearsExp.":"Years Exp.",
+      "rating":"Rating",
+      "review":"Review",
+      "messages":"Messages",
+      "videoCall":"Video Call",
+      "call":"Call",
+      "voiceCall":"Voice Call",
+      "messaging":"Messaging",
+      "inPerson":"In Person",
+      "withDoctor":"With Doctor",
+      "amount":"Amount",
+      "total":"Total",
+      "payNow":"Pay Now",
+      "cancel":"Cancel",
+      "change":"Change",
+      "goHome":"Go Home",
+      "viewAppointment":"View Appointment",
+      "loginOrSignup":"Login/Signup",
+      "reschedule":"Reschedule",
+      "send":"Send",
+      "no":"No",
+      "save":"Save",
+      "confirm":"Confirm",
+      "chooseGender":"Choose Gender",
+      "addPhotos":"Add Photos",
+      "sendReview":"Send Review"
+
+   },
+
+   "OnBoarding":{
+      "findBestDoctor":"Find the best doctor",
+      "findBestDoctorMsg":"\"You can find the best doctor. there are many experienced doctors that you can find\"",
+      "onlineConsultation":"Online consultation",
+      "onlineConsultationMsg":"\"too busy to come to the doctor.we have solution, you can do consultations online\"",
+      "makeYourAppointment":"Make your appointment",
+      "makeYourAppointmentMsg":"\"Now it's easy to make an appointment with your doctor and your medication\""
+    },
+
+   "AllowLocation":{
+      "whatIsYourLocation":"What is Your location?",
+      "allowLocationMessage":"Allowing your location access help for suggesting nearby service",
+      "allowLocationAccess":"Allow While Using App",
+      "enterLocationManually":"Enter location Manually",
+      "useCurrentLocation":"Use My Current Location"
+    },
+
+    "Home":{
+      "searchTitle":"Search for specialty or doctor",
+      "ourServices":"Our Services",
+      "clinicVisit":"Clinic visit",
+      "homeVisit":"Home visit",
+      "signInMessage":"Sign up  now and build credit for  free online consultation",
+      "topRatedDoctors":"Top Rated Doctors"
+    },
+    "Search":{
+      "mostPopular":"Most Popular Specialties",
+      "otherSpecialties":"Other Specialties",
+      "searchForCity":"Search For City",
+      "mostRecommended":"Most Recommended",
+      "priceToHigh":"Price Low to High",
+      "priceToLow":"Price High to Low",
+      "shortTimes": "Short Waiting Times",
+      "bookAppointment":"Book Appointment"
+    },
+    "DoctorProfile": {
+      "title": "Doctor Profile",
+      "sub-specialties":"Sub-specialties",
+      "experience":"Experience",
+      "consultationFees":"Consultation Fees",
+      "makeAppointment":"Make Appointment",
+      "latestReviews":"Latest Reviews",
+      "addReview":"Add Review",
+      "waitingTime":"Waiting Time"
+      
+    },
+    "Model":{
+      "warningTitle":"Warning Message",
+      "dateAndTimeMessage":"Please make sure to select date and time.",
+
+      "congratulations":"Congratulations",
+      "congratulationsMessage":"Congratulations,Your account created successfully.",
+
+      "successfullyBooked": "You have successfully booked an appointment with.",
+      "leaveYourMessage":"Leave your message",
+      "cancelModelTitle":"Cancel This Section",
+      "appointmentCancelMessage":"Are you sure you want to cancel this appointment ?",
+
+      "whatIsRate":"What is you rate?",
+      "shareYourOpinion":"Please share your opinion about the doctor"
+
+    },
+    "Form":{
+      "createAccountMessage":"Create an account or log in",
+      "phone":"Phone Number",
+      "password":"Password",
+      "rememberMe":"Remember me",
+      "forgotPassword":"Forgot Password",
+      "login":"Login",
+      "createAccount":"Create Account",
+      "enterPassword":"Enter Your Password",
+      "orSignIn":"Or Sign in with",
+      "byContinuing":"By Continuing, you agree to Doctors",
+      "terms&Conditions":"Terms & Conditions",
+
+      "fullName":"FullName",
+      "enterFullName":"Enter Full Name",
+      "email":"Email",
+      "enterEmail":"Enter Your Email",
+      "birthday":"Birthday"
+
+    },
+    "selectPackage":{
+      "title":"Select Package"
+    },
+    "completePatientDetails":{
+      "title":"Patient Details",
+      "bookingFor":"Booking for",
+      "gender":"Gender",
+      "yourAge":"Your Age",
+      "writeYourProblem":"Write Your Problem",
+      "writeHere":"Write here...",
+      "uploadDocuments":"upload Documents"
+
+    },
+    "paymentMethods":{
+      "title":"Payment Methods",
+      "creditDebitCard":"Credit & Debit Card",
+      "morePaymentOptions":"More Payment Options",
+      "cash":"Cash"
+    },
+    "reviewSummary":{
+      "title":"Review Summary",
+      "duration":"Duration",
+      "dateHour": "Date & Hour",
+      "package":"Package"
+    },
+    "myActivity":{
+      "title":"My Activity",
+      "loginMessage": "Login to view your previous activities",
+      "support":"Support",
+      "supportMessage":"Please leave your message and we will get back to you within 48 hours.",
+      "all":"All",
+      "upcoming":"Upcoming",
+      "completed":"Completed",
+      "cancelled":"Cancelled"
+    },
+    "myChat":{
+    "title":"My Chat",
+    "myChatLoginMessage":"Login to view your previous chat"
+    },
+    "Profile":{
+      "title":"Profile",
+      "location":"Location",
+      "notifications":"Notifications",
+      "language":"Language",
+      "manageCards":"Manage Cards",
+      "favorites":"Favorites",
+      "yourPoints":"Your Points",
+      "help":"Help",
+      "logout":"Logout",
+      "welcomeToDoctors":"Welcome to Doctors",
+      "loginMessage":"Login to explore our joyful experience.",
+      "changePhoto":"Change Photo",
+      "account":"Account",
+      "selectYourBirthday":"Select your Birthday"
+    },
+    "Notifications":{
+      "title":"Notifications",
+      "notificationsLoginMessage":"Login to view your previous Notifications"
+
+    }
+
+}

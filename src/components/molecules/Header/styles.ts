@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
     height: getHeight(140),
     justifyContent: "center",
     alignItems: "flex-start",
-    position: "absolute",
-    zIndex: 10,
+    // position: "absolute",
+    // zIndex: 10,
     backgroundColor: Colors.PRIMARY,
     borderBottomRightRadius: scale(15),
     borderBottomLeftRadius: scale(15),
@@ -49,8 +49,6 @@ const styles = StyleSheet.create({
   },
   animatedHeaderContainer: {
     width: "100%",
-    position: "absolute",
-    zIndex: 5,
   },
   animatedHeaderSvg: {
     width: "100%",
@@ -70,7 +68,7 @@ const styles = StyleSheet.create({
     width: "95%",
     borderRadius: scale(12),
     alignSelf: "center",
-    marginTop: getHeight(150),
+    marginTop: getHeight(20),
     marginHorizontal: Spacing.S4,
     alignItems: "center",
     justifyContent: "center",

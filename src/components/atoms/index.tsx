@@ -14,3 +14,4 @@ export {default as RadioButton} from "./RadioButton/RadioButton";
 export {default as Loader} from "./Loader";
 export {default as Line} from "./Line";
 export {default as RoundedIcon} from "./RoundedIcon";
+export {default as Switch} from "./Switch";

@@ -56,6 +56,20 @@ import Apple from "./apple";
 import Error from "./error";
 import SuccessImage from "./sucessImage";
 import Upload from "./upload";
+import BigChat from "./bigChat";
+import BigDocument from "./BigDocument";
+import Cash from "./cash";
+import Credit from "./credit";
+import ContactSupport from "./contactSupport";
+import Delete from "./delete";
+import CaLender from "./calender";
+import BigFavorite from "./bigFavourite";
+import DoubleArrow from "./doubleArrow";
+import CloseCall from "./closeCall";
+import Microphone from "./microphone";
+import Change from "./change";
+import Volume from "./volume";
+import EmptyNotification from "./emptyNotification";
 
 export type IconsName =
   | "remove"
@@ -111,7 +125,21 @@ export type IconsName =
   | "facebook"
   | "error"
   | "successImage"
-  | "upload";
+  | "upload"
+  | "bigChat"
+  | "bigDocument"
+  | "credit"
+  | "cash"
+  | "contactSupport"
+  | "delete"
+  | "calender"
+  | "bigFavorite"
+  | "doubleArrow"
+  | "closeCall"
+  | "change"
+  | "volume"
+  | "microphone"
+  | "emptyNotification";
 
 export type RotateTypes = "left" | "right" | "top" | "bottom";
 
@@ -187,9 +215,10 @@ function Svgs(props: IconsProps & SvgProps) {
         <UnChecked {...props} style={[props.rotate && style, props.style]} />
       );
     case "checked":
-      return (
-        <Checked {...props} style={[props.rotate && style, props.style]} />
-      );
+      return <Checked {...props} style={[props.style]} />;
+
+    case "delete":
+      return <Delete {...props} style={[props.rotate && style, props.style]} />;
 
     // Tab buttons icons
     case "home":
@@ -203,6 +232,11 @@ function Svgs(props: IconsProps & SvgProps) {
     case "document":
       return (
         <Document {...props} style={[props.rotate && style, props.style]} />
+      );
+
+    case "closeCall":
+      return (
+        <CloseCall {...props} style={[props.rotate && style, props.style]} />
       );
     case "notifications":
       return (
@@ -296,6 +330,10 @@ function Svgs(props: IconsProps & SvgProps) {
       return <Review {...props} style={[props.rotate && style, props.style]} />;
     case "bag":
       return <Bag {...props} style={[props.rotate && style, props.style]} />;
+    case "doubleArrow":
+      return (
+        <DoubleArrow {...props} style={[props.rotate && style, props.style]} />
+      );
 
     case "google":
       return <Google {...props} style={[props.rotate && style, props.style]} />;
@@ -311,6 +349,48 @@ function Svgs(props: IconsProps & SvgProps) {
       );
     case "upload":
       return <Upload {...props} style={[props.rotate && style, props.style]} />;
+    case "bigChat":
+      return (
+        <BigChat {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "bigDocument":
+      return (
+        <BigDocument {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "emptyNotification":
+      return (
+        <EmptyNotification
+          {...props}
+          style={[props.rotate && style, props.style]}
+        />
+      );
+    case "bigFavorite":
+      return (
+        <BigFavorite {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "cash":
+      return <Cash {...props} style={[props.rotate && style, props.style]} />;
+    case "credit":
+      return <Credit {...props} style={[props.rotate && style, props.style]} />;
+    case "calender":
+      return (
+        <CaLender {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "microphone":
+      return (
+        <Microphone {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "volume":
+      return <Volume {...props} style={[props.rotate && style, props.style]} />;
+    case "change":
+      return <Change {...props} style={[props.rotate && style, props.style]} />;
+    case "contactSupport":
+      return (
+        <ContactSupport
+          {...props}
+          style={[props.rotate && style, props.style]}
+        />
+      );
     default:
       return <NotFound {...props} />;
   }

@@ -1,3 +1,4 @@
+/* eslint-disable react-native/no-inline-styles */
 import React, {FC, memo, RefObject} from "react";
 import {BottomSheetBackdrop, BottomSheetModal} from "@gorhom/bottom-sheet";
 import {Easing} from "react-native-reanimated";
@@ -6,6 +7,7 @@ import {Button, Text} from "../../atoms";
 import styles from "./styles";
 import {Spacing} from "../../../styles";
 import {isRTL} from "../../../locals/i18n-config";
+import {IconsName} from "../../../assets/svgs";
 
 const BaseModal: FC<
   ViewProps & {
@@ -17,6 +19,7 @@ const BaseModal: FC<
     onDismiss?: () => void;
     backgroundStyle?: ViewStyle;
     enableDrag?: boolean;
+    titleIcon?: IconsName;
   }
 > = ({
   forwardRef,
@@ -27,6 +30,7 @@ const BaseModal: FC<
   onDismiss,
   backgroundStyle,
   enableDrag = true,
+  titleIcon,
   ...props
 }) => {
   const onCancel = () => {
@@ -56,7 +60,7 @@ const BaseModal: FC<
               onPress={onCancel}
               style={styles.button}
               iconStyle={{...styles.icon, rotate: isRTL() ? "right" : "left"}}
-              iconName="arrow"
+              iconName={titleIcon || "arrow"}
             />
             <Text fontSize="FS13" fontFamily="MEDIUM" color="GRAY_1E103A">
               {title}
@@ -66,7 +70,6 @@ const BaseModal: FC<
             <Button
               style={{paddingHorizontal: Spacing.S11}}
               onPress={onLeftPress}
-              // eslint-disable-next-line react-native/no-inline-styles
               textStyle={{
                 fontSize: "FS14",
                 color: "GRAY_676767",

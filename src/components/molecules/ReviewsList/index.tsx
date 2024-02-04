@@ -5,6 +5,7 @@ import {ReviewItem} from "../../organisms";
 import {FlatList} from "react-native-gesture-handler";
 import {Text} from "../../atoms";
 import {Spacing} from "../../../styles";
+import {translate} from "../../../helpers";
 
 type ReviewsListProps = {
   reviews: Review[];
@@ -34,7 +35,9 @@ const ReviewsList: React.FC<ReviewsListProps> = ({reviews}) => {
         fontSize="FS14"
         style={styles.seeMore}
         onPress={toggleList}>
-        {showFullList ? "View Less" : "View More"}
+        {showFullList
+          ? translate("Common.viewLess")
+          : translate("Common.viewMore")}
       </Text>
     </>
   );

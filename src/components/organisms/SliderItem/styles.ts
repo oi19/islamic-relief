@@ -12,6 +12,7 @@ export const styles = StyleSheet.create({
     width: SCREEN_WIDTH,
     height: SCREEN_HIGHT,
     // backgroundColor: "red",
+    // borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
   },
@@ -53,6 +54,6 @@ export const styles = StyleSheet.create({
     width: "90%",
     alignSelf: "center",
     flex: 1,
-    bottom: getHeight(5),
+    bottom: getHeight(15),
   },
 });

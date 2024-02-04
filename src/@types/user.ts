@@ -23,5 +23,5 @@ export interface GenderTypes {
 
 export interface ServiceType {
   photo: IconsName;
-  name: string;
+  name?: string;
 }

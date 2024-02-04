@@ -2,9 +2,10 @@ import {FlatList, ListRenderItem, StyleSheet} from "react-native";
 import React from "react";
 import {SelectedItemWithCheck} from "../../organisms";
 import {Spacing} from "../../../styles";
+import {SelectedCheckItemType} from "../../../@types";
 
 type SelectCheckedOptionsProps = {
-  listItems: any[];
+  listItems: SelectedCheckItemType[];
   onSelectedItem?: (index: number) => void;
 };
 const SelectCheckedOptions: React.FC<SelectCheckedOptionsProps> = ({
@@ -13,7 +14,10 @@ const SelectCheckedOptions: React.FC<SelectCheckedOptionsProps> = ({
 }) => {
   const [selectedItem, setSelectedItem] = React.useState<number>(-1);
 
-  const _selectedItemRender: ListRenderItem<any> = ({item, index}) => {
+  const _selectedItemRender: ListRenderItem<SelectedCheckItemType> = ({
+    item,
+    index,
+  }) => {
     const active = selectedItem === index;
     return (
       <SelectedItemWithCheck

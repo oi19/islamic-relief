@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from "react";
-import {FlatList, ListRenderItem, View} from "react-native";
+import {ListRenderItem, View} from "react-native";
 
 import {Doctor, ServiceType} from "../../@types";
 import {Svgs} from "../../assets";
@@ -19,6 +19,7 @@ import {MainNavigationAllScreensTypes} from "../../navigation/navigation-types";
 import {Colors, Spacing} from "../../styles";
 import {getHeight, getWidth} from "../../styles/dimensions";
 import {styles} from "./styles";
+import {translate} from "../../helpers";
 
 const Home = () => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
@@ -39,7 +40,7 @@ const Home = () => {
   };
   return (
     <View style={styles.rootScreen}>
-      <Header style={{height: getHeight(120), paddingTop: Spacing.S20}} />
+      <Header style={{height: getHeight(130), paddingTop: Spacing.S20}} />
 
       <View style={styles.container}>
         {/* Search Section  */}
@@ -49,7 +50,7 @@ const Home = () => {
             type="default"
             iconName="search"
             style={styles.searchButton}
-            text="Search for specialty or doctor"
+            text={translate("Home.searchTitle")}
             onPress={() => navigate("Search")}
             textStyle={{color: "GRAY_A7A7A7", fontSize: "FS14"}}
             iconStyle={{
@@ -65,7 +66,7 @@ const Home = () => {
         <Scroll>
           {/* Our Service Section List */}
           <Section
-            title="Our Service"
+            title={translate("Home.ourServices")}
             numColumns={2}
             renderItem={OurServiceItem}
             data={serviceList}
@@ -80,10 +81,10 @@ const Home = () => {
                 color="WHITE"
                 fontFamily="MEDIUM"
                 style={styles.message}>
-                Sign up now and build credit for free online consultation
+                {translate("Home.signInMessage")}
               </Text>
               <Button
-                text="sign in"
+                text={translate("Common.signup")}
                 type="border"
                 style={{width: getWidth(130), marginTop: Spacing.S11}}
               />
@@ -92,19 +93,13 @@ const Home = () => {
 
           {/* Top doctor Rated Section List */}
           <Section
-            title="Top Rated Doctors"
+            title={translate("Home.topRatedDoctors")}
             renderItem={topRatedDoctor}
             data={doctors}
             horizontal={true}
             navigateTo="ManuallyLocation"
           />
         </Scroll>
-
-        <FlatList
-          data={undefined}
-          renderItem={undefined}
-          ListHeaderComponent={<></>}
-        />
       </View>
     </View>
   );

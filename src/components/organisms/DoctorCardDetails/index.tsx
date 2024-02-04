@@ -10,11 +10,13 @@ import {styles} from "./styles";
 import {scale} from "../../../styles/dimensions";
 import {useNavigationHooks} from "../../../hooks";
 import {HomeStackTypes} from "../../../navigation/navigation-types";
+import {translate} from "../../../helpers";
 
 type DoctorCardDetailsProps = {
   item: Doctor;
   index?: number;
 };
+
 const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
   const {navigate} = useNavigationHooks<HomeStackTypes>();
 
@@ -72,7 +74,7 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
       </View>
       <ViewRow style={styles.spaceBetween}>
         <Button
-          text="Book Appointment"
+          text={translate("Search.bookAppointment")}
           type="standard"
           style={styles.baseButton}
         />
