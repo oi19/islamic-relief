@@ -8,6 +8,7 @@
       "signup":"اشتراك",
       "seeAll":"إظهار الكل",
       "ok":"موافق",
+      "all":"الكل",
 
       "about":"حول",
       "day":"اليوم",
@@ -205,7 +206,9 @@
       
       "Notifications":{
         "title":"الإشعارات",
-        "notificationsLoginMessage":"قم بتسجيل الدخول لعرض إشعاراتك السابقة"
+        "notificationsLoginMessage":"قم بتسجيل الدخول لعرض إشعاراتك السابقة",
+        "unread":"Unread",
+        "read":"Read"
   
       }
 

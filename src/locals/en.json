@@ -7,6 +7,7 @@
       "signup":"Sign up",
       "seeAll":"See All",
       "about":"About",
+      "all":"All",
       "ok":"OK",
       "day":"Day",
       "time":"Time",
@@ -183,7 +184,9 @@
     },
     "Notifications":{
       "title":"Notifications",
-      "notificationsLoginMessage":"Login to view your previous Notifications"
+      "notificationsLoginMessage":"Login to view your previous Notifications",
+      "unread":"Unread",
+      "read":"Read"
 
     }
 
