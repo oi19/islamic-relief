@@ -52,7 +52,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({item, index}) => {
         />
 
         <ViewRow style={[styles.rowContainer, {marginVertical: Spacing.S11}]}>
-          {isBooked ? (
+          {false ? (
             <>
               <Button
                 style={styles.baseButton}
@@ -70,7 +70,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({item, index}) => {
           ) : (
             <Button
               style={styles.baseButton}
-              type="border"
+              type="standard"
               text={translate("Common.bookAgain")}
               // onPress={() => handleCancelPress()}
             />
