@@ -15,6 +15,7 @@ const dummyCities: CityTypes[] = [
   {
     id: 1,
     name: "New York",
+    countryName:"USA",
     code: "NYC",
     longitude: "40.7128",
     latitude: "-74.0060",
@@ -27,6 +28,7 @@ const dummyCities: CityTypes[] = [
   {
     id: 2,
     name: "Los Angeles",
+    countryName:"USA",
     code: "LA",
     longitude: "34.0522",
     latitude: "-118.2437",
@@ -39,6 +41,20 @@ const dummyCities: CityTypes[] = [
   {
     id: 3,
     name: "London",
+    countryName:"UK",
+    code: "LDN",
+    longitude: "51.5074",
+    latitude: "-0.1278",
+    country_id: 2,
+    created_by: "David Wilson",
+    updated_by: "Sophia Lee",
+    created_at: "2023-11-01T09:30:00Z",
+    updated_at: "2023-11-01T13:20:00Z",
+  },
+  {
+    id: 4,
+    name: "Maadi",
+    countryName:"Egypt",
     code: "LDN",
     longitude: "51.5074",
     latitude: "-0.1278",

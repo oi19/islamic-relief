@@ -7,6 +7,7 @@ export type User = {
 export interface CityTypes {
   id: number;
   name: string;
+  countryName?:string;
   code: string;
   longitude: string;
   latitude: string;
