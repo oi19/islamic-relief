@@ -14,6 +14,7 @@ type ActivityCardProps = {
   index?: number;
 };
 const ActivityCard: React.FC<ActivityCardProps> = ({item, index}) => {
+  const isBooked: boolean = true;
   const renderDoctorCard = () => {
     return (
       <View>
@@ -51,18 +52,29 @@ const ActivityCard: React.FC<ActivityCardProps> = ({item, index}) => {
         />
 
         <ViewRow style={[styles.rowContainer, {marginVertical: Spacing.S11}]}>
-          <Button
-            style={styles.baseButton}
-            type="standard"
-            text={translate("Common.reschedule")}
-            // onPress={() => handlePayNowPress()}
-          />
-          <Button
-            style={styles.baseButton}
-            type="border"
-            text={translate("Common.cancel")}
-            // onPress={() => handleCancelPress()}
-          />
+          {isBooked ? (
+            <>
+              <Button
+                style={styles.baseButton}
+                type="standard"
+                text={translate("Common.reschedule")}
+                // onPress={() => handlePayNowPress()}
+              />
+              <Button
+                style={styles.baseButton}
+                type="border"
+                text={translate("Common.cancel")}
+                // onPress={() => handleCancelPress()}
+              />
+            </>
+          ) : (
+            <Button
+              style={styles.baseButton}
+              type="border"
+              text={translate("Common.bookAgain")}
+              // onPress={() => handleCancelPress()}
+            />
+          )}
         </ViewRow>
       </View>
     </Card>
