@@ -3,7 +3,7 @@ import {translate} from "../../helpers";
 import {isRTL} from "../../locals/i18n-config";
 
 export function getProfileListWithoutLogin(
-  location: string,
+  location?: string,
   isLogin?: boolean,
 ) {
   const profileListWithoutLogin: profileRowType[] = [

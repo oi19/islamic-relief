@@ -7,7 +7,7 @@ import {Colors} from "../../../styles";
 
 const SelectedItem: FC<{
   item: any;
-  selectedId: string;
+  selectedId?: string;
   onPress: () => void;
 }> = ({item, selectedId, onPress}) => {
   const isSelected = selectedId === `${item.id}`;

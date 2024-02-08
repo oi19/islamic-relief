@@ -12,15 +12,16 @@ import {
 import {dummyCities, specialties} from "../../dummyData";
 import {getValueFromId, translate} from "../../helpers";
 import {styles} from "./styles";
+import { CityTypes } from "../../@types";
 
 const Search = () => {
   const citiesModalRef = React.useRef<BottomSheetModal>(null);
 
-  const [selectedCity, setSelectedCity] = React.useState<number>(1);
+  const [selectedCity, setSelectedCity] = React.useState<CityTypes>();
 
-  const onSelectedCity = (cityId: number) => {
-    console.log("city_id", `${cityId}`);
-    setSelectedCity(cityId);
+  const onSelectedCity = (city: CityTypes) => {
+    console.log("city_id", `${city.id}`);
+    setSelectedCity(city);
   };
 
   const onOpenCitiesModal = () => {
@@ -34,7 +35,7 @@ const Search = () => {
     <View style={styles.rootScreen}>
       <Button
         type="dropdown"
-        text={getValueFromId(selectedCity, dummyCities)}
+        text={getValueFromId(selectedCity?.id, dummyCities)}
         iconName="location"
         onPress={onOpenCitiesModal}
       />
@@ -54,7 +55,7 @@ const Search = () => {
         />
       </Scroll>
       <CitiesModal
-        selectedId={selectedCity.toString()}
+        selectedId={selectedCity?.id?.toString()}
         onSelect={onSelectedCity}
         forwardRef={citiesModalRef}
       />

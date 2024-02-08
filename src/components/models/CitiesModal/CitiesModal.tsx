@@ -15,8 +15,8 @@ const CitiesModal = ({
   selectedId,
 }: {
   forwardRef: RefObject<BottomSheetModal>;
-  onSelect: (id: number) => void;
-  selectedId: string;
+  onSelect: (selectedCity: CityTypes) => void;
+  selectedId?: string;
 }) => {
   // const cities = useAppSelector(state => state.userReducer.cities);
   const [citiesList, setCities] = useState<CityTypes[]>(dummyCities);
@@ -25,8 +25,8 @@ const CitiesModal = ({
     forwardRef.current?.close();
   };
 
-  const onSelectedCity = (id: number) => {
-    onSelect(id);
+  const onSelectedCity = (city: CityTypes) => {
+    onSelect(city);
     setTimeout(() => {
       forwardRef.current?.close();
     }, 1);
@@ -47,7 +47,7 @@ const CitiesModal = ({
         key={`RenderCityItem_${index}`}
         item={item}
         selectedId={selectedId}
-        onPress={() => onSelectedCity(item.id)}
+        onPress={() => onSelectedCity(item)}
       />
     );
   };
