@@ -1,24 +1,29 @@
 import {FlatList, ListRenderItem} from "react-native";
 import React from "react";
-import { NotificationItemType} from "../../../@types";
+import { NotificationsTypes} from "../../../@types";
 import {Spacing} from "../../../styles";
 import NotificationCardDetail from "../../organisms/NotificationCardDetail";
+import PaginationFlatlist from "../../atoms/PaginationFlatlist";
 
-type NotificationsListProps = {
-  listItems: NotificationItemType[];
+
+type NotificationsProps = {
+  notifications: NotificationsTypes[];
 };
-const NotificationsList: React.FC<NotificationsListProps> = ({listItems}) => {
-  const _notificationRenderItem: ListRenderItem<NotificationItemType> = ({item, index}) => {
-    return <NotificationCardDetail item={item} index={index} />;
-    };
-    
+const NotificationsList: React.FC<NotificationsProps> = ({notifications}) => {
+  const _renderNotificationItem: ListRenderItem<NotificationsTypes> = ({
+    item,
+    index,
+  }) => {
+    return <NotificationCardDetail {...item} index={index} />;
+  };
   return (
-    <FlatList
-      data={listItems}
+    <PaginationFlatlist
+      data={notifications}
+      renderItem={_renderNotificationItem}
+      onLoadMore={() => {}}
       contentContainerStyle={{
-        paddingBottom: Spacing.S40 * 3,
+        paddingBottom: Spacing.S40 * 7,
       }}
-      renderItem={_notificationRenderItem}
     />
   );
 };

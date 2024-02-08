@@ -1,72 +1,78 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from "react";
 import {View} from "react-native";
-import { Card, Image, Text, ViewRow} from "../../atoms";
+import {Card, Image, RoundedIcon, Text, ViewRow} from "../../atoms";
 
-import { NotificationItemType} from "../../../@types";
-import {Images} from "../../../assets/images";
 import {useNavigationHooks} from "../../../hooks";
-import { HomeStackTypes } from "../../../navigation/navigation-types";
+import {HomeStackTypes} from "../../../navigation/navigation-types";
 
 import {styles} from "./styles";
+import {Colors} from "react-native/Libraries/NewAppScreen";
 
 type NotificatinoCardDetailsProps = {
-  item: NotificationItemType;
+  image?: string;
+  title?: string;
+  body?: string;
+  id?: number;
   index?: number;
 };
 
-const NotificationCardDetail: React.FC<NotificatinoCardDetailsProps> = ({item}) => {
+const NotificationCardDetail: React.FC<NotificatinoCardDetailsProps> = (
+  props: NotificatinoCardDetailsProps,
+) => {
+  const {image, title, body, id, index} = props;
   const {navigate} = useNavigationHooks<HomeStackTypes>();
 
   return (
-    <Card
-      style={styles.cardContainer}
-      // onPress={() =>
-      //   navigate("DoctorProfile", {
-      //     item,
-      //   })
-      // }
-    >
+    <Card style={styles.cardContainer}>
       <ViewRow style={styles.subContainer}>
-        <Image source={Images.default} style={styles.image} />
-        <View style={styles.textContainerStyle}>
+        {image ? (
+          <Image source={{uri: image}} style={styles.image} />
+        ) : (
+          <RoundedIcon
+            iconStyle={{
+              color: Colors.PRIMARY,
+            }}
+            icon="notifications"
+            backgroundColor="GRAY_EEEEEE"
+          />
+        )}
 
+        <View style={styles.textContainerStyle}>
           {/* sender section  */}
           <ViewRow style={styles.headerTextRowStyle}>
             <Text style={styles.senderText} fontSize="FS16" fontFamily="MEDIUM">
-              {item?.name}
+              {title}
             </Text>
-            <Text style={styles.senderText} fontSize="FS16" fontFamily="REGULAR">
-              {item?.title}
+            <Text
+              style={styles.senderText}
+              fontSize="FS16"
+              fontFamily="REGULAR">
+              {title}
             </Text>
           </ViewRow>
 
           {/* content section  */}
-          {
-            item?.content ?
-              <View style={styles.contentContainer}>
+          {body ? (
+            <View style={styles.contentContainer}>
               <Text
-              fontSize="FS14"
-              color="BLACK"
-              numberOfLines={2}
-            >
-              {item?.content}
-                 </Text>
-               </View> 
-              :
-              null
-          }
+                fontFamily="REGULAR"
+                fontSize="FS14"
+                color="BLACK"
+                numberOfLines={2}>
+                {body}
+              </Text>
+            </View>
+          ) : null}
           {/* notification date section  */}
 
-            <Text
-              fontSize="FS14"
-              color="GRAY_969696"
-              fontFamily="REGULAR"
-              style={styles.dateTextStyle}
-                >
-              {/* {item?.date} */}
-              Last Wednesday at 9:42 AM
-             </Text>
+          <Text
+            fontSize="FS14"
+            color="GRAY_969696"
+            fontFamily="REGULAR"
+            style={styles.dateTextStyle}>
+            {/* {item?.date} */}
+            Last Wednesday at 9:42 AM
+          </Text>
         </View>
       </ViewRow>
     </Card>

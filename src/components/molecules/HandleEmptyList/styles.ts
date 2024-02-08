@@ -1,13 +1,19 @@
+import {Colors, Spacing} from "../../../styles/index";
 import {StyleSheet} from "react-native";
-import {Colors} from "../../styles";
 
 export const styles = StyleSheet.create({
-  rootScreen: {
+  root: {
     flex: 1,
     backgroundColor: Colors.GRAY_EEEEEE,
+    paddingHorizontal: Spacing.S20,
+    paddingTop: Spacing.S56,
   },
-  center: {
+  content: {
+    flex: 1,
     alignItems: "center",
     justifyContent: "center",
+  },
+  message: {
+    marginVertical: Spacing.S16,
   },
 });

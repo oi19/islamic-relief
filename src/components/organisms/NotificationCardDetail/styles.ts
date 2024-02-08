@@ -1,38 +1,40 @@
-import {  StyleSheet} from "react-native";
-import { getHeight, getWidth, scale} from "../../../styles/dimensions";
+import {StyleSheet} from "react-native";
+import {getHeight, getWidth, scale} from "../../../styles/dimensions";
 import {Colors, Spacing} from "../../../styles";
-import { isRTL as rtl } from "../../../locals/i18n-config";
+import {isRTL as rtl} from "../../../locals/i18n-config";
 
-const isRTL = rtl()
+const isRTL = rtl();
 export const styles = StyleSheet.create({
   cardContainer: {
-    width: '100%',
     alignItems: "flex-start",
     marginVertical: Spacing.S8,
+    paddingStart: Spacing.S20,
+    width:"100%"
   },
   subContainer: {
-    alignItems: 'flex-start',
-    padding: Spacing.S16
+    alignItems: "flex-start",
+    padding: Spacing.S16,
   },
   image: {
     width: scale(32),
     height: scale(32),
     borderRadius: scale(50),
+    backgroundColor: "red",
   },
   textContainerStyle: {
     paddingHorizontal: getWidth(Spacing.S16),
   },
   senderSection: {
-    flexDirection: 'row',
+    flexDirection: "row",
   },
   senderText: {
     marginEnd: getWidth(Spacing.S16),
-    textAlign:'left'
+    textAlign: "left",
   },
   headerTextRowStyle: {
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    textAlign:'left'
+    alignItems: "center",
+    justifyContent: "flex-start",
+    textAlign: "left",
   },
   contentContainer: {
     marginTop: Spacing.S16,
@@ -45,6 +47,6 @@ export const styles = StyleSheet.create({
   },
   dateTextStyle: {
     marginTop: getHeight(Spacing.S8),
-    textAlign:'left'
-  }
+    textAlign: "left",
+  },
 });

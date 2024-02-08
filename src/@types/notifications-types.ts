@@ -1,12 +1,13 @@
 
 
-export type NotificationItemType = {
-  photo?:string
+export type NotificationsTypes = {
+  image?:string
   id?: number;
   name?: string;
-  content?: any;
+  body?: any;
   sender_id?: number,
   title?: string,
   date?: string | number,
-  read?:boolean
+  read?: boolean,
+  
 };

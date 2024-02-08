@@ -17,5 +17,6 @@ export {default as ActivityList} from "./ActivityList";
 export {default as ProfileList} from "./ProfileList";
 export {default as VideoCallControl} from "./VideoCallControl";
 export {default as SelectedMultiPhotos} from "./SelectedMultiPhotos";
-export {default as NotificationsList} from "./NotificationsList"
-export {default as NotificationTabsView} from "./NotificationTabsView"
+export {default as NotificationsList} from "./NotificationsList";
+export {default as HandleEmptyList} from "./HandleEmptyList";
+export {default as SelectCheckedPaymentCard} from "./SelectCheckedPaymentCard";

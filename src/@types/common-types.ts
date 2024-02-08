@@ -1,3 +1,4 @@
+import { ReactNode } from "react";
 import {IconsName} from "../assets/svgs";
 import {MainNavigationKeys} from "../navigation/navigation-types";
 import {User} from "./user";
@@ -6,6 +7,11 @@ export type TabOptionType = {
   id?: number;
   name?: string;
   content?: any;
+};
+
+export type Tab = {
+  title?: string;
+  content: ReactNode;
 };
 
 export type SelectedCheckItemType = {
@@ -17,6 +23,17 @@ export type SelectedCheckItemType = {
   cost?: number;
   duration?: number;
 };
+
+export type SelectedCheckPaymentCardType = {
+  id?: number;
+  name?: string;
+  image?: string;
+  expiryDate?: string | number;
+  type?: string;
+  selected?: boolean | null;
+  lastDigits?:string
+};
+
 
 export type Review = {
   rating?: number;

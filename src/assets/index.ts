@@ -1,3 +1,3 @@
 import Svgs from "./svgs";
-
-export {Svgs};
+import {Lottie} from "./lottie";
+export {Svgs, Lottie};
