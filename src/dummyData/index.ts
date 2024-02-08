@@ -1,4 +1,12 @@
-import {CityTypes, Doctor, GenderTypes, Review, ServiceType} from "../@types";
+import {
+  CityTypes,
+  Doctor,
+  GenderTypes,
+  NotificationsTypes,
+  Payment_Card_Type,
+  Review,
+  ServiceType,
+} from "../@types";
 import {specialType} from "../@types/special-types";
 import {Images} from "../assets/images";
 import {translate} from "../helpers";
@@ -144,4 +152,126 @@ const genders: GenderTypes[] = [
   },
 ];
 
-export {dummyCities, serviceList, doctors, genders, specialties, Reviews};
+const notifications: NotificationsTypes[] = [
+  {
+    id: 1,
+    sender_id: 2,
+    name: "Dennis Nedry",
+    image: "",
+    body: "",
+    title: "added review",
+    date: Date.now(),
+  },
+  {
+    id: 2,
+    sender_id: 2,
+    name: "Dennis Nedry",
+    image: "",
+    body: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.",
+    title: "added review",
+    date: Date.now(),
+  },
+  {
+    id: 3,
+    sender_id: 2,
+    name: "Dennis Nedry",
+    image: "",
+    body: "",
+    title: "send Message",
+    date: Date.now(),
+  },
+  {
+    id: 4,
+    sender_id: 4,
+    name: "Dennis Nedry",
+    image: "",
+    body: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.",
+    title: "send message",
+    date: Date.now(),
+  },
+  {
+    id: 5,
+    sender_id: 2,
+    name: "Dennis Nedry",
+    image: "",
+    body: "",
+    title: "send Message",
+    date: Date.now(),
+  },
+  {
+    id: 6,
+    sender_id: 4,
+    name: "Dennis Nedry",
+    image: "",
+    body: "",
+    title: "send message",
+    date: Date.now(),
+  },
+  {
+    id: 7,
+    sender_id: 2,
+    name: "Dennis Nedry",
+    image: "",
+    body: "Lorem ipsum dolor sit amet consectetur. Lorem ipsum dolor sit amet consectetur.",
+    title: "send Message",
+    date: Date.now(),
+  },
+  {
+    id: 8,
+    sender_id: 4,
+    name: "Dennis Nedry",
+    image: "",
+    body: "",
+    title: "send message",
+    date: Date.now(),
+  },
+];
+
+export const paymentCards: Payment_Card_Type[] = [
+  {
+    id: 1,
+    // selected: true,
+    type: "MASTERCARD",
+    name: "MasterCard",
+    image: "",
+    expiryDate: "",
+    lastDigits: "1234",
+  },
+  {
+    id: 2,
+    // selected: false,
+    type: "VISA",
+    name: "Visa",
+    image: "",
+    expiryDate: "",
+    lastDigits: "1234",
+  },
+  {
+    id: 3,
+    // selected: false,
+    type: "MasterCard",
+    name: "MasterCard",
+    image: "",
+    expiryDate: "",
+    lastDigits: "1234",
+  },
+  {
+    id: 4,
+    // selected: false,
+    type: "VISA",
+    name: "Visa",
+    image: "",
+    expiryDate: "",
+    lastDigits: "1234",
+  },
+];
+
+export {
+  dummyCities,
+  serviceList,
+  doctors,
+  genders,
+  specialties,
+  Reviews,
+  notifications,
+};
