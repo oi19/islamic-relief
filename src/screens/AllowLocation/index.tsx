@@ -42,8 +42,16 @@ const AllowLocation = () => {
 
         <Button
           type="border"
-          text={translate("AllowLocation.enterLocationManually")}
+          text={translate("AllowLocation.allowOnce")}
           onPress={() => navigate("ManuallyLocation")}
+          textStyle={{color: "BLACK"}}
+        />
+        <Button
+          type="default"
+          text={translate("Common.skip")}
+          onPress={() => navigate("TabsBottomStack")}
+          textStyle={{color: "BLACK"}}
+          style={styles.allowLocation}
         />
       </View>
     </View>

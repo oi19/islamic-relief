@@ -4,6 +4,7 @@ import {MainAppStackTypes} from "./navigation-types";
 import TabButtonsStack from "./tab-buttons-stack";
 import {
   Account,
+  ChatRoom,
   CompletePatientDetails,
   Favorites,
   Login,
@@ -42,6 +43,7 @@ const MainStack = () => {
       <Stack.Screen name="ResetPassword" component={ResetPassword} />
       <Stack.Screen name="ManageCards" component={ManageCards} />
       <Stack.Screen name="Favorites" component={Favorites} />
+      <Stack.Screen name="ChatRoom" component={ChatRoom} />
     </Stack.Navigator>
   );
 };

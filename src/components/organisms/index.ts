@@ -12,3 +12,5 @@ export {default as LanguageItemCard} from "./LanguageItemCard";
 export {default as SelectedMultiPhotosItem} from "./SelectedMultiPhotosItem";
 export {default as NotificationCardDetail} from "./NotificationCardDetail";
 export {default as SelectedPaymentCardWithCheck} from "./SelectedPaymentCardWithCheck";
+export {default as ChatItem} from "./ChatItem";
+export {default as ChatMessageItem} from "./ChatMessageItem";

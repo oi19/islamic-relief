@@ -1,7 +1,9 @@
 import {
+  ChatType,
   CityTypes,
   Doctor,
   GenderTypes,
+  MessageType,
   NotificationsTypes,
   Payment_Card_Type,
   Review,
@@ -15,7 +17,7 @@ const dummyCities: CityTypes[] = [
   {
     id: 1,
     name: "New York",
-    countryName:"USA",
+    countryName: "USA",
     code: "NYC",
     longitude: "40.7128",
     latitude: "-74.0060",
@@ -28,7 +30,7 @@ const dummyCities: CityTypes[] = [
   {
     id: 2,
     name: "Los Angeles",
-    countryName:"USA",
+    countryName: "USA",
     code: "LA",
     longitude: "34.0522",
     latitude: "-118.2437",
@@ -41,7 +43,7 @@ const dummyCities: CityTypes[] = [
   {
     id: 3,
     name: "London",
-    countryName:"UK",
+    countryName: "UK",
     code: "LDN",
     longitude: "51.5074",
     latitude: "-0.1278",
@@ -54,7 +56,7 @@ const dummyCities: CityTypes[] = [
   {
     id: 4,
     name: "Maadi",
-    countryName:"Egypt",
+    countryName: "Egypt",
     code: "LDN",
     longitude: "51.5074",
     latitude: "-0.1278",
@@ -243,7 +245,7 @@ const notifications: NotificationsTypes[] = [
   },
 ];
 
-export const paymentCards: Payment_Card_Type[] = [
+const paymentCards: Payment_Card_Type[] = [
   {
     id: 1,
     // selected: true,
@@ -282,6 +284,130 @@ export const paymentCards: Payment_Card_Type[] = [
   },
 ];
 
+const dummyChatList: ChatType[] = [
+  {
+    id: 1,
+    name: "Omar",
+    email: "omar@gmail.com",
+    created_at: new Date().toString(),
+  },
+  {
+    id: 1,
+    name: "Abdallah",
+    email: "abdallah@gmail.com",
+    created_at: new Date().toString(),
+  },
+  {
+    id: 1,
+    name: "Mustafa",
+    email: "mustafa@gmail.com",
+    created_at: new Date().toString(),
+  },
+  {
+    id: 1,
+    name: "Amr",
+    email: "amr@gmail.com",
+    created_at: new Date().toString(),
+  },
+  {
+    id: 1,
+    name: "Aya",
+    email: "aya@gmail.com",
+    created_at: new Date().toString(),
+  },
+];
+
+const dummyChatMessages: MessageType[] = [
+  {
+    id: 1,
+    content: "Thank you doctor for this wonderful session",
+    sender_id: 1,
+    receiver_id: 2,
+    sender_type: "User",
+    receiver_type: "Doctor",
+    created_at: new Date().toString(),
+    image: "",
+    senderUserName: "Mohamed",
+  },
+  {
+    id: 1,
+    content: "Glad to hear that ",
+    sender_id: 2,
+    receiver_id: 1,
+    sender_type: "Doctor",
+    receiver_type: "User",
+    created_at: new Date().toString(),
+    image: "",
+    senderUserName: "Dr.yousef",
+  },
+  {
+    id: 1,
+    content: "Thank you doctor for this wonderful session",
+    sender_id: 1,
+    receiver_id: 2,
+    sender_type: "User",
+    receiver_type: "Doctor",
+    created_at: new Date().toString(),
+    image: "",
+    senderUserName: "Mohamed",
+  },
+  {
+    id: 1,
+    content: "Glad to hear that ",
+    sender_id: 2,
+    receiver_id: 1,
+    sender_type: "Doctor",
+    receiver_type: "User",
+    created_at: new Date().toString(),
+    image: "",
+    senderUserName: "Dr.yousef",
+  },
+  {
+    id: 1,
+    content: "Thank you doctor for this wonderful session",
+    sender_id: 1,
+    receiver_id: 2,
+    sender_type: "User",
+    receiver_type: "Doctor",
+    created_at: new Date().toString(),
+    image: "",
+    senderUserName: "Mohamed",
+  },
+  {
+    id: 1,
+    content: "Glad to hear that ",
+    sender_id: 2,
+    receiver_id: 1,
+    sender_type: "Doctor",
+    receiver_type: "User",
+    created_at: new Date().toString(),
+    image: "",
+    senderUserName: "Dr.yousef",
+  },
+  {
+    id: 1,
+    content: "Thank you doctor for this wonderful session",
+    sender_id: 1,
+    receiver_id: 2,
+    sender_type: "User",
+    receiver_type: "Doctor",
+    created_at: new Date().toString(),
+    image: "",
+    senderUserName: "Mohamed",
+  },
+  {
+    id: 1,
+    content: "Glad to hear that ",
+    sender_id: 2,
+    receiver_id: 1,
+    sender_type: "Doctor",
+    receiver_type: "User",
+    created_at: new Date().toString(),
+    image: "",
+    senderUserName: "Dr.yousef",
+  },
+];
+
 export {
   dummyCities,
   serviceList,
@@ -290,4 +416,7 @@ export {
   specialties,
   Reviews,
   notifications,
+  dummyChatMessages,
+  dummyChatList,
+  paymentCards,
 };

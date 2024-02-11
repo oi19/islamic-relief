@@ -20,3 +20,4 @@ export {default as ResetPassword} from "./ResetPassword";
 export {default as ManageCards} from "./ManageCards";
 export {default as Favorites} from "./Favorites";
 export {default as Notifications} from "./Notifications";
+export {default as ChatRoom} from "./ChatRoom";

@@ -20,3 +20,5 @@ export {default as SelectedMultiPhotos} from "./SelectedMultiPhotos";
 export {default as NotificationsList} from "./NotificationsList";
 export {default as HandleEmptyList} from "./HandleEmptyList";
 export {default as SelectCheckedPaymentCard} from "./SelectCheckedPaymentCard";
+export {default as ChatList} from "./ChatList";
+export {default as ChatRoomList} from "./ChatRoomList";
