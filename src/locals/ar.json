@@ -1,229 +1,213 @@
 {
-   "Common":{
-     "next": "التالي",
-     "getStart": "استمتع الان",
-     "skip": "تخطى",
-     "search": "بحث",
-     "Continue": "تابع",
-     "signup": "اشتراك",
-     "seeAll": "إظهار الكل",
-     "ok": "موافق",
-     "all": "الكل",
-     "edit": "تحرير",
-     "setAsDefault": "تعيين كافتراضي",
-     "ending": "تنتهي",
-     "in": "ب",
-     "expiryDate": "انتهاء الصلاحية",
+  "Common": {
+    "next": "التالي",
+    "getStart": "استمتع الان",
+    "skip": "تخطى",
+    "search": "بحث",
+    "Continue": "تابع",
+    "signup": "اشتراك",
+    "seeAll": "إظهار الكل",
+    "ok": "موافق",
+    "all": "الكل",
+    "edit": "تحرير",
+    "setAsDefault": "تعيين كافتراضي",
+    "ending": "تنتهي",
+    "in": "ب",
+    "expiryDate": "انتهاء الصلاحية",
 
-     "about": "حول",
-     "day": "اليوم",
-     "time": "الوقت",
-     "readMore": "اقرا المزيد",
-     "readLess": "اقرا اقل",
-     "viewMore": "عرض المزيد",
-     "viewLess": "عرض اقل",
-     "patients": "المرضى",
-     "yearsExp.": "سنوات الخبرة.",
-     "rating": "التقييم",
-     "review": "المراجعة",
-     "messages": "رسالة",
-     "videoCall": "مكالمة فيديو",
-     "call": "اتصال",
-     "voiceCall": "مكالمة صوتية",
-     "messaging": "المراسلة",
-     "inPerson": "شخصيًا",
-     "withDoctor": " مع الطبيب",
-     "amount": "كمية",
-     "total": "المجموع",
-     "payNow": "ادفع الآن",
-     "cancel": "إلغاء",
-     "change": "تغيير",
-     "goHome": " العودة إلى الصفحه الرئيسية",
-     "viewAppointment": " عرض الموعد ",
-     "loginOrSignup": "الدخول التسجيل فى الموقع",
-     "reschedule": "إعادة الجدولة ",
-     "bookAgain":"اعادة الحجز",
-     "send": "ارسال",
-     "no": "لا",
-     "save": "حفظ",
-     "confirm": "تاكيد",
-     "chooseGender": "اختر الجنس",
+    "about": "حول",
+    "day": "اليوم",
+    "time": "الوقت",
+    "readMore": "اقرا المزيد",
+    "readLess": "اقرا اقل",
+    "viewMore": "عرض المزيد",
+    "viewLess": "عرض اقل",
+    "patients": "المرضى",
+    "yearsExp.": "سنوات الخبرة.",
+    "rating": "التقييم",
+    "review": "المراجعة",
+    "messages": "رسالة",
+    "videoCall": "مكالمة فيديو",
+    "call": "اتصال",
+    "voiceCall": "مكالمة صوتية",
+    "messaging": "المراسلة",
+    "inPerson": "شخصيًا",
+    "withDoctor": " مع الطبيب",
+    "amount": "كمية",
+    "total": "المجموع",
+    "payNow": "ادفع الآن",
+    "cancel": "إلغاء",
+    "change": "تغيير",
+    "goHome": " العودة إلى الصفحه الرئيسية",
+    "viewAppointment": " عرض الموعد ",
+    "loginOrSignup": "الدخول التسجيل فى الموقع",
+    "reschedule": "إعادة الجدولة ",
+    "bookAgain": "اعادة الحجز",
+    "send": "ارسال",
+    "no": "لا",
+    "save": "حفظ",
+    "confirm": "تاكيد",
+    "chooseGender": "اختر الجنس",
 
-     "addPhotos": "إضافة الصور",
-     "sendReview": "إرسال المراجعة"
-   },
+    "addPhotos": "إضافة الصور",
+    "sendReview": "إرسال المراجعة"
+  },
 
-   "OnBoarding":{
-      "findBestDoctor":"البحث عن أفضل طبيب",
-      "findBestDoctorMsg":"\"يمكنك العثور على أفضل طبيب. هناك الكثير,الأطباء ذوي الخبرة الذين يمكنك العثور عليهم\"",
-      "onlineConsultation":"التشاور عبر الإنترنت",
-      "onlineConsultationMsg":"\"مشغول جدًا لدرجة عدم القدرة على الذهاب إلى الطبيب. لدينا الحل،,يمكنك إجراء الاستشارات عبر الإنترنت\"",
-      "makeYourAppointment":"حدد موعدك",
-      "makeYourAppointmentMsg":"\"الآن أصبح من السهل تحديد موعد ,مع طبيبك وأدويتك\""
-    },
+  "OnBoarding": {
+    "findBestDoctor": "البحث عن أفضل طبيب",
+    "findBestDoctorMsg": "\"يمكنك العثور على أفضل طبيب. هناك الكثير,الأطباء ذوي الخبرة الذين يمكنك العثور عليهم\"",
+    "onlineConsultation": "التشاور عبر الإنترنت",
+    "onlineConsultationMsg": "\"مشغول جدًا لدرجة عدم القدرة على الذهاب إلى الطبيب. لدينا الحل،,يمكنك إجراء الاستشارات عبر الإنترنت\"",
+    "makeYourAppointment": "حدد موعدك",
+    "makeYourAppointmentMsg": "\"الآن أصبح من السهل تحديد موعد ,مع طبيبك وأدويتك\""
+  },
 
-    "AllowLocation":{
-      "whatIsYourLocation":"ما هو الموقع الخاص بك؟",
-      "allowLocationMessage":"السماح للمساعدة في الوصول إلى موقعك لاقتراح الخدمة القريبة",
-      "allowLocationAccess":"السماح أثناء استخدام التطبيق",
-      "enterLocationManually":"أدخل الموقع يدويًا",
-      "useCurrentLocation":"استخدام الموقع الحالي"
-    },
+  "AllowLocation": {
+    "whatIsYourLocation": "ما هو الموقع الخاص بك؟",
+    "allowLocationMessage": "السماح للمساعدة في الوصول إلى موقعك لاقتراح الخدمة القريبة",
+    "allowLocationAccess": "السماح أثناء استخدام التطبيق",
+    "allowOnce": "السماح مرة واحدة ",
+    "enterLocationManually": "أدخل الموقع يدويًا",
+    "useCurrentLocation": "استخدام الموقع الحالي"
+  },
 
-    "Home":{
-      "searchTitle":"ابحث عن تخصص أو طبيب",
-      "ourServices":"خدماتنا",
-      "clinicVisit":"زيارة العيادة",
-      "homeVisit":"زيارة منزلية",
-      "signInMessage":"اشترك الآن واحصل على رصيد لاستشارة مجانية عبر الإنترنت",
-      "topRatedDoctors":"الأطباء الأعلى تقييمًا"
-    },
+  "Home": {
+    "searchTitle": "ابحث عن تخصص أو طبيب",
+    "ourServices": "خدماتنا",
+    "clinicVisit": "زيارة العيادة",
+    "homeVisit": "زيارة منزلية",
+    "signInMessage": "اشترك الآن واحصل على رصيد لاستشارة مجانية عبر الإنترنت",
+    "topRatedDoctors": "الأطباء الأعلى تقييمًا"
+  },
 
-    "Search":{
-      "mostPopular":"التخصصات الأكثر شعبية",
-      "otherSpecialties":"تخصصات أخرى",
-      "searchForCity":"ابحث عن المدينة",
-      "mostRecommended":"الأكثر توصية",
-      "priceToHigh":"السعر من الأقل إلى الأعلى",
-      "priceToLow":"السعر من الأعلى إلى الأقل",
-      "shortTimes": "أوقات انتظار قصيرة",
-      "bookAppointment":"حجز موعد"
+  "Search": {
+    "mostPopular": "التخصصات الأكثر شعبية",
+    "otherSpecialties": "تخصصات أخرى",
+    "searchForCity": "ابحث عن المدينة",
+    "mostRecommended": "الأكثر توصية",
+    "priceToHigh": "السعر من الأقل إلى الأعلى",
+    "priceToLow": "السعر من الأعلى إلى الأقل",
+    "shortTimes": "أوقات انتظار قصيرة",
+    "bookAppointment": "حجز موعد"
+  },
 
+  "DoctorProfile": {
+    "title": "الملف الشخصي للطبيب ",
+    "sub-specialties": "التخصصات الفرعية",
+    "experience": "الخبرة",
+    "consultationFees": "رسوم الاستشارة",
+    "makeAppointment": "تحديد موعد",
+    "latestReviews": "أحدث التقييمات",
+    "addReview": "اضافه تعليق",
+    "waitingTime": "وقت الانتظار"
+  },
 
-    },
+  "Model": {
+    "warningTitle": "رسالة تحذير",
+    "dateAndTimeMessage": "الرجاء التأكد من تحديد التاريخ والوقت.",
+    "congratulations": "مبروك ",
+    "congratulationsMessage": "تهانينا، تم إنشاء حسابك بنجاح.",
 
-    "DoctorProfile": {
-      "title": "الملف الشخصي للطبيب ",
-      "sub-specialties":"التخصصات الفرعية",
-      "experience":"الخبرة",
-      "consultationFees":"رسوم الاستشارة",
-      "makeAppointment":"تحديد موعد",
-      "latestReviews":"أحدث التقييمات",
-      "addReview":"اضافه تعليق",
-      "waitingTime":"وقت الانتظار"
-    },
+    "successfullyBooked": "لقد قمت بحجز موعد بنجاح مع",
+    "leaveYourMessage": "اترك رسالتك",
 
-    "Model":{
-      "warningTitle":"رسالة تحذير",
-      "dateAndTimeMessage":"الرجاء التأكد من تحديد التاريخ والوقت.",
-      "congratulations":"مبروك ",
-      "congratulationsMessage":"تهانينا، تم إنشاء حسابك بنجاح.",
+    "cancelModelTitle": "قم بإلغاء هذا القسم",
+    "appointmentCancelMessage": "هل أنت متأكد أنك تريد إلغاء هذا الموعد؟",
 
-      "successfullyBooked": "لقد قمت بحجز موعد بنجاح مع",
-      "leaveYourMessage":"اترك رسالتك",
+    "whatIsRate": "ما هو تقييمك؟",
+    "shareYourOpinion": "شاركنا برأيك حول الطبيب"
+  },
 
-      "cancelModelTitle":"قم بإلغاء هذا القسم",
-      "appointmentCancelMessage":"هل أنت متأكد أنك تريد إلغاء هذا الموعد؟",
+  "Form": {
+    "createAccountMessage": "إنشاء حساب أو تسجيل الدخول",
+    "phone": "رقم الهاتف",
+    "password": "كلمة المرور",
+    "rememberMe": "تذكرني",
+    "forgotPassword": "نسيت كلمة المرور",
+    "login": "تسجيل الدخول",
+    "createAccount": "إنشاء حساب",
+    "enterPassword": "أدخل كلمة المرور",
+    "orSignIn": "أو تسجيل الدخول باستخدام",
+    "byContinuing": "من خلال الاستمرار، فإنك توافق على الأطباء",
+    "terms&Conditions": "شروط وأحكام",
 
-      "whatIsRate":"ما هو تقييمك؟",
-      "shareYourOpinion":"شاركنا برأيك حول الطبيب"
+    "fullName": "الاسم الكامل",
+    "enterFullName": "أدخل الاسم الكامل",
+    "email": "بريد إلكتروني",
+    "enterEmail": "أدخل بريدك الإلكتروني",
+    "birthday": "تاريخ الميلاد"
+  },
 
-    },
+  "selectPackage": {
+    "title": "حدد الحزمة"
+  },
 
-    "Form":{
-      "createAccountMessage":"إنشاء حساب أو تسجيل الدخول",
-      "phone":"رقم الهاتف",
-      "password":"كلمة المرور",
-      "rememberMe":"تذكرني",
-      "forgotPassword":"نسيت كلمة المرور",
-      "login":"تسجيل الدخول",
-      "createAccount":"إنشاء حساب",
-      "enterPassword":"أدخل كلمة المرور",
-      "orSignIn":"أو تسجيل الدخول باستخدام",
-      "byContinuing":"من خلال الاستمرار، فإنك توافق على الأطباء",
-      "terms&Conditions":"شروط وأحكام",
+  "completePatientDetails": {
+    "title": "تفاصيل المريض",
+    "bookingFor": "الحجز",
+    "gender": "الجنس",
+    "yourAge": "عمرك",
+    "writeYourProblem": "اكتب مشكلتك",
+    "writeHere": "اكتب هنا...",
+    "uploadDocuments": "تحميل المستند"
+  },
 
-      "fullName":"الاسم الكامل",
-      "enterFullName":"أدخل الاسم الكامل",
-      "email":"بريد إلكتروني",
-      "enterEmail":"أدخل بريدك الإلكتروني",
-      "birthday":"تاريخ الميلاد"
+  "paymentMethods": {
+    "title": "طرق الدفع ",
+    "creditDebitCard": "بطاقة الائتمان والخصم",
+    "morePaymentOptions": "المزيد من خيارات الدفع",
+    "cash": "نقدي"
+  },
 
-    },
+  "reviewSummary": {
+    "title": "ملخص المراجعة",
+    "duration": "مدة",
+    "dateHour": "التاريخ والساعة",
+    "package": "طَرد"
+  },
 
-    "selectPackage":{
-      "title":"حدد الحزمة"
-    },
+  "myActivity": {
+    "title": "نشاطي",
+    "loginMessage": " قم بتسجيل الدخول لعرض أنشطتك السابقة",
+    "support": "الدعم",
+    "supportMessage": "من فضلك اترك رسالتك وسنقوم بالرد عليك خلال 48 ساعة.",
+    "all": "الكل",
+    "upcoming": "القادم",
+    "completed": "مكتمل",
+    "cancelled": "ملغى"
+  },
 
-    "completePatientDetails":{
-      "title":"تفاصيل المريض",
-      "bookingFor":"الحجز",
-      "gender":"الجنس",
-      "yourAge":"عمرك",
-      "writeYourProblem":"اكتب مشكلتك",
-      "writeHere":"اكتب هنا...",
-      "uploadDocuments":"تحميل المستند"
-    },
+  "myChat": {
+    "title": "دردشتي",
+    "myChatLoginMessage": "قم بتسجيل الدخول لعرض الدردشة السابقة"
+  },
 
-    "paymentMethods":{
-      "title":"طرق الدفع ",
-      "creditDebitCard":"بطاقة الائتمان والخصم",
-      "morePaymentOptions":"المزيد من خيارات الدفع",
-      "cash":"نقدي"
+  "Profile": {
+    "title": "الملف الشخصي",
+    "location": "الموقع",
+    "notifications": "إشعارات",
+    "language": "لغة",
+    "manageCards": "إدارة البطاقات",
+    "favorites": "المفضلة",
+    "yourPoints": "نقاطك",
+    "help": "المساعدة",
+    "logout": "تسجيل خروج",
+    "welcomeToDoctors": "مرحبًا بك في موقع الأطباء",
+    "loginMessage": "تسجيل الدخول لاستكشاف تجربتنا بهيجة.",
+    "changePhoto": "تغيير الصورة",
+    "account": "حساب",
+    "selectYourBirthday": "اختر عيد ميلادك"
+  },
 
-    },
+  "Notifications": {
+    "title": "الإشعارات",
+    "notificationsLoginMessage": "قم بتسجيل الدخول لعرض إشعاراتك السابقة",
+    "unread": "غير مقروءة",
+    "read": "مقروءة"
+  },
 
-
-    "reviewSummary":{
-      "title":"ملخص المراجعة",
-      "duration":"مدة",
-      "dateHour": "التاريخ والساعة",
-      "package":"طَرد"
-    },
-
-
-    "myActivity":{
-      "title":"نشاطي",
-      "loginMessage": " قم بتسجيل الدخول لعرض أنشطتك السابقة",
-      "support":"الدعم",
-      "supportMessage":"من فضلك اترك رسالتك وسنقوم بالرد عليك خلال 48 ساعة.",
-      "all":"الكل",
-      "upcoming":"القادم",
-      "completed":"مكتمل",
-      "cancelled":"ملغى"
-    },
-
-
-    "myChat":{
-      "title":"دردشتي",
-      "myChatLoginMessage":"قم بتسجيل الدخول لعرض الدردشة السابقة"
-      },
-
-
-      "Profile":{
-        "title":"الملف الشخصي",
-        "location":"الموقع",
-        "notifications":"إشعارات",
-        "language":"لغة",
-        "manageCards":"إدارة البطاقات",
-        "favorites":"المفضلة",
-        "yourPoints":"نقاطك",
-        "help":"المساعدة",
-        "logout":"تسجيل خروج",
-        "welcomeToDoctors":"مرحبًا بك في موقع الأطباء",
-        "loginMessage":"تسجيل الدخول لاستكشاف تجربتنا بهيجة.",
-        "changePhoto":"تغيير الصورة",
-        "account":"حساب",
-        "selectYourBirthday":"اختر عيد ميلادك"
-
-      },
-
-      
-      "Notifications":{
-        "title":"الإشعارات",
-        "notificationsLoginMessage":"قم بتسجيل الدخول لعرض إشعاراتك السابقة",
-        "unread":"غير مقروءة",
-        "read":"مقروءة"
-  
-      },
-
-
-      "paymentCards":{
-        "masterCard":"ماستركارد",
-        "visa":"فيزا"
-      }
-
-
-
-
+  "paymentCards": {
+    "masterCard": "ماستركارد",
+    "visa": "فيزا"
+  }
 }

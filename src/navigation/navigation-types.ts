@@ -1,4 +1,4 @@
-import {Doctor} from "../@types";
+import {ChatType, Doctor} from "../@types";
 import {specialType} from "../@types/special-types";
 import {IconsName} from "../assets/svgs";
 
@@ -26,6 +26,7 @@ export type MainAppStackTypes = {
   YourPoints: undefined;
   Help: undefined;
   Account: undefined;
+  ChatRoom: {chatData?: ChatType};
 };
 
 export type HomeStackTypes = {
