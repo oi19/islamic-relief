@@ -4,7 +4,6 @@ import {Spacing} from "../../../styles";
 
 export const styles = StyleSheet.create({
   card: {
-    width: getWidth(326),
     height: getHeight(55),
     flexDirection: "row",
     marginVertical: Spacing.S8,

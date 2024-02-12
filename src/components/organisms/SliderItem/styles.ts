@@ -51,7 +51,6 @@ export const styles = StyleSheet.create({
   },
   nextStyle: {
     position: "absolute",
-    width: "90%",
     alignSelf: "center",
     flex: 1,
     bottom: getHeight(15),

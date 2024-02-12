@@ -43,7 +43,7 @@ const Profile: React.FC = () => {
                 navigate("Account");
               }}
               style={styles.card}>
-              <ViewRow style={{width: "80%"}}>
+              <ViewRow>
                 <Image source={Images.default} style={styles.avatar} />
                 <View style={{marginHorizontal: Spacing.S8}}>
                   <Text color="BLUE_4A5970" fontSize="FS16">

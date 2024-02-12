@@ -4,13 +4,13 @@ import {StyleSheet} from "react-native";
 
 export const styles = StyleSheet.create({
   mainCard: {
-    width: getWidth(340),
     minHeight: getHeight(90),
     alignItems: "flex-start",
-    justifyContent: "center",
-    alignSelf: "center",
+    justifyContent: "space-between",
     paddingHorizontal: Spacing.S16,
     marginTop: Spacing.S16,
+    marginHorizontal: getWidth(Spacing.S16),
+    marginEnd: getWidth(Spacing.S16),
   },
   image: {
     width: scale(54),
@@ -19,7 +19,7 @@ export const styles = StyleSheet.create({
   },
   row: {
     flexDirection: "row",
-    alignItems: "flex-start",
+    alignItems: "center",
   },
   container: {justifyContent: "space-between", alignItems: "flex-start"},
 });

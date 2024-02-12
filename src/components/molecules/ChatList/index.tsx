@@ -10,7 +10,7 @@ import {getHeight} from "../../../styles/dimensions";
 import {useLoader} from "../../../hooks/useLoader";
 import {Lottie} from "../../../assets/lottie";
 import {styles} from "./styles";
-import {dummyChatList} from "../../../dummyData"
+import {dummyChatList} from "../../../dummyData";
 
 type Props = {};
 const ChatList: FC<Props> = () => {
@@ -39,6 +39,7 @@ const ChatList: FC<Props> = () => {
         </View>
       ) : (
         <PaginationFlatlist
+          keyExtractor={index => index}
           data={dummyChatList}
           onLoadMore={() => {}}
           renderItem={_renderChatItem}

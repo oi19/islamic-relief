@@ -10,12 +10,12 @@ export const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: getHeight(20),
-    paddingHorizontal: Spacing.S20,
+    paddingHorizontal: getWidth(Spacing.S20),
   },
 
   headerWithoutLogin: {
-    paddingTop: Spacing.S56,
-    paddingHorizontal: Spacing.S20,
+    paddingTop: getHeight(Spacing.S56),
+    paddingHorizontal: getWidth(Spacing.S20),
   },
   button: {
     width: getWidth(326),
@@ -27,13 +27,13 @@ export const styles = StyleSheet.create({
   },
   card: {
     flexDirection: "row",
+    marginVertical: Spacing.S8,
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: Spacing.S8,
-    backgroundColor: Colors.TRANSPARENT,
-    width: getWidth(326),
-    marginTop: Spacing.S11,
+    paddingHorizontal: getWidth(Spacing.S16),
+    paddingEnd: getWidth(Spacing.S56),
+    paddingBottom: 0,
     borderWidth: 0,
-    alignSelf: "center",
+    backgroundColor: Colors.TRANSPARENT,
   },
 });

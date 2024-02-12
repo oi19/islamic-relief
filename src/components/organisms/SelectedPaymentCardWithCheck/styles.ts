@@ -5,20 +5,21 @@ import {getHeight, getWidth, scale} from "../../../styles/dimensions";
 export const styles = StyleSheet.create({
   card: {
     alignItems: "center",
-    justifyContent: "center",
     marginVertical: getHeight(Spacing.S8),
-    marginHorizontal: getWidth(Spacing.S40),
+    marginHorizontal: getWidth(Spacing.S20),
+    marginEnd: getWidth(Spacing.S20),
   },
   container: {
     justifyContent: "space-between",
     alignItems: "flex-start",
-    paddingStart: getWidth(Spacing.S11),
+    paddingStart: getWidth(Spacing.S16),
+    paddingTop: getHeight(Spacing.S20),
+    paddingBottom: getHeight(Spacing.S20),
   },
   image: {
     width: scale(32),
     height: scale(32),
     borderRadius: scale(50),
-    backgroundColor: "red",
   },
   icon: {
     color: Colors.WHITE,
@@ -37,4 +38,9 @@ export const styles = StyleSheet.create({
     alignItems: "center",
   },
   baseButton: {},
+  radioButtonStyle: {
+    width: scale(60),
+    height: scale(60),
+    justifyContent: "flex-end",
+  },
 });
