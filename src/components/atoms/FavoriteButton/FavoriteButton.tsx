@@ -8,12 +8,16 @@ import styles from "./styles";
 const FavoriteButton: FC<
   ViewProps & {
     isFavorite?: boolean;
+    onPress: Function;
   }
-> = ({isFavorite, ...props}) => {
+> = ({isFavorite, onPress, ...props}) => {
   let [_isFavorite, setFavorite] = useState(isFavorite);
+
   const onFavorite = () => {
+    onPress();
     setFavorite(!_isFavorite);
   };
+
   return (
     <Button
       onPress={onFavorite}
@@ -21,8 +25,8 @@ const FavoriteButton: FC<
       style={styles.button}
       iconName="favorite"
       iconStyle={{
-        width: scale(26),
-        height: scale(26),
+        width: scale(38),
+        height: scale(38),
         color: _isFavorite ? Colors.PRIMARY : undefined,
       }}
     />

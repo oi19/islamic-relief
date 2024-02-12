@@ -4,6 +4,7 @@ import {View} from "react-native";
 import {
   ActivityList,
   Button,
+  DoctorsList,
   HandleSignIn,
   Header,
   SupportModel,
@@ -15,6 +16,7 @@ import {getHeight, getWidth, scale} from "../../styles/dimensions";
 import {Spacing} from "../../styles";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {translate} from "../../helpers";
+import { doctors } from "../../dummyData";
 
 const MyActivity = () => {
   const supportModalRef = React.useRef<BottomSheetModal>(null);
@@ -24,7 +26,7 @@ const MyActivity = () => {
     () => [
       {
         name: translate("myActivity.all"),
-        // content: <DoctorsList listItems={doctors} />,
+        content: <DoctorsList listItems={doctors} />,
       },
       {
         name: translate("myActivity.upcoming"),

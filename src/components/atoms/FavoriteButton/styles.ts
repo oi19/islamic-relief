@@ -3,9 +3,9 @@ import {getHeight, getWidth, scale} from "../../../styles/dimensions";
 
 const styles = StyleSheet.create({
   container: {
-    position: "absolute",
-    bottom: getHeight(61),
-    right: getWidth(6),
+    // position: "absolute",
+    // bottom: getHeight(61),
+    // right: getWidth(6),
   },
   button: {
     paddingVertical: scale(6),

@@ -1,7 +1,7 @@
 import {RouteProp, useRoute} from "@react-navigation/native";
 import React from "react";
 import {View} from "react-native";
-import {BottomSheetModal} from "gorhom/bottom-sheet";
+import {BottomSheetModal} from "@gorhom/bottom-sheet";
 
 import {Images} from "../../assets/images";
 import {

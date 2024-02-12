@@ -19,13 +19,14 @@ import {isRTL} from "../../locals/i18n-config";
 import {useNavigationHooks} from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
 import {translate} from "../../helpers";
-import { CityTypes } from "../../@types";
-import { dummyCities } from "../../dummyData";
+import {CityTypes} from "../../@types";
+import {dummyCities} from "../../dummyData";
 
 const Profile: React.FC = () => {
-
-  const { navigate } = useNavigationHooks<MainAppStackTypes>();
-  const [selectedCity, setSelectedCity] = React.useState<CityTypes>(dummyCities[3]);
+  const {navigate} = useNavigationHooks<MainAppStackTypes>();
+  const [selectedCity, setSelectedCity] = React.useState<CityTypes>(
+    dummyCities[3],
+  );
 
   const isLogin: boolean = true;
   const renderHeader = () => {
@@ -87,7 +88,10 @@ const Profile: React.FC = () => {
         <ProfileList
           selectedCity={selectedCity}
           onSelectedCity={setSelectedCity}
-          listItems={getProfileListWithoutLogin(`${selectedCity?.name}, ${selectedCity?.countryName}`, isLogin)}
+          listItems={getProfileListWithoutLogin(
+            `${selectedCity?.name}, ${selectedCity?.countryName}`,
+            isLogin,
+          )}
         />
       </View>
     </View>

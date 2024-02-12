@@ -4,8 +4,6 @@ import {Colors, Spacing} from "../../../styles";
 
 export const styles = StyleSheet.create({
   cardContainer: {
-    width: getWidth(336),
-    height: getHeight(266),
     alignItems: "flex-start",
     paddingHorizontal: Spacing.S16,
     margin: Spacing.S8,
@@ -14,6 +12,10 @@ export const styles = StyleSheet.create({
     width: scale(74),
     height: scale(74),
     borderRadius: scale(50),
+  },
+  topRowViewContainerStyle: {
+    alignItems: "flex-start",
+    paddingTop: Spacing.S16,
   },
   notifications: {
     width: scale(32),
@@ -26,10 +28,11 @@ export const styles = StyleSheet.create({
   },
   spaceBetween: {
     justifyContent: "space-between",
+    marginVertical: Spacing.S11,
   },
   actionsButton: {
+    flex: 1,
     alignItems: "flex-end",
-    //  justifyContent: "flex-end",
     width: "22%",
   },
   moreInfo: {
@@ -39,5 +42,14 @@ export const styles = StyleSheet.create({
   baseButton: {
     width: getWidth(130),
     margin: Spacing.S11,
+  },
+  singleButtonStyle: {
+    alignSelf: "center",
+  },
+  prescriptionContainerStyle: {
+    alignItems: "flex-start",
+  },
+  walletTextContainerStyle: {
+    alignItems: "center",
   },
 });
