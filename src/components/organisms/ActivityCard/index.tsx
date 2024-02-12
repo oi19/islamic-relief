@@ -14,7 +14,7 @@ type ActivityCardProps = {
   index?: number;
 };
 const ActivityCard: React.FC<ActivityCardProps> = ({item, index}) => {
-  const isBooked: boolean = true;
+  const isBooked: boolean = false;
   const renderDoctorCard = () => {
     return (
       <View>
@@ -52,7 +52,7 @@ const ActivityCard: React.FC<ActivityCardProps> = ({item, index}) => {
         />
 
         <ViewRow style={[styles.rowContainer, {marginVertical: Spacing.S11}]}>
-          {false ? (
+          {isBooked ? (
             <>
               <Button
                 style={styles.baseButton}

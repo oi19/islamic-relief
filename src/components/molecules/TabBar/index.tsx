@@ -7,7 +7,7 @@ import {
   NativeScrollEvent,
 } from "react-native";
 import {styles} from "./styles";
-import { Tab } from "../../../@types";
+import {Tab} from "../../../@types";
 import {Button} from "../../../components/atoms";
 import {isRTL} from "../../../locals/i18n-config";
 import {SCREEN_WIDTH, getWidth} from "../../../styles/dimensions";

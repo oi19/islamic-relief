@@ -1,12 +1,25 @@
 import {FlatList, View} from "react-native";
-import React from "react";
+import React, {useEffect} from "react";
 import {styles} from "./styles";
-import {Header, Text} from "../../components";
+import {ActivityCard, DoctorsList, Header, Text} from "../../components";
 import {getHeight} from "../../styles/dimensions";
 import {Spacing} from "../../styles";
 import {Svgs} from "../../assets";
+import {doctors} from "../../dummyData";
+import {Doctor, FilterCondition} from "../../@types";
+import {filterArray, translate} from "../../helpers";
 
 const Favorites = () => {
+  // const doctorsLIst = useAppSelector(state => state.userReducer.doctorsList);
+  const isFavouriteCondition: FilterCondition<Doctor> = (doctor: Doctor) => {
+    return doctor.isFavourite === true;
+  };
+
+  const favouritDoctorsList = () => {
+    const favoriteList = filterArray(doctors, isFavouriteCondition);
+    return favoriteList;
+  };
+
   const renderEmptyList = () => {
     return (
       <View style={styles.emptyListContainer}>
@@ -17,18 +30,17 @@ const Favorites = () => {
       </View>
     );
   };
+
   return (
     <View style={styles.rootScreen}>
       <Header
-        title={"Favorites"}
+        title={translate("Profile.favorites")}
         style={{height: getHeight(120), paddingTop: Spacing.S20}}
       />
       <View style={styles.container}>
-        <FlatList
-          data={[]}
-          renderItem={undefined}
-          ListEmptyComponent={renderEmptyList()}
-          showsVerticalScrollIndicator={false}
+        <DoctorsList
+          listItems={favouritDoctorsList()}
+          renderEmptyList={renderEmptyList}
         />
       </View>
     </View>

@@ -11,4 +11,5 @@ export type Doctor = {
   reviews?: any[];
   description?: string;
   vezeeta?: number;
+  isFavourite?: boolean;
 };

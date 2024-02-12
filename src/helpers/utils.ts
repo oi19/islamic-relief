@@ -1,4 +1,5 @@
 import {Platform} from "react-native";
+import {FilterCondition} from "../@types";
 
 export const isIos = Platform.OS === "ios";
 export const isAndroid = Platform.OS === "android";
@@ -19,6 +20,11 @@ export const convertObjToFormData = (obj: any): FormData => {
   }
   return data;
 };
+
+export const filterArray = <T>(
+  array: T[],
+  condition: FilterCondition<T>,
+): T[] => array.filter(item => condition(item));
 
 export const formateImage = (image?: any) => {
   let photo;

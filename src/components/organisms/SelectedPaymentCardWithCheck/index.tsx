@@ -30,17 +30,19 @@ const SelectedPaymentCardWithCheck: React.FC<
     <>
       <Card style={styles.card} onPress={onSelected}>
         <ViewRow style={styles.container}>
-          {item?.image ? (
-            <Image source={{uri: item.image}} style={styles.image} />
-          ) : (
-            <RoundedIcon
-              iconStyle={{
-                color: Colors.PRIMARY,
-              }}
-              icon="notifications"
-              backgroundColor="GRAY_EEEEEE"
-            />
-          )}
+          <View>
+            {item?.image ? (
+              <Image source={{uri: item.image}} style={styles.image} />
+            ) : (
+              <RoundedIcon
+                iconStyle={{
+                  color: Colors.PRIMARY,
+                }}
+                icon="notifications"
+                backgroundColor="GRAY_EEEEEE"
+              />
+            )}
+          </View>
 
           {/* middle section */}
 
@@ -49,10 +51,9 @@ const SelectedPaymentCardWithCheck: React.FC<
               style={{
                 flex: 1,
                 marginStart: Spacing.S20,
-                paddingVertical: Spacing.S16,
                 paddingHorizontal: Spacing.S11,
               }}>
-              <Text fontFamily="BOLD" fontSize="FS14">
+              <Text fontFamily="MEDIUM" fontSize="FS16">
                 {item.name} {translate("Common.ending")}{" "}
                 {translate("Common.in")} {item.lastDigits}
               </Text>

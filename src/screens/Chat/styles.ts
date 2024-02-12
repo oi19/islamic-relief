@@ -3,9 +3,9 @@ import {Colors, Spacing} from "../../styles";
 
 export const styles = StyleSheet.create({
   rootScreen: {
+    width: "100%",
     flex: 1,
     backgroundColor: Colors.GRAY_EEEEEE,
-    paddingHorizontal: Spacing.S20,
     justifyContent: "center",
   },
   // innerView: {

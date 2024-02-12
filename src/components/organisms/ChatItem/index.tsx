@@ -2,11 +2,11 @@ import React from "react";
 import {View} from "react-native";
 
 import {styles} from "./styles";
-import { ChatType } from "../../../@types";
+import {ChatType} from "../../../@types";
 import {Card, Image, Text, ViewRow} from "../..";
 import {Images} from "../../../assets/images";
 import {Spacing} from "../../../styles/index";
-import { formatTimeAgo } from "../../../helpers";
+import {formatTimeAgo} from "../../../helpers";
 import {useNavigationHooks} from "../../../hooks/navigation-hooks";
 import {MainAppStackTypes} from "../../../navigation/navigation-types";
 

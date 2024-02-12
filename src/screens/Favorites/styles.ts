@@ -7,10 +7,13 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.GRAY_EEEEEE,
   },
   container: {
-    paddingTop: Spacing.S20,
-    alignItems: "center",
+    // paddingTop: Spacing.S20,
+    // alignItems: "center",
+    // flex: 1,
+    // paddingHorizontal: Spacing.S16,
     flex: 1,
-    paddingHorizontal: Spacing.S16,
+    paddingHorizontal: Spacing.S20,
+    paddingTop: Spacing.S20,
   },
   emptyListContainer: {
     alignItems: "center",

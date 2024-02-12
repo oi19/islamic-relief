@@ -1,4 +1,4 @@
-import { ReactNode } from "react";
+import {ReactNode} from "react";
 import {IconsName} from "../assets/svgs";
 import {MainNavigationKeys} from "../navigation/navigation-types";
 import {User} from "./user";
@@ -31,9 +31,8 @@ export type SelectedCheckPaymentCardType = {
   expiryDate?: string | number;
   type?: string;
   selected?: boolean | null;
-  lastDigits?:string
+  lastDigits?: string;
 };
-
 
 export type Review = {
   rating?: number;
@@ -50,3 +49,5 @@ export type profileRowType = {
   onPress?: string;
   navigateTo?: MainNavigationKeys;
 };
+
+export type FilterCondition<T> = (item: T) => boolean;
