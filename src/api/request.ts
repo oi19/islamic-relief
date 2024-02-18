@@ -2,17 +2,16 @@ import {AxiosResponse} from "axios";
 
 import {API} from ".";
 import APIs, {ApisTypes} from "./api-types";
-import {disableLoader, enableLoader} from "../redux/reducers/loadingReducer";
-import {ErrorResponseType} from "../@types/response-types";
-import {dispatch} from "../redux";
+import {disableLoader, dispatch, enableLoader} from "../redux/index";
+import {ErrorResponseType, ResponseTypes} from "../@types";
 
 type ApiMethodsTypes = "get" | "post" | "put" | "delete" | "patch";
 
-type RequestParams<T, R = null> = {
+export type RequestParams<T, R = null> = {
   method: ApiMethodsTypes;
   endPoint: keyof ApisTypes;
   body?: R;
-  callback?: (res: AxiosResponse<T>) => void;
+  callback?: (res: AxiosResponse<ResponseTypes<T>>) => void;
   params?: string;
 };
 
@@ -22,13 +21,17 @@ export async function request<T, R = null>({
   callback,
   body,
   params,
-}: RequestParams<T, R>) {
+}: // headers,
+RequestParams<T, R>) {
   dispatch(enableLoader(endPoint));
-  const response: AxiosResponse<T & ErrorResponseType> = await API[method](
-    `${APIs[endPoint]}${params ? params : ""}`,
-    body ? body : {},
-  );
-  dispatch(disableLoader(endPoint));
+
+  const response: AxiosResponse<ResponseTypes<T> & ErrorResponseType> | void =
+    await API[method](
+      `${APIs[endPoint]}${params ? params : ""}`,
+      body ? body : {},
+    ).finally(() => {
+      dispatch(disableLoader(endPoint));
+    });
   try {
     if (callback) {
       callback(response);
@@ -39,6 +42,7 @@ export async function request<T, R = null>({
       handleErrors(response.data);
     }
   } catch (e) {
+    console.log("response:" + e?.response?.data);
     console.log("Network error", e);
   }
 }

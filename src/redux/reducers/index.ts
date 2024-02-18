@@ -4,6 +4,12 @@ import {persistReducer} from "redux-persist";
 
 import loadingReducer from "./loadingReducer";
 import globalReducer from "./globalReducer";
+import createAccountReducer from "./createAccountReducer";
+import userReducer from "./userReducer";
+import homeReducer from "./homeReducer";
+import notificationReducer from "./notificationReducer";
+import transactionsReducer from "./transactionsReducer";
+import chatsReducer from "./chatsReducer";
 
 const rootPersistConfig = {
   key: "root",
@@ -19,18 +25,32 @@ const globalPersistConfig = {
   whitelist: ["firstTime", "chooseLanguageFirstTime"],
 };
 
-// const userPersistConfig = {
-//   key: "profile",
-//   storage: AsyncStorage,
-//   keyPrefix: "redux-user",
-//   whitelist: ["profile", "token"],
-// };
+const createAccountPersistConfig = {
+  key: "createAccount",
+  storage: AsyncStorage,
+  keyPrefix: "redux-create-account",
+  whitelist: ["userRegister"],
+};
+
+const userPersistConfig = {
+  key: "user",
+  storage: AsyncStorage,
+  keyPrefix: "redux-user",
+  whitelist: ["profile", "token"],
+};
 
 const rootReducers = combineReducers({
   loadingReducer,
+  homeReducer,
+  notificationReducer,
+  transactionsReducer,
+  chatsReducer,
+  userReducer: persistReducer(userPersistConfig, userReducer),
   globalReduce: persistReducer(globalPersistConfig, globalReducer),
-
-  //   userReducer: persistReducer(userPersistConfig, userReducer),
+  createAccountReducer: persistReducer(
+    createAccountPersistConfig,
+    createAccountReducer,
+  ),
 });
 
 export {rootPersistConfig, rootReducers};

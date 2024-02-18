@@ -3,7 +3,7 @@ export interface ApisTypes<T = string> {
   login: T;
   logout: T;
   registerUserForm: T;
-  doctorProfile: T;
+  userProfile: T;
   updateUserProfile: T;
 
   // Global APIS
@@ -20,7 +20,7 @@ export interface ApisTypes<T = string> {
   // // create Clinic
   // createClinic: T;
   // createScheduleTimes: T;
-  // createOrUpdateServices: T;
+  createOrUpdateServices: T;
   // updateClinic: T;
 
   // Appointments
@@ -60,13 +60,13 @@ const APIs: ApisTypes = {
   login: "/users/login",
   registerUserForm: "/users/register",
   logout: "/users/logout",
-  doctorProfile: "/users/profile",
+  userProfile: "/users/profile",
   updateUserProfile: "/users/profile/update",
 
   // create Clinic
   // createClinic: "/users/clinics/create",
   // createScheduleTimes: "/users/clinics/available-times/update",
-  // createOrUpdateServices: "/users/services/update",
+  createOrUpdateServices: "/users/services/update",
   // updateClinic: "/users/clinics",
 
   // Appointments

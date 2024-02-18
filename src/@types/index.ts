@@ -3,8 +3,11 @@ export * from "./user";
 export * from "./onboarding-types";
 export * from "./doctor";
 export * from "./common-types";
-export * from "./notifications-types"
-export * from "./appointment-types"
-export * from "./payment-card-types"
-export * from "./chats-types"
-export * from "./notifications-types"
+export * from "./notifications-types";
+export * from "./appointment-types";
+export * from "./payment-card-types";
+export * from "./chats-types";
+export * from "./notifications-types";
+export * from "./create-account-types";
+export * from "./transaction-types";
+export * from "./packages-types";

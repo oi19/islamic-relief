@@ -1,13 +1,10 @@
 export type ResponseTypes<ResponseList> = {
-  status?: {
-    code: number;
-    message: string;
-    error_details: string;
-    validation_errors: Array<string>;
-  };
-  content: ResponseList;
+  status?: boolean;
+  validation?: Array<string>;
+  code?: number;
+  data?: ResponseList;
   pagination?: PaginationTypes<ResponseList>;
-  reset?: boolean;
+  token?: string;
 };
 
 export type ErrorResponseType = {
