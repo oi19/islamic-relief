@@ -1,7 +1,13 @@
 import {View} from "react-native";
 import React from "react";
 import {styles} from "./styles";
-import {Button, Header, SelectCheckedPaymentCard, Text} from "../../components";
+import {
+  Button,
+  Header,
+  SelectCheckedPaymentCard,
+  Text,
+  WarningMessageModel,
+} from "../../components";
 import {getHeight} from "../../styles/dimensions";
 import {Colors, Spacing} from "../../styles";
 import {Svgs} from "../../assets";
@@ -9,22 +15,31 @@ import {paymentCards} from "../../dummyData";
 import {useNavigationHooks, useToken} from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
 import {translate} from "../../helpers";
+import {BottomSheetModal} from "@gorhom/bottom-sheet";
 
 const ManageCards = () => {
-  const [selectedItem, setSelectedItem] = React.useState<number>(-1);
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
   const isLogged = useToken();
 
-  const onSetAsDefaultPressed = () => {
-    // console.log('selectedItem')
-    // select this card as default logic
-
-    navigate("CompletePatientDetails");
-  };
+  const [selectedItem, setSelectedItem] = React.useState<{
+    index: number;
+    isDefault: boolean | null;
+  }>({index: -1, isDefault: null});
+  const warningModalRef = React.useRef<BottomSheetModal>(null);
 
   const onEditPressed = () => {
     console.log(selectedItem);
     // edit this card logic
+  };
+
+  const onNextPressed = () => {
+    if (selectedItem.index === -1) {
+      warningModalRef.current?.present();
+      return;
+    }
+    console.warn(selectedItem.isDefault);
+    // bussinessLogicHere
+    navigate("CompletePatientDetails");
   };
 
   const renderEmptyList = () => {
@@ -37,7 +52,6 @@ const ManageCards = () => {
         <Text style={{marginVertical: Spacing.S16}}>
           Add your credit or debit card to pay online
         </Text>
-
         <Button style={styles.saveButton} text="Add Card" type="standard" />
       </View>
     );
@@ -48,16 +62,21 @@ const ManageCards = () => {
       <>
         <SelectCheckedPaymentCard
           listItems={paymentCards}
-          onSelectedItem={setSelectedItem}
-          onSetAsDefaultPressed={onSetAsDefaultPressed}
           onEditPressed={onEditPressed}
+          selectedItem={selectedItem.index}
+          onSelectedItem={index =>
+            setSelectedItem({index: index, isDefault: null})
+          }
+          onSetAsDefaultPressed={index =>
+            setSelectedItem({index: index, isDefault: true})
+          }
         />
         <Button
-          disabled={selectedItem === -1}
+          // disabled={selectedItem === -1}
           type="standard"
           text={translate("Common.next")}
           style={{marginBottom: Spacing.S35}}
-          onPress={() => navigate("CompletePatientDetails")}
+          onPress={onNextPressed}
         />
       </>
     );
@@ -72,6 +91,14 @@ const ManageCards = () => {
       <View style={styles.container}>
         {true ? renderPaymentCardsList() : renderEmptyList()}
       </View>
+      <WarningMessageModel
+        forwardRef={warningModalRef}
+        title={translate("Model.warningTitle")}
+        message={translate("Model.pleaseSelectCardMessage")}
+        onContinuePress={() => {
+          warningModalRef.current?.close();
+        }}
+      />
     </View>
   );
 };

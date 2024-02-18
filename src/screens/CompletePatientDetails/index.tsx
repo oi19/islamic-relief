@@ -1,6 +1,6 @@
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import React from "react";
-import {View} from "react-native";
+import { View} from "react-native";
 import DocumentPicker, {
   DirectoryPickerResponse,
   DocumentPickerResponse,
@@ -9,7 +9,14 @@ import DocumentPicker, {
   types,
 } from "react-native-document-picker";
 
-import {Button, GenderModal, Header, Input, Text} from "../../components";
+import {
+  Button,
+  GenderModal,
+  Header,
+  Input,
+  Text,
+  WarningMessageModel,
+} from "../../components";
 import {genders} from "../../dummyData";
 import {getValueFromId, translate} from "../../helpers";
 import {Colors, Spacing} from "../../styles";
@@ -20,6 +27,7 @@ import {useNavigationHooks} from "../../hooks";
 
 const CompletePatientDetails = () => {
   const genderModalRef = React.useRef<BottomSheetModal>(null);
+  const warningModalRef = React.useRef<BottomSheetModal>(null);
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
 
   const [result, setResult] = React.useState<
@@ -30,6 +38,9 @@ const CompletePatientDetails = () => {
     | null
   >();
   const [selectedGender, setSelectedGender] = React.useState<number>(1);
+  const [selectedAge, setSelectedAge] = React.useState<number>(1);
+  const [selectedBookingReason, setSelectedBookingReason] =
+    React.useState<any>();
 
   const handleError = (err: unknown) => {
     if (isCancel(err)) {
@@ -62,6 +73,15 @@ const CompletePatientDetails = () => {
     setSelectedGender(genderId);
   };
 
+  const onNextPress = () => {
+    if (!!(selectedGender || selectedBookingReason || result || selectedAge)) {
+      warningModalRef?.current?.present();
+      return;
+    }
+    console.warn("submittedSuccessfully");
+    navigate("PaymentMethods");
+  };
+
   return (
     <View style={styles.rootScreen}>
       <Header
@@ -76,11 +96,13 @@ const CompletePatientDetails = () => {
         </Text>
         <Button
           type="dropdown"
-          // text={"Gander"}
+          // text={selectedBookingReason.name}
           placeholder={translate("completePatientDetails.bookingFor")}
           iconStyle={{color: Colors.PRIMARY}}
           style={styles.dropdownButton}
-          onPress={() => {}}
+          onPress={index => {
+            setSelectedBookingReason(index);
+          }}
         />
         <Text fontSize="FS14" fontFamily="MEDIUM" style={styles.title}>
           {translate("completePatientDetails.gender")}
@@ -99,6 +121,7 @@ const CompletePatientDetails = () => {
           <Input
             label={translate("completePatientDetails.yourAge")}
             placeholder="Enter your age"
+            keyboardType="number-pad"
           />
         </View>
 
@@ -106,7 +129,8 @@ const CompletePatientDetails = () => {
           disabled={false}
           type="border"
           text={
-            result?.name || translate("completePatientDetails.uploadDocuments")
+            // result?.name ||
+            translate("completePatientDetails.uploadDocuments")
           }
           iconName="upload"
           onPress={() => handleUploadDocuments()}
@@ -122,6 +146,7 @@ const CompletePatientDetails = () => {
             textAlignVertical="top"
             inputContainerStyle={styles.inputContainerStyle}
             inputStyle={styles.problemInputStyle}
+            keyboardType="default"
             // inputRef={problemInputRef}
           />
         </View>
@@ -129,7 +154,7 @@ const CompletePatientDetails = () => {
           disabled={false}
           type="standard"
           text={translate("Common.next")}
-          onPress={() => navigate("PaymentMethods")}
+          onPress={onNextPress}
           style={styles.nextButton}
         />
       </View>
@@ -139,6 +164,14 @@ const CompletePatientDetails = () => {
           onSelectedGender(id);
         }}
         forwardRef={genderModalRef}
+      />
+      <WarningMessageModel
+        forwardRef={warningModalRef}
+        title={translate("Model.warningTitle")}
+        message={translate("Model.allFieldsAreRequired")}
+        onContinuePress={() => {
+          warningModalRef.current?.close();
+        }}
       />
     </View>
   );
