@@ -1,24 +1,49 @@
 import {StyleSheet} from "react-native";
-import {Spacing} from "../../../styles";
-import {getHeight, getWidth} from "../../../styles/dimensions";
+import {Colors, Spacing} from "../../../styles";
+import {getHeight, getWidth, scale} from "../../../styles/dimensions";
 
 const styles = StyleSheet.create({
-  container: {
+  root: {
     width: "100%",
+    height: "100%",
+    justifyContent: "center",
     alignItems: "center",
   },
+  container: {
+    width: getWidth(330),
+    minHeight: getHeight(190),
+    backgroundColor: Colors.WHITE,
+    borderRadius: scale(12),
+    padding: Spacing.S16,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  roundedIcon: {
+    flexDirection: "row",
+    justifyContent: "flex-start",
+  },
+  okButton: {
+    width: getWidth(220),
+    alignSelf: "center",
+  },
   message: {
-    width: getWidth(270),
+    marginVertical: Spacing.S16,
+  },
+  title: {
+    marginHorizontal: Spacing.S16,
   },
   buttonsView: {
-    flexDirection: "row",
-    width: "75%",
+    width: "80%",
     justifyContent: "space-evenly",
     marginTop: Spacing.S20,
   },
   button: {
-    width: getWidth(113),
+    width: "100%",
     height: getHeight(40),
+    marginTop: Spacing.S11,
+  },
+  model: {
+    backgroundColor: Colors.TRANSPARENT,
   },
 });
 export default styles;
