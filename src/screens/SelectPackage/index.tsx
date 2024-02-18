@@ -1,6 +1,11 @@
-import React from "react";
+import React, {useRef} from "react";
 import {View} from "react-native";
-import {Button, Header, SelectCheckedOptions} from "../../components";
+import {
+  Button,
+  Header,
+  SelectCheckedOptions,
+  WarningMessageModel,
+} from "../../components";
 import {Spacing} from "../../styles";
 import {getHeight} from "../../styles/dimensions";
 import {styles} from "./styles";
@@ -8,10 +13,21 @@ import {useNavigationHooks} from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
 import {packages} from "./data";
 import {translate} from "../../helpers";
+import {BottomSheetModal} from "@gorhom/bottom-sheet";
 
 const SelectPackage = () => {
-  const [selectedItem, setSelectedItem] = React.useState<number>(-1);
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
+  const [selectedItem, setSelectedItem] = React.useState<number>(-1);
+  const warningModalRef = useRef<BottomSheetModal>(null);
+
+  const onNextPressed = () => {
+    if (selectedItem === -1) {
+      warningModalRef.current?.present();
+      return;
+    }
+    // submitLogic
+    navigate("CompletePatientDetails");
+  };
 
   return (
     <View style={styles.rootScreen}>
@@ -33,9 +49,17 @@ const SelectPackage = () => {
           type="standard"
           text={translate("Common.next")}
           style={{marginBottom: Spacing.S35}}
-          onPress={() => navigate("CompletePatientDetails")}
+          onPress={onNextPressed}
         />
       </View>
+      <WarningMessageModel
+        forwardRef={warningModalRef}
+        title={translate("Model.warningTitle")}
+        message={translate("Model.pleaseSelectPackageMessage")}
+        onContinuePress={() => {
+          warningModalRef.current?.close();
+        }}
+      />
     </View>
   );
 };
