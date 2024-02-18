@@ -101,6 +101,10 @@
   "Model": {
     "warningTitle": "Warning Message",
     "dateAndTimeMessage": "Please make sure to select date and time.",
+    "errorTitle": "Error Message",
+    "pleaseSelectPackageMessage": "Please Select a Package for your booking",
+    "pleaseSelectCardMessage": "Please Select a Card for your booking",
+    "allFieldsAreRequired": "All Fields are Required",
 
     "congratulations": "Congratulations",
     "congratulationsMessage": "Congratulations,Your account created successfully.",
@@ -196,5 +200,12 @@
   "PaymentCards": {
     "masterCard": "Masterard",
     "visa": "Visa"
+  },
+
+  "Points": {
+    "transactions": "Transactions",
+    "pointsEarned": "Points Earned",
+    "pointsSpent": "Points spent",
+    "points": "Points"
   }
 }
