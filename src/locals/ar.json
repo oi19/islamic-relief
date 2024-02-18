@@ -104,9 +104,12 @@
 
   "Model": {
     "warningTitle": "رسالة تحذير",
+    "errorTitle": "خطأ",
     "dateAndTimeMessage": "الرجاء التأكد من تحديد التاريخ والوقت.",
     "congratulations": "مبروك ",
     "congratulationsMessage": "تهانينا، تم إنشاء حسابك بنجاح.",
+    "pleaseSelectPackageMessage": "يرجى تحديد الباقة المناسبة للحجز",
+    "pleaseSelectCardMessage": "يرجى تحديد البطاقة المناسبة للحجز",
 
     "successfullyBooked": "لقد قمت بحجز موعد بنجاح مع",
     "leaveYourMessage": "اترك رسالتك",
@@ -209,5 +212,11 @@
   "paymentCards": {
     "masterCard": "ماستركارد",
     "visa": "فيزا"
+  },
+  "Points": {
+    "transactions": "المعاملات",
+    "pointsEarned": "النقاط المكتسبة",
+    "pointsSpent": "النقاط التي أنفقتها",
+    "points": "نقطة"
   }
 }
