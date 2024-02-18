@@ -8,12 +8,15 @@ import {TextWithIcon} from "../../molecules";
 import {styles} from "./styles";
 import {translate} from "../../../helpers";
 import {RenderDoctorCard} from "../../../screens/DoctorProfile";
+import {ConfirmModal} from "../../models";
+import {BottomSheetModal} from "@gorhom/bottom-sheet";
 
 type ActivityCardProps = {
   item: any;
   index?: number;
 };
 const ActivityCard: React.FC<ActivityCardProps> = ({item, index}) => {
+  const confirmModalRef = React.useRef<BottomSheetModal>(null);
   const isBooked: boolean = false;
   const renderDoctorCard = () => {
     return (
@@ -31,6 +34,22 @@ const ActivityCard: React.FC<ActivityCardProps> = ({item, index}) => {
         />
       </View>
     );
+  };
+
+  const onOpenConfirmModal = () => {
+    confirmModalRef.current?.present();
+  };
+
+  const onConfirm = () => {
+    console.log("confirm pressed");
+    console.log("cancel this appointment :" + item?.id + "isConfirmed");
+  };
+
+  const onReschadulePress = () => {
+    console.warn("onReschadulePress ");
+  };
+  const onBookAgainPress = () => {
+    console.warn("onBookAgainPress ");
   };
   return (
     <Card style={styles.card}>
@@ -52,19 +71,19 @@ const ActivityCard: React.FC<ActivityCardProps> = ({item, index}) => {
         />
 
         <ViewRow style={[styles.rowContainer, {marginVertical: Spacing.S11}]}>
-          {isBooked ? (
+          {true ? (
             <>
               <Button
                 style={styles.baseButton}
                 type="standard"
                 text={translate("Common.reschedule")}
-                // onPress={() => handlePayNowPress()}
+                onPress={onReschadulePress}
               />
               <Button
                 style={styles.baseButton}
                 type="border"
                 text={translate("Common.cancel")}
-                // onPress={() => handleCancelPress()}
+                onPress={onOpenConfirmModal}
               />
             </>
           ) : (
@@ -72,11 +91,16 @@ const ActivityCard: React.FC<ActivityCardProps> = ({item, index}) => {
               style={styles.baseButton}
               type="standard"
               text={translate("Common.bookAgain")}
-              // onPress={() => handleCancelPress()}
+              onPress={() => onBookAgainPress()}
             />
           )}
         </ViewRow>
       </View>
+      <ConfirmModal
+        message={translate("Model.appointmentCancelMessage")}
+        forwardRef={confirmModalRef}
+        onConfirm={onConfirm}
+      />
     </Card>
   );
 };
