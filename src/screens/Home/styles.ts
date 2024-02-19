@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
     height: getHeight(52),
     borderRadius: scale(12),
     width: getWidth(285),
-    justifyContent: "space-evenly",
+    justifyContent: "flex-start",
   },
   mainContentContainerStyle: {
     paddingTop: Spacing.S8,
