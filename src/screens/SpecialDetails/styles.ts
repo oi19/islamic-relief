@@ -21,5 +21,8 @@ export const styles = StyleSheet.create({
     borderRadius: scale(12),
     marginHorizontal: Spacing.S16,
   },
-  doctorListContainer: {flex: 1},
+  doctorListContainer: {
+    flex: 1,
+    paddingHorizontal: Spacing.S16,
+  },
 });

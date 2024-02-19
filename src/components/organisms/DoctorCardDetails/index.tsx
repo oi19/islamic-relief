@@ -9,7 +9,10 @@ import {TextWithIcon} from "../../molecules";
 import {styles} from "./styles";
 import {scale} from "../../../styles/dimensions";
 import {useNavigationHooks} from "../../../hooks";
-import {HomeStackTypes} from "../../../navigation/navigation-types";
+import {
+  HomeStackTypes,
+  MainNavigationAllScreensTypes,
+} from "../../../navigation/navigation-types";
 import {translate} from "../../../helpers";
 import FavoriteButton from "../../atoms/FavoriteButton/FavoriteButton";
 
@@ -19,9 +22,21 @@ type DoctorCardDetailsProps = {
 };
 
 const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
-  const {navigate} = useNavigationHooks<HomeStackTypes>();
-  // const isBooked: boolean = item.isBooked;
+  const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
+  // const {isBooked}: boolean = item;
   const isBooked: boolean = true;
+
+  const onBookAppointmentPressed = () => {
+    navigate("DoctorProfile", {
+      item,
+    });
+  };
+  const onBookTodayPressed = () => {
+    // dispatch action responsible for apointment data and add the buttons date
+    // skip the doctor details screen and head to selectPackageScreen
+    navigate("SelectPackage");
+  };
+  const onBookAgainPressed = () => {};
 
   return (
     <Card
@@ -44,7 +59,7 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
             {item?.specialty}
           </Text>
           <ViewRow>
-            <Rating size={scale(20)} />
+            <Rating size={scale(20)} rate={Number(item?.rating)} />
             <Text color="GRAY_A7A7A7">
               {5} | {20} {translate("Common.review")}
             </Text>
@@ -101,14 +116,14 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
               text={translate("Search.bookAppointment")}
               type="standard"
               style={styles.baseButton}
-              // onPress={() => onBookAppointmentPressed()}
+              onPress={() => onBookAppointmentPressed()}
             />
             <Button
               text="Today from 10:00 am"
               textStyle={{fontFamily: "BOLD", fontSize: "FS14"}}
               type="border"
               style={styles.baseButton}
-              // onPress={() => onBookTodayPressed()}
+              onPress={() => onBookTodayPressed()}
             />
           </>
         ) : (
@@ -116,7 +131,7 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
             style={styles.baseButton}
             type="standard"
             text={translate("Common.bookAgain")}
-            // onPress={() => onBookAgainPressed()}
+            onPress={() => onBookAgainPressed()}
           />
         )}
       </ViewRow>
