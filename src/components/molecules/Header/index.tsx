@@ -18,6 +18,7 @@ const Header: FC<{
   onFocus?: () => void;
   autoFocus?: boolean;
   style?: ViewStyle;
+  renderHeaderSideIcons?: () => React.ReactNode;
 }> = ({...props}) => {
   switch (props.type) {
     case "transparent":

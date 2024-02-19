@@ -207,5 +207,9 @@
     "pointsEarned": "Points Earned",
     "pointsSpent": "Points spent",
     "points": "Points"
+  },
+
+  "Share": {
+    "shareDoctorProfileMessage": "You can share with your family, friends, or just copy this link"
   }
 }
