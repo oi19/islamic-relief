@@ -32,6 +32,7 @@ const AddReviewModel: React.FC<AddReviewModelModelProps> = ({forwardRef}) => {
   const [images, setImages] = React.useState<
     DocumentPickerResponse[] | undefined | null
   >(null);
+  const [rating, setRating] = React.useState<string | null>();
 
   const handleError = (err: unknown) => {
     if (isCancel(err)) {
@@ -59,6 +60,15 @@ const AddReviewModel: React.FC<AddReviewModelModelProps> = ({forwardRef}) => {
     }
   };
 
+  const onSendReview = () => {
+    console.warn("Send Review Button is pressed");
+    // clear data
+    // // setImages(null);
+    // // setRating("0");
+    // dispatch logic with callbackfunction to close the modal
+    forwardRef.current?.close();
+  };
+
   return (
     <BaseModal
       forwardRef={forwardRef}
@@ -77,7 +87,12 @@ const AddReviewModel: React.FC<AddReviewModelModelProps> = ({forwardRef}) => {
           fontFamily="MEDIUM">
           {translate("Model.whatIsRate")}
         </Text>
-        <Rating size={scale(36)} />
+        <Rating
+          size={scale(36)}
+          disabled={false}
+          rate={Number(rating)}
+          onChangeValue={rating => setRating(rating)}
+        />
         <Text
           style={styles.shareOpinionText}
           fontSize="FS18"
@@ -122,6 +137,7 @@ const AddReviewModel: React.FC<AddReviewModelModelProps> = ({forwardRef}) => {
           type="standard"
           text={translate("Common.sendReview")}
           style={styles.sendReview}
+          onPress={onSendReview}
         />
       </View>
     </BaseModal>

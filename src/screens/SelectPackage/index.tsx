@@ -45,7 +45,6 @@ const SelectPackage = () => {
           listItems={packages}
         />
         <Button
-          disabled={selectedItem === -1}
           type="standard"
           text={translate("Common.next")}
           style={{marginBottom: Spacing.S35}}
