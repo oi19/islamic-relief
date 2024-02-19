@@ -1,8 +1,16 @@
 import {Platform} from "react-native";
 import {FilterCondition} from "../@types";
+import {DocumentPickerResponse} from "react-native-document-picker";
 
 export const isIos = Platform.OS === "ios";
 export const isAndroid = Platform.OS === "android";
+
+// Define the imageProps interface
+interface ImageProps {
+  name: string;
+  type: string;
+  uri: string;
+}
 
 export const getValueFromId = (id?: string | number, list?: any[]) => {
   if (list) {
@@ -26,17 +34,33 @@ export const filterArray = <T>(
   condition: FilterCondition<T>,
 ): T[] => array.filter(item => condition(item));
 
-export const formateImage = (image?: any) => {
-  let photo;
-
-  if (image) {
-    photo = {
-      name: image?.split("/")[image?.split("/").length - 1],
-      type: "image/jpeg",
-      uri: isIos ? image?.replace("file://", "") : image,
-    };
+export const formatImage = (
+  images?: DocumentPickerResponse[] | null,
+): DocumentPickerResponse[] => {
+  let photos: DocumentPickerResponse[];
+  if (!images) {
+    return []; // Return an empty array if images is null or undefined
   }
-  return photo;
+
+  photos = images.map(image => {
+    const name = image.fileCopyUri
+      ? image.fileCopyUri.split("/").pop() || ""
+      : "";
+    const uri = isIos
+      ? image.fileCopyUri
+        ? image.fileCopyUri.replace("file://", "")
+        : ""
+      : image.fileCopyUri;
+
+    return {
+      ...image,
+      name,
+      type: "image/jpeg",
+      uri: uri ?? "",
+    };
+  });
+
+  return photos;
 };
 
 export const combineErrorMessages = (errors: {[key: string]: string[]}) => {
@@ -71,36 +95,36 @@ export function handlePagination<T>(
   }
 }
 
-export function formatTimeAgo(currentDate: Date): string {
-  const timeDifference = new Date(Date.now()).getTime() - currentDate.getTime();
+// export function formatTimeAgo(currentDate: Date): string {
+//   const timeDifference = new Date(Date.now()).getTime() - currentDate.getTime();
 
-  const seconds = Math.floor(timeDifference / 1000);
-  const minutes = Math.floor(seconds / 60);
-  const hours = Math.floor(minutes / 60);
-  const days = Math.floor(hours / 24);
-  const weeks = Math.floor(days / 7);
+//   const seconds = Math.floor(timeDifference / 1000);
+//   const minutes = Math.floor(seconds / 60);
+//   const hours = Math.floor(minutes / 60);
+//   const days = Math.floor(hours / 24);
+//   const weeks = Math.floor(days / 7);
 
-  if (weeks > 0) {
-    return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
-  } else if (days > 0) {
-    return `${days} day${days > 1 ? "s" : ""} ago`;
-  } else if (hours > 0) {
-    return `${hours} hour${hours > 1 ? "s" : ""} ago`;
-  } else if (minutes > 0) {
-    return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
-  } else {
-    return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
-  }
-}
+//   if (weeks > 0) {
+//     return `${weeks} week${weeks > 1 ? "s" : ""} ago`;
+//   } else if (days > 0) {
+//     return `${days} day${days > 1 ? "s" : ""} ago`;
+//   } else if (hours > 0) {
+//     return `${hours} hour${hours > 1 ? "s" : ""} ago`;
+//   } else if (minutes > 0) {
+//     return `${minutes} minute${minutes > 1 ? "s" : ""} ago`;
+//   } else {
+//     return `${seconds} second${seconds > 1 ? "s" : ""} ago`;
+//   }
+// }
 
-export function formateDate(date: Date): string {
-  // Get the year, month, and day components
-  const year = date.getFullYear();
-  const month = ("0" + (date.getMonth() + 1)).slice(-2); // Months are zero-based
-  const day = ("0" + date.getDate()).slice(-2);
+// export function formateDate(date: Date): string {
+//   // Get the year, month, and day components
+//   const year = date.getFullYear();
+//   const month = ("0" + (date.getMonth() + 1)).slice(-2); // Months are zero-based
+//   const day = ("0" + date.getDate()).slice(-2);
 
-  // Format the date as "YYYY-MM-DD"
-  const formattedDate = year + "-" + month + "-" + day;
+//   // Format the date as "YYYY-MM-DD"
+//   const formattedDate = year + "-" + month + "-" + day;
 
-  return formattedDate;
-}
+//   return formattedDate;
+// }

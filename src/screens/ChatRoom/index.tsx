@@ -9,18 +9,19 @@ import DocumentPicker, {
 
 import {Images} from "../../assets/images";
 import {Button, Image, Input, Text, ViewRow} from "../../components/atoms";
-import {ChatRoomList} from "../../components/molecules";
-import {convertObjToFormData, formateImage, isIos} from "../../helpers/utils";
+import {ChatRoomList, SelectedMultiPhotos} from "../../components/molecules";
+import {convertObjToFormData, formatImage, isIos} from "../../helpers/utils";
 // import { usePusher } from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
 import {RouteProp, useRoute} from "@react-navigation/native";
 // import { getRoomMessages, sendChatMessage } from "../../redux/actions/chatAction";
 // import { sendMessage } from "../../redux/reducers/chatsReducer";
-import { useAppSelector, useDispatch } from "../../redux/index";
+import {useAppSelector, useDispatch} from "../../redux/index";
 import {Colors} from "../../styles/index";
 import {styles} from "./styles";
 import {translate} from "../../helpers/language";
 import {useNavigationHooks} from "../../hooks/navigation-hooks";
+import {isRTL} from "../../locals/i18n-config";
 
 export default function ChatRoom() {
   const {
@@ -34,11 +35,11 @@ export default function ChatRoom() {
 
   // const {id} = useAppSelector(state => state.doctorReducer.profile);
   const [message, setMessage] = React.useState("");
-  const [image, setImage] = React.useState<{
-    selectedImage: DocumentPickerResponse | null;
+  const [images, setImages] = React.useState<{
+    selectedImages: Array<DocumentPickerResponse> | undefined | null;
     visible: boolean;
   }>({
-    selectedImage: null,
+    selectedImages: null,
     visible: false,
   });
 
@@ -58,7 +59,7 @@ export default function ChatRoom() {
       duration: 200,
       useNativeDriver: true,
     }).start(() => {
-      setImage({...image, visible: false});
+      setImages({...images, visible: false});
     });
   };
 
@@ -94,20 +95,29 @@ export default function ChatRoom() {
   // }, [connect, getAllMessage, id]);
 
   const handleOnSend = async () => {
-    if (message.length > 0) {
+    // console.warn("send Button Pressed");
+
+    if (
+      message.length > 0 ||
+      (images.selectedImages && images.selectedImages?.length > 0)
+    ) {
       const messageBody = {
         receiver_id: chatData?.id,
         content: message,
         receiver_type: "User",
-        image: image ? formateImage(image?.selectedImage?.fileCopyUri) : null,
+        image: images ? formatImage(images?.selectedImages) : null,
       };
+      setMessage("");
+      setImages({
+        selectedImages: null,
+        visible: false,
+      });
       const _data = convertObjToFormData(messageBody);
-
       // await sendChatMessage(_data, () => {
       //   flatlistRef?.current?.scrollToOffset({offset: 0, animated: true});
       //   setMessage("");
       //   setImage({
-      //     selectedImage: null,
+      //     selectedImages: null,
       //     visible: false,
       //   });
       // });
@@ -127,20 +137,21 @@ export default function ChatRoom() {
     }
   };
 
-  const pickPicture = async () => {
+  const handleUploadDocuments = async () => {
     try {
-      const pickerResult = await DocumentPicker.pickSingle({
+      const pickedImages = await DocumentPicker.pick({
+        allowMultiSelection: true,
         presentationStyle: "fullScreen",
         copyTo: "cachesDirectory",
-        type: types.images,
+        type: [types.images],
       });
-      if (pickerResult?.fileCopyUri) {
-        setImage({
-          selectedImage: pickerResult,
-          visible: true,
-        });
-        fadeIn();
-      }
+      // if (pickedImages && pickedImages[0]?.fileCopyUri) {
+      setImages({
+        selectedImages: pickedImages,
+        visible: true,
+      });
+      fadeIn();
+      // }
     } catch (e) {
       handleError(e);
     }
@@ -152,7 +163,7 @@ export default function ChatRoom() {
         <Button
           iconName="arrow"
           iconStyle={{
-            rotate: "right",
+            rotate: isRTL() ? "right" : "left",
           }}
           onPress={() => goBack()}
         />
@@ -175,55 +186,61 @@ export default function ChatRoom() {
         <View style={styles.rootScreen}>
           <ChatRoomList flatlistRef={flatlistRef} />
         </View>
-        {image.visible && (
-          <Animated.View
-            style={{
-              opacity: fadeAnim,
-            }}>
-            <ViewRow style={styles.imageContainer}>
-              {/* <Image
-                source={{uri: image.selectedImage?.fileCopyUri}}
-                style={styles.selectedImage}
-              /> */}
-              <View>
-                <Button
-                  iconName="close"
-                  onPress={() => {
-                    fadeOut(); // Trigger fade out animation when closing the image container
-                  }}
-                  style={styles.closeButton}
-                />
-              </View>
-            </ViewRow>
-          </Animated.View>
-        )}
-
-        <ViewRow style={styles.inputContainer}>
-          <Button
-            iconName="send"
-            onPress={handleOnSend}
-            iconStyle={{
-              color: Colors.PRIMARY,
-            }}
-            iconContainerStyle={styles.iconContainer}
-          />
-          <Input
-            onChangeText={setMessage}
-            value={message}
-            inputContainerStyle={styles.input}
-            placeholder={translate("completePatientDetails.writeHere")}
-            placeholderTextColor={Colors.FONT_07101A}
-          />
-
-          <Button
-            iconName="plus"
-            onPress={pickPicture}
-            iconStyle={{
-              color: Colors.PRIMARY,
-            }}
-            iconContainerStyle={styles.iconContainer}
-          />
-        </ViewRow>
+        <View style={styles.bottomSectionContainer}>
+          {images.selectedImages && images.visible ? (
+            <Animated.View
+              style={{
+                opacity: fadeAnim,
+              }}>
+              <Button
+                iconName="close"
+                onPress={() => {
+                  fadeOut(); // Trigger fade out animation when closing the image container
+                }}
+                style={styles.closeButton}
+                iconStyle={{
+                  color: Colors.BLACK,
+                }}
+              />
+              <FlatList
+                data={null}
+                renderItem={null}
+                showsHorizontalScrollIndicator={false}
+                horizontal
+                ListHeaderComponent={
+                  <View style={styles.imageContainer}>
+                    <SelectedMultiPhotos listItems={images.selectedImages} />
+                  </View>
+                }
+              />
+            </Animated.View>
+          ) : null}
+          <ViewRow style={styles.inputContainer}>
+            <Button
+              iconName="send"
+              onPress={handleOnSend}
+              iconStyle={{
+                color: Colors.PRIMARY,
+              }}
+              iconContainerStyle={styles.iconContainer}
+            />
+            <Input
+              onChangeText={setMessage}
+              value={message}
+              inputContainerStyle={styles.input}
+              placeholder={translate("completePatientDetails.writeHere")}
+              placeholderTextColor={Colors.FONT_07101A}
+            />
+            <Button
+              iconName="plus"
+              onPress={handleUploadDocuments}
+              iconStyle={{
+                color: Colors.GRAY_CBCBCB,
+              }}
+              iconContainerStyle={styles.iconContainer}
+            />
+          </ViewRow>
+        </View>
       </View>
     </KeyboardAvoidingView>
   );
