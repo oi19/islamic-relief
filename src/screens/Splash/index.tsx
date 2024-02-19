@@ -20,16 +20,12 @@ const Splash: React.FC = () => {
       duration: animationDuration,
       easing: Easing.out(Easing.exp),
       useNativeDriver: false, // Adjust to true if needed
-    }).start(({finished}) => {
-      if (finished) {
-        navigate("OnBoarding");
-      }
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }).start();
   }, []);
 
   const chooseLanguageFirstTime = (language: "ar" | "en") => {
     changeLanguage(language);
+    navigate("OnBoarding");
   };
 
   return (
