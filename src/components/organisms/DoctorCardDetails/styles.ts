@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     alignItems: "flex-start",
     paddingHorizontal: Spacing.S16,
     margin: Spacing.S8,
+    elevation: 3,
   },
   image: {
     width: scale(74),

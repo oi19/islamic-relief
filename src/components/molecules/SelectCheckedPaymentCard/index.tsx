@@ -6,44 +6,35 @@ import SelectedPaymentCardWithCheck from "../../organisms/SelectedPaymentCardWit
 
 type SelectCheckedOptionsProps = {
   listItems: SelectedCheckPaymentCardType[];
-  onSelectedItem?: (index: number) => void;
-  onSetAsDefaultPressed?: () => void;
-  onEditPressed?: () => void;
+  selectedItem: number;
+  onSelectedItem: (index: number) => void;
+  onSetAsDefaultPressed: (index: number) => void;
+  onEditPressed: () => void;
 };
 const SelectCheckedPaymentCard: React.FC<SelectCheckedOptionsProps> = ({
   listItems,
   onSelectedItem,
-  onSetAsDefaultPressed,
   onEditPressed,
+  onSetAsDefaultPressed,
+  selectedItem,
 }) => {
-  const [selectedItemIndex, setSelectedItemIndex] = React.useState<number>(-1);
-
   const _selectedItemRender: ListRenderItem<SelectedCheckPaymentCardType> = ({
     item,
     index,
   }) => {
-    const active = selectedItemIndex === index;
+    const active = selectedItem === index;
     return (
       <SelectedPaymentCardWithCheck
         active={active}
         item={item}
         index={index}
         onSetAsDefaultPressed={() => {
-          if (onSetAsDefaultPressed) {
-            onSetAsDefaultPressed();
-          }
+          onSetAsDefaultPressed(index);
         }}
         onSelected={() => {
-          if (onSelectedItem) {
-            onSelectedItem(index);
-          }
-          setSelectedItemIndex(index);
+          onSelectedItem(index);
         }}
-        onEditPressed={() => {
-          if (onEditPressed) {
-            onEditPressed();
-          }
-        }}
+        onEditPressed={onEditPressed}
       />
     );
   };

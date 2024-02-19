@@ -16,7 +16,7 @@ import {getHeight, getWidth, scale} from "../../styles/dimensions";
 import {Spacing} from "../../styles";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {translate} from "../../helpers";
-import { doctors } from "../../dummyData";
+import {doctors} from "../../dummyData";
 
 const MyActivity = () => {
   const supportModalRef = React.useRef<BottomSheetModal>(null);
@@ -44,7 +44,6 @@ const MyActivity = () => {
   const onOpenWarningModal = () => {
     supportModalRef.current?.present();
   };
-
   return (
     <View style={styles.rootScreen}>
       {false ? (
@@ -93,7 +92,9 @@ const MyActivity = () => {
         forwardRef={supportModalRef}
         message={translate("myActivity.supportMessage")}
         onConfirmPress={() => {
-          // warningModalRef.current?.close();
+          //contact support logic
+          console.log("your problem was sent successfuly to support ")
+          supportModalRef.current?.close();
         }}
       />
     </View>

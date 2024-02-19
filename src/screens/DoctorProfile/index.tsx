@@ -32,7 +32,7 @@ import {getHeight} from "../../styles/dimensions";
 import {styles} from "./styles";
 import {IconsName} from "../../assets/svgs";
 import {Reviews} from "../../dummyData";
-import {useNavigationHooks} from "../../hooks";
+import {useNavigationHooks, useToken} from "../../hooks";
 import {Doctor} from "../../@types";
 import {translate} from "../../helpers";
 
@@ -50,6 +50,8 @@ const DoctorProfile = () => {
   });
   const warningModalRef = React.useRef<BottomSheetModal>(null);
   const addReviewModalRef = React.useRef<BottomSheetModal>(null);
+  // const isLogged = useToken();
+  const isLogged = true;
 
   const onOpenWarningModal = () => {
     warningModalRef.current?.present();
@@ -60,9 +62,15 @@ const DoctorProfile = () => {
       onOpenWarningModal();
       return;
     }
-    navigate("Login", {
-      navigateTo: "SelectPackage",
-    });
+    if (isLogged) {
+      navigate("SelectPackage");
+    } else {
+      navigate("Login", {
+        navigateTo: "SelectPackage",
+      });
+    }
+    // logic bussiness 
+    // dispatch action and add date & time to store 
   };
 
   // {/* Doctor Information section */}

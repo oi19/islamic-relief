@@ -1,5 +1,5 @@
 import {RouteProp, useRoute} from "@react-navigation/native";
-import React, {useMemo} from "react";
+import React, {useEffect, useMemo} from "react";
 import {View} from "react-native";
 import {DoctorsList, Header, SearchBar, TabsView} from "../../components";
 import {HomeStackTypes} from "../../navigation/navigation-types";
@@ -15,6 +15,11 @@ const SpecialDetails = () => {
     params: {item},
   } = useRoute<RouteProp<HomeStackTypes, "SpecialDetails">>();
   const [selectedTab, setSelectedTab] = React.useState<number>(0);
+
+  useEffect(() => {
+    // getDoctorsList()
+  }, []);
+
   const tabs: TabOptionType[] = useMemo(
     () => [
       {
@@ -23,16 +28,20 @@ const SpecialDetails = () => {
       },
       {
         name: translate("Search.priceToHigh"),
+        content: <DoctorsList listItems={doctors} />,
       },
       {
         name: translate("Search.priceToLow"),
+        content: <DoctorsList listItems={doctors} />,
       },
       {
         name: translate("Search.shortTimes"),
+        content: <DoctorsList listItems={doctors} />,
       },
     ],
     [],
   );
+
   return (
     <View style={styles.rootScreen}>
       <Header
