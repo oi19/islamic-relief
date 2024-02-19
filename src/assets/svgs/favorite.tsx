@@ -11,7 +11,7 @@ const Favorite = (props: SvgProps) => (
         cy={12}
         r={12}
         transform="translate(290 318)"
-        fill="#fff"
+        fill="none"
       />
       <G id="heart" transform="translate(294.334 323)">
         <Path

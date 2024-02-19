@@ -35,6 +35,8 @@ import {Reviews} from "../../dummyData";
 import {useNavigationHooks, useToken} from "../../hooks";
 import {Doctor} from "../../@types";
 import {translate} from "../../helpers";
+import FavoriteButton from "../../components/atoms/FavoriteButton/FavoriteButton";
+import useNativeShare from "../../hooks/useNativeShare";
 
 const DoctorProfile = () => {
   const {
@@ -50,6 +52,14 @@ const DoctorProfile = () => {
   });
   const warningModalRef = React.useRef<BottomSheetModal>(null);
   const addReviewModalRef = React.useRef<BottomSheetModal>(null);
+  const {shareContent, error} = useNativeShare();
+
+  const handleShare = () => {
+    shareContent({
+      title: "Check out this link!",
+      message: "https://reactnative.dev/docs/share?language=typescript",
+    });
+  };
   // const isLogged = useToken();
   const isLogged = true;
 
@@ -69,8 +79,37 @@ const DoctorProfile = () => {
         navigateTo: "SelectPackage",
       });
     }
-    // logic bussiness 
-    // dispatch action and add date & time to store 
+    // logic bussiness
+    // dispatch action and add date & time to store
+  };
+
+  const renderHeaderSideIcons = () => {
+    return (
+      <View
+        style={{
+          flexDirection: "row",
+          marginEnd: 10,
+          alignItems: "center",
+        }}>
+        <Button
+          iconName="share"
+          iconStyle={styles.shareIconStyle}
+          onPress={() => {
+            //open share ModalhandleShare
+            // console.warn("share button is pressed");
+            handleShare();
+          }}
+        />
+        <FavoriteButton
+          favouriteColor={Colors.WHITE}
+          onPress={() => {
+            //dispatch action logic updating isFavourite props
+
+            console.warn("like button  button is pressed");
+          }}
+        />
+      </View>
+    );
   };
 
   // {/* Doctor Information section */}
@@ -181,6 +220,7 @@ const DoctorProfile = () => {
       <Header
         title={translate("DoctorProfile.title")}
         style={{height: getHeight(120), paddingTop: Spacing.S20}}
+        renderHeaderSideIcons={renderHeaderSideIcons}
       />
       <View style={styles.container}>
         <Scroll>

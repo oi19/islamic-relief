@@ -97,7 +97,8 @@ const Home = () => {
             renderItem={topRatedDoctor}
             data={doctors}
             horizontal={true}
-            navigateTo="ManuallyLocation"
+            navigateTo="SpecialDetails"
+            params={{item: {name: translate("Home.topRatedDoctors")}}}
           />
         </Scroll>
       </View>

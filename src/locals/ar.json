@@ -218,5 +218,8 @@
     "pointsEarned": "النقاط المكتسبة",
     "pointsSpent": "النقاط التي أنفقتها",
     "points": "نقطة"
+  },
+  "Share": {
+    "shareDoctorProfileMessage": "يمكنك مشاركتها مع عائلتك أو أصدقائك أو فقط قم بنسخ هذا الرابط"
   }
 }

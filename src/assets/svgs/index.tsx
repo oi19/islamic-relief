@@ -70,6 +70,7 @@ import Microphone from "./microphone";
 import Change from "./change";
 import Volume from "./volume";
 import EmptyNotification from "./emptyNotification";
+import Share from "./share";
 
 export type IconsName =
   | "remove"
@@ -139,7 +140,8 @@ export type IconsName =
   | "change"
   | "volume"
   | "microphone"
-  | "emptyNotification";
+  | "emptyNotification"
+  | "share";
 
 export type RotateTypes = "left" | "right" | "top" | "bottom";
 
@@ -391,6 +393,8 @@ function Svgs(props: IconsProps & SvgProps) {
           style={[props.rotate && style, props.style]}
         />
       );
+    case "share":
+      return <Share {...props} style={[props.rotate && style, props.style]} />;
     default:
       return <NotFound {...props} />;
   }

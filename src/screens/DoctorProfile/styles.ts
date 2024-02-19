@@ -48,4 +48,8 @@ export const styles = StyleSheet.create({
     alignSelf: "center",
   },
   center: {alignItems: "center", justifyContent: "center"},
+  shareIconStyle: {
+    width: getWidth(22),
+    height: getHeight(22),
+  },
 });

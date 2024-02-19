@@ -9,8 +9,10 @@ const FavoriteButton: FC<
   ViewProps & {
     isFavorite?: boolean;
     onPress: Function;
+    favouriteColor?: string;
+    defaultColor?: string;
   }
-> = ({isFavorite, onPress, ...props}) => {
+> = ({isFavorite, onPress, favouriteColor, defaultColor, ...props}) => {
   let [_isFavorite, setFavorite] = useState(isFavorite);
 
   const onFavorite = () => {
@@ -27,7 +29,13 @@ const FavoriteButton: FC<
       iconStyle={{
         width: scale(38),
         height: scale(38),
-        color: _isFavorite ? Colors.PRIMARY : undefined,
+        color: _isFavorite
+          ? favouriteColor
+            ? favouriteColor
+            : Colors.PRIMARY
+          : defaultColor
+          ? defaultColor
+          : undefined,
       }}
     />
   );

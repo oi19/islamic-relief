@@ -11,20 +11,24 @@ import styles from "./styles";
 
 type DefaultHeaderProps = {
   title?: string;
+  renderHeaderSideIcons?: () => React.ReactNode;
 };
 
 const DefaultHeader: FC<TouchableOpacityProps & DefaultHeaderProps> = memo(
-  ({title, ...props}) => {
+  ({title, renderHeaderSideIcons, ...props}) => {
     const {goBack} = useNavigationHooks<MainAppStackTypes>();
-
+    console.warn(renderHeaderSideIcons ? true : false);
     return (
       <View style={StyleSheet.flatten([styles.headerContainer, props.style])}>
         <View
           style={[
             styles.row,
-            {justifyContent: title ? "flex-start" : "center"},
+            {
+              justifyContent:
+                title || renderHeaderSideIcons ? "space-between" : "center",
+            },
           ]}>
-          {title ? (
+          {title && (
             <Button
               iconStyle={{rotate: isRTL() ? "right" : "left"}}
               onPress={goBack}
@@ -32,10 +36,10 @@ const DefaultHeader: FC<TouchableOpacityProps & DefaultHeaderProps> = memo(
               iconName="arrow"
               text={title}
             />
-          ) : (
+          )}
+          {!title && !renderHeaderSideIcons && (
             <View
               style={{
-                width: title ? "50%" : "100%",
                 alignItems: "center",
                 justifyContent: "center",
               }}>
@@ -49,6 +53,7 @@ const DefaultHeader: FC<TouchableOpacityProps & DefaultHeaderProps> = memo(
               />
             </View>
           )}
+          {renderHeaderSideIcons && renderHeaderSideIcons()}
         </View>
       </View>
     );
