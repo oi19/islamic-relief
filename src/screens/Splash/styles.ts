@@ -35,5 +35,6 @@ export const styles = StyleSheet.create({
     // width: SCREEN_WIDTH,
     width: "90%",
     justifyContent: "space-around",
+    flexDirection: "row",
   },
 });
