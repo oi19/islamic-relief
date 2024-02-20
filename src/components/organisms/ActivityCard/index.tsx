@@ -41,15 +41,16 @@ const ActivityCard: React.FC<ActivityCardProps> = ({item, index}) => {
   };
 
   const onConfirm = () => {
+    confirmModalRef.current?.close();
     console.log("confirm pressed");
     console.log("cancel this appointment :" + item?.id + "isConfirmed");
   };
 
   const onReschadulePress = () => {
-    console.warn("onReschadulePress ");
+    console.log("onReschadulePress ");
   };
   const onBookAgainPress = () => {
-    console.warn("onBookAgainPress ");
+    console.log("onBookAgainPress ");
   };
   return (
     <Card style={styles.card}>
