@@ -23,7 +23,7 @@ export type MainAppStackTypes = {
   ManageCards: undefined;
   ResetPassword: undefined;
   Favorites: undefined;
-  YourPoints: undefined;
+  Points: undefined;
   Help: undefined;
   Account: undefined;
   ChatRoom: {chatData?: ChatType};

@@ -11,7 +11,11 @@ import {
   Text,
   ViewRow,
 } from "../../components";
-import {useNavigationHooks} from "../../hooks";
+import {useForm} from "react-hook-form";
+import {LoginTypes} from "../../@types";
+import {userLogin} from "../../redux";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {useLoader, useNavigationHooks} from "../../hooks";
 import {
   MainAppStackTypes,
   MainNavigationAllScreensTypes,
@@ -21,25 +25,36 @@ import {styles} from "./styles";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {RouteProp, useRoute} from "@react-navigation/native";
 import {translate} from "../../helpers";
+import {AccountLoginSchema} from "../../helpers/validationSchema";
+import ErrorMessageModal from "../../components/models/ErrorMessageModal";
 
 const Login = () => {
   const {
     params: {navigateTo},
   } = useRoute<RouteProp<MainAppStackTypes, "Login">>();
-  const successModalRef = React.useRef<BottomSheetModal>(null);
-
   const {goBack, navigate} =
     useNavigationHooks<MainNavigationAllScreensTypes>();
+
+  const successModalRef = React.useRef<BottomSheetModal>(null);
+  const errorModalRef = React.useRef<BottomSheetModal>(null);
+  const loginLoader = useLoader("login");
+
+  const {
+    setValue,
+    handleSubmit,
+    formState: {errors},
+  } = useForm({
+    resolver: yupResolver(AccountLoginSchema),
+  });
 
   const onOpenSuccessModal = () => {
     successModalRef.current?.present();
   };
 
-  const handleLoginPressed = () => {
-    onOpenSuccessModal();
-    // navigate("Login", {
-    //   navigateTo: undefined,
-    // });
+  const handleLoginPressed = async (data: LoginTypes) => {
+    userLogin(data, res => {
+      onOpenSuccessModal();
+    });
   };
 
   return (
@@ -64,6 +79,8 @@ const Login = () => {
           style={styles.input}
           keyboardType="phone-pad"
           inputContainerStyle={styles.inputContainer}
+          onChangeText={text => setValue("mobile", text)}
+          error={errors?.mobile?.message}
         />
         <Input
           password
@@ -71,6 +88,8 @@ const Login = () => {
           placeholder={translate("Form.enterPassword")}
           style={styles.input}
           inputContainerStyle={styles.inputContainer}
+          onChangeText={text => setValue("password", text)}
+          error={errors?.password?.message}
         />
         <ViewRow style={{justifyContent: "space-between"}}>
           <CheckBox text={translate("Form.rememberMe")} />
@@ -87,13 +106,17 @@ const Login = () => {
           <Button
             text={translate("Form.login")}
             type="standard"
-            onPress={() => handleLoginPressed()}
+            onPress={handleSubmit(handleLoginPressed)}
             style={styles.button}
+            isLoading={loginLoader}
           />
           <Button
             text={translate("Form.createAccount")}
             type="border"
             style={styles.button}
+            onPress={() => {
+              navigate("Account");
+            }}
           />
         </View>
         <ViewRow style={{justifyContent: "space-between"}}>
@@ -128,6 +151,7 @@ const Login = () => {
           </Text>
         </Text>
       </View>
+
       <SuccessModel
         forwardRef={successModalRef}
         message={translate("Model.congratulationsMessage")}
@@ -142,6 +166,12 @@ const Login = () => {
           }, 5);
         }}
       />
+      <ErrorMessageModal
+        forwardRef={errorModalRef}
+        message={translate("Modal.Error")}
+      />
+
+      {loginLoader && <View style={styles.disableClicks} />}
     </View>
   );
 };

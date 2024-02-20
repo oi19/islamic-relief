@@ -16,19 +16,27 @@ import {getProfileListWithoutLogin} from "./data";
 import {Images} from "../../assets/images";
 import {Svgs} from "../../assets";
 import {isRTL} from "../../locals/i18n-config";
-import {useNavigationHooks} from "../../hooks";
+import {useLoader, useNavigationHooks, useToken} from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
 import {translate} from "../../helpers";
-import {CityTypes} from "../../@types";
-import {dummyCities} from "../../dummyData";
+import {CityType} from "../../@types";
+import {getUserProfile, useAppSelector} from "../../redux";
+import {useFocusEffect} from "@react-navigation/native";
 
 const Profile: React.FC = () => {
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
-  const [selectedCity, setSelectedCity] = React.useState<CityTypes>(
-    dummyCities[3],
-  );
+  const {profile} = useAppSelector(state => state.userReducer?.profile);
+  const profileLoading = useLoader("userProfile");
+  const isLogin = useToken();
 
-  const isLogin: boolean = true;
+  console.log(profile);
+  useFocusEffect(
+    React.useCallback(() => {
+      getUserProfile();
+    }, []),
+  );
+  const [selectedCity, setSelectedCity] = React.useState<CityType>();
+
   const renderHeader = () => {
     return (
       <>
@@ -47,7 +55,7 @@ const Profile: React.FC = () => {
                 <Image source={Images.default} style={styles.avatar} />
                 <View style={{marginHorizontal: Spacing.S8}}>
                   <Text color="BLUE_4A5970" fontSize="FS16">
-                    ab@gmail.com
+                    {profile?.email}
                   </Text>
                   <Text color="BLUE_4A5970">01012345678</Text>
                 </View>
@@ -71,9 +79,13 @@ const Profile: React.FC = () => {
             </Text>
 
             <Button
-              style={styles.button}
               text={translate("Profile.loginMessage")}
               type="standard"
+              onPress={() => {
+                navigate("Login", {
+                  navigateTo: undefined,
+                });
+              }}
             />
           </View>
         )}
@@ -88,12 +100,10 @@ const Profile: React.FC = () => {
         <ProfileList
           selectedCity={selectedCity}
           onSelectedCity={setSelectedCity}
-          listItems={getProfileListWithoutLogin(
-            `${selectedCity?.name}, ${selectedCity?.countryName}`,
-            isLogin,
-          )}
+          listItems={getProfileListWithoutLogin(selectedCity?.name, isLogin)}
         />
       </View>
+      {profileLoading && <View style={styles.disableClicks} />}
     </View>
   );
 };

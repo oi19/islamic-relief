@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {View} from "react-native";
 import {
   ChatList,
@@ -13,9 +13,10 @@ import {useToken} from "../../hooks";
 const Chat = () => {
   const isLogged = useToken();
   console.warn(isLogged);
+
   return (
     <View style={styles.rootScreen}>
-      {true ? (
+      {isLogged ? (
         <ChatList />
       ) : (
         <>
