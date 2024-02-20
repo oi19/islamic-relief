@@ -17,7 +17,6 @@ type DefaultHeaderProps = {
 const DefaultHeader: FC<TouchableOpacityProps & DefaultHeaderProps> = memo(
   ({title, renderHeaderSideIcons, ...props}) => {
     const {goBack} = useNavigationHooks<MainAppStackTypes>();
-    console.warn(renderHeaderSideIcons ? true : false);
     return (
       <View style={StyleSheet.flatten([styles.headerContainer, props.style])}>
         <View

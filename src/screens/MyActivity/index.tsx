@@ -1,12 +1,13 @@
-/* eslint-disable react-native/no-inline-styles */
-import React, {useMemo} from "react";
+import React, {useMemo, useRef, useState} from "react";
 import {View} from "react-native";
+import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {
   ActivityList,
   Button,
   DoctorsList,
   HandleSignIn,
   Header,
+  SuccessModel,
   SupportModel,
   TabsView,
 } from "../../components";
@@ -14,14 +15,14 @@ import {styles} from "./styles";
 import {TabOptionType} from "../../@types";
 import {getHeight, getWidth, scale} from "../../styles/dimensions";
 import {Spacing} from "../../styles";
-import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {translate} from "../../helpers";
 import {doctors} from "../../dummyData";
 
 const MyActivity = () => {
-  const supportModalRef = React.useRef<BottomSheetModal>(null);
+  const supportModalRef = useRef<BottomSheetModal>(null);
+  const successModalRef = useRef<BottomSheetModal>(null);
 
-  const [selectedTab, setSelectedTab] = React.useState<number>(0);
+  const [selectedTab, setSelectedTab] = useState<number>(0);
   const tabs: TabOptionType[] = useMemo(
     () => [
       {
@@ -44,6 +45,23 @@ const MyActivity = () => {
   const onOpenWarningModal = () => {
     supportModalRef.current?.present();
   };
+
+  const handleSupportConfirmPress = () => {
+    // Handle support confirmation logic
+    console.log("Your problem was sent successfully to support");
+    supportModalRef.current?.close();
+
+    // replace this code with bussiness logic code for posting the support message
+    setTimeout(() => {
+      successModalRef.current?.present();
+    }, 300);
+  };
+
+  const handleSuccessContinuePress = () => {
+    // Handle success continue press
+    successModalRef.current?.close();
+  };
+
   return (
     <View style={styles.rootScreen}>
       {false ? (
@@ -88,14 +106,16 @@ const MyActivity = () => {
           height: scale(30),
         }}
       />
+
       <SupportModel
         forwardRef={supportModalRef}
         message={translate("myActivity.supportMessage")}
-        onConfirmPress={() => {
-          //contact support logic
-          console.log("your problem was sent successfuly to support ")
-          supportModalRef.current?.close();
-        }}
+        onConfirmPress={handleSupportConfirmPress}
+      />
+
+      <SuccessModel
+        forwardRef={successModalRef}
+        onContinuePress={handleSuccessContinuePress}
       />
     </View>
   );
