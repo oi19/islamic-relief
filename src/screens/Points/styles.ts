@@ -1,16 +1,13 @@
-import {getHeight} from "../../../styles/dimensions";
 import {StyleSheet} from "react-native";
+import {Colors} from "../../styles";
 
 export const styles = StyleSheet.create({
-  root: {
+  rootScreen: {
     flex: 1,
+    backgroundColor: Colors.GRAY_EEEEEE,
   },
-  loaderContainer: {
-    flex: 1,
+  center: {
     alignItems: "center",
     justifyContent: "center",
-  },
-  emptyContainer: {
-    height: getHeight(),
   },
 });

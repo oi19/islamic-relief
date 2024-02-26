@@ -32,6 +32,7 @@ const getCountries = async (
       callback,
     });
     if (response?.code === 200) {
+      console.log(response);
       dispatch(setCountries(response.data));
     }
   } catch (error: any) {
@@ -70,7 +71,7 @@ const getSpecialties = async (
       callback,
     });
     if (response?.code === 200) {
-      console.log(response);
+      console.log(response.data);
       dispatch(setSpecialties(response.data));
     }
   } catch (error: any) {

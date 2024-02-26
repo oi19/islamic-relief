@@ -5,6 +5,7 @@ import {User} from "./user";
 import {AppointmentStatus, AppointmentsTypes} from "./appointment-types";
 import {TransactionStatus} from "./transaction-types";
 import {translate} from "../helpers";
+import {Doctor} from "./doctor";
 
 export type TabOptionType = {
   id?: number;
@@ -54,7 +55,7 @@ export type profileRowType = {
   navigateTo?: MainNavigationKeys;
 };
 
-export type FilterCondition<T> = (item: T) => boolean;
+export type FilterCondition<T> = (item: T, baseItem?: T) => boolean;
 
 // import {ReactNode} from "react";
 // import {AppointmentStatus, AppointmentsTypes} from "./appointment-types";
@@ -72,8 +73,7 @@ type CountAppointments = {
 export type HomePageTypes = {
   today_appointments: AppointmentsTypes[];
   count_appointments: CountAppointments[];
-  total_month_revenue: number;
-  percentage_revenue: number;
+  doctors: Doctor[];
 };
 
 export type ServiceTypes = {

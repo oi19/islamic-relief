@@ -16,19 +16,35 @@ import {getProfileListWithoutLogin} from "./data";
 import {Images} from "../../assets/images";
 import {Svgs} from "../../assets";
 import {isRTL} from "../../locals/i18n-config";
-import {useNavigationHooks} from "../../hooks";
+import {useLoader, useNavigationHooks, useToken} from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
-import {translate} from "../../helpers";
-import {CityTypes} from "../../@types";
-import {dummyCities} from "../../dummyData";
+import {convertObjToFormData, filterArray, translate} from "../../helpers";
+import {CityType} from "../../@types";
+import {
+  selectAllCities,
+  selectCityById,
+  store,
+  updateUserData,
+  useAppSelector,
+} from "../../redux";
 
 const Profile: React.FC = () => {
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
-  const [selectedCity, setSelectedCity] = React.useState<CityTypes>(
-    dummyCities[3],
+  const {profile} = useAppSelector(state => state.userReducer);
+  const selectedCity = useAppSelector(state =>
+    selectCityById(state, profile["city_id"]),
   );
+  const cities = selectAllCities(store.getState());
+  const profileLoading = useLoader("userProfile");
+  const isLogin = useToken();
 
-  const isLogin: boolean = true;
+  const onSelectCity = (selectedCity: CityType) => {
+    const filterCondition = (element: CityType) =>
+      element.id === selectedCity.id;
+    const filteredCity = filterArray(cities, filterCondition)[0];
+    updateUserData(convertObjToFormData({city_id: filteredCity["id"]}));
+  };
+
   const renderHeader = () => {
     return (
       <>
@@ -44,12 +60,15 @@ const Profile: React.FC = () => {
               }}
               style={styles.card}>
               <ViewRow>
-                <Image source={Images.default} style={styles.avatar} />
+                <Image
+                  source={profile.image ? {uri: profile.image} : Images.default}
+                  style={styles.avatar}
+                />
                 <View style={{marginHorizontal: Spacing.S8}}>
                   <Text color="BLUE_4A5970" fontSize="FS16">
-                    ab@gmail.com
+                    {profile?.email}
                   </Text>
-                  <Text color="BLUE_4A5970">01012345678</Text>
+                  <Text color="BLUE_4A5970">{profile?.mobile}</Text>
                 </View>
               </ViewRow>
               <Svgs
@@ -71,9 +90,13 @@ const Profile: React.FC = () => {
             </Text>
 
             <Button
-              style={styles.button}
               text={translate("Profile.loginMessage")}
               type="standard"
+              onPress={() => {
+                navigate("Login", {
+                  navigateTo: undefined,
+                });
+              }}
             />
           </View>
         )}
@@ -87,13 +110,11 @@ const Profile: React.FC = () => {
       <View style={styles.container}>
         <ProfileList
           selectedCity={selectedCity}
-          onSelectedCity={setSelectedCity}
-          listItems={getProfileListWithoutLogin(
-            `${selectedCity?.name}, ${selectedCity?.countryName}`,
-            isLogin,
-          )}
+          onSelectedCity={onSelectCity}
+          listItems={getProfileListWithoutLogin(selectedCity?.name, isLogin)}
         />
       </View>
+      {profileLoading && <View style={styles.disableClicks} />}
     </View>
   );
 };

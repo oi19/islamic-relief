@@ -18,7 +18,7 @@ const HeaderSection: FC<
     textStyle?: TextProps;
   }
 > = memo(({title, navigateTo, style, params, textStyle}) => {
-  const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
+  const { navigate } = useNavigationHooks<MainNavigationAllScreensTypes>();
   return (
     <View style={[styles.headerSection, style]}>
       {/* title */}

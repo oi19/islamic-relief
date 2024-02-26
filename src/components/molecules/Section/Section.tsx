@@ -53,7 +53,7 @@ const Section: FC<
           horizontal={horizontal || false}
           initialNumToRender={100}
           contentContainerStyle={styles.contentContainerStyle}
-          data={data.slice(0, 26)}
+          data={data}
           renderItem={renderItem}
         />
       )}
@@ -67,7 +67,7 @@ const Section: FC<
           numColumns={numColumns || 1}
           initialNumToRender={100}
           contentContainerStyle={styles.contentVerticalContainerStyle}
-          data={data.slice(0, 26)}
+          data={data}
           renderItem={renderItem}
           style={styles.listVerticalStyle}
         />

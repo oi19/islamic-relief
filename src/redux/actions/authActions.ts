@@ -5,30 +5,30 @@ import {AxiosResponse} from "axios";
 import {dispatch, logout, setUserProfile, showErrorModel} from "..";
 import {combineErrorMessages} from "../../helpers/utils";
 
-const registerUserForm = async (
-  body: FormData,
-  callback?: (res: AxiosResponse<ResponseTypes<User>>) => void,
-) => {
-  try {
-    const response = await request<User, FormData>({
-      method: "post",
-      endPoint: "registerUserForm",
-      callback,
-      body,
-    });
-    if (response?.code === 200) {
-      console.log(response);
-      dispatch(setUserProfile(response));
-    }
-  } catch (error: any) {
-    console.log("in registerUserFormError?.response?.data");
-    const validation = error?.response?.data?.validation;
-    if (validation) {
-      const errors = combineErrorMessages(validation);
-      dispatch(showErrorModel(errors));
-    }
-  }
-};
+// const registerUserForm = async (
+//   body: FormData,
+//   callback?: (res: AxiosResponse<ResponseTypes<User>>) => void,
+// ) => {
+//   try {
+//     const response = await request<User, FormData>({
+//       method: "post",
+//       endPoint: "registerUserForm",
+//       callback,
+//       body,
+//     });
+//     if (response?.code === 200) {
+//       console.log(response);
+//       dispatch(setUserProfile(response));
+//     }
+//   } catch (error: any) {
+//     console.log("in registerUserFormError?.response?.data");
+//     const validation = error?.response?.data?.validation;
+//     if (validation) {
+//       const errors = combineErrorMessages(validation);
+//       dispatch(showErrorModel(errors));
+//     }
+//   }
+// };
 
 const userLogin = async (
   body: LoginTypes,
@@ -58,11 +58,9 @@ const userLogin = async (
 const userLogout = async (
   callback?: (res: AxiosResponse<ResponseTypes<any>>) => void,
 ) => {
-  // dispatch(logout());
-
   try {
     const response = await request<any>({
-      method: "post",
+      method: "get",
       endPoint: "logout",
       callback,
     });
@@ -70,7 +68,101 @@ const userLogout = async (
       dispatch(logout());
     }
   } catch (error: any) {
-    console.log("in userLogout ", error?.response?.data);
+    console.log("in userLogout ", error?.response?.data.message);
+    const validation = error?.response?.data?.message;
+    if (validation) {
+      dispatch(showErrorModel(validation));
+    }
+  }
+};
+
+const forgetPassword = async (
+  callback?: (res: AxiosResponse<ResponseTypes<any>>) => void,
+) => {
+  try {
+    const response = await request<any>({
+      method: "post",
+      endPoint: "forgetPassword",
+      callback,
+    });
+    if (response?.code === 200) {
+      console.warn(response.data);
+      // dispatch();
+    }
+  } catch (error: any) {
+    console.log("in forgetPassword ", error?.response?.data.message);
+    const validation = error?.response?.data?.message;
+    if (validation) {
+      dispatch(showErrorModel(validation));
+    }
+  }
+};
+
+const confirmOtp = async (
+  body: any,
+  callback?: (res: AxiosResponse<ResponseTypes<any>>) => void,
+) => {
+  try {
+    const response = await request<any>({
+      method: "post",
+      endPoint: "confirmOtp",
+      callback,
+      body,
+    });
+    if (response?.code === 200) {
+      console.warn(response.data);
+      // dispatch();
+    }
+  } catch (error: any) {
+    console.log("in confirmOtp ", error?.response?.data.message);
+    const validation = error?.response?.data?.message;
+    if (validation) {
+      dispatch(showErrorModel(validation));
+    }
+  }
+};
+
+const changePassword = async (
+  body: any,
+  callback?: (res: AxiosResponse<ResponseTypes<any>>) => void,
+) => {
+  try {
+    const response = await request<any>({
+      method: "post",
+      endPoint: "changePassword",
+      callback,
+      body,
+    });
+    if (response?.code === 200) {
+      console.warn(response.data);
+      // dispatch();
+    }
+  } catch (error: any) {
+    console.log("in changePassword ", error?.response?.data.message);
+    const validation = error?.response?.data?.message;
+    if (validation) {
+      dispatch(showErrorModel(validation));
+    }
+  }
+};
+
+const resetPassword = async (
+  body: any,
+  callback?: (res: AxiosResponse<ResponseTypes<any>>) => void,
+) => {
+  try {
+    const response = await request<any>({
+      method: "post",
+      endPoint: "resetPassword",
+      callback,
+      body,
+    });
+    if (response?.code === 200) {
+      console.warn(response.data);
+      // dispatch();
+    }
+  } catch (error: any) {
+    console.log("in resetPassword ", error?.response?.data.message);
     const validation = error?.response?.data?.message;
     if (validation) {
       dispatch(showErrorModel(validation));
@@ -88,8 +180,8 @@ const getUserProfile = async (
       callback,
     });
     if (response?.code === 200) {
-      console.log("in getUserProfile ", response?.data);
-      dispatch(setUserProfile(response.data));
+      console.log("in getUserProfile ", response);
+      dispatch(setUserProfile(response));
     }
   } catch (error: any) {
     console.log("in getUserProfile error: ", error?.response?.data);
@@ -112,12 +204,12 @@ const updateUserData = async (
       body,
     });
     if (response?.code === 200) {
-      console.log(response);
+      console.log(response.data);
 
       dispatch(setUserProfile(response));
     }
   } catch (error: any) {
-    console.log("in updateDoctoUser", error?.response?.data);
+    console.log("in updateUserProfile", error?.response?.data?.message);
     const validation = error?.response?.data?.validation;
     if (validation) {
       const errors = combineErrorMessages(validation);
@@ -127,9 +219,13 @@ const updateUserData = async (
 };
 
 export {
-  registerUserForm,
+  // registerUserForm,
   userLogin,
   userLogout,
   getUserProfile,
   updateUserData,
+  forgetPassword,
+  changePassword,
+  confirmOtp,
+  resetPassword,
 };

@@ -16,10 +16,9 @@ export const styles = StyleSheet.create({
   headerWithoutLogin: {
     paddingTop: getHeight(Spacing.S56),
     paddingHorizontal: getWidth(Spacing.S20),
+    marginEnd: getWidth(Spacing.S20),
   },
-  button: {
-    width: getWidth(326),
-  },
+  button: {},
   avatar: {
     width: scale(45),
     height: scale(45),
@@ -34,6 +33,12 @@ export const styles = StyleSheet.create({
     paddingEnd: getWidth(Spacing.S56),
     paddingBottom: 0,
     borderWidth: 0,
+    backgroundColor: Colors.TRANSPARENT,
+  },
+  disableClicks: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
     backgroundColor: Colors.TRANSPARENT,
   },
 });

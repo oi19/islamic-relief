@@ -27,7 +27,7 @@ export interface ServiceType {
   name?: string;
 }
 
-export interface UserRegisterTypes {
+export interface UserAccountType {
   mobile?: string;
   email?: string;
   name?: string;

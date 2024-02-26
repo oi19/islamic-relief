@@ -17,4 +17,11 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: scale(24),
   },
+  disableClicks: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    backgroundColor: Colors.TRANSPARENT,
+    justifyContent: "center",
+  },
 });

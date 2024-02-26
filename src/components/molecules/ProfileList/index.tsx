@@ -3,16 +3,17 @@ import React from "react";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 
 import {ProfileRowCard} from "../../organisms";
-import {CityTypes, profileRowType} from "../../../@types";
+import {CityType, profileRowType} from "../../../@types";
 import {MainAppStackTypes} from "../../../navigation/navigation-types";
 import {useNavigationHooks} from "../../../hooks";
 import {CitiesModal, LanguageModel} from "../../models";
 import {Spacing} from "../../../styles";
+import {userLogout} from "../../../redux";
 
 type ProfileListProps = {
   listItems: profileRowType[];
-  selectedCity?: CityTypes;
-  onSelectedCity: (selectedCity: CityTypes) => void;
+  selectedCity?: CityType;
+  onSelectedCity: (selectedCity: CityType) => void;
 };
 
 const ProfileList: React.FC<ProfileListProps> = ({
@@ -32,7 +33,10 @@ const ProfileList: React.FC<ProfileListProps> = ({
     console.log("Language Model");
     languageModalRef.current?.present();
   };
-  const onLogoutRowPressed = () => {};
+  const onLogoutRowPressed = () => {
+    console.warn("logout is pressed")
+    userLogout();
+  };
 
   const handleOnRowPressed = (item: profileRowType) => {
     const itemPressedOrNavigate = item?.navigateTo;

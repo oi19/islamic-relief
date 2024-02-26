@@ -43,7 +43,7 @@ export function getProfileListWithoutLogin(
     },
     {
       name: translate("Profile.yourPoints"),
-      navigateTo: "YourPoints",
+      navigateTo: "Points",
     },
     profileListWithoutLogin[2],
     {
