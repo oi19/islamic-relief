@@ -10,6 +10,8 @@ const initialState: InitialStateTypes = {
   homePageData: {
     today_appointments: [],
     count_appointments: [],
+    // total_month_revenue: 0,
+    // percentage_revenue: 0,
     doctors: [],
   },
 };
