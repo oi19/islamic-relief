@@ -5,13 +5,6 @@ import {DocumentPickerResponse} from "react-native-document-picker";
 export const isIos = Platform.OS === "ios";
 export const isAndroid = Platform.OS === "android";
 
-// Define the imageProps interface
-interface ImageProps {
-  name: string;
-  type: string;
-  uri: string;
-}
-
 export const getValueFromId = (id?: string | number, list?: any[]) => {
   if (list) {
     const element = list?.find((element: any) => element.id === id);

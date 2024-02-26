@@ -13,16 +13,27 @@ import {
   ServiceItem,
   Text,
 } from "../../components";
-import {doctors, serviceList} from "../../dummyData";
+import {serviceList} from "../../dummyData";
 import {useNavigationHooks} from "../../hooks";
 import {MainNavigationAllScreensTypes} from "../../navigation/navigation-types";
 import {Colors, Spacing} from "../../styles";
 import {getHeight, getWidth} from "../../styles/dimensions";
 import {styles} from "./styles";
 import {translate} from "../../helpers";
+import {useFocusEffect} from "@react-navigation/native";
+import {getHomePageData, getUserProfile, useAppSelector} from "../../redux";
 
 const Home = () => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
+  const {homePageData} = useAppSelector(
+    state => state.homeReducer.homePageData,
+  );
+
+  useFocusEffect(
+    React.useCallback(() => {
+      Promise.all([getHomePageData(), getUserProfile()]);
+    }, []),
+  );
 
   const OurServiceItem: ListRenderItem<ServiceType> = ({item, index}) => {
     const listLength = serviceList.length;
@@ -95,7 +106,7 @@ const Home = () => {
           <Section
             title={translate("Home.topRatedDoctors")}
             renderItem={topRatedDoctor}
-            data={doctors}
+            data={homePageData?.doctors}
             horizontal={true}
             navigateTo="SpecialDetails"
             params={{item: {name: translate("Home.topRatedDoctors")}}}

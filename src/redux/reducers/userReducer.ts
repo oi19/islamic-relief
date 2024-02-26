@@ -4,7 +4,7 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import {RootState} from "..";
-import {ServiceTypes} from "../../@types";
+import {ServiceTypes, UserAccountType} from "../../@types";
 // import {Doctor} from "../../@types";
 import {User} from "../../@types";
 import {ResponseTypes} from "../../@types";
@@ -18,13 +18,13 @@ const servicesAdapter = createEntityAdapter<ServiceTypes>({
 
 // Define the state type
 type InitialStateTypes = {
-  profile: User;
+  profile: UserAccountType;
   token: string | null;
   services: ReturnType<typeof servicesAdapter.getInitialState>;
 };
 
 const initialState: InitialStateTypes = {
-  profile: {} as User,
+  profile: {} as UserAccountType,
   token: null,
   services: servicesAdapter.getInitialState(),
 };
@@ -35,7 +35,7 @@ const userSlice = createSlice({
   reducers: {
     setUserProfile: (
       state,
-      {payload: {data, token}}: PayloadAction<ResponseTypes<User>>,
+      {payload: {data, token}}: PayloadAction<ResponseTypes<UserAccountType>>,
     ) => {
       console.log("action.payload", data, token);
 
@@ -43,7 +43,8 @@ const userSlice = createSlice({
         state.token = token;
       }
 
-      state.profile = data || ({} as User);
+      console.log("payload.data:" + data);
+      state.profile = data || ({} as UserAccountType);
 
       // const isService = data?.services && data?.services.length > 0;
 
@@ -97,6 +98,4 @@ export default userSlice.reducer;
 
 // Selectors from the services adapter
 export const {selectAll: selectAllServices, selectById: selectServiceById} =
-  servicesAdapter.getSelectors<RootState>(
-    state => state.userReducer.services,
-  );
+  servicesAdapter.getSelectors<RootState>(state => state.userReducer.services);

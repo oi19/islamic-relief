@@ -96,7 +96,7 @@ const CompletePatientDetails = () => {
         </Text>
         <Button
           type="dropdown"
-          text={selectedBookingReason.name}
+          text={selectedBookingReason?.name}
           placeholder={translate("completePatientDetails.bookingFor")}
           iconStyle={{color: Colors.PRIMARY}}
           style={styles.dropdownButton}

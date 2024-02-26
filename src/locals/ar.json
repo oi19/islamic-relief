@@ -221,5 +221,17 @@
   },
   "Share": {
     "shareDoctorProfileMessage": "يمكنك مشاركتها مع عائلتك أو أصدقائك أو فقط قم بنسخ هذا الرابط"
+  },
+  "validation": {
+    "required": "{{path}} مطلوب",
+    "email": "يجب أن يكون عنوان بريد إلكتروني صحيح",
+    "length": "{{path}} يجب أن يكون بالضبط {{length}} حرف",
+    "minString": "{{path}} يجب يكون على الأقل {{min}} احرف",
+    "maxString": "{{path}} يجب يكون على الأكثر {{max}} حرف",
+    "minNumber": "{{path}} يجب أن يكون أكبر من أو يساوي {{min}}",
+    "maxNumber": "{{path}} يجب أن يكون أقل من أو يساوي {{max}}",
+    "confirmPasswordNotMatch": "تأكيد كلمة المرور لا تتطابق مع كلمة المرور",
+    "imageRequired": "الصورة حقل مطلوب",
+    "enterValidPhoneNumber": "أدخل رقم هاتف صحيح"
   }
 }
