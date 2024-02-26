@@ -16,7 +16,7 @@ import {MainAppStackTypes} from "../../navigation/navigation-types";
 import {RouteProp, useRoute} from "@react-navigation/native";
 // import { getRoomMessages, sendChatMessage } from "../../redux/actions/chatAction";
 // import { sendMessage } from "../../redux/reducers/chatsReducer";
-import {useAppSelector, useDispatch} from "../../redux/index";
+import {useDispatch} from "../../redux/index";
 import {Colors} from "../../styles/index";
 import {styles} from "./styles";
 import {translate} from "../../helpers/language";
@@ -73,7 +73,7 @@ export default function ChatRoom() {
         // dispatch(sendMessage(data));
       }
     },
-    [dispatch],
+    [],
   );
 
   // const {connect} = usePusher({
@@ -82,12 +82,9 @@ export default function ChatRoom() {
   //   onEvent: onEvent,
   // });
 
-  const getAllMessage = React.useCallback(
-    async (page: number) => {
-      // await getRoomMessages(page, chatData?.id);
-    },
-    [chatData?.id],
-  );
+  const getAllMessage = React.useCallback(async (page: number) => {
+    // await getRoomMessages(page, chatData?.id);
+  }, []);
 
   // React.useEffect(() => {
   //   connect();

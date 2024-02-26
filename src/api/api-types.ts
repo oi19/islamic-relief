@@ -17,7 +17,6 @@ export interface ApisTypes<T = string> {
   subscribePackages: T;
   change_fcm_token: T;
 
-  // // create Clinic
   // createClinic: T;
   // createScheduleTimes: T;
   createOrUpdateServices: T;
@@ -42,6 +41,9 @@ export interface ApisTypes<T = string> {
   oldChats: T;
   sendMessage: T;
   sentMessage: T;
+
+  // Doctors
+  doctors: T;
 }
 
 const APIs: ApisTypes = {
@@ -63,13 +65,8 @@ const APIs: ApisTypes = {
   userProfile: "/users/profile",
   updateUserProfile: "/users/profile/update",
 
-  // create Clinic
-  // createClinic: "/users/clinics/create",
-  // createScheduleTimes: "/users/clinics/available-times/update",
   createOrUpdateServices: "/users/services/update",
-  // updateClinic: "/users/clinics",
 
-  // Appointments
   getAppointments: "/users/appointments",
   changeAppointmentStatus: "/users/appointments",
   rescheduleAppointment: "/users/appointments-update",
@@ -88,6 +85,9 @@ const APIs: ApisTypes = {
   oldChats: "/users/old-chats",
   sendMessage: "/users/send-message",
   sentMessage: "/users/sent-message",
+
+  // Doctors
+  doctors: "/users/doctors",
 };
 
 export default APIs;

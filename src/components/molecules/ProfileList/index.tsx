@@ -12,17 +12,21 @@ import {Spacing} from "../../../styles";
 type ProfileListProps = {
   listItems: profileRowType[];
   selectedCity?: CityTypes;
-  onSelectedCity: (selectedCity:CityTypes) => void;
+  onSelectedCity: (selectedCity: CityTypes) => void;
 };
 
-const ProfileList: React.FC<ProfileListProps> = ({listItems,selectedCity,onSelectedCity}) => {
+const ProfileList: React.FC<ProfileListProps> = ({
+  listItems,
+  selectedCity,
+  onSelectedCity,
+}) => {
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
   const languageModalRef = React.useRef<BottomSheetModal>(null);
   const citiesModalRef = React.useRef<BottomSheetModal>(null);
 
   const onLocationRowPressed = () => {
-    console.log("Cities Modal is Visible")
-    citiesModalRef.current?.present()
+    console.log("Cities Modal is Visible");
+    citiesModalRef.current?.present();
   };
   const onLanguageRowPressed = () => {
     console.log("Language Model");
@@ -81,7 +85,8 @@ const ProfileList: React.FC<ProfileListProps> = ({listItems,selectedCity,onSelec
       <CitiesModal
         forwardRef={citiesModalRef}
         onSelect={onSelectedCity}
-        selectedId={selectedCity?.id?.toString()} />
+        selectedId={selectedCity?.id?.toString()}
+      />
     </>
   );
 };

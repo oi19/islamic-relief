@@ -1,6 +1,6 @@
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import React from "react";
-import { View} from "react-native";
+import {View} from "react-native";
 import DocumentPicker, {
   DirectoryPickerResponse,
   DocumentPickerResponse,
@@ -74,7 +74,7 @@ const CompletePatientDetails = () => {
   };
 
   const onNextPress = () => {
-    if (!!(selectedGender || selectedBookingReason || result || selectedAge)) {
+    if (!(selectedGender || selectedBookingReason || result || selectedAge)) {
       warningModalRef?.current?.present();
       return;
     }

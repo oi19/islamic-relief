@@ -14,5 +14,5 @@ export type MessageType = {
   receiver_type?: "User" | "Doctor";
   created_at?: string | Date;
   image?: any;
-  senderUserName?:string
+  senderUserName?: string;
 };

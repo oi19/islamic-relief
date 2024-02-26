@@ -7,33 +7,27 @@ export const API = axios.create({
   baseURL: "https://doctors.fmceg.com/api",
 });
 
-API.interceptors.request.use(request => {
+API.interceptors.request.use(config => {
   const token = store.getState().userReducer?.token;
 
   console.log("token ", token);
 
   const lang = isRTL() ? "ar" : "en";
 
-  request.headers.local = lang;
+  config.headers.local = lang;
   if (token) {
-    request.headers.Authorization = `Bearer ${token}`;
+    config.headers.Authorization = `Bearer ${token}`;
   }
 
   // Check for a special case when FormData object is present in the request data
-  if (request.data instanceof FormData) {
+  if (config.data instanceof FormData) {
     // Add 'Content-Type' header for FormData requests
     console.log("formData");
 
-    request.headers["Content-Type"] = "multipart/form-data";
+    config.headers["Content-Type"] = "multipart/form-data";
   }
-  console.log("\n");
-  console.log(
-    request["baseURL"]! +
-      request["url"] +
-      `${request["data"] == undefined ? " " : request?.data}`,
-  );
-  console.log(request);
-  return request;
+
+  return config;
 });
 
 API.interceptors.response.use(
@@ -48,7 +42,6 @@ API.interceptors.response.use(
     if (error?.response?.status === 401) {
       store.dispatch(logout());
     }
-    console.log("\n");
     console.log("error: " + error?.response);
     return Promise.reject(error);
   },

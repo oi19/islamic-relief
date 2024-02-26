@@ -12,22 +12,17 @@ import {useToken} from "../../hooks";
 
 const Chat = () => {
   const isLogged = useToken();
-  console.warn(isLogged);
+  console.log(isLogged);
   return (
     <View style={styles.rootScreen}>
       {true ? (
         <ChatList />
       ) : (
-        <>
-          <HandleSignIn
-            title={translate("myChat.title")}
-            icon="bigChat"
-            message={translate("myChat.myChatLoginMessage")}
-          />
-          {/* <ViewRow>
-        <VideoCallControl />
-      </ViewRow> */}
-        </>
+        <HandleSignIn
+          title={translate("myChat.title")}
+          icon="bigChat"
+          message={translate("myChat.myChatLoginMessage")}
+        />
       )}
     </View>
   );

@@ -134,21 +134,3 @@ export const UpdateClinicSchema = yup.object().shape({
   city: yup.string().required(),
   country: yup.string().required(),
 });
-
-// const GameCredentialSchema = yup.object().shape({
-//   uuid: yup.string().trim().required(),
-//   username: yup.string().min(3).required(),
-// });
-
-// email: yup
-//     .string()
-//     .matches("^01[0-2]d{1,8}$", "Phone number is not valid")
-//     .required("Required Field")
-//     .test("is-email", "Invalid email", value => {
-//       if (value) {
-//         return value.includes("@")
-//           ? yup.string().email().isValidSync(value)
-//           : true;
-//       }
-//       return true;
-//     }),

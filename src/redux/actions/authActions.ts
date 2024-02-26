@@ -45,14 +45,13 @@ const userLogin = async (
       console.log("loggedIn");
       dispatch(setUserProfile(response));
     } else {
-      
     }
   } catch (error: any) {
     console.log("in userLogin ", error?.response.data);
     const validation = error?.response?.data?.message;
     if (validation) {
       dispatch(showErrorModel(validation));
-    } 
+    }
   }
 };
 
