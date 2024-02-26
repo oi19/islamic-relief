@@ -37,9 +37,9 @@ const ErrorMessageModal: React.FC<ErrorMessageModalProps> = ({
         <View style={styles.container}>
           <RoundedIcon
             style={styles.roundedIcon}
-            backgroundColor="PRIMARY"
-            icon="warning"
-            title={title || translate("Model.warningTitle")}
+            backgroundColor="RED"
+            icon="error"
+            title={title || translate("Model.errorTitle")}
             titleStyle={styles.title}
           />
           <Text fontSize="FS14" style={styles.message}>

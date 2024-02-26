@@ -81,7 +81,7 @@ const APIs: ApisTypes = {
   forgetPassword: "/users/password/forgot",
   confirmOtp: "/users/password/confirm-otp",
   changePassword: "/users/password/change",
-  resetPassword: "/users/password/res",
+  resetPassword: "/users/password/reset",
 
   // create Clinic
   // createClinic: "/users/clinics/create",
