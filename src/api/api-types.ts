@@ -23,7 +23,6 @@ export interface ApisTypes<T = string> {
   subscribePackages: T;
   change_fcm_token: T;
 
-  // // create Clinic
   // createClinic: T;
   // createScheduleTimes: T;
   createOrUpdateServices: T;
@@ -77,6 +76,7 @@ const APIs: ApisTypes = {
   userProfile: "/users/profile",
   updateUserProfile: "/users/profile/update",
 
+
   //Password
   forgetPassword: "/users/password/forgot",
   confirmOtp: "/users/password/confirm-otp",
@@ -87,7 +87,6 @@ const APIs: ApisTypes = {
   // createClinic: "/users/clinics/create",
   // createScheduleTimes: "/users/clinics/available-times/update",
   createOrUpdateServices: "/users/services/update",
-  // updateClinic: "/users/clinics",
 
   // Appointments
   createAppointment: "/users/appointments/create",
@@ -111,7 +110,8 @@ const APIs: ApisTypes = {
   sendMessage: "/users/send-message",
   sentMessage: "/users/sent-message",
 
-  // Dcotors
+  // Doctors
+  doctors: "/users/doctors",
   doctors: "users/doctors",
   addToFav: "add-to-favourites",
   deleteFromFav: "delete-from-favourites",

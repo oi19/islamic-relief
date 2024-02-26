@@ -15,7 +15,7 @@ const PaymentMethods = () => {
   return (
     <View style={styles.rootScreen}>
       <Header
-        title={translate("paymnetMethods.title")}
+        title={translate("paymentMethods.title")}
         style={{height: getHeight(120), paddingTop: Spacing.S20}}
       />
 

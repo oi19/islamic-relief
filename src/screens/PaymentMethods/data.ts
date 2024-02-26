@@ -18,6 +18,6 @@ export const paymentMethods: SelectedCheckItemType[] = [
     id: 2,
     title: translate("paymentMethods.morePaymentOptions"),
     icon: "cash",
-    name: translate("paymentMethods.    morePaymentOptions"),
+    name: translate("paymentMethods.morePaymentOptions"),
   },
 ];

@@ -74,7 +74,7 @@ const CompletePatientDetails = () => {
   };
 
   const onNextPress = () => {
-    if (!!(selectedGender || selectedBookingReason || result || selectedAge)) {
+    if (!(selectedGender || selectedBookingReason || result || selectedAge)) {
       warningModalRef?.current?.present();
       return;
     }

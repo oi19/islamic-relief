@@ -2,12 +2,10 @@ import {ListRenderItem, View} from "react-native";
 import React, {FC} from "react";
 import {ChatItem, HandleEmptyList, Header} from "../..";
 import PaginationFlatlist from "../../atoms/PaginationFlatlist";
-import {useAppSelector} from "../../../redux/index";
 import {ChatType} from "../../../@types";
 import {Spacing} from "../../../styles/index";
 import {translate} from "../../../helpers/language";
 import {getHeight} from "../../../styles/dimensions";
-import {useLoader} from "../../../hooks/useLoader";
 import {Lottie} from "../../../assets/lottie";
 import {styles} from "./styles";
 import {dummyChatList} from "../../../dummyData";
@@ -34,7 +32,7 @@ const ChatList: FC<Props> = () => {
         </View>
       ) : (
         <PaginationFlatlist
-          keyExtractor={index => index}
+          keyExtractor={(_, index) => `${index.toString()}`}
           data={dummyChatList}
           onLoadMore={() => {}}
           renderItem={_renderChatItem}
