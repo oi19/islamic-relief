@@ -4,8 +4,8 @@ import {getHeight, getWidth, scale} from "../../../styles/dimensions";
 
 const styles = StyleSheet.create({
   container: {
-    width: "100%",
     alignItems: "center",
+    flex: 1
   },
   message: {
     width: getWidth(270),
@@ -45,6 +45,13 @@ const styles = StyleSheet.create({
   },
   contentContainerStyle: {
     paddingBottom: getHeight(100),
+  },
+  disableClicks: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    backgroundColor: Colors.TRANSPARENT,
+    justifyContent: "center",
   },
 });
 export default styles;

@@ -18,6 +18,7 @@ import Button from "../Button/Button";
 import Text, {TextProps} from "../Text/Text";
 import styles from "./styles";
 import {isRTL} from "../../../locals/i18n-config";
+import {Controller} from "react-hook-form";
 
 type InputProps = {
   password?: boolean;
@@ -113,5 +114,34 @@ const Input: FC<TextInputProps & InputProps> = ({
     </View>
   );
 };
+
+type ControlledInput = TextInputProps &
+  InputProps & {
+    fieldName: string;
+    control: any;
+  };
+
+const ControlledInput = ({
+  fieldName,
+  control,
+  ...inputProps
+}: ControlledInput) => {
+  return (
+    <Controller
+      control={control}
+      name={fieldName}
+      render={({field: {value, onChange}, fieldState: {error}}) => (
+        <Input
+          {...inputProps}
+          value={value}
+          onChangeText={onChange}
+          error={error?.message?.toString()}
+        />
+      )}
+    />
+  );
+};
+
+export {ControlledInput};
 
 export default memo(Input);

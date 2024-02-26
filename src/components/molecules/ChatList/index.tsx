@@ -14,26 +14,21 @@ import {dummyChatList} from "../../../dummyData";
 
 type Props = {};
 const ChatList: FC<Props> = () => {
-  // const {oldChats} = useAppSelector(state => state.chatsReducer);
-  // const chatsLoader = useLoader("oldChats");
-
-  // const isChatsData = (oldChats && oldChats?.length > 0) || chatsLoader;
-
+  const {oldChats} = useAppSelector(state => state.chatsReducer);
+  const chatsLoader = useLoader("oldChats");
   const _renderChatItem: ListRenderItem<ChatType> = ({item, index}) => {
     return <ChatItem item={item} index={index} />;
   };
 
   return (
     <View style={styles.root}>
-      {true && (
-        <View>
-          <Header
-            title={translate("myChat.title")}
-            style={{height: getHeight(120), paddingTop: Spacing.S56}}
-          />
-        </View>
-      )}
-      {false ? (
+      <View>
+        <Header
+          title={translate("myChat.title")}
+          style={{height: getHeight(120), paddingTop: Spacing.S56}}
+        />
+      </View>
+      {chatsLoader ? (
         <View style={styles.loaderContainer}>
           <Lottie name="loading" />
         </View>

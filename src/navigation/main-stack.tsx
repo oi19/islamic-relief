@@ -12,6 +12,7 @@ import {
   ManuallyLocation,
   OnBoarding,
   PaymentMethods,
+  Points,
   ResetPassword,
   ReviewSummary,
   SelectPackage,
@@ -44,6 +45,7 @@ const MainStack = () => {
       <Stack.Screen name="ManageCards" component={ManageCards} />
       <Stack.Screen name="Favorites" component={Favorites} />
       <Stack.Screen name="ChatRoom" component={ChatRoom} />
+      <Stack.Screen name="Points" component={Points} />
     </Stack.Navigator>
   );
 };

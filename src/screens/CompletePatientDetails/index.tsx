@@ -1,6 +1,6 @@
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import React from "react";
-import { View} from "react-native";
+import {View} from "react-native";
 import DocumentPicker, {
   DirectoryPickerResponse,
   DocumentPickerResponse,
@@ -96,7 +96,7 @@ const CompletePatientDetails = () => {
         </Text>
         <Button
           type="dropdown"
-          // text={selectedBookingReason.name}
+          text={selectedBookingReason.name}
           placeholder={translate("completePatientDetails.bookingFor")}
           iconStyle={{color: Colors.PRIMARY}}
           style={styles.dropdownButton}

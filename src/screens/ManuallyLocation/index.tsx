@@ -1,14 +1,27 @@
 import React from "react";
 import {View} from "react-native";
-import {Button, Header, Line, Text, TextWithIcon} from "../../components";
+import {
+  Button,
+  CitiesModal,
+  Header,
+  Line,
+  PaginationFlatlist,
+  Text,
+  TextWithIcon,
+} from "../../components";
 import {useNavigationHooks} from "../../hooks";
 import {MainNavigationAllScreensTypes} from "../../navigation/navigation-types";
 import {styles} from "./styles";
 import {translate} from "../../helpers";
+import {getCities, useAppSelector} from "../../redux";
+import {CityTypes} from "../../@types";
 
 const ManuallyLocation: React.FC = () => {
   const {navigate, goBack} =
     useNavigationHooks<MainNavigationAllScreensTypes>();
+
+  // const services = useAppSelector(ci);
+  const cities = getCities();
 
   return (
     <View style={styles.rootScreen}>

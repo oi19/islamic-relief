@@ -64,4 +64,10 @@ export const styles = StyleSheet.create({
 
     elevation: 3,
   },
+  disableClicks: {
+    position: "absolute",
+    height: "100%",
+    width: "100%",
+    backgroundColor: Colors.TRANSPARENT,
+  },
 });

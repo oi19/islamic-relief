@@ -1,13 +1,14 @@
-import React, {memo, RefObject, useState} from "react";
+import React, {memo, RefObject, useEffect, useState} from "react";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import BaseModal from "../BaseModal/BaseModal";
 import {FlatList, ListRenderItem, View} from "react-native";
 import styles from "./styles";
 import {Button, Input} from "../../atoms";
-import {CityTypes} from "../../../@types";
+import {CityType} from "../../../@types";
 import {SelectedItem} from "../../organisms";
 import {translate} from "../../../helpers";
-import {dummyCities} from "../../../dummyData";
+import {selectAllCities, store} from "../../../redux";
+import {useLoader} from "../../../hooks";
 
 const CitiesModal = ({
   forwardRef,
@@ -15,17 +16,18 @@ const CitiesModal = ({
   selectedId,
 }: {
   forwardRef: RefObject<BottomSheetModal>;
-  onSelect: (selectedCity: CityTypes) => void;
+  onSelect: (selectedCity: CityType) => void;
   selectedId?: string;
 }) => {
-  // const cities = useAppSelector(state => state.userReducer.cities);
-  const [citiesList, setCities] = useState<CityTypes[]>(dummyCities);
+  const cities = selectAllCities(store.getState());
+  const [citiesList, setCities] = useState<CityType[]>(cities);
+  const isLoading = useLoader("cities");
 
   const onClose = () => {
     forwardRef.current?.close();
   };
 
-  const onSelectedCity = (city: CityTypes) => {
+  const onSelectedCity = (city: CityType) => {
     onSelect(city);
     setTimeout(() => {
       forwardRef.current?.close();
@@ -34,14 +36,17 @@ const CitiesModal = ({
 
   const onFilter = (keyword: string) => {
     if (keyword) {
-      const newList = citiesList.filter(item => item.name.includes(keyword));
+      const lowercaseKeyword = keyword.toLowerCase();
+      const newList = cities?.filter((item: CityType) =>
+        item.name.toLowerCase().includes(lowercaseKeyword),
+      );
       setCities(newList);
     } else {
-      setCities(dummyCities);
+      setCities(cities);
     }
   };
 
-  const RenderCityItem: ListRenderItem<CityTypes> = ({item, index}) => {
+  const RenderCityItem: ListRenderItem<CityType> = ({item, index}) => {
     return (
       <SelectedItem
         key={`RenderCityItem_${index}`}
@@ -68,7 +73,6 @@ const CitiesModal = ({
             iconName="close"
           />
         </View>
-
         <FlatList
           showsVerticalScrollIndicator={false}
           style={styles.flatlistStyle}
@@ -76,6 +80,7 @@ const CitiesModal = ({
           renderItem={RenderCityItem}
           data={citiesList}
         />
+        {isLoading && <View style={styles.disableClicks}></View>}
       </View>
     </BaseModal>
   );

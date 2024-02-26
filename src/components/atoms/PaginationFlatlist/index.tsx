@@ -14,7 +14,7 @@ const PaginationFlatlist: React.FC<
   return (
     <View style={styles.content}>
       <FlatList
-        keyExtractor={index => index}
+        keyExtractor={({item, index}) => `${item?.id} + ${index}`}
         scrollEventThrottle={0.00016}
         onEndReached={onLoadMore}
         onEndReachedThreshold={0.16}
