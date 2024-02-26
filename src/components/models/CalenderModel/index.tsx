@@ -14,12 +14,14 @@ import {isRTL} from "../../../locals/i18n-config";
 type CalenderModelProps = {
   handleOnSelectDate: (date: Date) => void;
   forwardRef: RefObject<BottomSheetModal>;
+  initialDate?: Date;
 };
 const CalenderModel: React.FC<CalenderModelProps> = ({
   forwardRef,
   handleOnSelectDate,
+  initialDate,
 }) => {
-  const [date, setDate] = React.useState(new Date());
+  const [date, setDate] = React.useState(initialDate ?? new Date());
 
   return (
     <BaseModal
@@ -46,15 +48,14 @@ const CalenderModel: React.FC<CalenderModelProps> = ({
           maximumDate={
             new Date(new Date().setFullYear(new Date().getFullYear() - 10))
           }
-          onDateChange={selectedDate => {
-            setDate(selectedDate);
-          }}
+          onDateChange={setDate}
           locale={isRTL() ? "ar" : "en"}
           date={date}
           mode="date"
           theme="light"
           textColor={Colors.BLUE_4A5970}
         />
+
         <View style={styles.buttonsView}>
           <Button
             onPress={() => {

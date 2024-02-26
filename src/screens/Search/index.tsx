@@ -13,7 +13,7 @@ import {dummyCities, specialties} from "../../dummyData";
 import {getValueFromId, translate} from "../../helpers";
 import {styles} from "./styles";
 import {CityType, SpecialtiesType} from "../../@types";
-import {getSpecialties, useAppSelector} from "../../redux";
+import {useAppSelector} from "../../redux";
 import {useLoader} from "../../hooks";
 
 const Search = () => {
@@ -22,12 +22,9 @@ const Search = () => {
   );
   const citiesModalRef = React.useRef<BottomSheetModal>(null);
   const isLoading = useLoader("specialties");
+  const {profile} = useAppSelector(state => state.userReducer?.profile);
 
   const [selectedCity, setSelectedCity] = React.useState<CityType>();
-
-  useEffect(() => {
-    getSpecialties();
-  }, []);
 
   const onSelectedCity = (city: CityType) => {
     console.log("city_id", `${city.id}`);
@@ -65,7 +62,7 @@ const Search = () => {
         />
       </Scroll>
       <CitiesModal
-        selectedId={selectedCity?.id?.toString()}
+        selectedId={profile?.city_id ?? selectedCity?.id?.toString()}
         onSelect={onSelectedCity}
         forwardRef={citiesModalRef}
       />

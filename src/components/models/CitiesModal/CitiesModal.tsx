@@ -7,13 +7,7 @@ import {Button, Input} from "../../atoms";
 import {CityType} from "../../../@types";
 import {SelectedItem} from "../../organisms";
 import {translate} from "../../../helpers";
-import {dummyCities} from "../../../dummyData";
-import {
-  getCities,
-  selectAllCities,
-  store,
-  useAppSelector,
-} from "../../../redux";
+import {selectAllCities, store} from "../../../redux";
 import {useLoader} from "../../../hooks";
 
 const CitiesModal = ({
@@ -29,11 +23,6 @@ const CitiesModal = ({
   const [citiesList, setCities] = useState<CityType[]>(cities);
   const isLoading = useLoader("cities");
 
-  console.log(cities);
-  useEffect(() => {
-    getCities();
-  }, []);
-
   const onClose = () => {
     forwardRef.current?.close();
   };
@@ -47,8 +36,9 @@ const CitiesModal = ({
 
   const onFilter = (keyword: string) => {
     if (keyword) {
+      const lowercaseKeyword = keyword.toLowerCase();
       const newList = cities?.filter((item: CityType) =>
-        item.name.includes(keyword),
+        item.name.toLowerCase().includes(lowercaseKeyword),
       );
       setCities(newList);
     } else {

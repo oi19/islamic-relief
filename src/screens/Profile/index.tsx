@@ -18,24 +18,32 @@ import {Svgs} from "../../assets";
 import {isRTL} from "../../locals/i18n-config";
 import {useLoader, useNavigationHooks, useToken} from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
-import {translate} from "../../helpers";
+import {convertObjToFormData, filterArray, translate} from "../../helpers";
 import {CityType} from "../../@types";
-import {getUserProfile, useAppSelector} from "../../redux";
-import {useFocusEffect} from "@react-navigation/native";
+import {
+  selectAllCities,
+  selectCityById,
+  store,
+  updateUserData,
+  useAppSelector,
+} from "../../redux";
 
 const Profile: React.FC = () => {
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
-  const {profile} = useAppSelector(state => state.userReducer?.profile);
+  const {profile} = useAppSelector(state => state.userReducer);
+  const selectedCity = useAppSelector(state =>
+    selectCityById(state, profile["city_id"]),
+  );
+  const cities = selectAllCities(store.getState());
   const profileLoading = useLoader("userProfile");
   const isLogin = useToken();
 
-  console.log(profile);
-  useFocusEffect(
-    React.useCallback(() => {
-      getUserProfile();
-    }, []),
-  );
-  const [selectedCity, setSelectedCity] = React.useState<CityType>();
+  const onSelectCity = (selectedCity: CityType) => {
+    const filterCondition = (element: CityType) =>
+      element.id === selectedCity.id;
+    const filteredCity = filterArray(cities, filterCondition)[0];
+    updateUserData(convertObjToFormData({city_id: filteredCity["id"]}));
+  };
 
   const renderHeader = () => {
     return (
@@ -52,12 +60,15 @@ const Profile: React.FC = () => {
               }}
               style={styles.card}>
               <ViewRow>
-                <Image source={Images.default} style={styles.avatar} />
+                <Image
+                  source={profile.image ? {uri: profile.image} : Images.default}
+                  style={styles.avatar}
+                />
                 <View style={{marginHorizontal: Spacing.S8}}>
                   <Text color="BLUE_4A5970" fontSize="FS16">
                     {profile?.email}
                   </Text>
-                  <Text color="BLUE_4A5970">01012345678</Text>
+                  <Text color="BLUE_4A5970">{profile?.mobile}</Text>
                 </View>
               </ViewRow>
               <Svgs
@@ -99,7 +110,7 @@ const Profile: React.FC = () => {
       <View style={styles.container}>
         <ProfileList
           selectedCity={selectedCity}
-          onSelectedCity={setSelectedCity}
+          onSelectedCity={onSelectCity}
           listItems={getProfileListWithoutLogin(selectedCity?.name, isLogin)}
         />
       </View>
