@@ -15,18 +15,32 @@ import {
   GenderModal,
   Header,
   Image,
-  Input,
   ProfileRowCard,
   RoundedIcon,
   Scroll,
   Text,
+  ControlledInput,
+  Input,
 } from "../../components";
 import {genders} from "../../dummyData";
-import {formateDate, getValueFromId, translate} from "../../helpers";
+import {
+  areObjectsEqual,
+  convertObjToFormData,
+  formateDate,
+  getValueFromId,
+  translate,
+} from "../../helpers";
 import {Colors, Spacing} from "../../styles";
 import {getHeight} from "../../styles/dimensions";
 import {styles} from "./styles";
 import {TextProps} from "../../components/atoms/Text/Text";
+import {useForm} from "react-hook-form";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {dispatch, showToast, updateUserData, useAppSelector} from "../../redux";
+import {userAccountSchema} from "../../helpers/validationSchema";
+import {UserAccountType} from "../../@types";
+import {useLoader, useNavigationHooks} from "../../hooks";
+import {MainAppStackTypes} from "../../navigation/navigation-types";
 
 const labelStyle: TextProps = {
   fontSize: "FS14",
@@ -34,16 +48,38 @@ const labelStyle: TextProps = {
   fontFamily: "NORMAL",
 };
 const Account = () => {
+  const {profile} = useAppSelector(state => state.userReducer);
+  const {navigate} = useNavigationHooks<MainAppStackTypes>();
+  const accountLoading = useLoader("updateUserProfile");
   const genderModalRef = React.useRef<BottomSheetModal>(null);
   const calenderModelRef = React.useRef<BottomSheetModal>(null);
-
-  const [selectedGender, setSelectedGender] = React.useState<number>(1);
-
-  const [image, setImage] = React.useState<
-    DocumentPickerResponse | undefined | null
-  >(null);
-
   const [date, setDate] = React.useState<string | null>(null);
+  const [selectedGender, setSelectedGender] = React.useState<number>(
+    profile?.gender_id,
+  );
+  const [image, setImage] = React.useState<
+    DocumentPickerResponse | string | undefined | null
+  >(profile?.image ?? "");
+
+  const defaultValues = {
+    email: profile.email || "",
+    mobile: profile.mobile || "",
+    name: profile.name || "",
+    gender: profile.gender_id,
+    image: profile.image || "",
+    birthdate: profile.birthday || "",
+  };
+
+  const {
+    control,
+    setValue,
+    handleSubmit,
+    clearErrors,
+    formState: {errors},
+  } = useForm({
+    resolver: yupResolver<any>(userAccountSchema),
+    defaultValues,
+  });
 
   const handleError = (err: unknown) => {
     if (isCancel(err)) {
@@ -65,7 +101,8 @@ const Account = () => {
         copyTo: "cachesDirectory",
         type: types.images,
       });
-      setImage(pickerResult);
+
+      onImageChange(pickerResult.fileCopyUri);
     } catch (e) {
       handleError(e);
     }
@@ -74,20 +111,51 @@ const Account = () => {
   const onSelectedGender = (genderId: number) => {
     console.log("gender id", `${genderId}`);
     setSelectedGender(genderId);
+    setValue("gender", genderId);
+  };
+
+  const onConfirmDate = (_date: Date) => {
+    setValue("birthdate", _date);
+    setDate(formateDate(_date));
+  };
+
+  const onImageChange = (image?: string | null) => {
+    const newImage = image ?? "";
+    setValue("image", newImage);
+    setImage(newImage);
+  };
+
+  const onChangeTextHandler = (fieldName: any, text: string) => {
+    clearErrors(fieldName);
+    setValue(fieldName, text);
+  };
+
+  const onSubmit = (data: UserAccountType) => {
+    const isEqual = areObjectsEqual(data, defaultValues);
+    if (isEqual) {
+      dispatch(showToast(translate("Model.nothingToUpdate")));
+      return;
+    }
+    const _data = convertObjToFormData(data);
+    console.log(_data);
+    updateUserData(_data, res => {
+      if (res.status === 200) {
+        console.log(res?.data);
+        dispatch(showToast(translate("Model.updateDoctorMessage")));
+      }
+    });
   };
 
   const renderAvatar = () => {
     return (
       <View style={styles.avatarContainer}>
         <Image
-          source={image ? {uri: image?.fileCopyUri} : Images.default}
+          source={image ? {uri: image} : Images.default}
           style={styles.image}
         />
         <View style={styles.actionsContainer}>
           <RoundedIcon
-            onPress={() => {
-              console.log("delete Photo");
-            }}
+            onPress={onImageChange}
             size={32}
             style={styles.roundedIcon}
             iconStyle={styles.icon}
@@ -107,12 +175,6 @@ const Account = () => {
         </View>
       </View>
     );
-  };
-
-  const onConfirmDate = (_date: Date) => {
-    //  setFieldValue("birthdate", moment(_date).format("YYYY-MM-DD"));
-    console.log(_date);
-    setDate(formateDate(_date));
   };
 
   return (
@@ -137,6 +199,8 @@ const Account = () => {
             keyboardType="phone-pad"
             inputContainerStyle={styles.inputContainer}
             labelStyle={labelStyle}
+            error={errors?.mobile?.message?.toString()}
+            onChangeText={text => onChangeTextHandler("mobile", text)}
           />
 
           <Input
@@ -145,6 +209,8 @@ const Account = () => {
             placeholder={translate("Form.enterEmail")}
             style={styles.input}
             inputContainerStyle={styles.inputContainer}
+            error={errors?.email?.message?.toString()}
+            onChangeText={text => onChangeTextHandler("email", text)}
           />
 
           <Input
@@ -153,6 +219,8 @@ const Account = () => {
             placeholder={translate("Form.enterFullName")}
             style={styles.input}
             inputContainerStyle={styles.inputContainer}
+            error={errors?.name?.message?.toString()}
+            onChangeText={text => onChangeTextHandler("name", text)}
           />
 
           <Text
@@ -189,31 +257,32 @@ const Account = () => {
           <ProfileRowCard
             item={{
               name: translate("Form.password"),
-              navigateTo: "ResetPassword",
             }}
             style={styles.password}
-            handleOnRowPressed={() => {}}
+            handleOnRowPressed={() => {
+              navigate("ResetPassword");
+            }}
           />
         </Scroll>
-        {/* <Button type="standard" text="Save" /> */}
       </View>
 
       <Button
         type="standard"
         text={translate("Common.save")}
         style={styles.saveButton}
+        onPress={handleSubmit(onSubmit)}
+        isLoading={accountLoading}
       />
       <GenderModal
-        selectedId={selectedGender.toString()}
-        onSelect={id => {
-          onSelectedGender(id);
-        }}
+        selectedId={profile.gender_id ?? selectedGender?.toString()}
+        onSelect={onSelectedGender}
         forwardRef={genderModalRef}
       />
 
       <CalenderModel
         handleOnSelectDate={onConfirmDate}
         forwardRef={calenderModelRef}
+        initialDate={profile.birthday}
       />
     </View>
   );

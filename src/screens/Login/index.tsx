@@ -13,7 +13,7 @@ import {
 } from "../../components";
 import {useForm} from "react-hook-form";
 import {LoginTypes} from "../../@types";
-import {userLogin} from "../../redux";
+import {forgetPassword, userLogin} from "../../redux";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useLoader, useNavigationHooks} from "../../hooks";
 import {
@@ -24,7 +24,7 @@ import {Colors, Spacing} from "../../styles";
 import {styles} from "./styles";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {RouteProp, useRoute} from "@react-navigation/native";
-import {translate} from "../../helpers";
+import {convertObjToFormData, translate} from "../../helpers";
 import {AccountLoginSchema} from "../../helpers/validationSchema";
 import ErrorMessageModal from "../../components/models/ErrorMessageModal";
 
@@ -42,6 +42,9 @@ const Login = () => {
   const {
     setValue,
     handleSubmit,
+    getValues,
+    setError,
+    clearErrors,
     formState: {errors},
   } = useForm({
     resolver: yupResolver(AccountLoginSchema),
@@ -55,6 +58,26 @@ const Login = () => {
     userLogin(data, res => {
       onOpenSuccessModal();
     });
+  };
+
+  const handlerforgetPasswordPressed = () => {
+    const mobile = getValues("mobile");
+    if (!mobile) {
+      setError("mobile", {
+        type: "required",
+        message: `${translate("Validation.required")}`,
+      });
+
+      console.warn(mobile);
+      return;
+    }
+    const _data = convertObjToFormData({mobile: "01021594073"});
+    forgetPassword(_data);
+  };
+
+  const onChangeTextHandler = (fieldName: any, text: string) => {
+    clearErrors(fieldName);
+    setValue(fieldName, text);
   };
 
   return (
@@ -79,8 +102,8 @@ const Login = () => {
           style={styles.input}
           keyboardType="phone-pad"
           inputContainerStyle={styles.inputContainer}
-          onChangeText={text => setValue("mobile", text)}
-          error={errors?.mobile?.message}
+          onChangeText={text => onChangeTextHandler("mobile", text)}
+          error={errors?.mobile?.message?.toString()}
         />
         <Input
           password
@@ -88,8 +111,8 @@ const Login = () => {
           placeholder={translate("Form.enterPassword")}
           style={styles.input}
           inputContainerStyle={styles.inputContainer}
-          onChangeText={text => setValue("password", text)}
-          error={errors?.password?.message}
+          onChangeText={text => onChangeTextHandler("password", text)}
+          error={errors?.password?.message?.toString()}
         />
         <ViewRow style={{justifyContent: "space-between"}}>
           <CheckBox text={translate("Form.rememberMe")} />
@@ -100,6 +123,7 @@ const Login = () => {
               fontSize: "FS13",
               color: "BLUE_4A5970",
             }}
+            onPress={handlerforgetPasswordPressed}
           />
         </ViewRow>
         <View style={styles.buttonGroup}>
@@ -114,9 +138,7 @@ const Login = () => {
             text={translate("Form.createAccount")}
             type="border"
             style={styles.button}
-            onPress={() => {
-              navigate("Account");
-            }}
+            onPress={handleSubmit(handleLoginPressed)}
           />
         </View>
         <ViewRow style={{justifyContent: "space-between"}}>
@@ -170,7 +192,6 @@ const Login = () => {
         forwardRef={errorModalRef}
         message={translate("Modal.Error")}
       />
-
       {loginLoader && <View style={styles.disableClicks} />}
     </View>
   );

@@ -19,10 +19,21 @@ import {Colors, Spacing} from "../../styles";
 import {getHeight, getWidth} from "../../styles/dimensions";
 import {styles} from "./styles";
 import {translate} from "../../helpers";
-import {getHomePageData, useAppSelector} from "../../redux";
+
+import {useFocusEffect} from "@react-navigation/native";
+import {getHomePageData, getUserProfile, useAppSelector} from "../../redux";
 
 const Home = () => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
+  const {homePageData} = useAppSelector(
+    state => state.homeReducer.homePageData,
+  );
+
+  useFocusEffect(
+    React.useCallback(() => {
+      Promise.all([getHomePageData(), getUserProfile()]);
+    }, []),
+  );
 
   const {homePageData} = useAppSelector(state => state.homeReducer);
 
@@ -100,7 +111,6 @@ const Home = () => {
           </View>
 
           {/* Top doctor Rated Section List */}
-
           {doctors.length > 0 && (
             <Section
               title={translate("Home.topRatedDoctors")}
@@ -114,6 +124,7 @@ const Home = () => {
               }}
             />
           )}
+
         </Scroll>
       </View>
     </View>

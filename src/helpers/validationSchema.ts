@@ -140,25 +140,14 @@ export const userAccountSchema = yup.object().shape({
     .string()
     .trim()
     .matches(phoneRegExp, translate("validation.enterValidPhoneNumber")),
-  email: yup
-    .string()
-    .trim()
-    .email(translate("validation.enterValidEmail")) // Custom error message for invalid email format
-    .max(255, translate("validation.emailTooLong")), // Maximum length for email
+  email: yup.string().trim().email(),
   name: yup.string(),
-  password: yup.string().min(8).max(24),
-  // password_confirmation: yup
-  //   .string()
-  //   .oneOf(
-  //     [yup.ref("password")],
-  //     translate("validation.confirmPasswordNotMatch"),
-  //   ),
   gender: yup.number(),
   birthdate: yup.string(),
   image: yup.string(),
 });
 
 export const ResetPasswordSchema = yup.object().shape({
-  oldPassword: yup.string().min(8).max(24).required(),
-  newPassword: yup.string().min(8).max(24).required(),
+  old_password: yup.string().min(8).max(24).required(),
+  password: yup.string().min(8).max(24).required(),
 });
