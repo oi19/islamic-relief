@@ -1,5 +1,4 @@
-import {ChatType, Doctor} from "../@types";
-import {specialType} from "../@types/special-types";
+import {ChatType, Doctor, FilterType, ServicesTypesEnums} from "../@types";
 import {IconsName} from "../assets/svgs";
 
 export type MainNavigationTypes =
@@ -26,13 +25,19 @@ export type MainAppStackTypes = {
   Points: undefined;
   Help: undefined;
   Account: undefined;
+
   ChatRoom: {chatData?: ChatType};
 };
 
 export type HomeStackTypes = {
   Home: undefined;
   Search: undefined;
-  SpecialDetails: {item: specialType};
+  SpecialDetails: {
+    name: string;
+    id?: number;
+    filterType: FilterType;
+    servicesType?: ServicesTypesEnums;
+  };
   DoctorProfile: {item: Doctor};
 };
 

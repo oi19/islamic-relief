@@ -25,4 +25,8 @@ export const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: Spacing.S16,
   },
+  loaderContainer: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
 });

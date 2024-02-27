@@ -37,6 +37,7 @@ export type ColorsTypes = {
   GRAY_ECEBEB: string;
   TRANSPARENT: string;
   ORANGE_FEF3F2: string;
+  GRAY_C2C2C2: string;
 };
 export const PRIMARY = "#FB6107";
 export const PRIMARY1 = "#FABC99";
@@ -81,6 +82,7 @@ export const GRAY_CBCBCB = "#CBCBCB";
 export const GRAY_F5EFF7 = "#F5EFF7";
 export const GRAY_969696 = "#969696";
 export const GRAY_ECEBEB = "#ECEBEB";
+export const GRAY_C2C2C2 = "#C2C2C2";
 export const DARK_GRAY = "gray";
 export const TRANSPARENT = "rgba(0,0,0,0)";
 

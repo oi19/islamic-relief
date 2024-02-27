@@ -23,6 +23,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     marginHorizontal: getWidth(-5),
+    zIndex: 1000,
   },
 
   tabsContainer: {
@@ -39,14 +40,16 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.TRANSPARENT,
     height: getHeight(90),
     // borderRadius: 12,
-    shadowColor: Colors.DARK_GRAY,
+
+    shadowColor: Colors.BLACK,
     shadowOffset: {
       width: 0,
-      height: 5,
+      height: -3,
     },
-    shadowOpacity: 0.58,
-    shadowRadius: 16.0,
-    elevation: 20,
+    shadowOpacity: 0.2,
+    shadowRadius: 4,
+
+    // elevation: 20,
   },
   routesContainer: {
     justifyContent: "space-between",
@@ -63,6 +66,7 @@ const styles = StyleSheet.create({
     shadowRadius: 4.65,
     elevation: 9,
   },
+
   middleIconStyle: {
     alignItems: "center",
     justifyContent: "center",

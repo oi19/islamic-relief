@@ -13,12 +13,12 @@ import {translate} from "../../../helpers";
 const HeaderSection: FC<
   ViewProps & {
     title?: string;
-    navigateTo?: MainNavigationKeys;
+    navigateTo?: MainNavigationKeys | null;
     params?: any;
     textStyle?: TextProps;
   }
 > = memo(({title, navigateTo, style, params, textStyle}) => {
-  const { navigate } = useNavigationHooks<MainNavigationAllScreensTypes>();
+  const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
   return (
     <View style={[styles.headerSection, style]}>
       {/* title */}
@@ -31,7 +31,11 @@ const HeaderSection: FC<
       </Text>
       {navigateTo && (
         <Button
-          onPress={() => navigate(navigateTo, params)}
+          onPress={() => {
+            if (navigateTo) {
+              navigate(navigateTo, params);
+            }
+          }}
           // eslint-disable-next-line react-native/no-inline-styles
           textStyle={{
             color: "PRIMARY",

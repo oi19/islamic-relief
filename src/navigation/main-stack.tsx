@@ -7,6 +7,7 @@ import {
   ChatRoom,
   CompletePatientDetails,
   Favorites,
+  Help,
   Login,
   ManageCards,
   ManuallyLocation,
@@ -46,6 +47,7 @@ const MainStack = () => {
       <Stack.Screen name="Favorites" component={Favorites} />
       <Stack.Screen name="ChatRoom" component={ChatRoom} />
       <Stack.Screen name="Points" component={Points} />
+      <Stack.Screen name="Help" component={Help} />
     </Stack.Navigator>
   );
 };

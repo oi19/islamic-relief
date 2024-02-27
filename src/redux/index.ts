@@ -12,3 +12,4 @@ export * from "./reducers/homeReducer";
 export * from "./reducers/notificationReducer";
 export * from "./reducers/transactionsReducer";
 export * from "./reducers/chatsReducer";
+export * from "./reducers/doctorsReducer";

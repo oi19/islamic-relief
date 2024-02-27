@@ -32,7 +32,7 @@ import {getHeight} from "../../styles/dimensions";
 import {styles} from "./styles";
 import {IconsName} from "../../assets/svgs";
 import {Reviews} from "../../dummyData";
-import {useNavigationHooks, useToken} from "../../hooks";
+import {useNavigationHooks} from "../../hooks";
 import {Doctor} from "../../@types";
 import {translate} from "../../helpers";
 import FavoriteButton from "../../components/atoms/FavoriteButton/FavoriteButton";
@@ -85,12 +85,7 @@ const DoctorProfile = () => {
 
   const renderHeaderSideIcons = () => {
     return (
-      <View
-        style={{
-          flexDirection: "row",
-          marginEnd: 10,
-          alignItems: "center",
-        }}>
+      <View style={styles.headerSideIconsContainer}>
         <Button
           iconName="share"
           iconStyle={styles.shareIconStyle}
@@ -101,11 +96,11 @@ const DoctorProfile = () => {
           }}
         />
         <FavoriteButton
-          favouriteColor={Colors.WHITE}
+          defaultColor={Colors.WHITE}
+          style={styles.favouriteIconStyle}
           onPress={() => {
             //dispatch action logic updating isFavourite props
-
-            console.warn("like button  button is pressed");
+            console.warn("like button  is pressed");
           }}
         />
       </View>
@@ -115,7 +110,6 @@ const DoctorProfile = () => {
   // {/* Doctor Information section */}
 
   // Doctor Actions section
-
   const renderActionButton = () => (
     <ViewRow
       style={{
@@ -136,7 +130,6 @@ const DoctorProfile = () => {
   );
 
   // {/* Doctor statices section */}
-
   const renderStatisticsSection = () => (
     <ViewRow style={styles.statices}>
       <RoundedIcon

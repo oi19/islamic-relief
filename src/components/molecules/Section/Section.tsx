@@ -13,7 +13,7 @@ const Section: FC<
     title?: string;
     data?: ReadonlyArray<any>;
     renderItem?: ListRenderItem<any> | null | undefined;
-    navigateTo?: MainNavigationKeys;
+    navigateTo?: MainNavigationKeys | null;
     params?: any;
     textStyle?: TextProps;
     snapToInterval?: number;

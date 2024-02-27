@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from "react";
 import {ListRenderItem, View} from "react-native";
 
@@ -20,6 +19,7 @@ import {Colors, Spacing} from "../../styles";
 import {getHeight, getWidth} from "../../styles/dimensions";
 import {styles} from "./styles";
 import {translate} from "../../helpers";
+
 import {useFocusEffect} from "@react-navigation/native";
 import {getHomePageData, getUserProfile, useAppSelector} from "../../redux";
 
@@ -34,6 +34,14 @@ const Home = () => {
       Promise.all([getHomePageData(), getUserProfile()]);
     }, []),
   );
+
+  const {homePageData} = useAppSelector(state => state.homeReducer);
+
+  const {doctors, service_images} = homePageData;
+
+  React.useEffect(() => {
+    getHomePageData();
+  }, []);
 
   const OurServiceItem: ListRenderItem<ServiceType> = ({item, index}) => {
     const listLength = serviceList.length;
@@ -70,7 +78,7 @@ const Home = () => {
           />
           <Button
             iconName="notifications"
-            iconContainerStyle={{marginLeft: 0}}
+            iconContainerStyle={styles.iconContainerStyle}
             style={styles.notifications}
           />
         </View>
@@ -103,14 +111,20 @@ const Home = () => {
           </View>
 
           {/* Top doctor Rated Section List */}
-          <Section
-            title={translate("Home.topRatedDoctors")}
-            renderItem={topRatedDoctor}
-            data={homePageData?.doctors}
-            horizontal={true}
-            navigateTo="SpecialDetails"
-            params={{item: {name: translate("Home.topRatedDoctors")}}}
-          />
+          {doctors.length > 0 && (
+            <Section
+              title={translate("Home.topRatedDoctors")}
+              renderItem={topRatedDoctor}
+              data={doctors}
+              horizontal={true}
+              navigateTo={"SpecialDetails"}
+              params={{
+                name: translate("Home.topRatedDoctors"),
+                filterType: "rating",
+              }}
+            />
+          )}
+
         </Scroll>
       </View>
     </View>

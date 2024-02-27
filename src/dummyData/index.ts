@@ -8,6 +8,7 @@ import {
   Payment_Card_Type,
   Review,
   ServiceType,
+  ServicesTypesEnums,
 } from "../@types";
 import {specialType} from "../@types/special-types";
 import {Images} from "../assets/images";
@@ -73,14 +74,17 @@ const serviceList: ServiceType[] = [
   {
     photo: "findDoctors",
     name: translate("Home.homeVisit"),
+    service: ServicesTypesEnums.HomeVisit,
   },
   {
     photo: "makeAppointment",
     name: translate("Home.clinicVisit"),
+    service: ServicesTypesEnums.ClinicVisit,
   },
   {
     photo: "onlineDoctor",
     name: translate("OnBoarding.onlineConsultation"),
+    service: ServicesTypesEnums.VideoCall,
   },
 ];
 

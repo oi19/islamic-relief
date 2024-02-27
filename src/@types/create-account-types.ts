@@ -8,9 +8,9 @@ export type CountryType = {
 
 export type CityType = {
   id: number;
-  is_active: PermissionStatus;
-  name: string;
-  country_id: number;
+  is_active?: PermissionStatus;
+  name?: string;
+  country_id?: number;
 };
 
 export type SpecialtiesType = {

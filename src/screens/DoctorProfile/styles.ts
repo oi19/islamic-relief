@@ -7,6 +7,12 @@ export const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.GRAY_EEEEEE,
   },
+
+  headerSideIconsContainer: {
+    flexDirection: "row",
+    marginEnd: Spacing.S11,
+    alignItems: "center",
+  },
   container: {
     paddingTop: getHeight(20),
     alignItems: "center",
@@ -51,5 +57,14 @@ export const styles = StyleSheet.create({
   shareIconStyle: {
     width: getWidth(22),
     height: getHeight(22),
+  },
+  favouriteIconStyle: {
+    width: scale(32),
+    height: scale(32),
+    backgroundColor: Colors.RGBA_WHITE(0.6),
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: scale(25),
+    marginHorizontal: Spacing.S16,
   },
 });

@@ -1,6 +1,6 @@
 import {View} from "react-native";
 import React from "react";
-import {getHeight, scale} from "../../styles/dimensions";
+import {getHeight, getWidth, scale} from "../../styles/dimensions";
 import {Colors, Spacing} from "../../styles";
 import {
   Button,
@@ -91,6 +91,12 @@ const Profile: React.FC = () => {
 
             <Button
               text={translate("Profile.loginMessage")}
+              textStyle={{
+                fontSize: "FS14",
+              }}
+              style={{
+                width: getWidth(330),
+              }}
               type="standard"
               onPress={() => {
                 navigate("Login", {

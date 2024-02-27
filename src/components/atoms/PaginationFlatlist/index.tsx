@@ -15,10 +15,17 @@ const PaginationFlatlist: React.FC<
     <View style={styles.content}>
       <FlatList
         scrollEventThrottle={0.00016}
-        onEndReached={onLoadMore}
+        onEndReached={() => {
+          if (props.data && props.data.length > 0) {
+            onLoadMore();
+          }
+        }}
         onEndReachedThreshold={0.16}
         ListFooterComponent={
-          <Loader isLoading={isLoading} style={{paddingTop: getHeight(20)}} />
+          <Loader
+            isLoading={isLoading}
+            style={{paddingTop: getHeight(20), alignSelf: "center"}}
+          />
         }
         showsVerticalScrollIndicator={false}
         style={styles.listStyle}

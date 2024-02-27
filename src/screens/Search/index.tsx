@@ -1,6 +1,7 @@
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
-import React, {useEffect} from "react";
+import React from "react";
 import {ListRenderItem, View} from "react-native";
+import {CityType} from "../../@types";
 import {
   Button,
   CitiesModal,
@@ -9,25 +10,23 @@ import {
   Section,
   SpecialItem,
 } from "../../components";
-import {dummyCities, specialties} from "../../dummyData";
-import {getValueFromId, translate} from "../../helpers";
+import {translate} from "../../helpers";
+import {
+  getValueFromICreatedObj,
+  selectCombinedAccountData,
+  useAppSelector,
+} from "../../redux";
 import {styles} from "./styles";
-import {CityType, SpecialtiesType} from "../../@types";
-import {useAppSelector} from "../../redux";
-import {useLoader} from "../../hooks";
 
 const Search = () => {
-  const specialties: SpecialtiesType[] = useAppSelector(
-    state => state.createAccountReducer.specialties,
-  );
+  const {specialties} = useAppSelector(selectCombinedAccountData);
   const citiesModalRef = React.useRef<BottomSheetModal>(null);
-  const isLoading = useLoader("specialties");
-  const {profile} = useAppSelector(state => state.userReducer?.profile);
 
-  const [selectedCity, setSelectedCity] = React.useState<CityType>();
+  const [selectedCity, setSelectedCity] = React.useState<CityType>({
+    id: -1,
+  });
 
   const onSelectedCity = (city: CityType) => {
-    console.log("city_id", `${city.id}`);
     setSelectedCity(city);
   };
 
@@ -41,8 +40,9 @@ const Search = () => {
   return (
     <View style={styles.rootScreen}>
       <Button
+        placeholder={translate("Form.chooseCity")}
         type="dropdown"
-        text={getValueFromId(selectedCity?.id, dummyCities)}
+        text={getValueFromICreatedObj(selectedCity.id, "cities")}
         iconName="location"
         onPress={onOpenCitiesModal}
       />
@@ -55,18 +55,17 @@ const Search = () => {
           renderItem={specialRenderItem}
         />
 
-        <Section
+        {/* <Section
           title={translate("Search.otherSpecialties")}
           data={specialties}
           renderItem={specialRenderItem}
-        />
+        /> */}
       </Scroll>
       <CitiesModal
-        selectedId={profile?.city_id ?? selectedCity?.id?.toString()}
+        selectedId={selectedCity?.id?.toString()}
         onSelect={onSelectedCity}
         forwardRef={citiesModalRef}
       />
-      {isLoading && <View style={styles.disableClicks}></View>}
     </View>
   );
 };

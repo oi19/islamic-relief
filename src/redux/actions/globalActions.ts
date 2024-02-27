@@ -1,51 +1,7 @@
 import {AxiosResponse} from "axios";
-import {
-  HomePageTypes,
-  PackageTypes,
-  ResponseTypes,
-  SubscribeBody,
-  SubscriptionTypes,
-} from "../../@types";
+import {HomePageTypes, ResponseTypes} from "../../@types";
 import {request} from "../../api/request";
-import {dispatch, setCurrentSubscription, setHomeData} from "..";
-
-const getPackages = async (
-  callback?: (res: AxiosResponse<ResponseTypes<PackageTypes>>) => void,
-) => {
-  try {
-    const response = await request<PackageTypes>({
-      method: "get",
-      endPoint: "packages",
-      callback,
-    });
-    if (response?.code === 200) {
-      console.log(response);
-      // dispatch(setTitles(response.data));
-    }
-  } catch (error: any) {
-    console.log("in getPackages ", error);
-  }
-};
-
-const subscribePackages = async (
-  body: SubscribeBody,
-  callback?: (res: AxiosResponse<ResponseTypes<SubscriptionTypes>>) => void,
-) => {
-  try {
-    const response = await request<SubscriptionTypes, SubscribeBody>({
-      method: "post",
-      endPoint: "subscribePackages",
-      body,
-      callback,
-    });
-    if (response?.code === 200) {
-      console.log(response);
-      dispatch(setCurrentSubscription(response?.data));
-    }
-  } catch (error: any) {
-    console.log("in subscribePackages ", error?.response?.data);
-  }
-};
+import {dispatch, setHomeData} from "..";
 
 const getHomePageData = async (
   callback?: (res: AxiosResponse<ResponseTypes<HomePageTypes>>) => void,
@@ -83,4 +39,4 @@ const setFcmToken = async (
     console.log("in setFcmToken ", error);
   }
 };
-export {getHomePageData, getPackages, setFcmToken, subscribePackages};
+export {getHomePageData, setFcmToken};
