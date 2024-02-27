@@ -1,14 +1,14 @@
-import React, {memo, RefObject, useEffect, useState} from "react";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
-import BaseModal from "../BaseModal/BaseModal";
+import React, {memo, RefObject, useState} from "react";
 import {FlatList, ListRenderItem, View} from "react-native";
-import styles from "./styles";
-import {Button, Input} from "../../atoms";
 import {CityType} from "../../../@types";
-import {SelectedItem} from "../../organisms";
 import {translate} from "../../../helpers";
-import {selectAllCities, store} from "../../../redux";
 import {useLoader} from "../../../hooks";
+import {selectCombinedAccountData, useAppSelector} from "../../../redux";
+import {Button, Input} from "../../atoms";
+import {SelectedItem} from "../../organisms";
+import BaseModal from "../BaseModal/BaseModal";
+import styles from "./styles";
 
 const CitiesModal = ({
   forwardRef,
@@ -19,9 +19,9 @@ const CitiesModal = ({
   onSelect: (selectedCity: CityType) => void;
   selectedId?: string;
 }) => {
-  const cities = selectAllCities(store.getState());
+  const {cities} = useAppSelector(selectCombinedAccountData);
+
   const [citiesList, setCities] = useState<CityType[]>(cities);
-  const isLoading = useLoader("cities");
 
   const onClose = () => {
     forwardRef.current?.close();
@@ -38,7 +38,7 @@ const CitiesModal = ({
     if (keyword) {
       const lowercaseKeyword = keyword.toLowerCase();
       const newList = cities?.filter((item: CityType) =>
-        item.name.toLowerCase().includes(lowercaseKeyword),
+        item?.name?.toLowerCase().includes(lowercaseKeyword),
       );
       setCities(newList);
     } else {
@@ -80,7 +80,6 @@ const CitiesModal = ({
           renderItem={RenderCityItem}
           data={citiesList}
         />
-        {isLoading && <View style={styles.disableClicks}></View>}
       </View>
     </BaseModal>
   );

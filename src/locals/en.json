@@ -99,7 +99,7 @@
     "waitingTime": "Waiting Time"
   },
   "Model": {
-    "warningTitle": "Warning Message",
+    "warningTitle": "Alert",
     "dateAndTimeMessage": "Please make sure to select date and time.",
     "errorTitle": "Error Message",
     "pleaseSelectPackageMessage": "Please Select a Package for your booking",
@@ -129,8 +129,8 @@
     "orSignIn": "Or Sign in with",
     "byContinuing": "By Continuing, you agree to Doctors",
     "terms&Conditions": "Terms & Conditions",
-
-    "fullName": "FullName",
+    "chooseCity":"Choose City ",
+    "fullName": "Full Name",
     "enterFullName": "Enter Full Name",
     "email": "Email",
     "enterEmail": "Enter Your Email",
@@ -188,7 +188,11 @@
     "loginMessage": "Login to explore our joyful experience.",
     "changePhoto": "Change Photo",
     "account": "Account",
-    "selectYourBirthday": "Select your Birthday"
+    "selectYourBirthday": "Select your Birthday",
+    "myServices":"My Services",
+    "sendtoUs":"Send to us ",
+    "callUs":"Call us"
+
   },
   "Notifications": {
     "title": "Notifications",

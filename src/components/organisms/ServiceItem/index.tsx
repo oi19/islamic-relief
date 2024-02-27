@@ -1,10 +1,11 @@
-import {StyleSheet} from "react-native";
 import React from "react";
-import {Card, Text} from "../../atoms";
+import {FilterType, ServiceType} from "../../../@types";
 import {Svgs} from "../../../assets";
-import {ServiceType} from "../../../@types";
-import {getHeight, getWidth} from "../../../styles/dimensions";
-import {Spacing} from "../../../styles";
+import {useNavigationHooks} from "../../../hooks";
+import {HomeStackTypes} from "../../../navigation/navigation-types";
+import {getWidth} from "../../../styles/dimensions";
+import {Card, Text} from "../../atoms";
+import {styles} from "./styles";
 
 type ServiceItemProps = {
   item: ServiceType;
@@ -12,8 +13,17 @@ type ServiceItemProps = {
   isOddAndLastItem?: boolean;
 };
 const ServiceItem: React.FC<ServiceItemProps> = ({item, isOddAndLastItem}) => {
+  const {navigate} = useNavigationHooks<HomeStackTypes>();
+
   return (
     <Card
+      onPress={() =>
+        navigate("SpecialDetails", {
+          name: item?.name,
+          filterType: FilterType.Services,
+          servicesType: item?.service,
+        })
+      }
       style={[
         styles.cardContainer,
         {
@@ -29,13 +39,3 @@ const ServiceItem: React.FC<ServiceItemProps> = ({item, isOddAndLastItem}) => {
 };
 
 export default ServiceItem;
-
-const styles = StyleSheet.create({
-  cardContainer: {
-    height: getHeight(130),
-    alignItems: "center",
-    justifyContent: "center",
-    marginVertical: Spacing.S8,
-    marginLeft: Spacing.S16,
-  },
-});

@@ -42,7 +42,6 @@ RequestParams<T, R>) {
       handleErrors(response.data);
     }
   } catch (e) {
-    console.log("response:" + e?.response?.data);
     console.log("Network error", e);
   }
 }

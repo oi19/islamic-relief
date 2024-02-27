@@ -2,7 +2,7 @@ import {ReactNode} from "react";
 import {IconsName} from "../assets/svgs";
 import {MainNavigationKeys} from "../navigation/navigation-types";
 import {User} from "./user";
-import {AppointmentStatus, AppointmentsTypes} from "./appointment-types";
+import {AppointmentStatus} from "./appointment-types";
 import {TransactionStatus} from "./transaction-types";
 import {translate} from "../helpers";
 import {Doctor} from "./doctor";
@@ -12,6 +12,8 @@ export type TabOptionType = {
   name?: string;
   content?: any;
   status?: AppointmentStatus | TransactionStatus;
+  groupBy?: "price" | "duration";
+  orderType?: "asc" | "desc";
 };
 
 export type Tab = {
@@ -57,22 +59,12 @@ export type profileRowType = {
 
 export type FilterCondition<T> = (item: T, baseItem?: T) => boolean;
 
-// import {ReactNode} from "react";
-// import {AppointmentStatus, AppointmentsTypes} from "./appointment-types";
-// import {IconsName} from "@assets/svgs";
-// import {TransactionStatus} from "./transaction-types";
-// import {User} from "./user";
-// import {MainNavigationKeys} from "@navigation/navigation-types";
-// import {translate} from "@helpers/language";
-
-type CountAppointments = {
-  service: ServicesTypesEnums;
-  appointment_count: number;
-};
-
 export type HomePageTypes = {
-  today_appointments: AppointmentsTypes[];
-  count_appointments: CountAppointments[];
+  service_images: {
+    home_image: string;
+    clinic_image: string;
+    online_image: string;
+  };
   doctors: Doctor[];
 };
 

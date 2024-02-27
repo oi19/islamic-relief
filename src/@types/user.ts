@@ -1,4 +1,5 @@
 import {IconsName} from "../assets/svgs";
+import {ServicesTypesEnums} from "./common-types";
 
 export type User = {
   photo?: string;
@@ -25,6 +26,7 @@ export interface GenderTypes {
 export interface ServiceType {
   photo: IconsName;
   name?: string;
+  service?: ServicesTypesEnums;
 }
 
 export interface UserAccountType {

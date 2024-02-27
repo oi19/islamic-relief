@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from "react";
 import {View} from "react-native";
 import {Button, Card, Image, Rating, Text, ViewRow} from "../../atoms";
@@ -9,12 +8,10 @@ import {TextWithIcon} from "../../molecules";
 import {styles} from "./styles";
 import {scale} from "../../../styles/dimensions";
 import {useNavigationHooks} from "../../../hooks";
-import {
-  HomeStackTypes,
-  MainNavigationAllScreensTypes,
-} from "../../../navigation/navigation-types";
+import {MainNavigationAllScreensTypes} from "../../../navigation/navigation-types";
 import {translate} from "../../../helpers";
 import FavoriteButton from "../../atoms/FavoriteButton/FavoriteButton";
+import {getValueFromICreatedObj} from "../../../redux";
 
 type DoctorCardDetailsProps = {
   item: Doctor;
@@ -23,8 +20,6 @@ type DoctorCardDetailsProps = {
 
 const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
-  // const {isBooked}: boolean = item;
-  const isBooked: boolean = true;
 
   const onBookAppointmentPressed = () => {
     navigate("DoctorProfile", {
@@ -56,7 +51,7 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
           </Text>
 
           <Text color="GRAY_A7A7A7" fontSize="FS13">
-            {item?.specialty}
+            {getValueFromICreatedObj(item?.specialty_id, "specialties")}
           </Text>
           <ViewRow>
             <Rating size={scale(20)} rate={Number(item?.rating)} />
@@ -77,7 +72,7 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
           />
           <Button
             iconName="phone"
-            iconContainerStyle={{marginLeft: 0}}
+            iconContainerStyle={styles.iconContainerStyle}
             style={styles.notifications}
             onPress={() => {
               console.log("Audio Calling " + item.name);
@@ -85,10 +80,10 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
           />
           <Button
             iconName="video"
-            iconContainerStyle={{marginLeft: 0}}
+            iconContainerStyle={styles.iconContainerStyle}
             style={styles.notifications}
             onPress={() => {
-              console.log("Video Calling " + item.name);
+              console.log("Video Calling" + item.name);
             }}
           />
         </View>
@@ -98,14 +93,17 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
         <TextWithIcon
           type="medium"
           icon="prescription"
-          text="Lorem ipsum dolor sit amet consectetur. Lacus sit quis vitae consectetur nulla rutrum."
+          text={
+            item?.desc ||
+            "Lorem ipsum dolor sit amet consectetur. Lacus sit quis vitae consectetur nulla rutrum."
+          }
           style={styles.prescriptionContainerStyle}
         />
 
         <TextWithIcon
           type="medium"
           icon="wallet"
-          text={`${500}`}
+          text={`${item?.clinics?.[0]?.price || 0} `}
           style={styles.walletTextContainerStyle}
         />
       </View>

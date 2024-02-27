@@ -103,7 +103,7 @@
   },
 
   "Model": {
-    "warningTitle": "رسالة تحذير",
+    "warningTitle": "تنبيه",
     "errorTitle": "خطأ",
     "dateAndTimeMessage": "الرجاء التأكد من تحديد التاريخ والوقت.",
     "congratulations": "مبروك ",
@@ -133,7 +133,7 @@
     "orSignIn": "أو تسجيل الدخول باستخدام",
     "byContinuing": "من خلال الاستمرار، فإنك توافق على الأطباء",
     "terms&Conditions": "شروط وأحكام",
-
+    "chooseCity":"اختر المدينة ",
     "fullName": "الاسم الكامل",
     "enterFullName": "أدخل الاسم الكامل",
     "email": "بريد إلكتروني",
@@ -199,7 +199,11 @@
     "loginMessage": "تسجيل الدخول لاستكشاف تجربتنا بهيجة.",
     "changePhoto": "تغيير الصورة",
     "account": "حساب",
-    "selectYourBirthday": "اختر عيد ميلادك"
+    "selectYourBirthday": "اختر عيد ميلادك",
+    "myServices":"خدماتي",
+    "sendtoUs":"أرسل إلينا",
+    "callUs":"اتصل بنا"
+
   },
 
   "Notifications": {

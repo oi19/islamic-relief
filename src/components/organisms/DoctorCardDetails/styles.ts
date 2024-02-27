@@ -27,6 +27,7 @@ export const styles = StyleSheet.create({
     borderRadius: scale(25),
     marginVertical: Spacing.S8,
   },
+  iconContainerStyle: {},
   spaceBetween: {
     justifyContent: "space-between",
     marginVertical: Spacing.S11,

@@ -22,3 +22,4 @@ export {default as Favorites} from "./Favorites";
 export {default as Notifications} from "./Notifications";
 export {default as ChatRoom} from "./ChatRoom";
 export {default as Points} from "./Points";
+export {default as Help} from "./Help";

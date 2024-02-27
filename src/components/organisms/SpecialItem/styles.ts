@@ -14,8 +14,9 @@ export const styles = StyleSheet.create({
   image: {
     width: scale(32),
     height: scale(32),
-    backgroundColor: "red",
     borderRadius: scale(50),
+    borderWidth: 1,
+    borderColor: Colors.PRIMARY,
   },
   name: {marginHorizontal: Spacing.S8},
   line: {

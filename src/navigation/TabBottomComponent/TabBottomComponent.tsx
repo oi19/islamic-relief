@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import {BottomTabBarProps} from "@react-navigation/bottom-tabs";
 import React from "react";
 import {Svgs} from "../../assets";
@@ -11,6 +10,7 @@ import Svg, {Path} from "react-native-svg";
 import {TouchableOpacity, View} from "react-native";
 import {isRTL} from "../../locals/i18n-config";
 import LinearGradient from "react-native-linear-gradient";
+import DropShadow from "react-native-drop-shadow";
 
 function TabBottomComponent({
   state,
@@ -20,7 +20,9 @@ function TabBottomComponent({
   //   const token = useToken();
 
   return (
-    <View style={styles.tabsContainer}>
+    // <View style={styles.tabsContainer}>
+    <DropShadow
+      style={[styles.tabsContainer, {transform: [{scaleX: isRTL() ? -1 : 1}]}]}>
       <ViewRow style={styles.routesContainer}>
         {state.routes.map((route: any, index: number) => {
           const newPosition: number | null =
@@ -47,7 +49,7 @@ function TabBottomComponent({
           if (index === 2) {
             const isFocusedColors = isFocused
               ? ["#FFAC5F", "#FF4D3C"]
-              : ["#a0a0a0", "#a0a0a0"];
+              : ["#C2C2C2", "#C2C2C2"];
             return (
               <View
                 style={[
@@ -57,6 +59,18 @@ function TabBottomComponent({
                   },
                 ]}
                 key={`${index}--${route.key}`}>
+                {/* <Svg
+                  width={getWidth(126)}
+                  height={getHeight(91)}
+                  // preserveAspectRatio="xMinYMin slice"
+                  viewBox="0 0 126 95"
+                  fill={Colors.WHITE}>
+                  <Path
+                    fill-rule="evenodd"
+                    clip-rule="evenodd"
+                    d="M125 0.531893C116.974 -1.14676 101.947 0.532008 99.3852 14.6326C99.3852 14.6326 92.7254 36.3013 60.9631 36.3013C29.2008 36.3013 23.5656 14.6326 23.5656 14.6326C18.9549 5.07851 13.5246 -1.88539 0 0.531893V95H125V0.531893Z"
+                  />
+                </Svg> */}
                 <Svg
                   width={getWidth(126)}
                   height={getHeight(91)}
@@ -106,7 +120,9 @@ function TabBottomComponent({
           );
         })}
       </ViewRow>
-    </View>
+    </DropShadow>
+
+    // </View>
   );
 }
 
@@ -129,7 +145,7 @@ function Item({route, isFocused, index, onPress, newPosition}: any) {
       ]}>
       <Svgs
         name={route.params.icon}
-        color={isFocused ? Colors.PRIMARY : Colors.GRAY_A7A7A7}
+        color={isFocused ? Colors.PRIMARY : Colors.GRAY_C2C2C2}
         width={scale(27)}
         height={scale(27)}
       />

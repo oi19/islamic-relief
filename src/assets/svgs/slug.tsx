@@ -1,7 +1,8 @@
 import * as React from "react";
 import Svg, {SvgProps, Path, Defs, Pattern, Use, Image} from "react-native-svg";
+import {getHeight, getWidth} from "../../styles/dimensions";
 const Slug = (props: SvgProps) => (
-  <Svg width={360} height={360} fill="none" {...props}>
+  <Svg width={getWidth(360)} height={getHeight(360)} fill="none" {...props}>
     <Path fill="url(#a)" d="M0 0h360v360H0z" />
     <Defs>
       <Pattern

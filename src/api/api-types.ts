@@ -19,8 +19,6 @@ export interface ApisTypes<T = string> {
   titles: T;
   areas: T;
   banks: T;
-  packages: T;
-  subscribePackages: T;
   change_fcm_token: T;
 
   // createClinic: T;
@@ -65,8 +63,6 @@ const APIs: ApisTypes = {
   titles: "/titles",
   areas: "/districts",
   banks: "/banks",
-  packages: "/users/packages",
-  subscribePackages: "/users/subscribe",
   change_fcm_token: "/users/change-device-token",
 
   // Auth APIS
@@ -75,7 +71,6 @@ const APIs: ApisTypes = {
   logout: "/users/logout",
   userProfile: "/users/profile",
   updateUserProfile: "/users/profile/update",
-
 
   //Password
   forgetPassword: "/users/password/forgot",
@@ -111,8 +106,7 @@ const APIs: ApisTypes = {
   sentMessage: "/users/sent-message",
 
   // Doctors
-  doctors: "/users/doctors",
-  doctors: "users/doctors",
+  doctors: "/users/filter",
   addToFav: "add-to-favourites",
   deleteFromFav: "delete-from-favourites",
   review: "review",

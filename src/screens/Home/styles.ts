@@ -40,6 +40,9 @@ export const styles = StyleSheet.create({
     minWidth: getWidth(),
     paddingBottom: Spacing.S20,
   },
+  iconContainerStyle: {
+    marginLeft: 0,
+  },
   signUpContainer: {
     width: getWidth(320),
     height: getHeight(170),
