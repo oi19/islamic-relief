@@ -152,3 +152,13 @@ export const ResetPasswordSchema = yup.object().shape({
   old_password: yup.string().min(8).max(24).required(),
   password: yup.string().min(8).max(24).required(),
 });
+export const forgetPasswordSchema = yup.object().shape({
+  password: yup.string().min(8).max(24).required(),
+  password_confirmation: yup
+    .string()
+    .oneOf(
+      [yup.ref("password")],
+      translate("validation.confirmPasswordNotMatch"),
+    )
+    .required(),
+});

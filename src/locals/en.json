@@ -49,7 +49,9 @@
     "confirm": "Confirm",
     "chooseGender": "Choose Gender",
     "addPhotos": "Add Photos",
-    "sendReview": "Send Review"
+    "sendReview": "Send Review",
+    "new": "New",
+    "updateYourPassword": "Update Your Password"
   },
 
   "OnBoarding": {
@@ -129,12 +131,15 @@
     "orSignIn": "Or Sign in with",
     "byContinuing": "By Continuing, you agree to Doctors",
     "terms&Conditions": "Terms & Conditions",
-    "chooseCity":"Choose City ",
+    "chooseCity": "Choose City ",
     "fullName": "Full Name",
     "enterFullName": "Enter Full Name",
     "email": "Email",
     "enterEmail": "Enter Your Email",
-    "birthday": "Birthday"
+    "birthday": "Birthday",
+    "newPassword": "new Password",
+    "oldPassword": "Old Password",
+    "confirmPassword": "Confirm Password"
   },
   "selectPackage": {
     "title": "Select Package"
@@ -189,10 +194,9 @@
     "changePhoto": "Change Photo",
     "account": "Account",
     "selectYourBirthday": "Select your Birthday",
-    "myServices":"My Services",
-    "sendtoUs":"Send to us ",
-    "callUs":"Call us"
-
+    "myServices": "My Services",
+    "sendtoUs": "Send to us ",
+    "callUs": "Call us"
   },
   "Notifications": {
     "title": "Notifications",
@@ -228,5 +232,12 @@
     "confirmPasswordNotMatch": "confirm password does not match the password",
     "imageRequired": "image is a required field",
     "enterValidPhoneNumber": "Enter valid Phone Number"
+  },
+  "Genders": {
+    "male": "Male",
+    "female": "Female"
+  },
+  "Reset": {
+    "resetTitle": "Reset Your Password"
   }
 }

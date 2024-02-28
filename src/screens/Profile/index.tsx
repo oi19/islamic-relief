@@ -21,9 +21,8 @@ import {MainAppStackTypes} from "../../navigation/navigation-types";
 import {convertObjToFormData, filterArray, translate} from "../../helpers";
 import {CityType} from "../../@types";
 import {
-  selectAllCities,
   selectCityById,
-  store,
+  selectCombinedAccountData,
   updateUserData,
   useAppSelector,
 } from "../../redux";
@@ -32,11 +31,11 @@ const Profile: React.FC = () => {
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
   const {profile} = useAppSelector(state => state.userReducer);
   const selectedCity = useAppSelector(state =>
-    selectCityById(state, profile["city_id"]),
+    selectCityById(state, Number(profile.city_id)),
   );
-  const cities = selectAllCities(store.getState());
+  const {cities} = useAppSelector(selectCombinedAccountData);
   const profileLoading = useLoader("userProfile");
-  const isLogin = useToken();
+  const isLogin = !!useToken();
 
   const onSelectCity = (selectedCity: CityType) => {
     const filterCondition = (element: CityType) =>
@@ -97,7 +96,7 @@ const Profile: React.FC = () => {
                 fontSize: "FS14",
               }}
               style={{
-                width: getWidth(330),
+                width: getWidth(340),
               }}
               type="standard"
               onPress={() => {

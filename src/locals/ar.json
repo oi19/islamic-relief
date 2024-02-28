@@ -50,7 +50,8 @@
     "chooseGender": "اختر الجنس",
 
     "addPhotos": "إضافة الصور",
-    "sendReview": "إرسال المراجعة"
+    "sendReview": "إرسال المراجعة",
+    "new": "جديدة"
   },
 
   "OnBoarding": {
@@ -133,12 +134,15 @@
     "orSignIn": "أو تسجيل الدخول باستخدام",
     "byContinuing": "من خلال الاستمرار، فإنك توافق على الأطباء",
     "terms&Conditions": "شروط وأحكام",
-    "chooseCity":"اختر المدينة ",
+    "chooseCity": "اختر المدينة ",
     "fullName": "الاسم الكامل",
     "enterFullName": "أدخل الاسم الكامل",
     "email": "بريد إلكتروني",
     "enterEmail": "أدخل بريدك الإلكتروني",
-    "birthday": "تاريخ الميلاد"
+    "birthday": "تاريخ الميلاد",
+    "newPassword": "كلمة المرور الجديدة",
+    "oldPassword": "كلمة المرور القديمة",
+    "confirmPassword": "تأكيد كلمة المرور"
   },
 
   "selectPackage": {
@@ -200,10 +204,9 @@
     "changePhoto": "تغيير الصورة",
     "account": "حساب",
     "selectYourBirthday": "اختر عيد ميلادك",
-    "myServices":"خدماتي",
-    "sendtoUs":"أرسل إلينا",
-    "callUs":"اتصل بنا"
-
+    "myServices": "خدماتي",
+    "sendtoUs": "أرسل إلينا",
+    "callUs": "اتصل بنا"
   },
 
   "Notifications": {
@@ -237,5 +240,13 @@
     "confirmPasswordNotMatch": "تأكيد كلمة المرور لا تتطابق مع كلمة المرور",
     "imageRequired": "الصورة حقل مطلوب",
     "enterValidPhoneNumber": "أدخل رقم هاتف صحيح"
+  },
+  "Genders": {
+    "male": "ذكر",
+    "female": "انثى"
+  },
+  "Reset": {
+    "resetTitle": "إعادة تعيين كلمة المرور",
+    "updateYourPassword": "تحديث كلمة المرور الخاصة بك"
   }
 }

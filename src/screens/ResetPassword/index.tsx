@@ -7,12 +7,14 @@ import {styles} from "./styles";
 import {TextProps} from "../../components/atoms/Text/Text";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {ResetPasswordSchema} from "../../helpers/validationSchema";
+import {
+  ResetPasswordSchema,
+  forgetPasswordSchema,
+} from "../../helpers/validationSchema";
 import {convertObjToFormData, translate} from "../../helpers";
-import {resetPassword} from "../../redux";
-import {useLoader, useNavigationHooks} from "../../hooks";
-import ErrorMessageModal from "../../components/models/ErrorMessageModal";
-import {BottomSheetModal} from "@gorhom/bottom-sheet";
+import {changePassword, resetPassword} from "../../redux";
+import {useLoader, useNavigationHooks, useToken} from "../../hooks";
+import {MainAppStackTypes} from "../../navigation/navigation-types";
 
 const labelStyle: TextProps = {
   fontSize: "FS14",
@@ -21,25 +23,41 @@ const labelStyle: TextProps = {
 };
 const ResetPassword = () => {
   const updatePasswordLoading = useLoader("resetPassword");
-  const errorModalRef = React.useRef<BottomSheetModal>(null);
-  const navigate = useNavigationHooks();
+  const {navigate, goBack} = useNavigationHooks<MainAppStackTypes>();
+  const isLogged = !!useToken();
+
   const {
     handleSubmit,
     clearErrors,
     setValue,
     formState: {errors},
   } = useForm({
-    resolver: yupResolver<any>(ResetPasswordSchema),
+    resolver: yupResolver<any>(
+      isLogged ? ResetPasswordSchema : forgetPasswordSchema,
+    ),
   });
 
+  const firstInputKey = isLogged ? "old_password" : "password";
+  const secondInputKey = isLogged ? "password" : "password_confirmation";
+
   const onSubmit = (data: any) => {
-    const _data = convertObjToFormData(data);
-    console.log(_data);
-    resetPassword(_data, res => {
+    const formData = isLogged ? data : {password: data.password};
+
+    const callback = (res: any) => {
       if (res.status === 200) {
-        navigate.goBack();
+        if (isLogged) {
+          goBack();
+        } else {
+          navigate("Login", {navigateTo: "Home"});
+        }
       }
-    });
+    };
+
+    if (isLogged) {
+      resetPassword(formData, callback);
+    } else {
+      changePassword(formData, callback);
+    }
   };
 
   const onChangeTextHandler = (fieldName: any, text: string) => {
@@ -50,39 +68,41 @@ const ResetPassword = () => {
   return (
     <View style={styles.rootScreen}>
       <Header
-        title={"Reset Password"}
+        title={translate("Reset.resetTitle")}
         style={{height: getHeight(120), paddingTop: Spacing.S20}}
       />
       <View style={styles.container}>
         <Input
           password
-          label="Old Password*"
+          label={translate(isLogged ? "Form.oldPassword" : "Form.newPassword")}
           labelStyle={labelStyle}
-          placeholder="Enter Old Password"
+          placeholder={translate("Form.enterPassword")}
           style={styles.input}
           inputContainerStyle={styles.inputContainer}
-          onChangeText={text => onChangeTextHandler("old_password", text)}
-          error={errors?.old_passwrod?.message?.toString()}
+          onChangeText={text => onChangeTextHandler(firstInputKey, text)}
+          error={errors[firstInputKey]?.message?.toString()}
         />
 
         <Input
           password
-          label="New Password*"
+          label={translate(
+            isLogged ? "Form.newPassword" : "Form.confirmPassword",
+          )}
           labelStyle={labelStyle}
-          placeholder="Enter your New Password"
+          placeholder={translate("Form.enterPassword")}
           style={styles.input}
           inputContainerStyle={styles.inputContainer}
-          onChangeText={text => onChangeTextHandler("password", text)}
-          error={errors?.password?.message?.toString()}
+          onChangeText={text => onChangeTextHandler(secondInputKey, text)}
+          error={errors[secondInputKey]?.message?.toString()}
         />
+
         <Button
           type="standard"
-          text="Update your Password"
+          text={translate("Reset.updateYourPassword")}
           style={styles.saveButton}
           onPress={handleSubmit(onSubmit)}
           isLoading={updatePasswordLoading}
         />
-        <ErrorMessageModal forwardRef={errorModalRef} />
       </View>
     </View>
   );

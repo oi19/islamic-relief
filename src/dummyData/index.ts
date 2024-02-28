@@ -237,11 +237,11 @@ const Reviews: Review[] = [
 const genders: GenderTypes[] = [
   {
     id: 1,
-    name: "Male",
+    name: translate("Genders.male")!,
   },
   {
     id: 2,
-    name: "Female",
+    name: translate("Genders.female")!,
   },
 ];
 

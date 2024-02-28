@@ -36,8 +36,9 @@ export interface UserAccountType {
   image?: string;
   password?: string;
   password_confirmation?: string;
-  gender_id?: number;
+  gender?: number;
   birthday?: string;
+  city_id?: string;
 
   title_id?: number;
   specialty_id?: number;

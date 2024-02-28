@@ -1,12 +1,6 @@
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import React from "react";
 import {View} from "react-native";
-import DocumentPicker, {
-  DocumentPickerResponse,
-  isCancel,
-  isInProgress,
-  types,
-} from "react-native-document-picker";
 
 import {Images} from "../../assets/images";
 import {
@@ -26,6 +20,7 @@ import {
   areObjectsEqual,
   convertObjToFormData,
   formateDate,
+  formateImage,
   getValueFromId,
   requestStoragePermission,
   translate,
@@ -53,6 +48,8 @@ const labelStyle: TextProps = {
 };
 const Account = () => {
   const {profile} = useAppSelector(state => state.userReducer);
+  const isGenderSelected = profile.gender !== 0;
+
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
   const accountLoading = useLoader("updateUserProfile");
   const genderModalRef = React.useRef<BottomSheetModal>(null);
@@ -60,21 +57,21 @@ const Account = () => {
   const errorModalRef = React.useRef<BottomSheetModal>(null);
   const cameraModelRef = React.useRef<BottomSheetModal>(null);
   const [date, setDate] = React.useState<string | null>(
-    profile?.birthday ?? null,
+    profile.birthday || null,
   );
   const [selectedGender, setSelectedGender] = React.useState<number>(
-    profile.gender ? Number(profile?.gender) : 0,
+    isGenderSelected ? Number(profile.gender) : 0,
   );
-  const [image, setImage] = React.useState<ImageCropResponse | null>(null);
-
-  console.warn(profile.gender);
+  const [image, setImage] = React.useState<
+    ImageCropResponse | null | undefined
+  >(null);
 
   const defaultValues = {
     email: profile.email || "",
     mobile: profile.mobile || "",
     name: profile.name || "",
-    gender: profile.gender,
-    image: profile.image || " ",
+    gender: isGenderSelected ? Number(profile.gender) : 0,
+    image: profile.image || "",
     birthday: profile.birthday || "",
   };
 
@@ -88,33 +85,6 @@ const Account = () => {
     resolver: yupResolver<any>(userAccountSchema),
     defaultValues,
   });
-
-  const handleError = (err: unknown) => {
-    if (isCancel(err)) {
-      console.log("cancelled");
-      // User cancelled the picker, exit any dialogs or menus and move on
-    } else if (isInProgress(err)) {
-      console.log(
-        "multiple pickers were opened, only the last will be considered",
-      );
-    } else {
-      throw err;
-    }
-  };
-
-  const handleUploadDocuments = async () => {
-    try {
-      const pickerResult = await DocumentPicker.pickSingle({
-        presentationStyle: "fullScreen",
-        copyTo: "cachesDirectory",
-        type: types.images,
-      });
-
-      onImageChange(pickerResult);
-    } catch (e) {
-      handleError(e);
-    }
-  };
 
   const onSelectedGender = (genderId: number) => {
     console.log("gender id", `${genderId}`);
@@ -130,8 +100,9 @@ const Account = () => {
     setDate(formateDate(_date));
   };
 
-  const onImageChange = (selectedImage?: any) => {
-    setValue("image", selectedImage?.fileCopyUri);
+  const onImageChange = (selectedImage?: ImageCropResponse) => {
+    console.warn(selectedImage?.path);
+    setValue("image", selectedImage?.path);
     setImage(selectedImage);
   };
 
@@ -146,10 +117,13 @@ const Account = () => {
       dispatch(showToast(translate("Model.nothingToUpdate")));
       return;
     }
-    const _data = convertObjToFormData({...data, image: " "});
+    const _data = convertObjToFormData({
+      ...data,
+      image: formateImage(data.image),
+    });
     console.log(_data);
     updateUserData(_data, res => {
-      console.log(res?.data.data?.message);
+      console.log(res?.data);
 
       if (res.status === 200) {
         console.log(res?.data);
@@ -162,7 +136,13 @@ const Account = () => {
     return (
       <View style={styles.avatarContainer}>
         <Image
-          source={image ? {uri: image.path} : Images.default}
+          source={
+            image
+              ? {uri: image.path}
+              : profile.image
+              ? {uri: profile.image}
+              : Images.default
+          }
           style={styles.image}
         />
         <View style={styles.actionsContainer}>
@@ -175,12 +155,7 @@ const Account = () => {
             backgroundColor="PRIMARY"
           />
           <Text
-            // onPress={() => {
-            //   console.log("change Photo");
-            //   handleUploadDocuments();
-            // }}
             onPress={() => {
-              // handleUploadDocuments();
               requestStoragePermission()
                 .then(() => {
                   cameraModelRef?.current?.present();
@@ -320,9 +295,7 @@ const Account = () => {
       <ErrorMessageModal forwardRef={errorModalRef} />
       <CameraModel
         onSetImage={selectedImage => {
-          console.log(selectedImage);
-          setValue("image", selectedImage?.path);
-          setImage(selectedImage);
+          onImageChange(selectedImage);
         }}
         forwardRef={cameraModelRef}
       />
