@@ -20,7 +20,6 @@ import {
   Scroll,
   Text,
   ControlledInput,
-  Input,
 } from "../../components";
 import {genders} from "../../dummyData";
 import {
@@ -28,6 +27,7 @@ import {
   convertObjToFormData,
   formateDate,
   getValueFromId,
+  requestStoragePermission,
   translate,
 } from "../../helpers";
 import {Colors, Spacing} from "../../styles";
@@ -41,6 +41,10 @@ import {userAccountSchema} from "../../helpers/validationSchema";
 import {UserAccountType} from "../../@types";
 import {useLoader, useNavigationHooks} from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
+import ErrorMessageModal from "../../components/models/ErrorMessageModal";
+import CameraModel, {
+  ImageCropResponse,
+} from "../../components/models/CameraModel";
 
 const labelStyle: TextProps = {
   fontSize: "FS14",
@@ -53,21 +57,25 @@ const Account = () => {
   const accountLoading = useLoader("updateUserProfile");
   const genderModalRef = React.useRef<BottomSheetModal>(null);
   const calenderModelRef = React.useRef<BottomSheetModal>(null);
-  const [date, setDate] = React.useState<string | null>(null);
-  const [selectedGender, setSelectedGender] = React.useState<number>(
-    profile?.gender_id,
+  const errorModalRef = React.useRef<BottomSheetModal>(null);
+  const cameraModelRef = React.useRef<BottomSheetModal>(null);
+  const [date, setDate] = React.useState<string | null>(
+    profile?.birthday ?? null,
   );
-  const [image, setImage] = React.useState<
-    DocumentPickerResponse | string | undefined | null
-  >(profile?.image ?? "");
+  const [selectedGender, setSelectedGender] = React.useState<number>(
+    profile.gender ? Number(profile?.gender) : 0,
+  );
+  const [image, setImage] = React.useState<ImageCropResponse | null>(null);
+
+  console.warn(profile.gender);
 
   const defaultValues = {
     email: profile.email || "",
     mobile: profile.mobile || "",
     name: profile.name || "",
-    gender: profile.gender_id,
-    image: profile.image || "",
-    birthdate: profile.birthday || "",
+    gender: profile.gender,
+    image: profile.image || " ",
+    birthday: profile.birthday || "",
   };
 
   const {
@@ -83,10 +91,10 @@ const Account = () => {
 
   const handleError = (err: unknown) => {
     if (isCancel(err)) {
-      console.warn("cancelled");
+      console.log("cancelled");
       // User cancelled the picker, exit any dialogs or menus and move on
     } else if (isInProgress(err)) {
-      console.warn(
+      console.log(
         "multiple pickers were opened, only the last will be considered",
       );
     } else {
@@ -102,7 +110,7 @@ const Account = () => {
         type: types.images,
       });
 
-      onImageChange(pickerResult.fileCopyUri);
+      onImageChange(pickerResult);
     } catch (e) {
       handleError(e);
     }
@@ -110,19 +118,21 @@ const Account = () => {
 
   const onSelectedGender = (genderId: number) => {
     console.log("gender id", `${genderId}`);
+    clearErrors("gender");
     setSelectedGender(genderId);
     setValue("gender", genderId);
   };
 
   const onConfirmDate = (_date: Date) => {
-    setValue("birthdate", _date);
+    console.warn(formateDate(_date));
+    clearErrors("birthday");
+    setValue("birthday", formateDate(_date));
     setDate(formateDate(_date));
   };
 
-  const onImageChange = (image?: string | null) => {
-    const newImage = image ?? "";
-    setValue("image", newImage);
-    setImage(newImage);
+  const onImageChange = (selectedImage?: any) => {
+    setValue("image", selectedImage?.fileCopyUri);
+    setImage(selectedImage);
   };
 
   const onChangeTextHandler = (fieldName: any, text: string) => {
@@ -136,9 +146,11 @@ const Account = () => {
       dispatch(showToast(translate("Model.nothingToUpdate")));
       return;
     }
-    const _data = convertObjToFormData(data);
+    const _data = convertObjToFormData({...data, image: " "});
     console.log(_data);
     updateUserData(_data, res => {
+      console.log(res?.data.data?.message);
+
       if (res.status === 200) {
         console.log(res?.data);
         dispatch(showToast(translate("Model.updateDoctorMessage")));
@@ -150,7 +162,7 @@ const Account = () => {
     return (
       <View style={styles.avatarContainer}>
         <Image
-          source={image ? {uri: image} : Images.default}
+          source={image ? {uri: image.path} : Images.default}
           style={styles.image}
         />
         <View style={styles.actionsContainer}>
@@ -163,9 +175,19 @@ const Account = () => {
             backgroundColor="PRIMARY"
           />
           <Text
+            // onPress={() => {
+            //   console.log("change Photo");
+            //   handleUploadDocuments();
+            // }}
             onPress={() => {
-              console.log("change Photo");
-              handleUploadDocuments();
+              // handleUploadDocuments();
+              requestStoragePermission()
+                .then(() => {
+                  cameraModelRef?.current?.present();
+                })
+                .catch(error => {
+                  console.log("error", error);
+                });
             }}
             fontSize="FS14"
             color="PRIMARY"
@@ -192,7 +214,7 @@ const Account = () => {
           contentContainerStyle={{
             paddingBottom: Spacing.S40 * 3.5,
           }}>
-          <Input
+          <ControlledInput
             label={`${translate("Form.phone")}*`}
             placeholder={`+20 ${translate("Form.phone")}`}
             style={styles.input}
@@ -201,9 +223,11 @@ const Account = () => {
             labelStyle={labelStyle}
             error={errors?.mobile?.message?.toString()}
             onChangeText={text => onChangeTextHandler("mobile", text)}
+            fieldName={"mobile"}
+            control={control}
           />
 
-          <Input
+          <ControlledInput
             label={`${translate("Form.email")}*`}
             labelStyle={labelStyle}
             placeholder={translate("Form.enterEmail")}
@@ -211,9 +235,11 @@ const Account = () => {
             inputContainerStyle={styles.inputContainer}
             error={errors?.email?.message?.toString()}
             onChangeText={text => onChangeTextHandler("email", text)}
+            fieldName={"email"}
+            control={control}
           />
 
-          <Input
+          <ControlledInput
             label={`${translate("Form.fullName")}*`}
             labelStyle={labelStyle}
             placeholder={translate("Form.enterFullName")}
@@ -221,6 +247,8 @@ const Account = () => {
             inputContainerStyle={styles.inputContainer}
             error={errors?.name?.message?.toString()}
             onChangeText={text => onChangeTextHandler("name", text)}
+            fieldName={"name"}
+            control={control}
           />
 
           <Text
@@ -241,6 +269,9 @@ const Account = () => {
               genderModalRef?.current?.present();
             }}
           />
+          <Text color="RED" style={styles.error}>
+            {errors?.gender?.message?.toString()}
+          </Text>
 
           <Button
             type="border"
@@ -253,6 +284,9 @@ const Account = () => {
             iconName="calender"
             iconStyle={{color: Colors.PRIMARY}}
           />
+          <Text color="RED" style={styles.error}>
+            {errors?.birthday?.message?.toString()}
+          </Text>
 
           <ProfileRowCard
             item={{
@@ -274,7 +308,7 @@ const Account = () => {
         isLoading={accountLoading}
       />
       <GenderModal
-        selectedId={profile.gender_id ?? selectedGender?.toString()}
+        selectedId={selectedGender?.toString()}
         onSelect={onSelectedGender}
         forwardRef={genderModalRef}
       />
@@ -282,7 +316,15 @@ const Account = () => {
       <CalenderModel
         handleOnSelectDate={onConfirmDate}
         forwardRef={calenderModelRef}
-        initialDate={profile.birthday}
+      />
+      <ErrorMessageModal forwardRef={errorModalRef} />
+      <CameraModel
+        onSetImage={selectedImage => {
+          console.log(selectedImage);
+          setValue("image", selectedImage?.path);
+          setImage(selectedImage);
+        }}
+        forwardRef={cameraModelRef}
       />
     </View>
   );

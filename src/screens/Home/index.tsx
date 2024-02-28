@@ -13,7 +13,7 @@ import {
   Text,
 } from "../../components";
 import {serviceList} from "../../dummyData";
-import {useNavigationHooks} from "../../hooks";
+import {useNavigationHooks, useToken} from "../../hooks";
 import {MainNavigationAllScreensTypes} from "../../navigation/navigation-types";
 import {Colors, Spacing} from "../../styles";
 import {getHeight, getWidth} from "../../styles/dimensions";
@@ -25,9 +25,7 @@ import {getHomePageData, getUserProfile, useAppSelector} from "../../redux";
 
 const Home = () => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
-  const {homePageData} = useAppSelector(
-    state => state.homeReducer.homePageData,
-  );
+  const isLogged = useToken();
 
   useFocusEffect(
     React.useCallback(() => {
@@ -92,23 +90,28 @@ const Home = () => {
             horizontal={false}
           />
           {/* Sign up Card*/}
-          <View style={styles.signUpContainer}>
-            <Svgs name="circles" />
-            <View style={styles.signUpMessage}>
-              <Text
-                fontSize="FS16"
-                color="WHITE"
-                fontFamily="MEDIUM"
-                style={styles.message}>
-                {translate("Home.signInMessage")}
-              </Text>
-              <Button
-                text={translate("Common.signup")}
-                type="border"
-                style={{width: getWidth(130), marginTop: Spacing.S11}}
-              />
+          {!isLogged ? (
+            <View style={styles.signUpContainer}>
+              <Svgs name="circles" />
+              <View style={styles.signUpMessage}>
+                <Text
+                  fontSize="FS16"
+                  color="WHITE"
+                  fontFamily="MEDIUM"
+                  style={styles.message}>
+                  {translate("Home.signInMessage")}
+                </Text>
+                <Button
+                  text={translate("Common.signup")}
+                  type="border"
+                  style={{width: getWidth(130), marginTop: Spacing.S11}}
+                  onPress={() => {
+                    navigate("Login", {navigateTo: undefined});
+                  }}
+                />
+              </View>
             </View>
-          </View>
+          ) : null}
 
           {/* Top doctor Rated Section List */}
           {doctors.length > 0 && (
@@ -124,7 +127,6 @@ const Home = () => {
               }}
             />
           )}
-
         </Scroll>
       </View>
     </View>

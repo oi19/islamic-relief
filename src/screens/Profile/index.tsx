@@ -42,7 +42,9 @@ const Profile: React.FC = () => {
     const filterCondition = (element: CityType) =>
       element.id === selectedCity.id;
     const filteredCity = filterArray(cities, filterCondition)[0];
-    updateUserData(convertObjToFormData({city_id: filteredCity["id"]}));
+    updateUserData(
+      convertObjToFormData({...profile, city_id: filteredCity["id"]}),
+    );
   };
 
   const renderHeader = () => {

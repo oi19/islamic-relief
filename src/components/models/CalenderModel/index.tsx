@@ -48,7 +48,7 @@ const CalenderModel: React.FC<CalenderModelProps> = ({
           maximumDate={
             new Date(new Date().setFullYear(new Date().getFullYear() - 10))
           }
-          onDateChange={setDate}
+          onDateChange={date => setDate(date)}
           locale={isRTL() ? "ar" : "en"}
           date={date}
           mode="date"

@@ -1,4 +1,6 @@
 export const Images = {
+  gallery: require("./gallery.png"),
+  camera: require("./camera.png"),
   logo: require("./doctorLogo.png"),
   spe1: require("./p1.png"),
   spe2: require("./p2.png"),
