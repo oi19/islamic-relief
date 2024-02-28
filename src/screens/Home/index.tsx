@@ -25,6 +25,7 @@ import {getHomePageData, getUserProfile, useAppSelector} from "../../redux";
 
 const Home = () => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
+
   const isLogged = useToken();
 
   useFocusEffect(
