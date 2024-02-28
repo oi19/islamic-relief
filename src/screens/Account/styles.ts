@@ -98,4 +98,10 @@ export const styles = StyleSheet.create({
     marginBottom: Spacing.S20,
     alignSelf: "center",
   },
+  error: {
+    paddingTop: Spacing.S8,
+    paddingHorizontal: Spacing.S40,
+    width: "100%",
+    textAlign: "left",
+  },
 });

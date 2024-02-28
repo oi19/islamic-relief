@@ -36,9 +36,7 @@ const ResetPassword = () => {
     const _data = convertObjToFormData(data);
     console.log(_data);
     resetPassword(_data, res => {
-      console.warn(res.data);
       if (res.status === 200) {
-        // console.log(res?.data.data.message);
         navigate.goBack();
       }
     });

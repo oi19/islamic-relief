@@ -1,4 +1,4 @@
-import {Platform} from "react-native";
+import {PermissionsAndroid, Platform} from "react-native";
 import {FilterCondition} from "../@types";
 import {DocumentPickerResponse} from "react-native-document-picker";
 
@@ -121,3 +121,40 @@ export function handlePagination<T>(
 
 //   return formattedDate;
 // }
+
+export async function requestStoragePermission() {
+  try {
+    const writeGranted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+      {
+        title: "Storage Permission",
+        message: "This App needs access to your device storage",
+        buttonNeutral: "Ask Me Later",
+        buttonNegative: "Cancel",
+        buttonPositive: "OK",
+      },
+    );
+
+    const readGranted = await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
+      {
+        title: "Storage Permission",
+        message: "This App needs access to your device storage",
+        buttonNeutral: "Ask Me Later",
+        buttonNegative: "Cancel",
+        buttonPositive: "OK",
+      },
+    );
+
+    if (
+      writeGranted === PermissionsAndroid.RESULTS.GRANTED &&
+      readGranted === PermissionsAndroid.RESULTS.GRANTED
+    ) {
+      console.log("Storage permission granted");
+    } else {
+      console.log("Storage permission denied");
+    }
+  } catch (error) {
+    console.warn(error);
+  }
+}

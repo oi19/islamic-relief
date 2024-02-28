@@ -54,6 +54,7 @@ const GenderModal = ({
           {translate("Common.chooseGender")}
         </Text>
         <FlatList
+          keyExtractor={(_, index) => `gender-item${index}`}
           showsVerticalScrollIndicator={false}
           style={styles.flatlistStyle}
           contentContainerStyle={styles.contentContainerStyle}
