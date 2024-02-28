@@ -13,7 +13,12 @@ import {
 } from "../../components";
 import {useForm} from "react-hook-form";
 import {LoginTypes} from "../../@types";
-import {forgetPassword, userLogin} from "../../redux";
+import {
+  confirmOtp,
+  forgetPassword,
+  useAppSelector,
+  userLogin,
+} from "../../redux";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useLoader, useNavigationHooks} from "../../hooks";
 import {
@@ -34,6 +39,8 @@ const Login = () => {
   } = useRoute<RouteProp<MainAppStackTypes, "Login">>();
   const {goBack, navigate} =
     useNavigationHooks<MainNavigationAllScreensTypes>();
+
+  const {profile} = useAppSelector(state => state.userReducer);
 
   const successModalRef = React.useRef<BottomSheetModal>(null);
   const errorModalRef = React.useRef<BottomSheetModal>(null);
@@ -61,18 +68,22 @@ const Login = () => {
   };
 
   const handlerforgetPasswordPressed = () => {
-    const mobile = getValues("mobile");
-    if (!mobile) {
-      setError("mobile", {
-        type: "required",
-        message: `${translate("Validation.required")}`,
-      });
+    // const mobile = getValues("mobile");
+    // if (!mobile) {
+    //   setError("mobile", {
+    //     type: "required",
+    //     message: `${translate("Validation.required")}`,
+    //   });
 
-      console.warn(mobile);
-      return;
-    }
-    const _data = convertObjToFormData({mobile: "01021594073"});
-    forgetPassword(_data);
+    //   return;
+    // }
+    const _data = convertObjToFormData({email: profile.email});
+    console.log(_data);
+    forgetPassword(_data, res => {
+      if ((res.status = 200)) {
+        navigate("OTP", {navigateTo: "ResetPassword"});
+      }
+    });
   };
 
   const onChangeTextHandler = (fieldName: any, text: string) => {
@@ -133,12 +144,6 @@ const Login = () => {
             onPress={handleSubmit(handleLoginPressed)}
             style={styles.button}
             isLoading={loginLoader}
-          />
-          <Button
-            text={translate("Form.createAccount")}
-            type="border"
-            style={styles.button}
-            onPress={handleSubmit(handleLoginPressed)}
           />
         </View>
         <ViewRow style={{justifyContent: "space-between"}}>

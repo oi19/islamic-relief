@@ -248,5 +248,9 @@
   "Reset": {
     "resetTitle": "إعادة تعيين كلمة المرور",
     "updateYourPassword": "تحديث كلمة المرور الخاصة بك"
+  },
+  "OTP": {
+    "SMSMessage_description": "سيتم إرسال رسالة نصية للتحقق من رقم الهاتف",
+    "resendCode": "اعادة ارسال الكود"
   }
 }
