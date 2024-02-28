@@ -25,9 +25,6 @@ import {getHomePageData, getUserProfile, useAppSelector} from "../../redux";
 
 const Home = () => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
-  const {homePageData} = useAppSelector(
-    state => state.homeReducer.homePageData,
-  );
 
   useFocusEffect(
     React.useCallback(() => {
@@ -124,7 +121,6 @@ const Home = () => {
               }}
             />
           )}
-
         </Scroll>
       </View>
     </View>
