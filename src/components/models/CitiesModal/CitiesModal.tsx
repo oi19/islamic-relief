@@ -73,6 +73,7 @@ const CitiesModal = ({
           />
         </View>
         <FlatList
+          keyExtractor={(_, index) => `cities${index}`}
           showsVerticalScrollIndicator={false}
           style={styles.flatlistStyle}
           contentContainerStyle={styles.contentContainerStyle}

@@ -139,11 +139,12 @@ export const userAccountSchema = yup.object().shape({
   mobile: yup
     .string()
     .trim()
-    .matches(phoneRegExp, translate("validation.enterValidPhoneNumber")),
-  email: yup.string().trim().email(),
-  name: yup.string(),
-  gender: yup.number(),
-  birthdate: yup.string(),
+    .matches(phoneRegExp, translate("validation.enterValidPhoneNumber"))
+    .required(),
+  email: yup.string().trim().email().required(),
+  name: yup.string().required(),
+  gender: yup.number().required(),
+  birthday: yup.string().required(),
   image: yup.string(),
 });
 
