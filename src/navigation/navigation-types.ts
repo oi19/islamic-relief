@@ -25,7 +25,7 @@ export type MainAppStackTypes = {
   Points: undefined;
   Help: undefined;
   Account: undefined;
-
+  OTP: {navigateTo: MainNavigationKeys | undefined};
   ChatRoom: {chatData?: ChatType};
 };
 
