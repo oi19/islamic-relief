@@ -91,28 +91,29 @@ const Home = () => {
             horizontal={false}
           />
           {/* Sign up Card*/}
-          {!isLogged ? (
-            <View style={styles.signUpContainer}>
-              <Svgs name="circles" />
-              <View style={styles.signUpMessage}>
-                <Text
-                  fontSize="FS16"
-                  color="WHITE"
-                  fontFamily="MEDIUM"
-                  style={styles.message}>
-                  {translate("Home.signInMessage")}
-                </Text>
-                <Button
-                  text={translate("Common.signup")}
-                  type="border"
-                  style={{width: getWidth(130), marginTop: Spacing.S11}}
-                  onPress={() => {
-                    navigate("Login", {navigateTo: undefined});
-                  }}
-                />
-              </View>
+
+          {/* {!isLogged ? ( */}
+          <View style={styles.signUpContainer}>
+            <Svgs name="circles" />
+            <View style={styles.signUpMessage}>
+              <Text
+                fontSize="FS16"
+                color="WHITE"
+                fontFamily="MEDIUM"
+                style={styles.message}>
+                {translate("Home.signInMessage")}
+              </Text>
+              <Button
+                text={translate("Common.signup")}
+                type="border"
+                style={{width: getWidth(130), marginTop: Spacing.S11}}
+                onPress={() => {
+                  navigate("Login", {navigateTo: undefined});
+                }}
+              />
             </View>
-          ) : null}
+          </View>
+          {/* ) : null} */}
 
           {/* Top doctor Rated Section List */}
           {doctors.length > 0 && (

@@ -19,6 +19,7 @@ const getOldChats = async (
     });
 
     if (response?.code === 200) {
+      console.log(response);
       dispatch(setOldChats(response.data));
     }
   } catch (error: any) {

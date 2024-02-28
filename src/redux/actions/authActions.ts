@@ -77,20 +77,22 @@ const userLogout = async (
 };
 
 const forgetPassword = async (
+  body: FormData,
   callback?: (res: AxiosResponse<ResponseTypes<any>>) => void,
 ) => {
   try {
-    const response = await request<any>({
+    const response = await request<any, FormData>({
       method: "post",
       endPoint: "forgetPassword",
       callback,
+      body,
     });
     if (response?.code === 200) {
+      console.warn(response);
       console.warn(response.data);
-      // dispatch();
     }
   } catch (error: any) {
-    console.log("in forgetPassword ", error?.response?.data.message);
+    console.log("in forgetPassword ", error?.response?.data);
     const validation = error?.response?.data?.message;
     if (validation) {
       dispatch(showErrorModel(validation));
@@ -138,7 +140,7 @@ const changePassword = async (
       // dispatch();
     }
   } catch (error: any) {
-    console.log("in changePassword ", error?.response?.data.message);
+    console.log("in changePassword ", error?.response?.data);
     const validation = error?.response?.data?.message;
     if (validation) {
       dispatch(showErrorModel(validation));
@@ -162,7 +164,7 @@ const resetPassword = async (
       // dispatch();
     }
   } catch (error: any) {
-    console.log("in resetPassword ", error?.response?.data.message);
+    console.log("in resetPassword ", error?.response?.data);
     const validation = error?.response?.data?.message;
     if (validation) {
       dispatch(showErrorModel(validation));
@@ -209,7 +211,7 @@ const updateUserData = async (
       dispatch(setUserProfile(response));
     }
   } catch (error: any) {
-    console.log("in updateUserProfile", error?.response?.data?.message);
+    console.log("in updateUserProfile", error?.response?.data.message);
     const validation = error?.response?.data?.validation;
     if (validation) {
       const errors = combineErrorMessages(validation);

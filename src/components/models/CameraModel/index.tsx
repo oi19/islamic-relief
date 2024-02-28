@@ -6,7 +6,7 @@ import BaseModal from "../BaseModal/BaseModal";
 import {Button, Image} from "../../../components/atoms";
 import {translate} from "../../../helpers/language";
 import {Images} from "../../../assets/images";
-// import ImagePicker from "react-native-image-crop-picker";
+import ImagePicker from "react-native-image-crop-picker";
 import {styles} from "./styles";
 import {TextProps} from "../../../components/atoms/Text/Text";
 

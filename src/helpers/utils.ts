@@ -27,29 +27,33 @@ export const filterArray = <T>(
   condition: FilterCondition<T>,
 ): T[] => array.filter(item => condition(item));
 
-export const formatImage = (
-  images?: DocumentPickerResponse[] | null,
-): DocumentPickerResponse[] => {
-  let photos: DocumentPickerResponse[];
+export const formateImage = (image?: any) => {
+  let photo;
+
+  if (image) {
+    photo = {
+      name: image?.split("/")[image?.split("/").length - 1],
+      type: "image/jpeg",
+      uri: isIos ? image?.replace("file://", "") : image,
+    };
+  }
+  return photo;
+};
+
+export const formatImages = (images?: any[] | null) => {
+  let photos: any[];
   if (!images) {
     return []; // Return an empty array if images is null or undefined
   }
 
   photos = images.map(image => {
-    const name = image.fileCopyUri
-      ? image.fileCopyUri.split("/").pop() || ""
-      : "";
-    const uri = isIos
-      ? image.fileCopyUri
-        ? image.fileCopyUri.replace("file://", "")
-        : ""
-      : image.fileCopyUri;
+    const name = image?.split("/")[image?.split("/").length - 1];
+    const uri = isIos ? image?.replace("file://", "") : image;
 
     return {
-      ...image,
       name,
       type: "image/jpeg",
-      uri: uri ?? "",
+      uri,
     };
   });
 
