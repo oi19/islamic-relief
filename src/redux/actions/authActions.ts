@@ -130,7 +130,7 @@ const changePassword = async (
   callback?: (res: AxiosResponse<ResponseTypes<any>>) => void,
 ) => {
   try {
-    const response = await request<any>({
+    const response = await request<any, FormData>({
       method: "post",
       endPoint: "changePassword",
       callback,

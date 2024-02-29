@@ -26,7 +26,9 @@ const ResetPassword = () => {
   const resetPasswordLoader = useLoader("resetPassword");
   const changePasswordLoader = useLoader("changePassword");
 
-  const {profile: token} = useAppSelector(state => state.userReducer);
+  const {
+    profile: {token},
+  } = useAppSelector(state => state.userReducer);
   const {goBack, replace} = useNavigationHooks<MainAppStackTypes>();
 
   const {
@@ -62,8 +64,10 @@ const ResetPassword = () => {
         if (isComingFromProfile) {
           goBack();
         } else {
-          replace("Login", {navigateTo: "Home"});
+          replace("Login", {navigateTo: "TabsBottomStack"});
         }
+      } else {
+        console.warn("this is response in" + res.data.data.message);
       }
     };
 

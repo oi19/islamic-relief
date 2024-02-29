@@ -51,6 +51,8 @@ export interface UserAccountType {
   bank_account?: number;
   bank_id?: number;
   wallet_number?: number;
+
+  token?: string;
 }
 
 export type LoginTypes = {
