@@ -138,7 +138,8 @@
     "birthday": "Birthday",
     "newPassword": "new Password",
     "oldPassword": "Old Password",
-    "confirmPassword": "Confirm Password"
+    "confirmPassword": "Confirm Password",
+    "name": "Name"
   },
   "selectPackage": {
     "title": "Select Package"
@@ -243,6 +244,6 @@
   "OTP": {
     "title": "Confirm OTP",
     "SMSMessage_description": "An SMS will be sent to verify your mobile number",
-    "resend": "Resend Code"
+    "resendCode": "Resend Code"
   }
 }

@@ -95,7 +95,7 @@ const Login = () => {
     console.log(_data);
     forgetPassword(_data, res => {
       if ((res.status = 200)) {
-        replace("OTP", {
+        navigate("OTP", {
           onCompletionCallback: onOTPSubmit,
           onResendCallback: () => forgetPassword(_data),
           loadingApi: "confirmOtp",
