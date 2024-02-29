@@ -1,7 +1,15 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from "react";
-import {FlatList, TextInput, View} from "react-native";
+import {
+  FlatList,
+  NativeSyntheticEvent,
+  TextInput,
+  TextInputKeyPressEventData,
+  View,
+} from "react-native";
 import {styles} from "./styles";
+
+import {isRTL} from "../../../locals/i18n-config";
 
 interface OTPProps {
   length?: number;
@@ -22,12 +30,6 @@ const OTPInputPanel: React.FC<OTPProps> = ({
   );
 
   const [focusedIndex, setFocusedIndex] = React.useState<number | null>(null);
-
-  React.useEffect(() => {
-    if (inputRefs.current[0]) {
-      inputRefs.current[0]?.focus();
-    }
-  }, []);
 
   const unfocusAll = () => {
     inputRefs.current.forEach(ref => {
@@ -51,20 +53,42 @@ const OTPInputPanel: React.FC<OTPProps> = ({
     setFocusedIndex(null);
   };
 
-  const handleKeyPress = (text: string, index: number) => {
-    const updatedOTPValues = [...otpValues];
-    updatedOTPValues[index] = text;
-    setOTPValues(updatedOTPValues);
+  const onSubmit = () => {
+    unfocusAll();
+    onOTPSubmit(otpValues.join(""));
+  };
 
-    // Check if all OTP boxes are filled
-    const isAllBoxesFilled = updatedOTPValues.every(value => value !== "");
-
-    // If all boxes are filled, submit OTP
+  React.useEffect(() => {
+    const isAllBoxesFilled = otpValues.every(value => value !== "");
     if (isAllBoxesFilled) {
-      unfocusAll();
-      onOTPSubmit(updatedOTPValues.join(""));
-    } else if (text !== "" && index < length - 1) {
-      inputRefs.current[index + 1]?.focus();
+      onSubmit();
+    }
+  }, [otpValues]);
+
+  const handleKeyPress = (
+    event: NativeSyntheticEvent<TextInputKeyPressEventData>,
+    index: number,
+  ) => {
+    const {key} = event.nativeEvent;
+    const updatedOTPValues = [...otpValues];
+
+    if (key === "Backspace" && index > 0) {
+      // Clear the content of the current box
+      updatedOTPValues[index] = "";
+      setOTPValues(updatedOTPValues);
+
+      // Move the focus to the previous box
+      inputRefs.current[index - 1]?.focus();
+    } else if (key.length === 1) {
+      // Update the current box value
+      updatedOTPValues[index] = key;
+
+      setOTPValues(updatedOTPValues);
+
+      // Move the focus to the next box if available
+      if (index < length - 1) {
+        inputRefs.current[index + 1]?.focus();
+      }
     }
   };
 
@@ -77,11 +101,11 @@ const OTPInputPanel: React.FC<OTPProps> = ({
       ]}
       maxLength={1}
       keyboardType="numeric"
-      onChangeText={text => handleKeyPress(text, index)}
       onFocus={() => handleFocus(index)}
       onBlur={handleBlur}
       value={otpValues[index]}
       editable={!isLoading}
+      onKeyPress={event => handleKeyPress(event, index)}
     />
   );
 
@@ -93,8 +117,8 @@ const OTPInputPanel: React.FC<OTPProps> = ({
         keyExtractor={(_, index) => index.toString()}
         contentContainerStyle={styles.otpContainer}
         horizontal
+        inverted={!!isRTL ? true : false}
       />
-      {isLoading && <View style={styles.disableClicks} />}
     </View>
   );
 };

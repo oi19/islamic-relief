@@ -59,8 +59,8 @@ const Account = () => {
   const [date, setDate] = React.useState<string | null>(
     profile.birthday || null,
   );
-  const [selectedGender, setSelectedGender] = React.useState<number>(
-    isGenderSelected ? Number(profile.gender) : 0,
+  const [selectedGender, setSelectedGender] = React.useState<number | null>(
+    isGenderSelected ? Number(profile.gender) : null,
   );
   const [image, setImage] = React.useState<
     ImageCropResponse | null | undefined
@@ -70,7 +70,7 @@ const Account = () => {
     email: profile.email || "",
     mobile: profile.mobile || "",
     name: profile.name || "",
-    gender: isGenderSelected ? Number(profile.gender) : 0,
+    gender: isGenderSelected ? Number(profile.gender) : null,
     image: profile.image || "",
     birthday: profile.birthday || "",
   };
@@ -236,7 +236,7 @@ const Account = () => {
           <Button
             type="dropdown"
             placeholder={translate("completePatientDetails.gender")}
-            text={getValueFromId(selectedGender, genders)}
+            text={getValueFromId(selectedGender || 0, genders)}
             iconStyle={{color: Colors.PRIMARY}}
             style={styles.dropdownButton}
             textStyle={{color: "BLUE_4A5970"}}
@@ -269,7 +269,9 @@ const Account = () => {
             }}
             style={styles.password}
             handleOnRowPressed={() => {
-              navigate("ResetPassword");
+              navigate("ResetPassword", {
+                passwordActionIndicator: "resetPassword",
+              });
             }}
           />
         </Scroll>
@@ -283,7 +285,7 @@ const Account = () => {
         isLoading={accountLoading}
       />
       <GenderModal
-        selectedId={selectedGender?.toString()}
+        selectedId={selectedGender?.toString() ?? "0"}
         onSelect={onSelectedGender}
         forwardRef={genderModalRef}
       />

@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from "react";
-import {View} from "react-native";
+import {Keyboard, View} from "react-native";
 import {
   Button,
   CheckBox,
@@ -37,7 +37,7 @@ const Login = () => {
   const {
     params: {navigateTo},
   } = useRoute<RouteProp<MainAppStackTypes, "Login">>();
-  const {goBack, navigate} =
+  const {goBack, navigate, replace} =
     useNavigationHooks<MainNavigationAllScreensTypes>();
 
   const {profile} = useAppSelector(state => state.userReducer);
@@ -62,8 +62,21 @@ const Login = () => {
   };
 
   const handleLoginPressed = async (data: LoginTypes) => {
+    Keyboard.dismiss();
     userLogin(data, res => {
       onOpenSuccessModal();
+    });
+  };
+
+  const onOTPSubmit = (otp: string) => {
+    const _data = convertObjToFormData({otp: otp});
+    console.log(_data);
+    confirmOtp(_data, res => {
+      if (res.status === 200) {
+        console.log(res.data);
+
+        replace("ResetPassword", {passwordActionIndicator: "changePassword"});
+      }
     });
   };
 
@@ -77,11 +90,17 @@ const Login = () => {
 
     //   return;
     // }
+
     const _data = convertObjToFormData({email: profile.email});
     console.log(_data);
     forgetPassword(_data, res => {
       if ((res.status = 200)) {
-        navigate("OTP", {navigateTo: "ResetPassword"});
+        replace("OTP", {
+          onCompletionCallback: onOTPSubmit,
+          onResendCallback: () => forgetPassword(_data),
+          loadingApi: "confirmOtp",
+          resendLoadingApi: "forgetPassword",
+        });
       }
     });
   };
@@ -184,7 +203,7 @@ const Login = () => {
         message={translate("Model.congratulationsMessage")}
         onContinuePress={() => {
           if (navigateTo) {
-            navigate("SelectPackage");
+            navigate(navigateTo);
           } else {
             goBack();
           }

@@ -241,6 +241,7 @@
     "updateYourPassword": "Update Your Password"
   },
   "OTP": {
+    "title": "Confirm OTP",
     "SMSMessage_description": "An SMS will be sent to verify your mobile number",
     "resend": "Resend Code"
   }

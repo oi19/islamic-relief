@@ -18,7 +18,7 @@ export const styles = StyleSheet.create({
     position: "absolute",
     height: "100%",
     width: "100%",
-    backgroundColor: Colors.TRANSPARENT,
+    backgroundColor: "rgba(0,0,0,0.2)", // Adjust the opacity as needed
   },
   headerStyle: {
     height: getHeight(120),

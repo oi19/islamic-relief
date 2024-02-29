@@ -9,12 +9,14 @@ import {getHeight} from "../../../styles/dimensions";
 import {Lottie} from "../../../assets/lottie";
 import {styles} from "./styles";
 import {dummyChatList} from "../../../dummyData";
+import {useAppSelector} from "../../../redux";
+import {useLoader} from "../../../hooks";
 
 type Props = {};
 const ChatList: FC<Props> = () => {
   const {oldChats} = useAppSelector(state => state.chatsReducer);
   const chatsLoader = useLoader("oldChats");
-  const _renderChatItem: ListRenderItem<ChatType> = ({item, index}) => {
+    const _renderChatItem: ListRenderItem<ChatType> = ({item, index}) => {
     return <ChatItem item={item} index={index} />;
   };
 
@@ -38,11 +40,11 @@ const ChatList: FC<Props> = () => {
           renderItem={_renderChatItem}
           ListEmptyComponent={
             <View style={styles.emptyContainer}>
-              <HandleEmptyList
-                title={translate("myChat.title")}
-                icon="bigChat"
-                message={translate("myChat.emptyMessage")}
-              />
+        <HandleEmptyList
+          title={translate("myChat.title")}
+          icon="bigChat"
+          message={translate("myChat.emptyMessage")}
+/>
             </View>
           }
         />
@@ -50,5 +52,4 @@ const ChatList: FC<Props> = () => {
     </View>
   );
 };
-
 export default ChatList;

@@ -88,8 +88,8 @@ const forgetPassword = async (
       body,
     });
     if (response?.code === 200) {
-      console.warn(response);
-      console.warn(response.data);
+      console.log(response);
+      console.log(response.data);
     }
   } catch (error: any) {
     console.log("in forgetPassword ", error?.response?.data);
@@ -105,18 +105,19 @@ const confirmOtp = async (
   callback?: (res: AxiosResponse<ResponseTypes<any>>) => void,
 ) => {
   try {
-    const response = await request<any>({
+    const response = await request<any, FormData>({
       method: "post",
       endPoint: "confirmOtp",
       callback,
       body,
     });
     if (response?.code === 200) {
-      console.warn(response.data);
-      // dispatch();
+      console.log(response);
+      console.log(response.data);
+      dispatch(setUserProfile(response));
     }
   } catch (error: any) {
-    console.log("in confirmOtp ", error?.response?.data.message);
+    console.log("in confirmOtp ", error?.response?.data);
     const validation = error?.response?.data?.message;
     if (validation) {
       dispatch(showErrorModel(validation));
@@ -136,11 +137,11 @@ const changePassword = async (
       body,
     });
     if (response?.code === 200) {
-      console.warn(response.data);
-      // dispatch();
+      console.log(response.data);
+      dispatch(setUserProfile({token: response.token}));
     }
   } catch (error: any) {
-    console.log("in changePassword ", error?.response?.data);
+    console.log("in changePassword ", error?.response);
     const validation = error?.response?.data?.message;
     if (validation) {
       dispatch(showErrorModel(validation));
@@ -160,7 +161,7 @@ const resetPassword = async (
       body,
     });
     if (response?.code === 200) {
-      console.warn(response.data);
+      console.log(response.data);
       // dispatch();
     }
   } catch (error: any) {
@@ -207,7 +208,6 @@ const updateUserData = async (
     });
     if (response?.code === 200) {
       console.log(response.data);
-
       dispatch(setUserProfile(response));
     }
   } catch (error: any) {

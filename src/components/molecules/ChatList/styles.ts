@@ -12,5 +12,7 @@ export const styles = StyleSheet.create({
   },
   emptyContainer: {
     height: getHeight(),
+    backgroundColor: "red",
+    flex:1
   },
 });
