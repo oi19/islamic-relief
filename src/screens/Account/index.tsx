@@ -94,14 +94,14 @@ const Account = () => {
   };
 
   const onConfirmDate = (_date: Date) => {
-    console.warn(formateDate(_date));
+    console.log(formateDate(_date));
     clearErrors("birthday");
     setValue("birthday", formateDate(_date));
     setDate(formateDate(_date));
   };
 
   const onImageChange = (selectedImage?: ImageCropResponse) => {
-    console.warn(selectedImage?.path);
+    console.log(selectedImage?.path);
     setValue("image", selectedImage?.path);
     setImage(selectedImage);
   };
