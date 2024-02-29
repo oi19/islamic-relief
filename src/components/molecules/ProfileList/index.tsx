@@ -34,7 +34,7 @@ const ProfileList: React.FC<ProfileListProps> = ({
     languageModalRef.current?.present();
   };
   const onLogoutRowPressed = () => {
-    console.warn("logout is pressed")
+    console.log("logout is pressed");
     userLogout();
   };
 

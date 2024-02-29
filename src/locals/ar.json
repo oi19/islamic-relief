@@ -142,7 +142,9 @@
     "birthday": "تاريخ الميلاد",
     "newPassword": "كلمة المرور الجديدة",
     "oldPassword": "كلمة المرور القديمة",
-    "confirmPassword": "تأكيد كلمة المرور"
+    "confirmPassword": "تأكيد كلمة المرور",
+    "gender": "الجنس",
+    "name": "الاسم الكامل"
   },
 
   "selectPackage": {
@@ -248,5 +250,10 @@
   "Reset": {
     "resetTitle": "إعادة تعيين كلمة المرور",
     "updateYourPassword": "تحديث كلمة المرور الخاصة بك"
+  },
+  "OTP": {
+    "title": "تأكيد الكود",
+    "SMSMessage_description": "سيتم إرسال رسالة نصية للتحقق من رقم الهاتف",
+    "resendCode": "اعادة ارسال الكود"
   }
 }

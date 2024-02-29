@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from "react";
-import {View} from "react-native";
+import {Keyboard, View} from "react-native";
 import {
   Button,
   CheckBox,
@@ -13,7 +13,12 @@ import {
 } from "../../components";
 import {useForm} from "react-hook-form";
 import {LoginTypes} from "../../@types";
-import {forgetPassword, userLogin} from "../../redux";
+import {
+  confirmOtp,
+  forgetPassword,
+  useAppSelector,
+  userLogin,
+} from "../../redux";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useLoader, useNavigationHooks} from "../../hooks";
 import {
@@ -32,8 +37,10 @@ const Login = () => {
   const {
     params: {navigateTo},
   } = useRoute<RouteProp<MainAppStackTypes, "Login">>();
-  const {goBack, navigate} =
+  const {goBack, navigate, replace} =
     useNavigationHooks<MainNavigationAllScreensTypes>();
+
+  const {profile} = useAppSelector(state => state.userReducer);
 
   const successModalRef = React.useRef<BottomSheetModal>(null);
   const errorModalRef = React.useRef<BottomSheetModal>(null);
@@ -55,24 +62,47 @@ const Login = () => {
   };
 
   const handleLoginPressed = async (data: LoginTypes) => {
+    Keyboard.dismiss();
     userLogin(data, res => {
       onOpenSuccessModal();
     });
   };
 
-  const handlerforgetPasswordPressed = () => {
-    const mobile = getValues("mobile");
-    if (!mobile) {
-      setError("mobile", {
-        type: "required",
-        message: `${translate("Validation.required")}`,
-      });
+  const onOTPSubmit = (otp: string) => {
+    const _data = convertObjToFormData({otp: otp});
+    console.log(_data);
+    confirmOtp(_data, res => {
+      if (res.status === 200) {
+        console.log(res.data);
 
-      console.warn(mobile);
-      return;
-    }
-    const _data = convertObjToFormData({mobile: "01021594073"});
-    forgetPassword(_data);
+        replace("ResetPassword", {passwordActionIndicator: "changePassword"});
+      }
+    });
+  };
+
+  const handlerforgetPasswordPressed = () => {
+    // const mobile = getValues("mobile");
+    // if (!mobile) {
+    //   setError("mobile", {
+    //     type: "required",
+    //     message: `${translate("Validation.required")}`,
+    //   });
+
+    //   return;
+    // }
+
+    const _data = convertObjToFormData({email: profile.email});
+    console.log(_data);
+    forgetPassword(_data, res => {
+      if ((res.status = 200)) {
+        replace("OTP", {
+          onCompletionCallback: onOTPSubmit,
+          onResendCallback: () => forgetPassword(_data),
+          loadingApi: "confirmOtp",
+          resendLoadingApi: "forgetPassword",
+        });
+      }
+    });
   };
 
   const onChangeTextHandler = (fieldName: any, text: string) => {
@@ -134,12 +164,6 @@ const Login = () => {
             style={styles.button}
             isLoading={loginLoader}
           />
-          <Button
-            text={translate("Form.createAccount")}
-            type="border"
-            style={styles.button}
-            onPress={handleSubmit(handleLoginPressed)}
-          />
         </View>
         <ViewRow style={{justifyContent: "space-between"}}>
           <Line style={styles.line} />
@@ -179,7 +203,7 @@ const Login = () => {
         message={translate("Model.congratulationsMessage")}
         onContinuePress={() => {
           if (navigateTo) {
-            navigate("SelectPackage");
+            navigate(navigateTo);
           } else {
             goBack();
           }

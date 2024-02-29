@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, {useEffect} from "react";
 import {View} from "react-native";
 import {
   ChatList,
@@ -9,10 +9,14 @@ import {
 import {styles} from "./styles";
 import {translate} from "../../helpers";
 import {useToken} from "../../hooks";
+import {getOldChats} from "../../redux/actions/chatAction";
 
 const Chat = () => {
   const isLogged = useToken();
-  console.log(isLogged);
+
+  useEffect(() => {
+    getOldChats();
+  }, []);
 
   return (
     <View style={styles.rootScreen}>

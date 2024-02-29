@@ -20,6 +20,7 @@ import {
   Splash,
 } from "../screens";
 import AllowLocation from "../screens/AllowLocation";
+import OTP from "../screens/OTP";
 
 const MainStack = () => {
   const Stack = createNativeStackNavigator<MainAppStackTypes>();
@@ -48,6 +49,7 @@ const MainStack = () => {
       <Stack.Screen name="ChatRoom" component={ChatRoom} />
       <Stack.Screen name="Points" component={Points} />
       <Stack.Screen name="Help" component={Help} />
+      <Stack.Screen name="OTP" component={OTP} />
     </Stack.Navigator>
   );
 };

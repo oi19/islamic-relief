@@ -50,8 +50,7 @@
     "chooseGender": "Choose Gender",
     "addPhotos": "Add Photos",
     "sendReview": "Send Review",
-    "new": "New",
-    "updateYourPassword": "Update Your Password"
+    "new": "New"
   },
 
   "OnBoarding": {
@@ -238,6 +237,12 @@
     "female": "Female"
   },
   "Reset": {
-    "resetTitle": "Reset Your Password"
+    "resetTitle": "Reset Your Password",
+    "updateYourPassword": "Update Your Password"
+  },
+  "OTP": {
+    "title": "Confirm OTP",
+    "SMSMessage_description": "An SMS will be sent to verify your mobile number",
+    "resend": "Resend Code"
   }
 }
