@@ -61,18 +61,28 @@ const Login = () => {
   };
 
   const handlerforgetPasswordPressed = () => {
-    const mobile = getValues("mobile");
-    if (!mobile) {
-      setError("mobile", {
-        type: "required",
-        message: `${translate("Validation.required")}`,
-      });
+    // const mobile = getValues("mobile");
+    // if (!mobile) {
+    //   setError("mobile", {
+    //     type: "required",
+    //     message: `${translate("Validation.required")}`,
+    //   });
 
-      console.warn(mobile);
-      return;
-    }
-    const _data = convertObjToFormData({mobile: "01021594073"});
-    forgetPassword(_data);
+    //   return;
+    // }
+
+    const _data = convertObjToFormData({email: profile.email});
+    console.log(_data);
+    forgetPassword(_data, res => {
+      if ((res.status = 200)) {
+        navigate("OTP", {
+          onCompletionCallback: onOTPSubmit,
+          onResendCallback: () => forgetPassword(_data),
+          loadingApi: "confirmOtp",
+          resendLoadingApi: "forgetPassword",
+        });
+      }
+    });
   };
 
   const onChangeTextHandler = (fieldName: any, text: string) => {
