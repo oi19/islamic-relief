@@ -10,7 +10,7 @@ import DocumentPicker, {
 import {Images} from "../../assets/images";
 import {Button, Image, Input, Text, ViewRow} from "../../components/atoms";
 import {ChatRoomList, SelectedMultiPhotos} from "../../components/molecules";
-import {convertObjToFormData, formatImage, isIos} from "../../helpers/utils";
+import {convertObjToFormData, formatImages, isIos} from "../../helpers/utils";
 // import { usePusher } from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
 import {RouteProp, useRoute} from "@react-navigation/native";
@@ -102,7 +102,7 @@ export default function ChatRoom() {
         receiver_id: chatData?.id,
         content: message,
         receiver_type: "User",
-        image: images ? formatImage(images?.selectedImages) : null,
+        image: images ? formatImages(images?.selectedImages) : null,
       };
       setMessage("");
       setImages({
