@@ -11,10 +11,11 @@ import {
   ResetPasswordSchema,
   forgetPasswordSchema,
 } from "../../helpers/validationSchema";
-import {convertObjToFormData, translate} from "../../helpers";
-import {changePassword, resetPassword} from "../../redux";
+import {translate} from "../../helpers";
+import {changePassword, resetPassword, useAppSelector} from "../../redux";
 import {useLoader, useNavigationHooks, useToken} from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
+import {RouteProp, useRoute} from "@react-navigation/native";
 
 const labelStyle: TextProps = {
   fontSize: "FS14",
@@ -22,9 +23,19 @@ const labelStyle: TextProps = {
   fontFamily: "NORMAL",
 };
 const ResetPassword = () => {
-  const updatePasswordLoading = useLoader("resetPassword");
-  const {navigate, goBack} = useNavigationHooks<MainAppStackTypes>();
-  const isLogged = !!useToken();
+  const resetPasswordLoader = useLoader("resetPassword");
+  const changePasswordLoader = useLoader("changePassword");
+
+  const {
+    profile: {token},
+  } = useAppSelector(state => state.userReducer);
+  const {goBack, replace} = useNavigationHooks<MainAppStackTypes>();
+
+  const {
+    params: {passwordActionIndicator},
+  } = useRoute<RouteProp<MainAppStackTypes, "ResetPassword">>();
+
+  const isComingFromProfile = passwordActionIndicator === "resetPassword";
 
   const {
     handleSubmit,
@@ -33,30 +44,37 @@ const ResetPassword = () => {
     formState: {errors},
   } = useForm({
     resolver: yupResolver<any>(
-      isLogged ? ResetPasswordSchema : forgetPasswordSchema,
+      isComingFromProfile ? ResetPasswordSchema : forgetPasswordSchema,
     ),
   });
 
-  const firstInputKey = isLogged ? "old_password" : "password";
-  const secondInputKey = isLogged ? "password" : "password_confirmation";
+  const firstInputKey = isComingFromProfile ? "old_password" : "password";
+  const secondInputKey = isComingFromProfile
+    ? "password"
+    : "password_confirmation";
 
   const onSubmit = (data: any) => {
-    const formData = isLogged ? data : {password: data.password};
+    const _data = isComingFromProfile
+      ? data
+      : {password: data.password, otp_token: token};
 
+    console.log(_data);
     const callback = (res: any) => {
       if (res.status === 200) {
-        if (isLogged) {
+        if (isComingFromProfile) {
           goBack();
         } else {
-          navigate("Login", {navigateTo: "Home"});
+          replace("Login", {navigateTo: "TabsBottomStack"});
         }
+      } else {
+        console.warn("this is response in" + res.data.data.message);
       }
     };
 
-    if (isLogged) {
-      resetPassword(formData, callback);
+    if (isComingFromProfile) {
+      resetPassword(_data, callback);
     } else {
-      changePassword(formData, callback);
+      changePassword(_data, callback);
     }
   };
 
@@ -74,7 +92,9 @@ const ResetPassword = () => {
       <View style={styles.container}>
         <Input
           password
-          label={translate(isLogged ? "Form.oldPassword" : "Form.newPassword")}
+          label={translate(
+            isComingFromProfile ? "Form.oldPassword" : "Form.newPassword",
+          )}
           labelStyle={labelStyle}
           placeholder={translate("Form.enterPassword")}
           style={styles.input}
@@ -86,7 +106,7 @@ const ResetPassword = () => {
         <Input
           password
           label={translate(
-            isLogged ? "Form.newPassword" : "Form.confirmPassword",
+            isComingFromProfile ? "Form.newPassword" : "Form.confirmPassword",
           )}
           labelStyle={labelStyle}
           placeholder={translate("Form.enterPassword")}
@@ -101,7 +121,7 @@ const ResetPassword = () => {
           text={translate("Reset.updateYourPassword")}
           style={styles.saveButton}
           onPress={handleSubmit(onSubmit)}
-          isLoading={updatePasswordLoading}
+          isLoading={resetPasswordLoader || changePasswordLoader}
         />
       </View>
     </View>

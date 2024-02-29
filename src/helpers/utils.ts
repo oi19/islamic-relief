@@ -40,20 +40,29 @@ export const formateImage = (image?: any) => {
   return photo;
 };
 
-export const formatImages = (images?: any[] | null) => {
-  let photos: any[];
+export const formatImages = (
+  images?: DocumentPickerResponse[] | null,
+): DocumentPickerResponse[] => {
+  let photos: DocumentPickerResponse[];
   if (!images) {
     return []; // Return an empty array if images is null or undefined
   }
 
   photos = images.map(image => {
-    const name = image?.split("/")[image?.split("/").length - 1];
-    const uri = isIos ? image?.replace("file://", "") : image;
+    const name = image.fileCopyUri
+      ? image.fileCopyUri.split("/").pop() || ""
+      : "";
+    const uri = isIos
+      ? image.fileCopyUri
+        ? image.fileCopyUri.replace("file://", "")
+        : ""
+      : image.fileCopyUri;
 
     return {
+      ...image,
       name,
       type: "image/jpeg",
-      uri,
+      uri: uri ?? "",
     };
   });
 
@@ -124,7 +133,7 @@ export function handlePagination<T>(
 //   const formattedDate = year + "-" + month + "-" + day;
 
 //   return formattedDate;
-// }
+// } 
 
 export async function requestStoragePermission() {
   try {

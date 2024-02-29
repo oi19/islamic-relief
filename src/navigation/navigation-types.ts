@@ -1,4 +1,5 @@
 import {ChatType, Doctor, FilterType, ServicesTypesEnums} from "../@types";
+import {ApisTypes} from "../api/api-types";
 import {IconsName} from "../assets/svgs";
 
 export type MainNavigationTypes =
@@ -20,12 +21,21 @@ export type MainAppStackTypes = {
   PaymentMethods: undefined;
   ReviewSummary: undefined;
   ManageCards: undefined;
-  ResetPassword: undefined;
+  ResetPassword: {
+    passwordActionIndicator: keyof ApisTypes<
+      "resetPassword" | "changePassword"
+    >;
+  };
   Favorites: undefined;
   Points: undefined;
   Help: undefined;
   Account: undefined;
-
+  OTP: {
+    onCompletionCallback: (data: any) => void;
+    onResendCallback: () => void;
+    loadingApi: keyof ApisTypes;
+    resendLoadingApi: keyof ApisTypes;
+  };
   ChatRoom: {chatData?: ChatType};
 };
 

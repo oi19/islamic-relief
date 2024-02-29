@@ -1,6 +1,6 @@
 /* eslint-disable react-native/no-inline-styles */
 import React from "react";
-import {View} from "react-native";
+import {Keyboard, View} from "react-native";
 import {
   Button,
   CheckBox,
@@ -13,7 +13,12 @@ import {
 } from "../../components";
 import {useForm} from "react-hook-form";
 import {LoginTypes} from "../../@types";
-import {forgetPassword, userLogin} from "../../redux";
+import {
+  confirmOtp,
+  forgetPassword,
+  useAppSelector,
+  userLogin,
+} from "../../redux";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useLoader, useNavigationHooks} from "../../hooks";
 import {
@@ -32,8 +37,10 @@ const Login = () => {
   const {
     params: {navigateTo},
   } = useRoute<RouteProp<MainAppStackTypes, "Login">>();
-  const {goBack, navigate} =
+  const {goBack, navigate, replace} =
     useNavigationHooks<MainNavigationAllScreensTypes>();
+
+  const {profile} = useAppSelector(state => state.userReducer);
 
   const successModalRef = React.useRef<BottomSheetModal>(null);
   const errorModalRef = React.useRef<BottomSheetModal>(null);
@@ -55,8 +62,21 @@ const Login = () => {
   };
 
   const handleLoginPressed = async (data: LoginTypes) => {
+    Keyboard.dismiss();
     userLogin(data, res => {
       onOpenSuccessModal();
+    });
+  };
+
+  const onOTPSubmit = (otp: string) => {
+    const _data = convertObjToFormData({otp: otp});
+    console.log(_data);
+    confirmOtp(_data, res => {
+      if (res.status === 200) {
+        console.log(res.data);
+
+        replace("ResetPassword", {passwordActionIndicator: "changePassword"});
+      }
     });
   };
 
@@ -144,12 +164,6 @@ const Login = () => {
             style={styles.button}
             isLoading={loginLoader}
           />
-          <Button
-            text={translate("Form.createAccount")}
-            type="border"
-            style={styles.button}
-            onPress={handleSubmit(handleLoginPressed)}
-          />
         </View>
         <ViewRow style={{justifyContent: "space-between"}}>
           <Line style={styles.line} />
@@ -189,7 +203,7 @@ const Login = () => {
         message={translate("Model.congratulationsMessage")}
         onContinuePress={() => {
           if (navigateTo) {
-            navigate("SelectPackage");
+            navigate(navigateTo);
           } else {
             goBack();
           }

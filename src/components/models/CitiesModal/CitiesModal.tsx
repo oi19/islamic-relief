@@ -3,7 +3,6 @@ import React, {memo, RefObject, useState} from "react";
 import {FlatList, ListRenderItem, View} from "react-native";
 import {CityType} from "../../../@types";
 import {translate} from "../../../helpers";
-import {useLoader} from "../../../hooks";
 import {selectCombinedAccountData, useAppSelector} from "../../../redux";
 import {Button, Input} from "../../atoms";
 import {SelectedItem} from "../../organisms";
