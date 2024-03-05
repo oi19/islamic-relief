@@ -7,6 +7,7 @@ import HomeStack from "./home-stack";
 import {Notifications, Profile} from "../screens";
 import MyActivityStack from "./myActivity-stack";
 import ChatStack from "./chat-stack";
+import MyAppointmentStack from "./myAppointment-stack";
 
 const Tab = createBottomTabNavigator<TabsBottomStack>();
 
@@ -27,7 +28,7 @@ function TabButtonsStack() {
       <Tab.Screen
         initialParams={{icon: "document", text: translate("My Activity")}}
         name="MyActivityStack"
-        component={MyActivityStack}
+        component={MyAppointmentStack}
       />
       <Tab.Screen
         initialParams={{icon: "chat", text: translate("Chat")}}

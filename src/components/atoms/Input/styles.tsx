@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     paddingRight: Spacing.S16,
     paddingVertical: 0,
     marginVertical: 0,
-    color: Colors.GRAY_1E103A,
+    color: Colors.BLUE_4A5970,
   },
   passwordButton: {
     paddingRight: Spacing.S20,

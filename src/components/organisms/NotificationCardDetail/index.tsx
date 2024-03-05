@@ -7,20 +7,12 @@ import {HomeStackTypes} from "../../../navigation/navigation-types";
 
 import {styles} from "./styles";
 import {Colors} from "react-native/Libraries/NewAppScreen";
+import {NotificationsTypes} from "../../../@types";
 
-type NotificatinoCardDetailsProps = {
-  image?: string;
-  title?: string;
-  body?: string;
-  id?: number;
-  index?: number;
-};
-
-const NotificationCardDetail: React.FC<NotificatinoCardDetailsProps> = (
-  props: NotificatinoCardDetailsProps,
-) => {
-  const {image, title, body, id, index} = props;
+const NotificationCardDetail: React.FC<NotificationsTypes> = props => {
   const {navigate} = useNavigationHooks<HomeStackTypes>();
+
+  const {image, title, body, date} = props;
 
   return (
     <Card style={styles.cardContainer}>
@@ -50,28 +42,23 @@ const NotificationCardDetail: React.FC<NotificatinoCardDetailsProps> = (
               {title}
             </Text>
           </ViewRow>
-
           {/* content section  */}
-          {body ? (
-            <View style={styles.contentContainer}>
-              <Text
-                fontFamily="REGULAR"
-                fontSize="FS14"
-                color="BLACK"
-                numberOfLines={2}>
-                {body}
-              </Text>
-            </View>
-          ) : null}
+          <View style={styles.contentContainer}>
+            <Text
+              fontFamily="REGULAR"
+              fontSize="FS14"
+              color="BLACK"
+              numberOfLines={2}>
+              {body}
+            </Text>
+          </View>
           {/* notification date section  */}
-
           <Text
             fontSize="FS14"
             color="GRAY_969696"
             fontFamily="REGULAR"
             style={styles.dateTextStyle}>
-            {/* {item?.date} */}
-            Last Wednesday at 9:42 AM
+            {date}
           </Text>
         </View>
       </ViewRow>

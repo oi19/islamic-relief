@@ -59,8 +59,8 @@ const Account = () => {
   const [date, setDate] = React.useState<string | null>(
     profile.birthday || null,
   );
-  const [selectedGender, setSelectedGender] = React.useState<number | null>(
-    isGenderSelected ? Number(profile.gender) : null,
+  const [selectedGender, setSelectedGender] = React.useState<number>(
+    isGenderSelected ? Number(profile.gender) : -1,
   );
   const [image, setImage] = React.useState<
     ImageCropResponse | null | undefined
@@ -121,10 +121,8 @@ const Account = () => {
       ...data,
       image: formateImage(data.image),
     });
-    console.log(_data);
-    updateUserData(_data, res => {
-      console.log(res?.data);
 
+    updateUserData(_data, res => {
       if (res.status === 200) {
         console.log(res?.data);
         dispatch(showToast(translate("Model.updateDoctorMessage")));
@@ -285,7 +283,7 @@ const Account = () => {
         isLoading={accountLoading}
       />
       <GenderModal
-        selectedId={selectedGender?.toString() ?? "0"}
+        selectedId={selectedGender}
         onSelect={onSelectedGender}
         forwardRef={genderModalRef}
       />

@@ -6,7 +6,7 @@ import {Button, Text} from "../../../components";
 import {Colors} from "../../../styles";
 import styles from "./styles";
 
-type OptionType = {
+export type OptionType = {
   id: number;
   value: string;
   name?: string;
@@ -15,14 +15,16 @@ type SelectedOptionsProps = {
   data: Array<OptionType>;
   type?: "date";
   onSelected?: (index: number) => void;
+  selectedId?: number;
 };
 const SelectedOptions: FC<TouchableOpacityProps & SelectedOptionsProps> = ({
   type,
   data,
   onSelected,
+  selectedId,
   ...props
 }) => {
-  let [selectedIndex, setSelectedIndex] = useState(-1);
+  let [selectedIndex, setSelectedIndex] = useState(selectedId || -1);
   const onSelectedPressed = (index: number, id: number) => {
     if (onSelected) {
       onSelected(id);

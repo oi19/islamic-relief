@@ -1,9 +1,23 @@
 import {IconsName} from "../assets/svgs";
-import {ServicesTypesEnums} from "./common-types";
+import {PermissionStatus, ServicesTypesEnums} from "./common-types";
 
 export type User = {
-  photo?: string;
   name?: string;
+  id?: number;
+  email?: string;
+  mobile?: string;
+  email_verified_at?: boolean;
+
+  bio?: string;
+  birthday?: string;
+  age?: number;
+  image: string;
+  gender?: GenderTypes | number;
+
+  is_active?: PermissionStatus;
+  country_id?: number;
+  city_id?: number;
+  district_id?: number;
 };
 export interface CityTypes {
   id: number;
@@ -19,6 +33,11 @@ export interface CityTypes {
   updated_at: string;
 }
 export interface GenderTypes {
+  id: number;
+  name: string;
+}
+
+export interface BookingTypes {
   id: number;
   name: string;
 }

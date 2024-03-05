@@ -8,11 +8,10 @@ type ReadTextMoreProps = {
   text?: string;
   title?: string;
 };
-const ReadTextMore: React.FC<ReadTextMoreProps> = ({title}) => {
+const ReadTextMore: React.FC<ReadTextMoreProps> = ({title, text}) => {
   const [showFullText, setShowFullText] = React.useState(false);
 
-  const fullText =
-    "Lorem ipsum dolor sit amet consectetur. Lacus sit quis vitae consectetur nulla rutrum. Lorem ipsum dolor sit amet consectetur. Lacus sit quis vitae consectetur nulla rutrum.Lorem ipsum dolor sit amet consectetur. Lacus sit quis vitae consectetur nulla rutrum.Lorem ipsum dolor sit amet consectetur. Lacus sit quis vitae consectetur nulla rutrum.";
+  const isLoadMore = text && text?.length >= 125;
 
   const toggleText = () => {
     setShowFullText(!showFullText);
@@ -25,17 +24,23 @@ const ReadTextMore: React.FC<ReadTextMoreProps> = ({title}) => {
       </Text>
       <View>
         <Text style={styles.fullText}>
-          {showFullText ? fullText : fullText.slice(0, 100)}
+          {isLoadMore ? (
+            <>
+              {showFullText ? text : text?.slice(0, 100)}
+              <Text
+                color="PRIMARY"
+                fontSize="FS11"
+                style={styles.seeMore}
+                onPress={toggleText}>
+                {showFullText
+                  ? translate("Common.readLess")
+                  : translate("Common.readMore")}
+              </Text>
+            </>
+          ) : (
+            text
+          )}
           {"  "}
-          <Text
-            color="PRIMARY"
-            fontSize="FS11"
-            style={styles.seeMore}
-            onPress={toggleText}>
-            {showFullText
-              ? translate("Common.readLess")
-              : translate("Common.readMore")}
-          </Text>
         </Text>
       </View>
     </View>

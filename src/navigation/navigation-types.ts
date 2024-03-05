@@ -1,4 +1,9 @@
-import {ChatType, Doctor, FilterType, ServicesTypesEnums} from "../@types";
+import {
+  AppointmentsTypes,
+  ChatType,
+  FilterType,
+  ServicesTypesEnums,
+} from "../@types";
 import {ApisTypes} from "../api/api-types";
 import {IconsName} from "../assets/svgs";
 
@@ -7,17 +12,24 @@ export type MainNavigationTypes =
   | TabsBottomStack
   | HomeStackTypes
   | MyActivityStackTypes
-  | ChatStackTypes;
+  | ChatStackTypes
+  | MyAppointmentStackTypes;
 
 export type MainAppStackTypes = {
   Splash: undefined;
-  TabsBottomStack: undefined;
+  TabsBottomStack: {screen?: string};
   OnBoarding: undefined;
   AllowLocation: undefined;
   ManuallyLocation: undefined;
-  SelectPackage: undefined;
+  SelectPackage: {
+    appointment: {
+      time: string;
+      date: string;
+    };
+  };
   CompletePatientDetails: undefined;
-  Login: {navigateTo: MainNavigationKeys | undefined};
+  Login: {navigateTo?: MainNavigationKeys};
+  Signup: undefined;
   PaymentMethods: undefined;
   ReviewSummary: undefined;
   ManageCards: undefined;
@@ -26,6 +38,7 @@ export type MainAppStackTypes = {
       "resetPassword" | "changePassword"
     >;
   };
+
   Favorites: undefined;
   Points: undefined;
   Help: undefined;
@@ -36,7 +49,18 @@ export type MainAppStackTypes = {
     loadingApi: keyof ApisTypes;
     resendLoadingApi: keyof ApisTypes;
   };
+
+  ChangePassword: undefined;
+  ConfirmOtp: undefined;
+  ForgetPassword: undefined;
+
   ChatRoom: {chatData?: ChatType};
+};
+
+export type MyAppointmentStackTypes = {
+  MyAppointment: undefined;
+  AppointmentDetails: {appointmentId?: number};
+  RescheduleAppointment: {appointment?: AppointmentsTypes};
 };
 
 export type HomeStackTypes = {
@@ -48,7 +72,7 @@ export type HomeStackTypes = {
     filterType: FilterType;
     servicesType?: ServicesTypesEnums;
   };
-  DoctorProfile: {item: Doctor};
+  DoctorProfile: {id: number};
 };
 
 export type MyActivityStackTypes = {
@@ -71,10 +95,12 @@ export type MainNavigationAllScreensTypes = MainAppStackTypes &
   TabsBottomStack &
   ChatStackTypes &
   HomeStackTypes &
-  MyActivityStackTypes;
+  MyActivityStackTypes &
+  MyAppointmentStackTypes;
 
 export type MainNavigationKeys = keyof (TabsBottomStack &
   MainAppStackTypes &
   ChatStackTypes &
   HomeStackTypes &
-  MyActivityStackTypes);
+  MyActivityStackTypes &
+  MyAppointmentStackTypes);

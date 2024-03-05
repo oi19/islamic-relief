@@ -2,22 +2,45 @@ import {FlatList, ListRenderItem, StyleSheet} from "react-native";
 import React from "react";
 import {SelectedItemWithCheck} from "../../organisms";
 import {Spacing} from "../../../styles";
-import {SelectedCheckItemType} from "../../../@types";
+import {PermissionStatus, ServiceTypes} from "../../../@types";
+import SelectedServiceItem from "./SelectedServiceItem";
 
 type SelectCheckedOptionsProps = {
-  listItems: SelectedCheckItemType[];
-  onSelectedItem?: (index: number) => void;
+  listItems: any[];
+  onSelectedItem?: (index?: number, service?: ServiceTypes) => void;
+  fromComponent?: "services" | "banks";
 };
 const SelectCheckedOptions: React.FC<SelectCheckedOptionsProps> = ({
   listItems,
   onSelectedItem,
+  fromComponent,
 }) => {
   const [selectedItem, setSelectedItem] = React.useState<number>(-1);
 
-  const _selectedItemRender: ListRenderItem<SelectedCheckItemType> = ({
+  const _selectedServiceItemRender: ListRenderItem<ServiceTypes> = ({
     item,
     index,
   }) => {
+    const active = selectedItem === index;
+
+    if (item?.is_available === PermissionStatus.TRUE) {
+      return (
+        <SelectedServiceItem
+          active={active}
+          item={item}
+          index={index}
+          onSelected={() => {
+            if (onSelectedItem) {
+              onSelectedItem(item?.id, item);
+            }
+            setSelectedItem(index);
+          }}
+        />
+      );
+    }
+  };
+
+  const _selectedItemRender: ListRenderItem<any> = ({item, index}) => {
     const active = selectedItem === index;
     return (
       <SelectedItemWithCheck
@@ -25,8 +48,8 @@ const SelectCheckedOptions: React.FC<SelectCheckedOptionsProps> = ({
         item={item}
         index={index}
         onSelected={() => {
-          if (onSelectedItem) {
-            onSelectedItem(index);
+          if (onSelectedItem && item?.id) {
+            onSelectedItem(item?.id);
           }
           setSelectedItem(index);
         }}
@@ -37,7 +60,11 @@ const SelectCheckedOptions: React.FC<SelectCheckedOptionsProps> = ({
     <FlatList
       data={listItems}
       style={styles.listStyle}
-      renderItem={_selectedItemRender}
+      renderItem={
+        fromComponent === "services"
+          ? _selectedServiceItemRender
+          : _selectedItemRender
+      }
       contentContainerStyle={styles.contentContainerStyle}
       keyExtractor={(_, index) => `SelectedOptions_${index}`}
       showsVerticalScrollIndicator={false}

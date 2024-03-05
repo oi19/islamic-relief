@@ -32,6 +32,7 @@ export interface ApisTypes<T = string> {
   changeAppointmentStatus: T;
   rescheduleAppointment: T;
   cancelAppointment: T;
+  clinicSlots: T;
 
   // Home Page
   homePage: T;
@@ -52,7 +53,8 @@ export interface ApisTypes<T = string> {
   doctors: T;
   addToFav: T;
   deleteFromFav: T;
-  review: T;
+  addReview: T;
+  doctorProfile: T;
 }
 
 const APIs: ApisTypes = {
@@ -89,6 +91,7 @@ const APIs: ApisTypes = {
   changeAppointmentStatus: "/users/appointments",
   rescheduleAppointment: "/users/appointments-update",
   cancelAppointment: "cancel",
+  clinicSlots: "/users/appointments/check-availability",
 
   // Home Page
   homePage: "/users/home",
@@ -109,7 +112,8 @@ const APIs: ApisTypes = {
   doctors: "/users/filter",
   addToFav: "add-to-favourites",
   deleteFromFav: "delete-from-favourites",
-  review: "review",
+  addReview: "/users/doctors",
+  doctorProfile: "/users/doctors",
 };
 
 export default APIs;

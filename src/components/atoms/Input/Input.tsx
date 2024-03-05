@@ -134,7 +134,7 @@ const ControlledInput = ({
         <Input
           {...inputProps}
           value={value}
-          // onChangeText={onChange}
+          onChangeText={onChange}
           error={error?.message?.toString()}
         />
       )}

@@ -49,9 +49,11 @@ export function convertTo12HourFormat(time24?: string): string {
     const [hours, minutes] = time24.split(":").map(Number);
 
     let hours12 = hours % 12 || 12;
-    const amPm = hours >= 12 ? "PM" : "AM";
+    const amPm = hours >= 12 ? translate("Common.pm") : translate("Common.am");
 
-    const time12 = `${hours12}:${minutes.toString().padStart(2, "0")} ${amPm}`;
+    const time12 = `${hours12.toString().padStart(2, "0")}:${minutes
+      .toString()
+      .padStart(2, "0")} ${amPm}`;
 
     return time12;
   }
@@ -141,3 +143,46 @@ export function addMinutesToTime(time: string, addMin: number) {
 
   return formattedNewTime;
 }
+
+export function getDatesInRange(startDate: Date, endDate: Date) {
+  const date = new Date(startDate.getTime());
+
+  const dates = [];
+
+  while (date <= endDate) {
+    dates.push(new Date(date));
+    date.setDate(date.getDate() + 1);
+  }
+
+  return dates;
+}
+
+export function minusDays(date: Date, daysNum: number) {
+  date.setDate(date.getDate() - daysNum);
+
+  return date;
+}
+export function addDays(date: Date, daysNum: number) {
+  date.setDate(date.getDate() + daysNum);
+
+  return date;
+}
+
+export function getDayString(date: Date) {
+  return date.toString().split(" ")[0];
+}
+
+export const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];

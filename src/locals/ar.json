@@ -14,7 +14,6 @@
     "ending": "تنتهي",
     "in": "ب",
     "expiryDate": "انتهاء الصلاحية",
-
     "about": "حول",
     "day": "اليوم",
     "time": "الوقت",
@@ -48,10 +47,21 @@
     "save": "حفظ",
     "confirm": "تاكيد",
     "chooseGender": "اختر الجنس",
-
     "addPhotos": "إضافة الصور",
     "sendReview": "إرسال المراجعة",
-    "new": "جديدة"
+    "new": "جديدة",
+    "let'sComplete":"هيا نكمل",
+    "takePhoto":"التقط صورة",
+    "gallery":"معرض الصور",
+    "male":"ذكر",
+    "female":"أنثى",
+    "wallet":"المحفظة",
+    "egp":"جنيه",
+    "min":"دقيقة ",
+    "waiting":"انتظار",
+    "pm":"مساءً",
+    "am":"صباحا"
+
   },
 
   "OnBoarding": {
@@ -111,10 +121,11 @@
     "congratulationsMessage": "تهانينا، تم إنشاء حسابك بنجاح.",
     "pleaseSelectPackageMessage": "يرجى تحديد الباقة المناسبة للحجز",
     "pleaseSelectCardMessage": "يرجى تحديد البطاقة المناسبة للحجز",
-
+    "logoutMessage":"هل أنت متأكد أنك تريد تسجيل الخروج؟",
+    "updateDoctorMessage":"تم تحديث بيانات بنجاح",
     "successfullyBooked": "لقد قمت بحجز موعد بنجاح مع",
     "leaveYourMessage": "اترك رسالتك",
-
+    "nothingToUpdate":"ليس هناك شيء للتحديث",
     "cancelModelTitle": "قم بإلغاء هذا القسم",
     "appointmentCancelMessage": "هل أنت متأكد أنك تريد إلغاء هذا الموعد؟",
 
@@ -137,6 +148,9 @@
     "chooseCity": "اختر المدينة ",
     "fullName": "الاسم الكامل",
     "enterFullName": "أدخل الاسم الكامل",
+    "image":"صورة",
+    "notes":"ملحوظات",
+    "is_myself":"الحجز من أجل",
     "email": "بريد إلكتروني",
     "enterEmail": "أدخل بريدك الإلكتروني",
     "birthday": "تاريخ الميلاد",
@@ -144,7 +158,16 @@
     "oldPassword": "كلمة المرور القديمة",
     "confirmPassword": "تأكيد كلمة المرور",
     "gender": "الجنس",
-    "name": "الاسم الكامل"
+    "name": "الاسم الكامل",
+    "mobile":"رقم الهاتف",
+    "enterOldPassword":"أدخل كلمة المرور القديمة",
+    "old_password":"كلمة المرور القديمة",
+    "password_confirmation":"تأكيد كلمة المرور",
+    "updatePassword":"قم بتحديث كلمة المرور الخاصة بك",
+    "rate":"تقييم",
+    "review":"تعليق"
+
+    
   },
 
   "selectPackage": {
@@ -159,6 +182,12 @@
     "writeYourProblem": "اكتب مشكلتك",
     "writeHere": "اكتب هنا...",
     "uploadDocuments": "تحميل المستند"
+  },
+
+  "Booking":{
+    "itself":"بحد ذاتها",
+    "other":"حد آخر" 
+
   },
 
   "paymentMethods": {
@@ -186,11 +215,12 @@
     "cancelled": "ملغى"
   },
 
-  "myChat": {
-    "title": "دردشتي",
-    "myChatLoginMessage": "قم بتسجيل الدخول لعرض الدردشة السابقة"
-  },
-
+  "myChat":{
+    "title":"دردشتي",
+    "myChatLoginMessage":"قم بتسجيل الدخول لعرض الدردشة السابقة",
+    "emptyMessage": "لا يوجد دردشة حتى الآن"
+    },
+  
   "Profile": {
     "title": "الملف الشخصي",
     "location": "الموقع",
@@ -215,7 +245,8 @@
     "title": "الإشعارات",
     "notificationsLoginMessage": "قم بتسجيل الدخول لعرض إشعاراتك السابقة",
     "unread": "غير مقروءة",
-    "read": "مقروءة"
+    "read": "مقروءة",
+    "emptyMessage":"لا يوجد إشعارات حتى الآن"
   },
 
   "paymentCards": {
@@ -253,7 +284,24 @@
   },
   "OTP": {
     "title": "تأكيد الكود",
-    "SMSMessage_description": "سيتم إرسال رسالة نصية للتحقق من رقم الهاتف",
+    "SMSMessage_description": "سيتم إرسال رسالة للتحقق من بريدك الإلكتروني",
     "resendCode": "اعادة ارسال الكود"
+  },
+  "myAppointment":{
+    "title":"مواعيدى",
+    "loginMessage": " قم بتسجيل الدخول لعرض أنشطتك السابقة",
+    "support":"الدعم",
+    "supportMessage":"من فضلك اترك رسالتك وسنقوم بالرد عليك خلال 48 ساعة.",
+    "emptyMessage":"لا يوجد مواعيد حتى الآن",
+    "all":"الكل",
+    "upcoming":"القادم",
+    "completed":"مكتمل",
+    "cancelled":"ملغى",
+    "pending":"قيد الانتظار",
+    "patientDocuments":"مستندات المريض",
+    "appointmentDetails":"تفاصيل الموعد",
+    "patientProblem":"مشكلة المريض",
+    "accepted":"تم القبول",
+    "emptySlots":"ليس لدينا مواعيد في هذا اليوم"
   }
 }

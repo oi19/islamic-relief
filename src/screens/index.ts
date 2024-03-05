@@ -10,6 +10,8 @@ export {default as Search} from "./Search";
 export {default as SpecialDetails} from "./SpecialDetails";
 export {default as DoctorProfile} from "./DoctorProfile";
 export {default as Login} from "./Login";
+export {default as Signup} from "./Signup";
+
 export {default as SelectPackage} from "./SelectPackage";
 export {default as CompletePatientDetails} from "./CompletePatientDetails";
 export {default as PaymentMethods} from "./PaymentMethods";
@@ -23,3 +25,10 @@ export {default as Notifications} from "./Notifications";
 export {default as ChatRoom} from "./ChatRoom";
 export {default as Points} from "./Points";
 export {default as Help} from "./Help";
+export {default as ForgetPassword} from "./ForgetPassword";
+export {default as ConfirmOtp} from "./ConfirmOtp";
+export {default as ChangePassword} from "./ChangePassword";
+
+export {default as MyAppointment} from "./MyAppointment";
+export {default as AppointmentDetails} from "./AppointmentDetails";
+export {default as RescheduleAppointment} from "./RescheduleAppointment";

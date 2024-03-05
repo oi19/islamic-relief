@@ -15,8 +15,6 @@ const SelectedMultiPhotosItem: React.FC<SelectedMultiPhotosProps> = ({
   item,
   index,
 }) => {
-  console.log(item);
-
   return (
     <View style={styles.itemContainer}>
       <Image

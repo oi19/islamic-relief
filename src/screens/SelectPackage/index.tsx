@@ -11,20 +11,52 @@ import {getHeight} from "../../styles/dimensions";
 import {styles} from "./styles";
 import {useNavigationHooks} from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
-import {packages} from "./data";
+
 import {translate} from "../../helpers";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
+import {RouteProp, useRoute} from "@react-navigation/native";
+import {
+  setServiceTypeWithAppointment,
+  useAppSelector,
+  useDispatch,
+} from "../../redux";
+import {ServiceTypes, ServicesTypesEnums} from "../../@types";
 
 const SelectPackage = () => {
+  const {
+    params: {appointment},
+  } = useRoute<RouteProp<MainAppStackTypes, "SelectPackage">>();
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
-  const [selectedItem, setSelectedItem] = React.useState<number>(-1);
+  const dispatch = useDispatch();
+  const {services, clinics} = useAppSelector(
+    state => state.doctorsReducer.doctorProfile,
+  );
+
+  const addClinicSelector = {
+    duration: clinics?.[0]?.duration,
+    id: clinics?.[0]?.id,
+    is_available: 1,
+    price: clinics?.[0]?.price,
+    service: ServicesTypesEnums.ClinicVisit,
+  };
+  const [selectedItem, setSelectedItem] = React.useState<{
+    id?: number;
+    service?: ServiceTypes;
+  }>();
   const warningModalRef = useRef<BottomSheetModal>(null);
 
   const onNextPressed = () => {
-    if (selectedItem === -1) {
+    if (selectedItem?.id === -1) {
       warningModalRef.current?.present();
       return;
     }
+    dispatch(
+      setServiceTypeWithAppointment({
+        date: appointment?.date,
+        service: selectedItem?.service,
+        time: appointment?.time,
+      }),
+    );
     // submitLogic
     navigate("CompletePatientDetails");
   };
@@ -39,10 +71,14 @@ const SelectPackage = () => {
       {/* Main Screen Content */}
       <View style={styles.container}>
         <SelectCheckedOptions
-          onSelectedItem={index => {
-            setSelectedItem(index);
+          onSelectedItem={(index, service) => {
+            setSelectedItem({
+              id: index,
+              service,
+            });
           }}
-          listItems={packages}
+          listItems={[...services, addClinicSelector]}
+          fromComponent="services"
         />
         <Button
           type="standard"

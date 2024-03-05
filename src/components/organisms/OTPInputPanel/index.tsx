@@ -1,4 +1,3 @@
-/* eslint-disable react-native/no-inline-styles */
 import React from "react";
 import {
   FlatList,
@@ -114,7 +113,7 @@ const OTPInputPanel: React.FC<OTPProps> = ({
       <FlatList
         data={Array.from({length})}
         renderItem={_renderItem}
-        keyExtractor={(_, index) => index.toString()}
+        keyExtractor={(_, index) => `otp-item-${index.toString()}`}
         contentContainerStyle={styles.otpContainer}
         horizontal
         inverted={isRTL() ? true : false}

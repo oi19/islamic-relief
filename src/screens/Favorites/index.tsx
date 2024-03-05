@@ -39,6 +39,7 @@ const Favorites = () => {
       />
       <View style={styles.container}>
         <DoctorsList
+          onLoadMore={() => {}}
           listItems={favouritDoctorsList()}
           renderEmptyList={renderEmptyList}
         />

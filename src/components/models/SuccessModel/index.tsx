@@ -50,19 +50,20 @@ const SuccessModel: React.FC<SuccessModelProps> = ({
             {doctorName}
           </Text>
         )}
-        <Button
-          text={buttonTitle || translate("Common.Continue")}
-          onPress={onContinuePress}
-          type="standard"
-          style={styles.okButton}
-        />
 
-        {onAnotherButtonPress && (
+        {onAnotherButtonPress ? (
           <Button
             text={anotherTitle || translate("Common.goHome")}
             onPress={onAnotherButtonPress}
             type="border"
             style={styles.anotherButton}
+          />
+        ) : (
+          <Button
+            text={buttonTitle || translate("Common.Continue")}
+            onPress={onContinuePress}
+            type="standard"
+            style={styles.okButton}
           />
         )}
       </View>

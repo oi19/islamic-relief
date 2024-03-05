@@ -4,11 +4,13 @@ import {
   PayloadAction,
 } from "@reduxjs/toolkit";
 import {RootState} from "..";
-import {ServiceTypes, UserAccountType} from "../../@types";
-// import {Doctor} from "../../@types";
-import {User} from "../../@types";
+import {
+  ConfirmOtpResponse,
+  ServiceTypes,
+  User,
+  UserAccountType,
+} from "../../@types";
 import {ResponseTypes} from "../../@types";
-// import {packages} from "@screens/MyServices/data";
 
 // Define the entity adapter
 const servicesAdapter = createEntityAdapter<ServiceTypes>({
@@ -18,15 +20,17 @@ const servicesAdapter = createEntityAdapter<ServiceTypes>({
 
 // Define the state type
 type InitialStateTypes = {
-  profile: UserAccountType;
+  profile: User;
   token: string | null;
   services: ReturnType<typeof servicesAdapter.getInitialState>;
+  otpData: ConfirmOtpResponse;
 };
 
 const initialState: InitialStateTypes = {
-  profile: {} as UserAccountType,
+  profile: {} as User,
   token: null,
   services: servicesAdapter.getInitialState(),
+  otpData: {} as ConfirmOtpResponse,
 };
 
 const userSlice = createSlice({
@@ -35,7 +39,7 @@ const userSlice = createSlice({
   reducers: {
     setUserProfile: (
       state,
-      {payload: {data, token}}: PayloadAction<ResponseTypes<UserAccountType>>,
+      {payload: {data, token}}: PayloadAction<ResponseTypes<User>>,
     ) => {
       console.log("action.payload", data, token);
 
@@ -43,27 +47,9 @@ const userSlice = createSlice({
         state.token = token;
       }
 
-      console.log("payload.data:" + data);
-      state.profile = data || ({} as UserAccountType);
-
-      // const isService = data?.services && data?.services.length > 0;
-
-      // if (isService) {
-      //   const servicesList: any = isService ? data?.services : packages;
-
-      //   servicesAdapter.setAll(state.services, servicesList);
-      // }
+      state.profile = data || ({} as User);
     },
 
-    // setClinic: (state, action) => {
-    //   const {clinics} = state.profile;
-
-    //   if (clinics && clinics.length > 0) {
-    //     state.profile.clinics?.push(action?.payload);
-    //   } else {
-    //     state.profile.clinics = [action?.payload];
-    //   }
-    // },
     setServices: (state, action: PayloadAction<ServiceTypes[]>) => {
       servicesAdapter.setAll(state.services, action.payload);
     },
@@ -77,9 +63,24 @@ const userSlice = createSlice({
         changes: updatedService,
       });
     },
-    // setCurrentSubscription: (state, action) => {
-    //   state.profile.current_subscription = action.payload;
-    // },
+
+    setOtpToken: (
+      state,
+      {
+        payload: {token, data},
+      }: PayloadAction<ResponseTypes<ConfirmOtpResponse>>,
+    ) => {
+      if (token) {
+        state.token = token;
+      }
+      if (data) {
+        state.otpData = data;
+      }
+    },
+
+    clearOtpToken: state => {
+      state.otpData = {} as ConfirmOtpResponse;
+    },
     logout: state => {
       state.token = null;
     },
@@ -91,6 +92,8 @@ export const {
   logout,
   setServices,
   updateService,
+  setOtpToken,
+  clearOtpToken,
   // setClinic,
   // setCurrentSubscription,
 } = userSlice.actions;

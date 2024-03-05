@@ -1,9 +1,9 @@
-import {FlatList, ListRenderItem} from "react-native";
-import React from "react";
+import React, {memo} from "react";
+import {ListRenderItem} from "react-native";
 import {NotificationsTypes} from "../../../@types";
 import {Spacing} from "../../../styles";
-import NotificationCardDetail from "../../organisms/NotificationCardDetail";
 import PaginationFlatlist from "../../atoms/PaginationFlatlist";
+import NotificationCardDetail from "../../organisms/NotificationCardDetail";
 
 type NotificationsProps = {
   notifications: NotificationsTypes[];
@@ -27,4 +27,4 @@ const NotificationsList: React.FC<NotificationsProps> = ({notifications}) => {
   );
 };
 
-export default NotificationsList;
+export default memo(NotificationsList);

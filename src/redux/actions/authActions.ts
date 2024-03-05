@@ -5,30 +5,30 @@ import {AxiosResponse} from "axios";
 import {dispatch, logout, setUserProfile, showErrorModel} from "..";
 import {combineErrorMessages} from "../../helpers/utils";
 
-// const registerUserForm = async (
-//   body: FormData,
-//   callback?: (res: AxiosResponse<ResponseTypes<User>>) => void,
-// ) => {
-//   try {
-//     const response = await request<User, FormData>({
-//       method: "post",
-//       endPoint: "registerUserForm",
-//       callback,
-//       body,
-//     });
-//     if (response?.code === 200) {
-//       console.log(response);
-//       dispatch(setUserProfile(response));
-//     }
-//   } catch (error: any) {
-//     console.log("in registerUserFormError?.response?.data");
-//     const validation = error?.response?.data?.validation;
-//     if (validation) {
-//       const errors = combineErrorMessages(validation);
-//       dispatch(showErrorModel(errors));
-//     }
-//   }
-// };
+const registerUserForm = async (
+  body: FormData,
+  callback?: (res: AxiosResponse<ResponseTypes<User>>) => void,
+) => {
+  try {
+    const response = await request<any, FormData>({
+      method: "post",
+      endPoint: "registerUserForm",
+      callback,
+      body,
+    });
+    if (response?.code === 200) {
+      console.log(response);
+      dispatch(setUserProfile(response));
+    }
+  } catch (error: any) {
+    console.log("in registerUserFormError?.response?.data");
+    const validation = error?.response?.data?.validation;
+    if (validation) {
+      const errors = combineErrorMessages(validation);
+      dispatch(showErrorModel(errors));
+    }
+  }
+};
 
 const userLogin = async (
   body: LoginTypes,
@@ -42,12 +42,10 @@ const userLogin = async (
       body,
     });
     if (response?.code === 200) {
-      console.log("loggedIn");
       dispatch(setUserProfile(response));
     } else {
     }
   } catch (error: any) {
-    console.log("in userLogin ", error?.response.data);
     const validation = error?.response?.data?.message;
     if (validation) {
       dispatch(showErrorModel(validation));
@@ -112,7 +110,6 @@ const confirmOtp = async (
       body,
     });
     if (response?.code === 200) {
-      console.log(response);
       console.log(response.data);
       dispatch(setUserProfile(response));
     }
@@ -221,7 +218,7 @@ const updateUserData = async (
 };
 
 export {
-  // registerUserForm,
+  registerUserForm,
   userLogin,
   userLogout,
   getUserProfile,

@@ -96,7 +96,7 @@ const Profile: React.FC = () => {
                 fontSize: "FS14",
               }}
               style={{
-                width: getWidth(340),
+                width: getWidth(325),
               }}
               type="standard"
               onPress={() => {

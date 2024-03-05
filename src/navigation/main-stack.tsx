@@ -4,9 +4,12 @@ import {MainAppStackTypes} from "./navigation-types";
 import TabButtonsStack from "./tab-buttons-stack";
 import {
   Account,
+  ChangePassword,
   ChatRoom,
   CompletePatientDetails,
+  ConfirmOtp,
   Favorites,
+  ForgetPassword,
   Help,
   Login,
   ManageCards,
@@ -17,13 +20,22 @@ import {
   ResetPassword,
   ReviewSummary,
   SelectPackage,
+  Signup,
   Splash,
 } from "../screens";
 import AllowLocation from "../screens/AllowLocation";
 import OTP from "../screens/OTP";
+import {useToken} from "../hooks";
+import {useAppSelector} from "../redux";
 
 const MainStack = () => {
   const Stack = createNativeStackNavigator<MainAppStackTypes>();
+
+  const {email, mobile} = useAppSelector(state => state.userReducer.profile);
+
+  const isLoggin = useToken();
+
+  const isValid = isLoggin && email && mobile;
 
   return (
     <Stack.Navigator
@@ -34,7 +46,16 @@ const MainStack = () => {
       <Stack.Screen name="AllowLocation" component={AllowLocation} />
       <Stack.Screen name="ManuallyLocation" component={ManuallyLocation} />
       <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Signup" component={Signup} />
+
       <Stack.Screen name="TabsBottomStack" component={TabButtonsStack} />
+      <Stack.Screen name="Account" component={Account} />
+
+      {/* {isValid ? (
+        <Stack.Screen name="TabsBottomStack" component={TabButtonsStack} />
+      ) : (
+        <Stack.Screen name="Account" component={Account} />
+      )} */}
       <Stack.Screen name="SelectPackage" component={SelectPackage} />
       <Stack.Screen
         name="CompletePatientDetails"
@@ -42,7 +63,6 @@ const MainStack = () => {
       />
       <Stack.Screen name="PaymentMethods" component={PaymentMethods} />
       <Stack.Screen name="ReviewSummary" component={ReviewSummary} />
-      <Stack.Screen name="Account" component={Account} />
       <Stack.Screen name="ResetPassword" component={ResetPassword} />
       <Stack.Screen name="ManageCards" component={ManageCards} />
       <Stack.Screen name="Favorites" component={Favorites} />
@@ -50,6 +70,10 @@ const MainStack = () => {
       <Stack.Screen name="Points" component={Points} />
       <Stack.Screen name="Help" component={Help} />
       <Stack.Screen name="OTP" component={OTP} />
+
+      <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
+      <Stack.Screen name="ChangePassword" component={ChangePassword} />
+      <Stack.Screen name="ConfirmOtp" component={ConfirmOtp} />
     </Stack.Navigator>
   );
 };

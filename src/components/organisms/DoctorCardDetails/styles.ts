@@ -27,9 +27,15 @@ export const styles = StyleSheet.create({
     borderRadius: scale(25),
     marginVertical: Spacing.S8,
   },
-  iconContainerStyle: {},
+  favourite: {
+    position: "absolute",
+    top: "100%",
+  },
+  iconContainerStyle: {
+    marginLeft: 0,
+  },
   spaceBetween: {
-    justifyContent: "space-between",
+    justifyContent: "center",
     marginVertical: Spacing.S11,
   },
   actionsButton: {
@@ -39,11 +45,13 @@ export const styles = StyleSheet.create({
   },
   moreInfo: {
     paddingHorizontal: Spacing.S20,
+    width: "100%",
     alignItems: "flex-start",
   },
   baseButton: {
-    width: getWidth(130),
+    width: getWidth(200),
     margin: Spacing.S11,
+    alignSelf: "center",
   },
   singleButtonStyle: {
     alignSelf: "center",

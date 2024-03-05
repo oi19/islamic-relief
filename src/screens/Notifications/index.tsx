@@ -1,49 +1,29 @@
 import {useFocusEffect} from "@react-navigation/native";
-import React, { useMemo } from "react";
+import React from "react";
 import {View} from "react-native";
 
-import {styles} from "./styles";
-import {useAppSelector} from "../../redux/index";
-import {useLoader} from "../../hooks";
+import {Lottie} from "../../assets/lottie";
 import {
   HandleEmptyList,
+  HandleSignIn,
   Header,
   NotificationsList,
 } from "../../components/molecules";
 import {translate} from "../../helpers/language";
+import {useLoader, useToken} from "../../hooks";
+import {getNotifications, useAppSelector} from "../../redux/index";
 import {getHeight} from "../../styles/dimensions";
 import {Spacing} from "../../styles/index";
-import {Lottie} from "../../assets/lottie";
-import { notifications } from "../../dummyData";
-import TabBar from "../../components/molecules/TabBar";
-import { Tab } from "../../@types";
+import {styles} from "./styles";
 
 const Notifications = () => {
-  // const {notifications} = useAppSelector(state => state.notificationReducer);
-  // const notificationsLoader = useLoader("notifications");
-
-      const tabs: Tab[] = useMemo(
-      () => [
-        {
-          title: translate("Common.all"),
-          content: <NotificationsList notifications={notifications} />,
-        },
-        {
-          title: translate("Notifications.unread"),
-           content: <NotificationsList notifications={notifications} />,
-        },
-        {
-          title: translate("Notifications.read"),
-          content: <NotificationsList notifications={notifications} />,
-
-        },
-      ],
-      [],
-    );
+  const {notifications} = useAppSelector(state => state.notificationReducer);
+  const notificationsLoader = useLoader("notifications");
+  const isLoggin = useToken();
 
   useFocusEffect(
     React.useCallback(() => {
-      // getNotifications();
+      getNotifications();
     }, []),
   );
 
@@ -52,9 +32,9 @@ const Notifications = () => {
       <>
         <Header
           title={translate("Notifications.title")}
-          style={{ height: getHeight(130), paddingTop: Spacing.S20 }}
+          style={{height: getHeight(130), paddingTop: Spacing.S20}}
         />
-        <TabBar tabs={tabs} />
+        <NotificationsList notifications={notifications} />
       </>
     );
   };
@@ -73,9 +53,19 @@ const Notifications = () => {
     );
   };
 
-  // if (notificationsLoader) {
-  //   return renderLoaderNotifications();
-  // }
+  if (!isLoggin) {
+    return (
+      <HandleSignIn
+        title={translate("Notifications.title")}
+        icon="emptyNotification"
+        message={translate("myActivity.loginMessage")}
+      />
+    );
+  }
+
+  if (notificationsLoader) {
+    return renderLoaderNotifications();
+  }
 
   return (
     <View style={styles.rootScreen}>

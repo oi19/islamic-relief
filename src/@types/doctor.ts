@@ -1,11 +1,13 @@
 import {ClinicType} from "./clinic-types";
+import {Review} from "./common-types";
 import {SpecialtiesType} from "./create-account-types";
 
 export type Doctor = {
   name?: string;
   location?: string;
   rating?: string;
-  reviews?: any[];
+  reviews?: Review[];
+  main_specialty?: string;
   description?: string;
   vezeeta?: number;
   mobile?: string;
@@ -15,7 +17,8 @@ export type Doctor = {
   password_confirmation?: string;
   birthday?: string;
   title_id?: number;
-  specialty_id: number;
+  specialty_id: any;
+  reviews_avg_rate?: number;
   sub_specialty_id?: number;
   experience?: number;
   medical_card?: string;
@@ -25,7 +28,7 @@ export type Doctor = {
   bank_id?: number;
   desc?: string;
   gender?: number;
-  id?: number;
+  id: number;
   is_active: 0 | 1;
   is_home?: number;
   is_completed: number;
@@ -36,9 +39,9 @@ export type Doctor = {
   current_subscription?: any;
   clinics?: ClinicType[];
   specialty?: SpecialtiesType;
-  sub_specialty?: SpecialtiesType;
+  sub_specialty?: string;
   bank?: string;
-  services?: [];
+  services: [];
 };
 
 export interface DoctorRegisterTypes {

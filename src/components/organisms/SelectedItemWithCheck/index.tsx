@@ -2,7 +2,7 @@ import React from "react";
 import {View} from "react-native";
 import {Card, RadioButton, RoundedIcon, Text, ViewRow} from "../../atoms";
 import {styles} from "./styles";
-import {SelectedCheckItemType,} from "../../../@types";
+import {SelectedCheckItemType} from "../../../@types";
 import {Spacing} from "../../../styles";
 
 type SelectedItemWithCheckProps = {

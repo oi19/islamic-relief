@@ -54,11 +54,9 @@ const CameraModal = ({
 
       if (image) {
         // Do something with the image
-        console.log("Image taken from camera: ", image);
         onSetImage(image);
       }
     } catch (error) {
-      console.log("Error while opening camera: ", error);
       console.warn("cancelled");
     }
   };

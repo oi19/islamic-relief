@@ -1,12 +1,20 @@
 import React from "react";
 import {Animated, Easing, View} from "react-native";
 
-import {getAreas, getCities, getCountries, getSpecialties} from "../../redux";
+import {
+  getAreas,
+  getCities,
+  getCountries,
+  getSpecialties,
+  setChooseLanguageFirstTime,
+  useAppSelector,
+  useDispatch,
+} from "../../redux";
 // import {usePushNotification} from "../../hooks/usePushNotification";
 import {Svgs} from "../../assets";
 import {Button, ViewRow} from "../../components";
-import {useNavigationHooks} from "../../hooks";
-import {isRTL} from "../../locals/i18n-config";
+import {useNavigationHooks, useToken} from "../../hooks";
+import I18n, {isRTL} from "../../locals/i18n-config";
 import {MainNavigationAllScreensTypes} from "../../navigation/navigation-types";
 import {styles} from "./styles";
 import {changeLanguage} from "../../helpers";
@@ -14,6 +22,11 @@ import {changeLanguage} from "../../helpers";
 const Splash: React.FC = () => {
   const imageSlideAnim = React.useRef(new Animated.Value(500)).current;
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
+  const dispatch = useDispatch();
+  const {chooseLanguageFirstTime, firstTime} = useAppSelector(
+    state => state.globalReduce,
+  );
+
   // const {
   //   getFCMToken,
   //   listenToBackgroundNotifications,
@@ -30,12 +43,26 @@ const Splash: React.FC = () => {
       duration: animationDuration,
       easing: Easing.out(Easing.exp),
       useNativeDriver: false, // Adjust to true if needed
-    }).start();
-  }, []);
+    }).start(({finished}) => {
+      if (finished && !chooseLanguageFirstTime) {
+        // && is_active === PermissionStatus.TRUE
+        if (!firstTime) {
+          navigate("TabsBottomStack");
+        } else {
+          navigate("OnBoarding");
+        }
+      }
+    });
+  }, [chooseLanguageFirstTime, firstTime, imageSlideAnim, navigate]);
 
-  const chooseLanguageFirstTime = (language: "ar" | "en") => {
-    changeLanguage(language);
-    navigate("OnBoarding");
+  const setLanguageFirstTime = (language: "ar" | "en") => {
+    dispatch(setChooseLanguageFirstTime());
+
+    if (I18n.language !== language) {
+      changeLanguage(language);
+    } else {
+      navigate("OnBoarding");
+    }
   };
 
   // const listenToNotifications = React.useCallback(async () => {
@@ -82,26 +109,29 @@ const Splash: React.FC = () => {
         ]}>
         <Svgs name="slug" />
       </Animated.View>
-      <ViewRow style={styles.buttonGroup}>
-        <Button
-          type={isRTL() ? "standard" : "border"}
-          iconName={isRTL() ? undefined : "checked"}
-          text="English"
-          style={styles.button}
-          onPress={() => {
-            chooseLanguageFirstTime("en");
-          }}
-        />
-        <Button
-          type={isRTL() ? "border" : "standard"}
-          iconName={isRTL() ? "checked" : undefined}
-          text="عربي"
-          style={styles.button}
-          onPress={() => {
-            chooseLanguageFirstTime("ar");
-          }}
-        />
-      </ViewRow>
+
+      {chooseLanguageFirstTime && (
+        <ViewRow style={styles.buttonGroup}>
+          <Button
+            type={isRTL() ? "standard" : "border"}
+            iconName={isRTL() ? undefined : "checked"}
+            text="English"
+            style={styles.button}
+            onPress={() => {
+              setLanguageFirstTime("en");
+            }}
+          />
+          <Button
+            type={isRTL() ? "border" : "standard"}
+            iconName={isRTL() ? "checked" : undefined}
+            text="عربي"
+            style={styles.button}
+            onPress={() => {
+              setLanguageFirstTime("ar");
+            }}
+          />
+        </ViewRow>
+      )}
     </View>
   );
 };

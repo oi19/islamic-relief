@@ -1,16 +1,35 @@
 import {PayloadAction, createSlice} from "@reduxjs/toolkit";
-import {Doctor, PaginationTypes} from "../../@types";
+import {
+  CreateAppointmentTypes,
+  Doctor,
+  PaginationTypes,
+  Review,
+  ServiceTypes,
+} from "../../@types";
 import {handlePagination} from "../../helpers";
 
 type InitialState = {
   topRated: Doctor[];
   doctors: Doctor[];
   lastPage: string | null;
+  doctorProfile: Doctor;
+  appointment: {
+    time: string;
+    date: string;
+    service?: ServiceTypes;
+  };
+  patientsDetails: CreateAppointmentTypes | null;
 };
 const initialState: InitialState = {
   topRated: [],
   doctors: [],
   lastPage: null,
+  doctorProfile: {} as Doctor,
+  appointment: {
+    time: "",
+    date: "",
+  },
+  patientsDetails: null,
 };
 
 const doctorSlice = createSlice({
@@ -30,12 +49,42 @@ const doctorSlice = createSlice({
       );
       state.lastPage = next_page_url;
     },
+    setDoctorProfile: (state, {payload}: PayloadAction<Doctor>) => {
+      state.doctorProfile = payload;
+    },
+
     setTopRated: (state, action) => {
       state.topRated = action.payload;
+    },
+    setServiceTypeWithAppointment: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        time: string;
+        date: string;
+        service?: ServiceTypes;
+      }>,
+    ) => {
+      state.appointment = payload;
+    },
+
+    setPatientDetailsForm: (state, {payload}) => {
+      state.patientsDetails = payload;
+    },
+    setReview: (state, {payload}: PayloadAction<Review>) => {
+      state.doctorProfile.reviews?.push(payload);
     },
   },
 });
 
-export const {setTopRated, setDoctors} = doctorSlice.actions;
+export const {
+  setTopRated,
+  setDoctors,
+  setDoctorProfile,
+  setServiceTypeWithAppointment,
+  setPatientDetailsForm,
+  setReview,
+} = doctorSlice.actions;
 
 export default doctorSlice.reducer;

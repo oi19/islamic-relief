@@ -1,35 +1,59 @@
-import {translate} from "../../helpers";
+import {
+  ServiceTypes,
+  CreateAppointmentTypes,
+  ServicesTypesEnums,
+} from "../../@types";
+import {bookings} from "../../dummyData";
+import {convertTo12HourFormat, getValueFromId, translate} from "../../helpers";
 
-export const reviewSummary: any = [
-  {
-    title: translate("reviewSummary.dateHour"),
-    value: "October 1,2023 | 6:00 PM",
-    line: false,
-  },
-  {
-    title: translate("reviewSummary.package"),
-    value: "Video Call",
-    line: false,
-  },
+const ServicesName: Record<ServicesTypesEnums, any> = {
+  clinic_visit: translate("Home.clinicVisit"),
+  home_visit: translate("Home.homeVisit"),
+  video_call: translate("Common.videoCall"),
+};
 
+export const reviewSummary: any = (
   {
-    title: translate("reviewSummary.duration"),
-    value: "30 minutes",
-    line: false,
-  },
-  {
-    title: translate("completePatientDetails.bookingFor"),
-    value: "self",
-    line: true,
-  },
-  {
-    title: translate("Common.amount"),
-    value: "500",
-    line: false,
-  },
-  {
-    title: translate("Common.total"),
-    value: "500",
-    line: false,
-  },
-];
+    date,
+    time,
+    service,
+  }: {time: any; date: any; service?: ServiceTypes | undefined},
+
+  {is_myself}: CreateAppointmentTypes,
+) => {
+  console.log(is_myself, getValueFromId(is_myself, bookings));
+
+  return [
+    {
+      title: translate("reviewSummary.dateHour"),
+      value: `${date} | ${convertTo12HourFormat(time)}`,
+      line: false,
+    },
+    {
+      title: translate("reviewSummary.package"),
+      value: `${ServicesName[service?.service]}`,
+      line: false,
+    },
+
+    {
+      title: translate("reviewSummary.duration"),
+      value: `${service?.duration}`,
+      line: false,
+    },
+    {
+      title: translate("completePatientDetails.bookingFor"),
+      value: `${getValueFromId(is_myself, bookings)}`,
+      line: true,
+    },
+    {
+      title: translate("Common.amount"),
+      value: `${service?.price}`,
+      line: false,
+    },
+    {
+      title: translate("Common.total"),
+      value: `${service?.price}`,
+      line: false,
+    },
+  ];
+};

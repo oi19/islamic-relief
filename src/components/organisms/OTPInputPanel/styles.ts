@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
-import {Colors, Spacing} from "../../../styles";
-import {getHeight, getWidth, scale} from "../../../styles/dimensions";
+import {Colors, Spacing, Typography} from "../../../styles";
+import {getHeight, scale} from "../../../styles/dimensions";
 
 export const styles = StyleSheet.create({
   container: {
@@ -25,12 +25,15 @@ export const styles = StyleSheet.create({
   input: {
     borderWidth: 1,
     borderColor: Colors.GRAY_CBCBCB,
-    width: getWidth(50),
-    height: getHeight(60),
+    width: scale(55),
+    height: scale(55),
     margin: Spacing.S8,
     textAlign: "center",
-    borderRadius: Spacing.S11,
+    borderRadius: Spacing.S4,
     backgroundColor: Colors.WHITE,
+    color: Colors.BLUE_4A5970,
+    fontFamily: Typography.MEDIUM,
+    fontSize: Typography.FS16,
   },
   inputFocused: {
     borderColor: Colors.PRIMARY,

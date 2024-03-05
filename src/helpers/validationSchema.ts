@@ -54,7 +54,7 @@ export const AccountLoginSchema = yup.object().shape({
   password: yup.string().min(8).max(24).required(),
 });
 
-export const DoctorRegisterSchema1 = yup.object().shape({
+export const userRegisterSchema = yup.object().shape({
   mobile: yup
     .string()
     .trim()
@@ -71,7 +71,7 @@ export const DoctorRegisterSchema1 = yup.object().shape({
       translate("validation.confirmPasswordNotMatch"),
     )
     .required(),
-  gender: yup.number().required(),
+  gender: yup.string().required(),
   birthday: yup.string().required(),
 });
 
@@ -166,4 +166,37 @@ export const forgetPasswordSchema = yup.object().shape({
       translate("validation.confirmPasswordNotMatch"),
     )
     .required(),
+});
+
+export const forgetPasswordSchema2 = yup.object().shape({
+  email: yup.string().trim().email().required(),
+});
+
+export const changePasswordSchema = yup.object().shape({
+  password: yup.string().min(8).max(24).required(),
+  password_confirmation: yup
+    .string()
+    .oneOf(
+      [yup.ref("password")],
+      translate("validation.confirmPasswordNotMatch"),
+    )
+    .required(),
+});
+
+export const createItselfAppointmentSchema = yup.object().shape({
+  is_myself: yup.number().required(),
+  notes: yup.string().min(8).required(),
+});
+
+export const createOtherAppointmentSchema = yup.object().shape({
+  is_myself: yup.number().required(),
+  notes: yup.string().min(8).required(),
+  name: yup.string().required(),
+  age: yup.string().required(),
+  gender: yup.number().required(),
+});
+
+export const ReviewSchema = yup.object().shape({
+  review: yup.string().min(4).required(),
+  rate: yup.string().required(),
 });

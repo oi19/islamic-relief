@@ -12,26 +12,31 @@ type ReviewItem = {
   index?: number;
 };
 const ReviewItem: React.FC<ReviewItem> = ({item}) => {
+  const imageUrl = "http://doctors.fmceg.com/storage/";
+  const haveImage = item?.user_image ? `${imageUrl}${item?.user_image}` : null;
   return (
     <View>
       <Line />
       <ViewRow style={{justifyContent: "space-between"}}>
         <View style={styles.row}>
-          <Image source={Images.default} style={styles.avatar} />
+          <Image
+            source={haveImage ? {uri: haveImage} : Images.default}
+            style={styles.avatar}
+          />
           <Text fontSize="FS14" fontFamily="MEDIUM">
-            {item?.user?.name}
+            {item?.user_name}
           </Text>
         </View>
         <View style={styles.row}>
-          <Rating size={scale(20)} rate={item?.rating} />
-          <Text>{item?.rating?.toFixed(1)}</Text>
+          <Rating size={scale(20)} rate={item?.rate} />
+          <Text>{item?.rate}</Text>
         </View>
       </ViewRow>
       <Text fontSize="P" style={styles.time}>
-        {formatTimeAgo(new Date(item?.time))}
+        {formatTimeAgo(new Date(item?.created_at))}
       </Text>
       <Text fontSize="FS14" color="GRAY_A7A7A7" style={styles.comment}>
-        {item?.comment}
+        {item?.review}
       </Text>
     </View>
   );

@@ -18,7 +18,7 @@ const GenderModal = ({
 }: {
   forwardRef: RefObject<BottomSheetModal>;
   onSelect: (id: number) => void;
-  selectedId: string;
+  selectedId: number;
 }) => {
   // const genders = useAppSelector(state => state.userReducer.genders);
 
@@ -34,7 +34,7 @@ const GenderModal = ({
       <SelectedItem
         key={`RenderGenderItem_${index}`}
         item={item}
-        selectedId={selectedId}
+        isSelected={selectedId === item?.id}
         onPress={() => onSelectedCity(item.id)}
       />
     );

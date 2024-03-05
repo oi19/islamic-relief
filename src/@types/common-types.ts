@@ -42,10 +42,14 @@ export type SelectedCheckPaymentCardType = {
 };
 
 export type Review = {
-  rating?: number;
-  comment?: string;
-  time: string | number;
-  user?: User;
+  created_at: Date;
+  doctor_id: number;
+  id: number;
+  rate: number;
+  review: string;
+  user_id: string;
+  user_image: string;
+  user_name: string;
 };
 
 export type profileRowType = {
@@ -100,9 +104,9 @@ export enum ServicesTypesEnums {
 }
 
 export const ServicesName: Record<ServicesTypesEnums, string | undefined> = {
-  clinic_visit: translate("Home.clinicVisit"),
-  home_visit: translate("Home.homeVisit"),
-  video_call: translate("Common.videoCall"),
+  clinic_visit: "clinic_visit",
+  home_visit: "home_visit",
+  video_call: "video_call",
 };
 
 export const ServicesIcon: Record<ServicesTypesEnums, IconsName> = {

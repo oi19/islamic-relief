@@ -62,7 +62,6 @@ const SpecialDetails = () => {
         },
         res => {
           if (res.status === 200) {
-            console.log(" getDoctors in SpecialDetails =>", res.data.data);
           }
         },
       ).finally(() => {

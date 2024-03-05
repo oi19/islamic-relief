@@ -93,42 +93,44 @@ const Home = () => {
           {/* Sign up Card*/}
 
           {/* {!isLogged ? ( */}
-          <View style={styles.signUpContainer}>
-            <Svgs name="circles" />
-            <View style={styles.signUpMessage}>
-              <Text
-                fontSize="FS16"
-                color="WHITE"
-                fontFamily="MEDIUM"
-                style={styles.message}>
-                {translate("Home.signInMessage")}
-              </Text>
-              <Button
-                text={translate("Common.signup")}
-                type="border"
-                style={{width: getWidth(130), marginTop: Spacing.S11}}
-                onPress={() => {
-                  navigate("Login", {navigateTo: undefined});
-                }}
-              />
+          {!isLogged && (
+            <View style={styles.signUpContainer}>
+              <Svgs name="circles" />
+              <View style={styles.signUpMessage}>
+                <Text
+                  fontSize="FS16"
+                  color="WHITE"
+                  fontFamily="MEDIUM"
+                  style={styles.message}>
+                  {translate("Home.signInMessage")}
+                </Text>
+                <Button
+                  text={translate("Common.signup")}
+                  type="border"
+                  style={{width: getWidth(130), marginTop: Spacing.S11}}
+                  onPress={() => {
+                    navigate("Login", {navigateTo: undefined});
+                  }}
+                />
+              </View>
             </View>
-          </View>
+          )}
+
           {/* ) : null} */}
 
           {/* Top doctor Rated Section List */}
-          {doctors.length > 0 && (
-            <Section
-              title={translate("Home.topRatedDoctors")}
-              renderItem={topRatedDoctor}
-              data={doctors}
-              horizontal={true}
-              navigateTo={"SpecialDetails"}
-              params={{
-                name: translate("Home.topRatedDoctors"),
-                filterType: "rating",
-              }}
-            />
-          )}
+
+          <Section
+            title={translate("Home.topRatedDoctors")}
+            renderItem={topRatedDoctor}
+            data={doctors}
+            horizontal={true}
+            navigateTo={"SpecialDetails"}
+            params={{
+              name: translate("Home.topRatedDoctors"),
+              filterType: "rating",
+            }}
+          />
         </Scroll>
       </View>
     </View>

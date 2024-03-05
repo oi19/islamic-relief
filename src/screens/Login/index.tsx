@@ -1,6 +1,10 @@
-/* eslint-disable react-native/no-inline-styles */
+import {BottomSheetModal} from "@gorhom/bottom-sheet";
+import {yupResolver} from "@hookform/resolvers/yup";
+import {RouteProp, useRoute} from "@react-navigation/native";
 import React from "react";
+import {useForm} from "react-hook-form";
 import {Keyboard, View} from "react-native";
+import {LoginTypes} from "../../@types";
 import {
   Button,
   CheckBox,
@@ -11,98 +15,48 @@ import {
   Text,
   ViewRow,
 } from "../../components";
-import {useForm} from "react-hook-form";
-import {LoginTypes} from "../../@types";
-import {
-  confirmOtp,
-  forgetPassword,
-  useAppSelector,
-  userLogin,
-} from "../../redux";
-import {yupResolver} from "@hookform/resolvers/yup";
+import ErrorMessageModal from "../../components/models/ErrorMessageModal";
+import {translate} from "../../helpers";
+import {AccountLoginSchema} from "../../helpers/validationSchema";
 import {useLoader, useNavigationHooks} from "../../hooks";
 import {
   MainAppStackTypes,
   MainNavigationAllScreensTypes,
 } from "../../navigation/navigation-types";
-import {Colors, Spacing} from "../../styles";
+import {userLogin} from "../../redux";
+import {Colors} from "../../styles";
 import {styles} from "./styles";
-import {BottomSheetModal} from "@gorhom/bottom-sheet";
-import {RouteProp, useRoute} from "@react-navigation/native";
-import {convertObjToFormData, translate} from "../../helpers";
-import {AccountLoginSchema} from "../../helpers/validationSchema";
-import ErrorMessageModal from "../../components/models/ErrorMessageModal";
 
 const Login = () => {
   const {
     params: {navigateTo},
   } = useRoute<RouteProp<MainAppStackTypes, "Login">>();
-  const {goBack, navigate, replace} =
+  const {goBack, navigate} =
     useNavigationHooks<MainNavigationAllScreensTypes>();
 
-  const {profile} = useAppSelector(state => state.userReducer);
-
-  const successModalRef = React.useRef<BottomSheetModal>(null);
   const errorModalRef = React.useRef<BottomSheetModal>(null);
   const loginLoader = useLoader("login");
 
   const {
     setValue,
     handleSubmit,
-    getValues,
-    setError,
     clearErrors,
     formState: {errors},
   } = useForm({
     resolver: yupResolver(AccountLoginSchema),
   });
 
-  const onOpenSuccessModal = () => {
-    successModalRef.current?.present();
-  };
-
   const handleLoginPressed = async (data: LoginTypes) => {
     Keyboard.dismiss();
     userLogin(data, res => {
-      onOpenSuccessModal();
-    });
-  };
-
-  const onOTPSubmit = (otp: string) => {
-    const _data = convertObjToFormData({otp: otp});
-    console.log(_data);
-    confirmOtp(_data, res => {
-      if (res.status === 200) {
-        console.log(res.data);
-
-        replace("ResetPassword", {passwordActionIndicator: "changePassword"});
+      if (res) {
+        navigate("TabsBottomStack");
       }
     });
   };
 
   const handlerforgetPasswordPressed = () => {
-    // const mobile = getValues("mobile");
-    // if (!mobile) {
-    //   setError("mobile", {
-    //     type: "required",
-    //     message: `${translate("Validation.required")}`,
-    //   });
-
-    //   return;
-    // }
-
-    const _data = convertObjToFormData({email: profile.email});
-    console.log(_data);
-    forgetPassword(_data, res => {
-      if ((res.status = 200)) {
-        navigate("OTP", {
-          onCompletionCallback: onOTPSubmit,
-          onResendCallback: () => forgetPassword(_data),
-          loadingApi: "confirmOtp",
-          resendLoadingApi: "forgetPassword",
-        });
-      }
-    });
+    navigate("ForgetPassword");
   };
 
   const onChangeTextHandler = (fieldName: any, text: string) => {
@@ -131,6 +85,7 @@ const Login = () => {
           placeholder={`+20 ${translate("Form.phone")}`}
           style={styles.input}
           keyboardType="phone-pad"
+          maxLength={11}
           inputContainerStyle={styles.inputContainer}
           onChangeText={text => onChangeTextHandler("mobile", text)}
           error={errors?.mobile?.message?.toString()}
@@ -144,7 +99,7 @@ const Login = () => {
           onChangeText={text => onChangeTextHandler("password", text)}
           error={errors?.password?.message?.toString()}
         />
-        <ViewRow style={{justifyContent: "space-between"}}>
+        <ViewRow style={styles.row}>
           <CheckBox text={translate("Form.rememberMe")} />
           <Button
             text={translate("Form.forgotPassword")}
@@ -164,28 +119,36 @@ const Login = () => {
             style={styles.button}
             isLoading={loginLoader}
           />
+          <Button
+            text={translate("Form.createAccount")}
+            type="border"
+            onPress={async () => {
+              navigate("Signup");
+            }}
+            style={styles.button}
+          />
         </View>
-        <ViewRow style={{justifyContent: "space-between"}}>
+
+        <ViewRow style={styles.row}>
           <Line style={styles.line} />
           <Text fontSize="FS14">{translate("Form.orSignIn")}</Text>
           <Line style={styles.line} />
         </ViewRow>
 
-        <ViewRow
-          style={{justifyContent: "space-around", marginVertical: Spacing.S16}}>
+        <ViewRow style={styles.soicalContainer}>
           <Button
             iconName="google"
-            iconContainerStyle={{marginLeft: 0}}
+            iconContainerStyle={styles.iconContainerStyle}
             style={styles.socialButton}
           />
           <Button
             iconName="facebook"
-            iconContainerStyle={{marginLeft: 0}}
+            iconContainerStyle={styles.iconContainerStyle}
             style={styles.socialButton}
           />
           <Button
             iconName="apple"
-            iconContainerStyle={{marginLeft: 0}}
+            iconContainerStyle={styles.iconContainerStyle}
             style={styles.socialButton}
           />
         </ViewRow>
@@ -198,20 +161,6 @@ const Login = () => {
         </Text>
       </View>
 
-      <SuccessModel
-        forwardRef={successModalRef}
-        message={translate("Model.congratulationsMessage")}
-        onContinuePress={() => {
-          if (navigateTo) {
-            navigate(navigateTo);
-          } else {
-            goBack();
-          }
-          setTimeout(() => {
-            successModalRef.current?.close();
-          }, 5);
-        }}
-      />
       <ErrorMessageModal
         forwardRef={errorModalRef}
         message={translate("Modal.Error")}

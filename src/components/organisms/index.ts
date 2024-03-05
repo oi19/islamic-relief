@@ -14,3 +14,4 @@ export {default as NotificationCardDetail} from "./NotificationCardDetail";
 export {default as SelectedPaymentCardWithCheck} from "./SelectedPaymentCardWithCheck";
 export {default as ChatItem} from "./ChatItem";
 export {default as ChatMessageItem} from "./ChatMessageItem";
+export {default as AppointmentCard} from "./AppointmentCard";

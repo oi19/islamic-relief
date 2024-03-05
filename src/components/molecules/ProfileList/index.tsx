@@ -5,10 +5,11 @@ import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {ProfileRowCard} from "../../organisms";
 import {CityType, profileRowType} from "../../../@types";
 import {MainAppStackTypes} from "../../../navigation/navigation-types";
-import {useNavigationHooks} from "../../../hooks";
-import {CitiesModal, LanguageModel} from "../../models";
+import {useLoader, useNavigationHooks} from "../../../hooks";
+import {CitiesModal, ConfirmModal, LanguageModel} from "../../models";
 import {Spacing} from "../../../styles";
-import {userLogout} from "../../../redux";
+import {logout, userLogout} from "../../../redux";
+import {translate} from "../../../helpers";
 
 type ProfileListProps = {
   listItems: profileRowType[];
@@ -21,21 +22,21 @@ const ProfileList: React.FC<ProfileListProps> = ({
   selectedCity,
   onSelectedCity,
 }) => {
-  const {navigate} = useNavigationHooks<MainAppStackTypes>();
+  const {navigate, goBack} = useNavigationHooks<MainAppStackTypes>();
   const languageModalRef = React.useRef<BottomSheetModal>(null);
   const citiesModalRef = React.useRef<BottomSheetModal>(null);
+  const logoutModalRef = React.useRef<BottomSheetModal>(null);
+
+  const logoutLoading = useLoader("logout");
 
   const onLocationRowPressed = () => {
-    console.log("Cities Modal is Visible");
     citiesModalRef.current?.present();
   };
   const onLanguageRowPressed = () => {
-    console.log("Language Model");
     languageModalRef.current?.present();
   };
   const onLogoutRowPressed = () => {
-    console.log("logout is pressed");
-    userLogout();
+    logoutModalRef.current?.present();
   };
 
   const handleOnRowPressed = (item: profileRowType) => {
@@ -90,6 +91,23 @@ const ProfileList: React.FC<ProfileListProps> = ({
         forwardRef={citiesModalRef}
         onSelect={onSelectedCity}
         selectedId={selectedCity?.id?.toString()}
+      />
+      <ConfirmModal
+        forwardRef={logoutModalRef}
+        onConfirm={() => {
+          userLogout(res => {
+            if (res.status === 200) {
+              setTimeout(() => {
+                logoutModalRef.current?.close();
+              }, 10);
+              goBack();
+            }
+          });
+        }}
+        title={translate("Profile.logout")}
+        isLoading={logoutLoading}
+        confirmText={translate("Profile.logout")}
+        message={translate("Model.logoutMessage")}
       />
     </>
   );

@@ -12,6 +12,7 @@ import {MainNavigationAllScreensTypes} from "../../../navigation/navigation-type
 import {translate} from "../../../helpers";
 import FavoriteButton from "../../atoms/FavoriteButton/FavoriteButton";
 import {getValueFromICreatedObj} from "../../../redux";
+import {Colors} from "../../../styles";
 
 type DoctorCardDetailsProps = {
   item: Doctor;
@@ -23,7 +24,7 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
 
   const onBookAppointmentPressed = () => {
     navigate("DoctorProfile", {
-      item,
+      id: item?.id,
     });
   };
   const onBookTodayPressed = () => {
@@ -34,13 +35,7 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
   const onBookAgainPressed = () => {};
 
   return (
-    <Card
-      style={styles.cardContainer}
-      onPress={() =>
-        navigate("DoctorProfile", {
-          item,
-        })
-      }>
+    <Card style={styles.cardContainer} onPress={onBookAppointmentPressed}>
       <ViewRow style={styles.topRowViewContainerStyle}>
         <Image source={Images.default} style={styles.image} />
 
@@ -54,9 +49,9 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
             {getValueFromICreatedObj(item?.specialty_id, "specialties")}
           </Text>
           <ViewRow>
-            <Rating size={scale(20)} rate={Number(item?.rating)} />
+            <Rating size={scale(20)} rate={Number(item?.reviews_avg_rate)} />
             <Text color="GRAY_A7A7A7">
-              {5} | {20} {translate("Common.review")}
+              {item?.reviews_avg_rate || 0} {translate("Form.rate")}
             </Text>
           </ViewRow>
         </View>
@@ -65,7 +60,7 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
         <View style={styles.actionsButton}>
           <FavoriteButton
             isFavorite={true}
-            style={styles.notifications}
+            style={[styles.notifications, styles.favourite]}
             onPress={() => {
               console.log("this doctor is added to favourite");
             }}
@@ -93,6 +88,9 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
         <TextWithIcon
           type="medium"
           icon="prescription"
+          iconStyle={{
+            color: Colors.PRIMARY,
+          }}
           text={
             item?.desc ||
             "Lorem ipsum dolor sit amet consectetur. Lacus sit quis vitae consectetur nulla rutrum."
@@ -103,35 +101,17 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
         <TextWithIcon
           type="medium"
           icon="wallet"
-          text={`${item?.clinics?.[0]?.price || 0} `}
+          text={`${item?.clinics?.[0]?.price || 0} ${translate("Common.egp")} `}
           style={styles.walletTextContainerStyle}
         />
       </View>
       <ViewRow style={styles.spaceBetween}>
-        {true ? (
-          <>
-            <Button
-              text={translate("Search.bookAppointment")}
-              type="standard"
-              style={styles.baseButton}
-              onPress={() => onBookAppointmentPressed()}
-            />
-            <Button
-              text="Today from 10:00 am"
-              textStyle={{fontFamily: "BOLD", fontSize: "FS14"}}
-              type="border"
-              style={styles.baseButton}
-              onPress={() => onBookTodayPressed()}
-            />
-          </>
-        ) : (
-          <Button
-            style={styles.baseButton}
-            type="standard"
-            text={translate("Common.bookAgain")}
-            onPress={() => onBookAgainPressed()}
-          />
-        )}
+        <Button
+          text={translate("Search.bookAppointment")}
+          type="standard"
+          style={styles.baseButton}
+          onPress={() => onBookAppointmentPressed()}
+        />
       </ViewRow>
     </Card>
   );

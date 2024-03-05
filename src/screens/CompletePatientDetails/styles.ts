@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 import {Colors, Spacing} from "../../styles";
-import {getHeight, scale} from "../../styles/dimensions";
+import {getHeight, getWidth, scale} from "../../styles/dimensions";
 
 export const styles = StyleSheet.create({
   rootScreen: {
@@ -11,6 +11,17 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.WHITE,
     borderRadius: scale(12),
     marginTop: 0,
+  },
+  cameraButton: {
+    backgroundColor: Colors.WHITE,
+    marginVertical: Spacing.S20,
+    width: getWidth(104),
+    height: getHeight(104),
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  input: {
+    marginVertical: Spacing.S11,
   },
   container: {
     flex: 1,

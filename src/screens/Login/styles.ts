@@ -13,10 +13,17 @@ export const styles = StyleSheet.create({
     borderColor: Colors.PRIMARY,
     alignItems: "flex-end",
   },
+  soicalContainer: {
+    justifyContent: "space-around",
+    marginVertical: Spacing.S16,
+  },
+  iconContainerStyle: {
+    marginTop: 0,
+  },
   input: {
     marginTop: Spacing.S20,
   },
-
+  row: {justifyContent: "space-between"},
   button: {
     marginVertical: Spacing.S8,
   },

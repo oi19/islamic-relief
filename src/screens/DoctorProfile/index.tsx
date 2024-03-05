@@ -10,6 +10,8 @@ import {
   DoctorAction,
   Header,
   HeaderSection,
+  HorizontalCalender,
+  HorizontalTime,
   Image,
   Line,
   ReadTextMore,
@@ -17,9 +19,7 @@ import {
   RoundedIcon,
   Scroll,
   Section,
-  SelectedOptions,
   Text,
-  TextWithIcon,
   ViewRow,
   WarningMessageModel,
 } from "../../components";
@@ -31,27 +31,35 @@ import {Colors, Spacing} from "../../styles";
 import {getHeight} from "../../styles/dimensions";
 import {styles} from "./styles";
 import {IconsName} from "../../assets/svgs";
-import {Reviews} from "../../dummyData";
-import {useNavigationHooks} from "../../hooks";
+import {useLoader, useNavigationHooks, useToken} from "../../hooks";
 import {Doctor} from "../../@types";
-import {translate} from "../../helpers";
+import {formateDate, translate} from "../../helpers";
 import FavoriteButton from "../../components/atoms/FavoriteButton/FavoriteButton";
 import useNativeShare from "../../hooks/useNativeShare";
+import {getDoctorProfile, useAppSelector} from "../../redux";
+import {Lottie} from "../../assets";
 
 const DoctorProfile = () => {
   const {
-    params: {item},
+    params: {id},
   } = useRoute<RouteProp<HomeStackTypes, "DoctorProfile">>();
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
-  const [appointment, setAppointment] = React.useState<{
-    dayId: number;
-    timeId: number;
-  }>({
-    dayId: -1,
-    timeId: -1,
-  });
   const warningModalRef = React.useRef<BottomSheetModal>(null);
   const addReviewModalRef = React.useRef<BottomSheetModal>(null);
+  const isLogged = useToken();
+
+  const profileLoader = useLoader("doctorProfile");
+
+  const {doctorProfile} = useAppSelector(state => state.doctorsReducer);
+
+  const [appointment, setAppointment] = React.useState<{
+    date: string;
+    time: string;
+  }>({
+    date: formateDate(new Date()),
+    time: "",
+  });
+
   const {shareContent, error} = useNativeShare();
 
   const handleShare = () => {
@@ -60,23 +68,27 @@ const DoctorProfile = () => {
       message: "https://reactnative.dev/docs/share?language=typescript",
     });
   };
-  // const isLogged = useToken();
-  const isLogged = true;
+
+  React.useEffect(() => {
+    getDoctorProfile(id);
+  }, [id]);
 
   const onOpenWarningModal = () => {
     warningModalRef.current?.present();
   };
 
   const handleMakeAppointment = () => {
-    if (appointment?.dayId === -1 || appointment?.timeId === -1) {
+    if (!appointment?.date || !appointment?.time) {
       onOpenWarningModal();
       return;
     }
     if (isLogged) {
-      navigate("SelectPackage");
+      navigate("SelectPackage", {
+        appointment,
+      });
     } else {
       navigate("Login", {
-        navigateTo: "SelectPackage",
+        navigateTo: undefined,
       });
     }
     // logic bussiness
@@ -140,7 +152,7 @@ const DoctorProfile = () => {
       />
       <RoundedIcon
         icon="bag"
-        title="10+"
+        title={doctorProfile?.experience?.toString()}
         subTitle={translate("Common.yearsExp.")}
         textContainerStyle={styles.center}
       />
@@ -149,13 +161,13 @@ const DoctorProfile = () => {
         iconStyle={{
           color: Colors.PRIMARY,
         }}
-        title="4.9+"
+        title={doctorProfile?.rating?.toString()}
         textContainerStyle={styles.center}
         subTitle={translate("Common.rating")}
       />
       <RoundedIcon
         icon="review"
-        title="30"
+        title={doctorProfile?.reviews?.length.toString()}
         subTitle={translate("Common.review")}
         textContainerStyle={styles.center}
       />
@@ -168,35 +180,22 @@ const DoctorProfile = () => {
       <HeaderSection
         title={translate("Search.bookAppointment")}
         textStyle={{fontFamily: "NORMAL", color: "GRAY_474C5C"}}
-        navigateTo="AllowLocation"
       />
       <Section title={translate("Common.day")} textStyle={{fontSize: "FS16"}}>
-        <SelectedOptions
-          style={styles.selectedOptions}
-          type={"date"}
-          onSelected={(id: number) =>
-            setAppointment({...appointment, dayId: id})
-          }
-          data={[
-            {name: "Mon", value: "14", id: 1},
-            {name: "Sun", value: "13", id: 2},
-            {name: "Sat", value: "12", id: 3},
-            {name: "Fri 17", value: "17", id: 4},
-          ]}
+        <HorizontalCalender
+          onDaySelected={date => {
+            const selectedDay = formateDate(date);
+            setAppointment({time: "", date: selectedDay});
+          }}
         />
       </Section>
       <Section title={translate("Common.time")} textStyle={{fontSize: "FS16"}}>
-        <SelectedOptions
-          style={styles.selectedOptions}
-          onSelected={(id: number) =>
-            setAppointment({...appointment, timeId: id})
-          }
-          data={[
-            {name: "7:00  PM", value: "14", id: 1},
-            {name: "8:00  PM", value: "13", id: 2},
-            {name: "10:00 PM", value: "12", id: 3},
-            {name: "11:00 PM", value: "17", id: 4},
-          ]}
+        <HorizontalTime
+          onTimeSelected={(time: string) => {
+            setAppointment({...appointment, time});
+          }}
+          selectedDay={appointment?.date}
+          clinicId={doctorProfile?.clinics?.[0]?.id}
         />
       </Section>
       <Button
@@ -215,63 +214,86 @@ const DoctorProfile = () => {
         style={{height: getHeight(120), paddingTop: Spacing.S20}}
         renderHeaderSideIcons={renderHeaderSideIcons}
       />
-      <View style={styles.container}>
-        <Scroll>
-          <RenderDoctorCard item={item} />
-          {/* {renderDoctorCard()} */}
-          {renderActionButton()}
+      {profileLoader ? (
+        <View style={styles.center}>
+          <Lottie name="loading" />
+        </View>
+      ) : (
+        <View style={styles.container}>
+          <Scroll>
+            <RenderDoctorCard item={doctorProfile} />
+            {/* {renderDoctorCard()} */}
+            {renderActionButton()}
 
-          <Line style={styles.line} />
+            <Line style={styles.line} />
 
-          {renderStatisticsSection()}
+            {renderStatisticsSection()}
 
-          {/* About Doctor section */}
-          <ReadTextMore title={translate("Common.about")} />
-          <ReadTextMore title={translate("DoctorProfile.sub-specialties")} />
-          <ReadTextMore title={translate("DoctorProfile.experience")} />
-          <Line style={styles.line} />
-          {/* About Doctor section */}
-          <ViewRow>
-            <RoundedRowIcon
-              icon="wallet"
-              title="500 EGP"
-              subTitle={translate("DoctorProfile.consultationFees")}
+            {/* About Doctor section */}
+            <ReadTextMore
+              text={doctorProfile?.desc}
+              title={translate("Common.about")}
             />
-            <View style={{marginHorizontal: Spacing.S20}}>
+            <ReadTextMore
+              text={doctorProfile?.sub_specialty}
+              title={translate("DoctorProfile.sub-specialties")}
+            />
+            <ReadTextMore
+              text={doctorProfile?.experience?.toString()}
+              title={translate("DoctorProfile.experience")}
+            />
+            <Line style={styles.line} />
+            {/* About Doctor section */}
+            <ViewRow>
               <RoundedRowIcon
-                icon="clock"
-                title="30 Min"
-                subTitle={translate("DoctorProfile.waitingTime")}
+                icon="wallet"
+                title={`${doctorProfile?.clinics?.[0]?.price} ${translate(
+                  "Common.egp",
+                )}`}
+                subTitle={translate("DoctorProfile.consultationFees")}
               />
-            </View>
-          </ViewRow>
-          <Line style={styles.line} />
+              <View style={{marginHorizontal: Spacing.S20}}>
+                <RoundedRowIcon
+                  icon="clock"
+                  title={`${doctorProfile?.clinics?.[0]?.duration} ${translate(
+                    "Common.min",
+                  )}`}
+                  subTitle={translate("DoctorProfile.waitingTime")}
+                />
+              </View>
+            </ViewRow>
+            <Line style={styles.line} />
 
-          {renderBookingAppointmentSection()}
-          {/* Latest Reviews */}
-          <ViewRow style={{justifyContent: "space-between"}}>
-            <HeaderSection
-              title={translate("DoctorProfile.latestReviews")}
-              textStyle={{fontSize: "FS16"}}
-              style={{width: "50%"}}
-            />
-            <Button
-              onPress={() => {
-                addReviewModalRef?.current?.present();
-              }}>
-              <Text
-                style={{textDecorationLine: "underline"}}
-                fontSize="FS13"
-                color="PRIMARY"
-                fontFamily="REGULAR">
-                + {translate("DoctorProfile.addReview")}
-              </Text>
-            </Button>
-          </ViewRow>
+            {renderBookingAppointmentSection()}
+            {/* Latest Reviews */}
+            <ViewRow style={{justifyContent: "space-between"}}>
+              <HeaderSection
+                title={translate("DoctorProfile.latestReviews")}
+                textStyle={{fontSize: "FS16"}}
+                style={{width: "50%"}}
+              />
 
-          <ReviewsList reviews={Reviews} />
-        </Scroll>
-      </View>
+              {isLogged && (
+                <Button
+                  onPress={() => {
+                    addReviewModalRef?.current?.present();
+                  }}>
+                  <Text
+                    style={{textDecorationLine: "underline"}}
+                    fontSize="FS13"
+                    color="PRIMARY"
+                    fontFamily="REGULAR">
+                    + {translate("DoctorProfile.addReview")}
+                  </Text>
+                </Button>
+              )}
+            </ViewRow>
+
+            <ReviewsList reviews={doctorProfile?.reviews} />
+          </Scroll>
+        </View>
+      )}
+
       <WarningMessageModel
         forwardRef={warningModalRef}
         message={translate("Model.dateAndTimeMessage")}
@@ -325,16 +347,8 @@ export const RenderDoctorCard: React.FC<RenderDoctorCardProps> = ({item}) => (
       </Text>
 
       <Text color="GRAY_A7A7A7" fontSize="FS16">
-        {item?.specialty}
+        {item?.main_specialty}
       </Text>
-
-      {item?.distance && (
-        <TextWithIcon
-          icon="location"
-          text={`${item?.duration} Min , ${item?.distance} KM`}
-          style={{marginHorizontal: Spacing.S8}}
-        />
-      )}
     </View>
   </ViewRow>
 );

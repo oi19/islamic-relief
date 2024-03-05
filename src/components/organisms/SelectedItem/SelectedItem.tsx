@@ -9,8 +9,8 @@ const SelectedItem: FC<{
   item: any;
   selectedId?: string;
   onPress: () => void;
-}> = ({item, selectedId, onPress}) => {
-  const isSelected = selectedId === `${item.id}`;
+  isSelected?: boolean;
+}> = ({item, isSelected, onPress}) => {
   return (
     <View style={styles.container}>
       <Button

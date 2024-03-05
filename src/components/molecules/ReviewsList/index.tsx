@@ -8,12 +8,16 @@ import {Spacing} from "../../../styles";
 import {translate} from "../../../helpers";
 
 type ReviewsListProps = {
-  reviews: Review[];
+  reviews?: Review[];
 };
 const ReviewsList: React.FC<ReviewsListProps> = ({reviews}) => {
   const flatListRef = React.useRef<FlatList | null>(null);
 
   const [showFullList, setShowFullList] = React.useState(false);
+
+  console.log(reviews);
+
+  const isLoadMore = reviews?.length > 4;
 
   const toggleList = () => {
     setShowFullList(!showFullList);
@@ -25,20 +29,23 @@ const ReviewsList: React.FC<ReviewsListProps> = ({reviews}) => {
     <>
       <FlatList
         ref={flatListRef}
-        data={showFullList ? reviews : reviews.slice(0, 2)}
+        // data={showFullList ? reviews : reviews?.slice(0, 2)}
+        data={reviews}
         renderItem={_renderReviewItem}
         keyExtractor={(_, index) => `review-item${index}`}
         showsVerticalScrollIndicator={false}
       />
-      <Text
-        color="PRIMARY"
-        fontSize="FS14"
-        style={styles.seeMore}
-        onPress={toggleList}>
-        {showFullList
-          ? translate("Common.viewLess")
-          : translate("Common.viewMore")}
-      </Text>
+      {isLoadMore && (
+        <Text
+          color="PRIMARY"
+          fontSize="FS14"
+          style={styles.seeMore}
+          onPress={toggleList}>
+          {showFullList
+            ? translate("Common.viewLess")
+            : translate("Common.viewMore")}
+        </Text>
+      )}
     </>
   );
 };

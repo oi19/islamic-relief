@@ -7,7 +7,12 @@ import {
 } from "../../@types";
 import {request} from "../../api/request";
 import {dispatch} from "../store/configureStore";
-import {setDoctors} from "../reducers/doctorsReducer";
+import {
+  setDoctorProfile,
+  setDoctors,
+  setReview,
+} from "../reducers/doctorsReducer";
+import {showErrorModel} from "../reducers/globalReducer";
 
 type Params = {
   service?: ServicesTypesEnums;
@@ -68,6 +73,59 @@ const getDoctors = async (
   }
 };
 
-// getDoctors({service: ServicesTypesEnums.ExampleService, orderType: "asc"});
+const getDoctorProfile = async (
+  doctorId: number,
+  callback?: (res: AxiosResponse<ResponseTypes<Doctor>>) => void,
+) => {
+  try {
+    const response = await request<any>({
+      method: "get",
+      endPoint: "doctorProfile",
+      params: `/${doctorId}`,
+      callback,
+    });
 
-export {getDoctors};
+    if (response?.code === 200) {
+      console.log(response);
+      dispatch(setDoctorProfile(response.data));
+    }
+  } catch (error: any) {
+    console.log("in getDoctorProfile ", error);
+  }
+};
+
+const addReview = async (
+  body: {
+    rate: number;
+    review: string;
+  },
+  doctorId: number,
+  callback?: (res: AxiosResponse<ResponseTypes<any>>) => void,
+) => {
+  try {
+    const response = await request<
+      any,
+      {
+        rate: number;
+        review: string;
+      }
+    >({
+      method: "post",
+      endPoint: "addReview",
+      params: `/${doctorId}/review`,
+      callback,
+      body,
+    });
+    if (response?.code === 200) {
+      console.log(response);
+      dispatch(setReview(response?.data));
+    }
+  } catch (error: any) {
+    console.log("in addReview ");
+    const validation = error?.response?.data?.messge;
+    if (validation) {
+      dispatch(showErrorModel(validation));
+    }
+  }
+};
+export {getDoctors, getDoctorProfile, addReview};

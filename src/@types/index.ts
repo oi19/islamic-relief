@@ -12,3 +12,5 @@ export * from "./create-account-types";
 export * from "./transaction-types";
 export * from "./packages-types";
 export * from "./clinic-types";
+export * from "./forget-password-types";
+export * from "./notifications-types";

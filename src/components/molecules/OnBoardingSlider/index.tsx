@@ -7,18 +7,19 @@ import {SliderItem} from "../../organisms";
 import {onBoarding} from "./data";
 import {SCREEN_WIDTH} from "../../../styles/dimensions";
 import {isRTL} from "../../../locals/i18n-config";
+import {setFirst, useDispatch} from "../../../redux";
 
 const OnBoardingSlider: React.FC = () => {
+  const dispatch = useDispatch();
+  const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
   const flatListRef = React.useRef<FlatList<OnBoardingTypes>>(null);
   const [currentBoard, setCurrentBoard] = React.useState<number>(0);
-  const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
 
   const handleScroll = (event: any) => {
     const index = Math.round(
       event.nativeEvent.contentOffset.x /
         event.nativeEvent.layoutMeasurement.width,
     );
-    console.log(" handleScroll => index", index);
 
     setCurrentBoard(index);
   };
@@ -27,7 +28,8 @@ const OnBoardingSlider: React.FC = () => {
     // Move to the next question
 
     if (sliderNumber === onBoarding.length - 1) {
-      navigate("AllowLocation");
+      dispatch(setFirst());
+      navigate("TabsBottomStack");
       return;
     }
     const nextIndex = sliderNumber + 1;

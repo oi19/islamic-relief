@@ -41,7 +41,7 @@ export type ColorsTypes = {
 };
 export const PRIMARY = "#FB6107";
 export const PRIMARY1 = "#FABC99";
-export const PRIMARY2 = "#432E9D";
+export const PRIMARY2 = "#FF9E2D";
 
 export const ORANGE_FDEEDE = "#FDEEDE";
 export const ORANGE_FEF3F2 = "#FEF3F2";
