@@ -1,4 +1,4 @@
-import React, {useMemo, useEffect, useRef} from "react";
+import React, {useMemo, useRef} from "react";
 import {BackHandler, View} from "react-native";
 
 import {styles} from "./styles";
@@ -22,8 +22,10 @@ import {
   TabsView,
 } from "../../components";
 import {getHeight, getWidth} from "../../styles/dimensions";
-import {Spacing} from "../../styles";
+import {Colors, Spacing} from "../../styles";
 import {Lottie} from "../../assets";
+import {RefreshControl} from "react-native-gesture-handler";
+import {useFocusEffect} from "@react-navigation/native";
 
 const textStyle: TextProps = {
   fontSize: "FS11",
@@ -66,12 +68,9 @@ const MyAppointment = () => {
     return () => backHandler.remove();
   }, [goBack]);
 
-  useEffect(() => {
-    if (lastPage) {
-      if (selectedTab.page > 1) {
-        setLoadMoreLoader(true);
-      }
-      getAppointments(selectedTab?.status, selectedTab.page, res => {
+  const fetchAppointments = React.useCallback(() => {
+    if (isLoggin) {
+      getAppointments(selectedTab?.status, selectedTab?.page, res => {
         if (res.status === 200) {
           // Handle success if needed
         }
@@ -79,7 +78,15 @@ const MyAppointment = () => {
         setLoadMoreLoader(false);
       });
     }
-  }, [lastPage, selectedTab]);
+  }, [isLoggin, selectedTab]);
+
+  useFocusEffect(
+    React.useCallback(() => {
+      if (lastPage) {
+        fetchAppointments();
+      }
+    }, [fetchAppointments, lastPage]),
+  );
 
   const tabs: TabOptionType[] = useMemo(
     () => [
@@ -141,6 +148,15 @@ const MyAppointment = () => {
         <>
           <View style={styles.container}>
             <AppointmentList
+              refreshControl={
+                <RefreshControl
+                  refreshing={appointmentsLoading && !loadMoreLoader}
+                  onRefresh={() => {
+                    fetchAppointments();
+                  }}
+                  colors={[Colors.PRIMARY]} // Customize the color of the loading spinner
+                />
+              }
               listItems={appointments}
               isLoading={loadMoreLoader}
               onLoadMore={() => {

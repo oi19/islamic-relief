@@ -1,5 +1,4 @@
 import {StyleSheet} from "react-native";
-import {scale} from "../../../styles/dimensions";
 
 const styles = StyleSheet.create({
   container: {
@@ -7,9 +6,6 @@ const styles = StyleSheet.create({
     // bottom: getHeight(61),
     // right: getWidth(6),
   },
-  button: {
-    paddingVertical: scale(6),
-    paddingHorizontal: scale(6),
-  },
+  button: {marginLeft: 0},
 });
 export default styles;

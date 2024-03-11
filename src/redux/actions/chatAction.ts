@@ -49,7 +49,7 @@ const getRoomMessages = async (
       dispatch(setSentMessage({...response.data, current_page: page}));
     }
   } catch (error: any) {
-    console.log("in getOldChats ", error);
+    console.log("in getRoomMessages ", error);
   }
 };
 
@@ -65,7 +65,7 @@ const sendChatMessage = async (
       callback,
     });
   } catch (error: any) {
-    console.log("in sendChatMessage ", error);
+    console.log("in sendChatMessage ", error?.response?.data);
   }
 };
 

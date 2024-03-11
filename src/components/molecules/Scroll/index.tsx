@@ -4,10 +4,12 @@ import {Spacing} from "../../../styles";
 type ScrollProps = {
   children: React.ReactNode | undefined;
   contentContainerStyle?: ViewStyle;
+  ListHeaderComponentStyle?: ViewStyle;
 };
 const Scroll: React.FC<ScrollProps> = ({
   children,
   contentContainerStyle,
+  ListHeaderComponentStyle,
   ...props
 }) => {
   return (
@@ -21,6 +23,7 @@ const Scroll: React.FC<ScrollProps> = ({
       ])}
       style={{width: "100%"}}
       ListHeaderComponent={<>{children}</>}
+      ListHeaderComponentStyle={ListHeaderComponentStyle}
       {...props}
     />
   );

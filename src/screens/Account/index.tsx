@@ -48,7 +48,6 @@ const labelStyle: TextProps = {
 };
 const Account = () => {
   const {profile} = useAppSelector(state => state.userReducer);
-  const isGenderSelected = profile.gender !== 0;
 
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
   const accountLoading = useLoader("updateUserProfile");
@@ -60,20 +59,21 @@ const Account = () => {
     profile.birthday || null,
   );
   const [selectedGender, setSelectedGender] = React.useState<number>(
-    isGenderSelected ? Number(profile.gender) : -1,
+    Number(profile.gender),
   );
   const [image, setImage] = React.useState<
     ImageCropResponse | null | undefined
   >(null);
 
   const defaultValues = {
-    email: profile.email || "",
-    mobile: profile.mobile || "",
-    name: profile.name || "",
-    gender: isGenderSelected ? Number(profile.gender) : null,
-    image: profile.image || "",
-    birthday: profile.birthday || "",
+    email: profile.email,
+    mobile: profile.mobile,
+    name: profile.name,
+    gender: profile.gender?.toString(),
+    birthday: profile.birthday,
   };
+
+  console.log(defaultValues);
 
   const {
     control,
@@ -87,22 +87,18 @@ const Account = () => {
   });
 
   const onSelectedGender = (genderId: number) => {
-    console.log("gender id", `${genderId}`);
     clearErrors("gender");
+    setValue("gender", genderId.toString());
     setSelectedGender(genderId);
-    setValue("gender", genderId);
   };
 
   const onConfirmDate = (_date: Date) => {
-    console.log(formateDate(_date));
     clearErrors("birthday");
     setValue("birthday", formateDate(_date));
     setDate(formateDate(_date));
   };
 
   const onImageChange = (selectedImage?: ImageCropResponse) => {
-    console.log(selectedImage?.path);
-    setValue("image", selectedImage?.path);
     setImage(selectedImage);
   };
 
@@ -117,14 +113,12 @@ const Account = () => {
       dispatch(showToast(translate("Model.nothingToUpdate")));
       return;
     }
-    const _data = convertObjToFormData({
-      ...data,
-      image: formateImage(data.image),
-    });
-
+    const _data = convertObjToFormData(data);
+    if (image) {
+      _data.append("image", formateImage(image?.path));
+    }
     updateUserData(_data, res => {
       if (res.status === 200) {
-        console.log(res?.data);
         dispatch(showToast(translate("Model.updateDoctorMessage")));
       }
     });
@@ -149,7 +143,7 @@ const Account = () => {
             size={32}
             style={styles.roundedIcon}
             iconStyle={styles.icon}
-            icon="delete"
+            icon="profile"
             backgroundColor="PRIMARY"
           />
           <Text

@@ -12,6 +12,7 @@ import transactionsReducer from "./transactionsReducer";
 import chatsReducer from "./chatsReducer";
 import doctorsReducer from "./doctorsReducer";
 import appointmentsReducer from "./appointmentsReducer";
+import favouriteReducer from "./favouriteReducer";
 
 const rootPersistConfig = {
   key: "root",
@@ -49,6 +50,7 @@ const rootReducers = combineReducers({
   chatsReducer,
   doctorsReducer,
   appointmentsReducer,
+  favouriteReducer,
   userReducer: persistReducer(userPersistConfig, userReducer),
   globalReduce: persistReducer(globalPersistConfig, globalReducer),
   createAccountReducer: persistReducer(

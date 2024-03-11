@@ -42,6 +42,7 @@ export type Doctor = {
   sub_specialty?: string;
   bank?: string;
   services: [];
+  is_favourite?: boolean;
 };
 
 export interface DoctorRegisterTypes {

@@ -23,6 +23,7 @@ export const styles = StyleSheet.create({
   icon: {
     width: scale(15),
     height: scale(15),
+    color: Colors.WHITE,
   },
   roundedIcon: {},
   avatarContainer: {

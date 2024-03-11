@@ -22,6 +22,24 @@ import {
 } from "../../@types";
 import {request} from "../../api/request";
 
+type SpecialistParams = {
+  city_id?: number;
+  q?: string;
+};
+
+const createFilterObject = (
+  params: SpecialistParams,
+): Partial<SpecialistParams> => {
+  const filter: Partial<SpecialistParams> = {};
+  if (params.city_id) {
+    filter.city_id = params.city_id;
+  }
+  if (params.q) {
+    filter.q = params.q;
+  }
+  return filter;
+};
+
 const getCountries = async (
   callback?: (res: AxiosResponse<ResponseTypes<CountryType>>) => void,
 ) => {
@@ -59,12 +77,25 @@ const getCities = async (
 };
 
 const getSpecialties = async (
+  filter?: SpecialistParams,
   callback?: (res: AxiosResponse<ResponseTypes<SpecialtiesType>>) => void,
 ) => {
+  let paramUrl;
+
+  if (filter) {
+    const filterObj = createFilterObject(filter);
+    const queryString = new URLSearchParams(
+      filterObj as Record<string, string>,
+    ).toString();
+
+    paramUrl = `?${queryString}`;
+  }
+  console.log("queryString in get specialties =>", paramUrl);
   try {
     const response = await request<SpecialtiesType>({
       method: "get",
       endPoint: "specialties",
+      params: paramUrl,
       callback,
     });
     if (response?.code === 200) {

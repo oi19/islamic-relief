@@ -38,7 +38,7 @@ export type MainAppStackTypes = {
       "resetPassword" | "changePassword"
     >;
   };
-
+  ZoomRoom: {zoomUrl?: any};
   Favorites: undefined;
   Points: undefined;
   Help: undefined;

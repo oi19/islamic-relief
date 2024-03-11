@@ -81,21 +81,23 @@ const Splash: React.FC = () => {
   //   onNotificationOpenedAppFromQuit,
   // ]);
 
-  // const getFcmToken = React.useCallback(async () => {
+  // const getFcmTokenFun = React.useCallback(async () => {
   //   const fcmToken = await getFCMToken();
   //   if (fcmToken) {
   //     setFcmToken({
-  //       device_token: fcmToken,
+  //       device_token: sendNotifications ? fcmToken : null,
   //     });
   //   }
-  // }, [getFCMToken]);
+  // }, [getFCMToken, sendNotifications]);
 
-  // React.useEffect(() => {
-  //   Promise.all([listenToNotifications(), getFcmToken()]);
-  // }, [getFcmToken, listenToNotifications]);
+  // useFocusEffect(
+  //   React.useCallback(() => {
+  //     getFcmTokenFun();
+  //   }, [getFcmTokenFun]),
+  // );
 
   React.useEffect(() => {
-    Promise.all([getCities(), getCountries(), getAreas(1), getSpecialties()]);
+    Promise.all([getSpecialties(), getCountries(), getCities(), getAreas(1)]);
   }, []);
 
   return (

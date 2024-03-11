@@ -8,8 +8,8 @@ export const styles = StyleSheet.create({
   cardContainer: {
     alignItems: "flex-start",
     marginVertical: Spacing.S8,
-    paddingStart: Spacing.S20,
-    width:"100%"
+
+    width: getWidth(340),
   },
   subContainer: {
     alignItems: "flex-start",
@@ -22,13 +22,12 @@ export const styles = StyleSheet.create({
     backgroundColor: "red",
   },
   textContainerStyle: {
-    paddingHorizontal: getWidth(Spacing.S16),
+    paddingHorizontal: Spacing.S16,
   },
   senderSection: {
     flexDirection: "row",
   },
   senderText: {
-    marginEnd: getWidth(Spacing.S16),
     textAlign: "left",
   },
   headerTextRowStyle: {
@@ -38,11 +37,11 @@ export const styles = StyleSheet.create({
   },
   contentContainer: {
     marginTop: Spacing.S16,
-    borderLeftWidth: isRTL ? 0 : getWidth(Spacing.S4),
-    borderRightWidth: isRTL ? getWidth(Spacing.S4) : 0,
+    borderLeftWidth: isRTL ? 0 : Spacing.S4,
+    borderRightWidth: isRTL ? Spacing.S4 : 0,
     borderColor: Colors.GRAY_CBCBCB,
-    paddingStart: getWidth(Spacing.S8),
-    paddingEnd: getWidth(120),
+    paddingStart: Spacing.S8,
+    paddingEnd: getWidth(50),
     justifyContent: "flex-start",
   },
   dateTextStyle: {

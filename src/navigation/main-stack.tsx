@@ -22,6 +22,7 @@ import {
   SelectPackage,
   Signup,
   Splash,
+  ZoomRoom,
 } from "../screens";
 import AllowLocation from "../screens/AllowLocation";
 import OTP from "../screens/OTP";
@@ -74,6 +75,7 @@ const MainStack = () => {
       <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
       <Stack.Screen name="ChangePassword" component={ChangePassword} />
       <Stack.Screen name="ConfirmOtp" component={ConfirmOtp} />
+      <Stack.Screen name="ZoomRoom" component={ZoomRoom} />
     </Stack.Navigator>
   );
 };

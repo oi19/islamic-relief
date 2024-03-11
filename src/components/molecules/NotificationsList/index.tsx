@@ -22,6 +22,7 @@ const NotificationsList: React.FC<NotificationsProps> = ({notifications}) => {
       onLoadMore={() => {}}
       contentContainerStyle={{
         paddingBottom: Spacing.S40 * 7,
+        alignItems: "center",
       }}
     />
   );

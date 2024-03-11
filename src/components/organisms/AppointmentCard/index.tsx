@@ -5,7 +5,9 @@ import {styles} from "./styles";
 import {
   AppointmentStatus,
   AppointmentsTypes,
+  ChatType,
   ServicesIcon,
+  ServicesTypesEnums,
 } from "../../../@types";
 import {useNavigationHooks} from "../../../hooks";
 import {
@@ -25,7 +27,14 @@ import {Button, Card, Image, RoundedIcon, Text, ViewRow} from "../../atoms";
 import {getHeight, getWidth} from "../../../styles/dimensions";
 import {TextWithIcon} from "../../molecules";
 import {Images} from "../../../assets/images";
-import {MyAppointmentStackTypes} from "../../../navigation/navigation-types";
+import {MainNavigationAllScreensTypes} from "../../../navigation/navigation-types";
+import {TextProps} from "../../atoms/Text/Text";
+
+const TextStyle: TextProps = {
+  fontFamily: "MEDIUM",
+  color: "BLUE_4A5970",
+  fontSize: "FS16",
+};
 
 type RenderCardWithStatusProps = {
   color: string;
@@ -48,7 +57,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
   header,
   disabled,
 }) => {
-  const {navigate} = useNavigationHooks<MyAppointmentStackTypes>();
+  const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
   const dispatch = useDispatch();
   const [isLoading, setLoading] = useState({
     id: null as number | null,
@@ -116,6 +125,28 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
 
   const cardItem = renderCardWithStatus(item?.status);
 
+  const isPending = item?.status === AppointmentStatus.Pending;
+  const isDone = item?.status === AppointmentStatus.Done;
+  const isConfirmed = item?.status === AppointmentStatus.Confirmed;
+  const isRejectedOrCancelled =
+    item?.status === AppointmentStatus.Rejected || AppointmentStatus.Cancelled;
+
+  const handleChatPress = () => {
+    const chatData: ChatType = {
+      id: item?.doctor_id,
+      name: item?.doctor_name,
+    };
+    navigate("ChatRoom", {
+      chatData,
+    });
+  };
+
+  const handleVideoPress = () => {
+    if (item?.zoom_url) {
+      navigate("ZoomRoom", {zoomUrl: item?.zoom_url});
+    }
+  };
+
   return (
     <Card
       style={[styles.card, style]}
@@ -133,19 +164,42 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
       )}
 
       <View style={styles.cardContainer}>
-        <View>
-          <RenderUserCard item={item} />
-          <RoundedIcon
-            size={22}
-            style={styles.statusIcon}
-            iconStyle={{
-              width: getWidth(12),
-              height: getHeight(12),
-            }}
-            backgroundColor="GRAY_F9F9F9"
-            icon={ServicesIcon[item?.service]}
-          />
-        </View>
+        <ViewRow style={styles.userCardContainer}>
+          <View>
+            <RenderUserCard item={item} />
+            <RoundedIcon
+              size={22}
+              style={styles.statusIcon}
+              iconStyle={{
+                width: getWidth(12),
+                height: getHeight(12),
+                color: Colors.PRIMARY,
+              }}
+              backgroundColor="GRAY_F9F9F9"
+              icon={ServicesIcon[item?.service]}
+            />
+          </View>
+          {(!isPending || !isRejectedOrCancelled) && (
+            <View style={styles.actionsButton}>
+              <Button
+                iconName="chat"
+                iconStyle={styles.iconStyle}
+                iconContainerStyle={styles.iconContainerStyle}
+                style={styles.notifications}
+                onPress={handleChatPress}
+              />
+
+              {item?.service === ServicesTypesEnums.VideoCall && !isDone && (
+                <Button
+                  iconName="video"
+                  iconContainerStyle={styles.iconContainerStyle}
+                  style={styles.notifications}
+                  onPress={handleVideoPress}
+                />
+              )}
+            </View>
+          )}
+        </ViewRow>
 
         <TextWithIcon
           icon="clock"
@@ -164,8 +218,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
           style={{marginHorizontal: Spacing.S8}}
         />
 
-        {item?.status === AppointmentStatus.Pending ||
-        item?.status === AppointmentStatus.Confirmed ? (
+        {isPending || isConfirmed ? (
           <ViewRow style={[styles.rowContainer, {marginVertical: Spacing.S11}]}>
             <Button
               style={styles.baseButton}
@@ -195,11 +248,7 @@ const AppointmentCard: React.FC<AppointmentCardProps> = ({
             <Button
               style={styles.showButton}
               text={cardItem?.buttonName}
-              textStyle={{
-                fontFamily: "MEDIUM",
-                color: "BLUE_4A5970",
-                fontSize: "FS16",
-              }}
+              textStyle={TextStyle}
             />
           </View>
         )}
@@ -227,7 +276,7 @@ export const RenderUserCard: React.FC<RenderUserCardProps> = ({item}) => (
         {item?.doctor_name || item?.doctor?.name}
       </Text>
       {/* {item?.user?.gender === 0 ? "Male" : "Female"} */}
-      <Text color="GRAY_A7A7A7" fontSize="FS16">
+      <Text color="GRAY_A7A7A7" fontSize="FS14">
         {item?.specialty_name ||
           getValueFromICreatedObj(item?.doctor?.specialty_id, "specialties")}
       </Text>

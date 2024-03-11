@@ -1,4 +1,4 @@
-import {RouteProp, useRoute} from "@react-navigation/native";
+import {RouteProp, useFocusEffect, useRoute} from "@react-navigation/native";
 import React from "react";
 import {View} from "react-native";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
@@ -36,17 +36,32 @@ import {Doctor} from "../../@types";
 import {formateDate, translate} from "../../helpers";
 import FavoriteButton from "../../components/atoms/FavoriteButton/FavoriteButton";
 import useNativeShare from "../../hooks/useNativeShare";
-import {getDoctorProfile, useAppSelector} from "../../redux";
+import {
+  addFavourite,
+  getDoctorProfile,
+  removeFavourite,
+  setDoctorProfile,
+  useAppSelector,
+  useDispatch,
+} from "../../redux";
 import {Lottie} from "../../assets";
+import {
+  addToFavourite,
+  removeFromFavourite,
+} from "../../redux/actions/favouriteAction";
 
 const DoctorProfile = () => {
   const {
     params: {id},
   } = useRoute<RouteProp<HomeStackTypes, "DoctorProfile">>();
+
+  console.log("Id From ");
+
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
   const warningModalRef = React.useRef<BottomSheetModal>(null);
   const addReviewModalRef = React.useRef<BottomSheetModal>(null);
   const isLogged = useToken();
+  const dispatch = useDispatch();
 
   const profileLoader = useLoader("doctorProfile");
 
@@ -60,7 +75,7 @@ const DoctorProfile = () => {
     time: "",
   });
 
-  const {shareContent, error} = useNativeShare();
+  const {shareContent} = useNativeShare();
 
   const handleShare = () => {
     shareContent({
@@ -69,9 +84,13 @@ const DoctorProfile = () => {
     });
   };
 
-  React.useEffect(() => {
-    getDoctorProfile(id);
-  }, [id]);
+  useFocusEffect(
+    React.useCallback(() => {
+      if (id) {
+        getDoctorProfile(id);
+      }
+    }, [id]),
+  );
 
   const onOpenWarningModal = () => {
     warningModalRef.current?.present();
@@ -95,6 +114,20 @@ const DoctorProfile = () => {
     // dispatch action and add date & time to store
   };
 
+  const onFavouritePress = async (value?: boolean) => {
+    //dispatch action logic updating isFavourite props
+    console.warn("like button  is pressed", value);
+    if (value) {
+      addToFavourite(id, () => {
+        dispatch(setDoctorProfile({is_favourite: true, ...doctorProfile}));
+      });
+    } else {
+      removeFromFavourite(id, () => {
+        dispatch(setDoctorProfile({is_favourite: false, ...doctorProfile}));
+      });
+    }
+  };
+
   const renderHeaderSideIcons = () => {
     return (
       <View style={styles.headerSideIconsContainer}>
@@ -108,12 +141,10 @@ const DoctorProfile = () => {
           }}
         />
         <FavoriteButton
+          isFavorite={Boolean(doctorProfile?.is_favourite)}
           defaultColor={Colors.WHITE}
           style={styles.favouriteIconStyle}
-          onPress={() => {
-            //dispatch action logic updating isFavourite props
-            console.warn("like button  is pressed");
-          }}
+          onPress={onFavouritePress}
         />
       </View>
     );
@@ -336,7 +367,10 @@ type RenderDoctorCardProps = {
 };
 export const RenderDoctorCard: React.FC<RenderDoctorCardProps> = ({item}) => (
   <ViewRow>
-    <Image source={Images.default} style={styles.image} />
+    <Image
+      source={item?.image ? {uri: item?.image} : Images.default}
+      style={styles.image}
+    />
 
     <View
       style={{

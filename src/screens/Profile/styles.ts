@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: getWidth(Spacing.S16),
-    paddingEnd: getWidth(Spacing.S56),
+    paddingEnd: getWidth(Spacing.S40),
     paddingBottom: 0,
     borderWidth: 0,
     backgroundColor: Colors.TRANSPARENT,

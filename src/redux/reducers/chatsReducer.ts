@@ -36,12 +36,13 @@ const chatsSlice = createSlice({
       state,
       {payload: {data}}: PayloadAction<{data: MessageType}>,
     ) => {
-      console.log("Message sent from redux", data);
-
       state.sentMessages = [data, ...state.sentMessages];
     },
     clearLastSentMessagePage: state => {
       state.lastSentMessagePage = "on";
+    },
+    clearOldMessages: state => {
+      state.sentMessages = [];
     },
   },
 });
@@ -51,5 +52,6 @@ export const {
   setSentMessage,
   sendMessage,
   clearLastSentMessagePage,
+  clearOldMessages,
 } = chatsSlice.actions;
 export default chatsSlice.reducer;

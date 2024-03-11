@@ -38,9 +38,7 @@ const AddReviewModel: React.FC<AddReviewModelModelProps> = ({forwardRef}) => {
   const [images, setImages] = React.useState<
     DocumentPickerResponse[] | undefined | null
   >(null);
-  const {id} = useAppSelector(state => state.doctorsReducer.doctorProfile);
-
-  const {image, name} = useAppSelector(state => state.userReducer.profile);
+  const {doctorProfile} = useAppSelector(state => state.doctorsReducer);
 
   const [rate, setRating] = React.useState<string | null>("");
 
@@ -72,33 +70,22 @@ const AddReviewModel: React.FC<AddReviewModelModelProps> = ({forwardRef}) => {
     }
   };
 
-  //   {
-  //     "created_at":"2024-03-02T15:30:40.000000Z",
-  //     "doctor_id":5,
-  //     "id":1,
-  //     "rate":4,
-  //     "review":"It Is Good Doctor",
-  //     "updated_at":"2024-03-02T15:30:40.000000Z",
-  //     "user_id":23,
-  //     "user_image":"doctors/5WOufSjvvfy6xU7p8P4UsCSPRr8hI8kOS85FZ6Fz.jpg",
-  //     "user_name":"Abdallah saber user"
-  //  }
-  // ;
-
   const onSendReview = async (data: any) => {
     console.warn("Send Review Button is pressed");
 
-    addReview(data, id, res => {
-      if (res) {
-        console.log(res?.data?.data);
+    if (doctorProfile?.id) {
+      addReview(data, doctorProfile?.id, res => {
+        if (res) {
+          console.log(res?.data?.data);
 
-        setTimeout(() => {
-          forwardRef.current?.close();
-        }, 5);
-      }
-    });
+          setTimeout(() => {
+            forwardRef.current?.close();
+          }, 5);
+        }
+      });
 
-    console.log("Review Data", data);
+      console.log("Review Data", data);
+    }
 
     // clear data
     // dispatch logic with callbackfunction to close the modal

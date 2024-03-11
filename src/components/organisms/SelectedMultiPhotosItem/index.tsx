@@ -1,28 +1,30 @@
-import {StyleSheet, View} from "react-native";
+import {StyleSheet} from "react-native";
 import React from "react";
-import {DocumentPickerResponse} from "react-native-document-picker";
 
-import {Image} from "../../atoms";
+import {Card, Image} from "../../atoms";
 import {getHeight, getWidth, scale} from "../../../styles/dimensions";
 import {Colors, Spacing} from "../../../styles";
 
 type SelectedMultiPhotosProps = {
-  item: DocumentPickerResponse;
+  item: any;
   index?: number;
+  onPress?: () => void;
+  isLoading?: boolean;
 };
 
 const SelectedMultiPhotosItem: React.FC<SelectedMultiPhotosProps> = ({
   item,
-  index,
+  onPress,
 }) => {
+  const uri = item?.uri ? item.uri : item.path;
   return (
-    <View style={styles.itemContainer}>
+    <Card onPress={onPress} style={styles.itemContainer}>
       <Image
-        source={item?.uri ? {uri: item.uri} : undefined}
+        source={uri ? {uri} : undefined}
         style={styles.image}
         resizeMode="cover"
       />
-    </View>
+    </Card>
   );
 };
 

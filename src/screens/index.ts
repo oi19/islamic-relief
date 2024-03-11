@@ -32,3 +32,4 @@ export {default as ChangePassword} from "./ChangePassword";
 export {default as MyAppointment} from "./MyAppointment";
 export {default as AppointmentDetails} from "./AppointmentDetails";
 export {default as RescheduleAppointment} from "./RescheduleAppointment";
+export {default as ZoomRoom} from "./ZoomRoom";

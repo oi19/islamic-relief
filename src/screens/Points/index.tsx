@@ -3,8 +3,7 @@ import React, {useMemo} from "react";
 import {View} from "react-native";
 
 import {styles} from "./styles";
-import {useAppSelector} from "../../redux/index";
-import {useLoader} from "../../hooks";
+
 import {
   HandleEmptyList,
   Header,
@@ -14,27 +13,24 @@ import {translate} from "../../helpers/language";
 import {getHeight} from "../../styles/dimensions";
 import {Spacing} from "../../styles/index";
 import {Lottie} from "../../assets/lottie";
-import {notifications} from "../../dummyData";
-import TabBar from "../../components/molecules/TabBar";
+
 import {Tab} from "../../@types";
+import {useAppSelector} from "../../redux";
 
 const Points = () => {
-  // const {notifications} = useAppSelector(state => state.notificationReducer);
+  const {notifications} = useAppSelector(state => state.notificationReducer);
   // const notificationsLoader = useLoader("notifications");
 
   const tabs: Tab[] = useMemo(
     () => [
       {
         title: translate("Points.transactions"),
-        content: <NotificationsList notifications={notifications} />,
       },
       {
         title: translate("Points.pointsEarned"),
-        content: <NotificationsList notifications={notifications} />,
       },
       {
         title: translate("Points.pointsSpent"),
-        content: <NotificationsList notifications={notifications} />,
       },
     ],
     [],
@@ -53,7 +49,7 @@ const Points = () => {
           title={translate("Notifications.title")}
           style={{height: getHeight(130), paddingTop: Spacing.S20}}
         />
-        <TabBar tabs={tabs} />
+        <NotificationsList notifications={[]} />
       </>
     );
   };

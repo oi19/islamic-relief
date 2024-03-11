@@ -1,24 +1,16 @@
-import {FlatList, View} from "react-native";
-import React, {useEffect} from "react";
-import {styles} from "./styles";
-import {ActivityCard, DoctorsList, Header, Text} from "../../components";
-import {getHeight} from "../../styles/dimensions";
-import {Spacing} from "../../styles";
+import React from "react";
+import {View} from "react-native";
 import {Svgs} from "../../assets";
-import {doctors} from "../../dummyData";
-import {Doctor, FilterCondition} from "../../@types";
-import {filterArray, translate} from "../../helpers";
+import {DoctorsList, Header, Text} from "../../components";
+import {translate} from "../../helpers";
+import {Spacing} from "../../styles";
+import {getHeight} from "../../styles/dimensions";
+import {styles} from "./styles";
+import {selectCombinedAccountData, useAppSelector} from "../../redux";
 
 const Favorites = () => {
-  // const doctorsLIst = useAppSelector(state => state.userReducer.doctorsList);
-  const isFavouriteCondition: FilterCondition<Doctor> = (doctor: Doctor) => {
-    return doctor.isFavourite === true;
-  };
-
-  const favouritDoctorsList = () => {
-    const favoriteList = filterArray(doctors, isFavouriteCondition);
-    return favoriteList;
-  };
+  const {lastPage} = useAppSelector(state => state.favouriteReducer);
+  const {favourites} = useAppSelector(selectCombinedAccountData);
 
   const renderEmptyList = () => {
     return (
@@ -40,7 +32,7 @@ const Favorites = () => {
       <View style={styles.container}>
         <DoctorsList
           onLoadMore={() => {}}
-          listItems={favouritDoctorsList()}
+          listItems={favourites}
           renderEmptyList={renderEmptyList}
         />
       </View>

@@ -18,14 +18,8 @@ import {Svgs} from "../../assets";
 import {isRTL} from "../../locals/i18n-config";
 import {useLoader, useNavigationHooks, useToken} from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
-import {convertObjToFormData, filterArray, translate} from "../../helpers";
-import {CityType} from "../../@types";
-import {
-  selectCityById,
-  selectCombinedAccountData,
-  updateUserData,
-  useAppSelector,
-} from "../../redux";
+import {convertObjToFormData, translate} from "../../helpers";
+import {selectCityById, updateUserData, useAppSelector} from "../../redux";
 
 const Profile: React.FC = () => {
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
@@ -33,17 +27,12 @@ const Profile: React.FC = () => {
   const selectedCity = useAppSelector(state =>
     selectCityById(state, Number(profile.city_id)),
   );
-  const {cities} = useAppSelector(selectCombinedAccountData);
-  const profileLoading = useLoader("userProfile");
-  const isLogin = !!useToken();
 
-  const onSelectCity = (selectedCity: CityType) => {
-    const filterCondition = (element: CityType) =>
-      element.id === selectedCity.id;
-    const filteredCity = filterArray(cities, filterCondition)[0];
-    updateUserData(
-      convertObjToFormData({...profile, city_id: filteredCity["id"]}),
-    );
+  const isLogin = useToken();
+  const profileLoading = useLoader("userProfile");
+
+  const onSelectCity = () => {
+    updateUserData(convertObjToFormData(profile));
   };
 
   const renderHeader = () => {
@@ -93,7 +82,7 @@ const Profile: React.FC = () => {
             <Button
               text={translate("Profile.loginMessage")}
               textStyle={{
-                fontSize: "FS14",
+                fontSize: "FS13",
               }}
               style={{
                 width: getWidth(325),
@@ -118,7 +107,10 @@ const Profile: React.FC = () => {
         <ProfileList
           selectedCity={selectedCity}
           onSelectedCity={onSelectCity}
-          listItems={getProfileListWithoutLogin(selectedCity?.name, isLogin)}
+          listItems={getProfileListWithoutLogin(
+            selectedCity?.name,
+            Boolean(isLogin),
+          )}
         />
       </View>
       {profileLoading && <View style={styles.disableClicks} />}

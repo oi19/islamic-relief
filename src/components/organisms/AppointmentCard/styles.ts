@@ -20,8 +20,8 @@ export const styles = StyleSheet.create({
   },
   statusIcon: {
     position: "absolute",
-    bottom: 0,
-    left: "12%",
+    bottom: -3,
+    left: "19%",
   },
   baseButton: {
     width: getWidth(127),
@@ -43,4 +43,24 @@ export const styles = StyleSheet.create({
     marginVertical: Spacing.S11,
     alignSelf: "center",
   },
+  userCardContainer: {
+    alignItems: "flex-start",
+    justifyContent: "space-between",
+  },
+  actionsButton: {
+    marginHorizontal: Spacing.S11,
+  },
+  notifications: {
+    width: scale(32),
+    height: scale(32),
+    backgroundColor: Colors.GRAY_F9F9F9,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: scale(25),
+    marginVertical: Spacing.S8,
+  },
+  iconContainerStyle: {
+    marginLeft: 0,
+  },
+  iconStyle: {color: Colors.PRIMARY},
 });

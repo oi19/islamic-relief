@@ -1,7 +1,7 @@
 import {RouteProp, useRoute} from "@react-navigation/native";
 import React, {useEffect, useMemo, useState} from "react";
 import {View} from "react-native";
-import {DoctorsList, Header, SearchBar, TabsView} from "../../components";
+import {DoctorsList, Header, TabsView} from "../../components";
 import {HomeStackTypes} from "../../navigation/navigation-types";
 import {Spacing} from "../../styles";
 import {getHeight} from "../../styles/dimensions";
@@ -90,10 +90,10 @@ const SpecialDetails = () => {
       />
 
       <View style={styles.container}>
-        <SearchBar
+        {/* <SearchBar
           style={styles.searchBar}
           placeholder={translate("Home.searchTitle")}
-        />
+        /> */}
 
         <TabsView
           data={tabs}

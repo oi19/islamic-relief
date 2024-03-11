@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 import {View} from "react-native";
 import {
   ChatList,
@@ -10,13 +10,20 @@ import {styles} from "./styles";
 import {translate} from "../../helpers";
 import {useToken} from "../../hooks";
 import {getOldChats} from "../../redux/actions/chatAction";
+import {useFocusEffect} from "@react-navigation/native";
 
 const Chat = () => {
   const isLogged = useToken();
 
-  useEffect(() => {
-    getOldChats();
-  }, []);
+  useFocusEffect(
+    React.useCallback(() => {
+      getOldChats(res => {
+        if (res.status === 200) {
+          console.log("Old Chats", res.data);
+        }
+      });
+    }, []),
+  );
 
   return (
     <View style={styles.rootScreen}>

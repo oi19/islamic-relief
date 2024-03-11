@@ -7,13 +7,15 @@ import {getHeight} from "../../../styles/dimensions";
 type PaginationFlatlistProps = {
   onLoadMore: () => void;
   isLoading?: boolean;
+  flatlistRef?: any;
 };
 const PaginationFlatlist: React.FC<
   FlatListProps<any> & PaginationFlatlistProps
-> = ({onLoadMore, isLoading, ...props}) => {
+> = ({onLoadMore, isLoading, flatlistRef, ...props}) => {
   return (
     <View style={styles.content}>
       <FlatList
+        ref={flatlistRef}
         scrollEventThrottle={0.00016}
         onEndReached={() => {
           if (props.data && props.data.length > 0) {

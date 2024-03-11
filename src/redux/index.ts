@@ -14,3 +14,4 @@ export * from "./reducers/transactionsReducer";
 export * from "./reducers/chatsReducer";
 export * from "./reducers/doctorsReducer";
 export * from "./reducers/appointmentsReducer";
+export * from "./reducers/favouriteReducer";

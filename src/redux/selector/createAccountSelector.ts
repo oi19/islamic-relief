@@ -8,6 +8,7 @@ import {
   banksAdapter,
 } from "../reducers/createAccountReducer"; // Replace with your actual Redux slice file
 import {RootState, store} from "..";
+import {favoriteDoctorsAdapter} from "../reducers/favouriteReducer";
 
 // Selectors for each entity
 const selectCountriesState = (state: RootState) =>
@@ -20,6 +21,17 @@ const selectTitlesState = (state: RootState) =>
   state.createAccountReducer.titles;
 const selectAreasState = (state: RootState) => state.createAccountReducer.areas;
 const selectBanksState = (state: RootState) => state.createAccountReducer.banks;
+
+const selectFavouriteState = (state: RootState) =>
+  state.favouriteReducer.favoritesDoctors;
+
+export const {
+  selectById: selectFavouriteById,
+  selectIds: selectFavouriteIds,
+  selectEntities: selectFavouriteEntities,
+  selectAll: selectAllFavourite,
+  selectTotal: selectTotalFavourite,
+} = favoriteDoctorsAdapter.getSelectors(selectFavouriteState);
 
 export const {
   selectById: selectCountryById,
@@ -76,13 +88,15 @@ export const selectCombinedAccountData = createSelector(
   selectAllTitles,
   selectAllAreas,
   selectAllBanks,
-  (countries, cities, specialties, titles, areas, banks) => ({
+  selectAllFavourite,
+  (countries, cities, specialties, titles, areas, banks, favourites) => ({
     countries,
     cities,
     specialties,
     titles,
     areas,
     banks,
+    favourites,
   }),
 );
 
@@ -94,7 +108,8 @@ export const getValueFromICreatedObj = (
     | "specialties"
     | "titles"
     | "areas"
-    | "banks",
+    | "banks"
+    | "favourites",
 ) => {
   const name =
     store?.getState()?.createAccountReducer[nameOfObj].entities[id]?.name;

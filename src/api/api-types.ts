@@ -55,6 +55,7 @@ export interface ApisTypes<T = string> {
   deleteFromFav: T;
   addReview: T;
   doctorProfile: T;
+  doctorFavourite: T;
 }
 
 const APIs: ApisTypes = {
@@ -114,6 +115,7 @@ const APIs: ApisTypes = {
   deleteFromFav: "delete-from-favourites",
   addReview: "/users/doctors",
   doctorProfile: "/users/doctors",
+  doctorFavourite: "/users/doctors",
 };
 
 export default APIs;

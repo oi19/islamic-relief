@@ -1,4 +1,4 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import {ListRenderItem} from "react-native";
 import HandleEmptyList from "../HandleEmptyList";
 import {AppointmentsTypes} from "../../../@types";
@@ -11,11 +11,13 @@ type AppointmentListProps = {
   listItems: AppointmentsTypes[];
   onLoadMore: () => void;
   isLoading?: boolean;
+  refreshControl?: ReactElement;
 };
 const AppointmentList: React.FC<AppointmentListProps> = ({
   listItems,
   isLoading,
   onLoadMore,
+  refreshControl,
 }) => {
   const _renderActivityItem: ListRenderItem<AppointmentsTypes> = ({
     item,
@@ -26,6 +28,7 @@ const AppointmentList: React.FC<AppointmentListProps> = ({
   return (
     <PaginationFlatlist
       data={listItems}
+      refreshControl={refreshControl}
       renderItem={_renderActivityItem}
       keyExtractor={(_, index) => `page-item-${index.toString()}`}
       onLoadMore={() => {

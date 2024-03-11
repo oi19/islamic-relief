@@ -15,7 +15,7 @@
     "in": "in",
     "expiryDate": "expiry",
     "skip": "Skip",
-
+    "rejected":"Rejected",
     "day": "Day",
     "time": "Time",
     "readMore": "Read More",
@@ -60,7 +60,9 @@
     "min":"Min",
     "waiting":"Waiting",
     "pm":"PM",
-    "am":"AM"
+    "am":"AM",
+    "withoutCity":"Without City"
+
   },
 
   "OnBoarding": {
@@ -160,7 +162,7 @@
     "password_confirmation":"Confirm Password",
     "updatePassword":"Update your Password",
     "rate":"Rating",
-    "review":"Review",
+    "review":"Review"
 
 
 

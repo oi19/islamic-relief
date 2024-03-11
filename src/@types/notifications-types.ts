@@ -18,4 +18,6 @@ export type NotificationsTypes = {
   appointment?: AppointmentsTypes;
   index?: number;
   date?: string;
+
+  created_at: Date | string;
 };

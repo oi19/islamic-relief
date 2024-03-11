@@ -3,6 +3,7 @@ import {createSlice} from "@reduxjs/toolkit";
 type InitialStateTypes = {
   firstTime: boolean;
   chooseLanguageFirstTime: boolean;
+  sendNotifications: boolean;
 
   visibleErrorModel: boolean;
   message?: string;
@@ -14,6 +15,7 @@ type InitialStateTypes = {
 
 const initialState: InitialStateTypes = {
   firstTime: true,
+  sendNotifications: true,
   chooseLanguageFirstTime: true,
   visibleErrorModel: false,
   message: undefined,
@@ -28,6 +30,9 @@ const globalSlice = createSlice({
   reducers: {
     setFirst: state => {
       state.firstTime = false;
+    },
+    setNotification: state => {
+      state.sendNotifications = !state.sendNotifications;
     },
     setChooseLanguageFirstTime: state => {
       state.chooseLanguageFirstTime = false;
@@ -67,5 +72,6 @@ export const {
   disableGlobalLoading,
   showToast,
   closeToast,
+  setNotification,
 } = globalSlice.actions;
 export default globalSlice.reducer;

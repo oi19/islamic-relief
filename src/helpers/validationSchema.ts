@@ -144,13 +144,7 @@ export const userAccountSchema = yup.object().shape({
   email: yup.string().trim().email().required(),
   name: yup.string().required(),
   birthday: yup.string().required(),
-  image: yup.string(),
-  gender: yup
-    .number()
-    .test("is-nonzero", "Gender is required", function (value) {
-      return value !== 0;
-    })
-    .required(),
+  gender: yup.string().required(),
 });
 
 export const ResetPasswordSchema = yup.object().shape({

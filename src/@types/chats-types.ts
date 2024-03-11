@@ -1,8 +1,8 @@
 export type ChatType = {
-  id: 1;
-  name: string;
-  email: string;
-  created_at: string;
+  id?: number;
+  name?: string;
+  email?: string;
+  created_at?: string;
 };
 
 export type MessageType = {
@@ -12,7 +12,7 @@ export type MessageType = {
   receiver_id?: number;
   sender_type?: string;
   receiver_type?: "User" | "Doctor";
-  created_at?: string | Date;
+  created_at: string;
   image?: any;
   senderUserName?: string;
 };

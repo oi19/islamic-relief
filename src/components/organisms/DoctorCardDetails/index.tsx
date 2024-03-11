@@ -11,7 +11,12 @@ import {useNavigationHooks} from "../../../hooks";
 import {MainNavigationAllScreensTypes} from "../../../navigation/navigation-types";
 import {translate} from "../../../helpers";
 import FavoriteButton from "../../atoms/FavoriteButton/FavoriteButton";
-import {getValueFromICreatedObj} from "../../../redux";
+import {
+  addFavourite,
+  getValueFromICreatedObj,
+  removeFavourite,
+  useDispatch,
+} from "../../../redux";
 import {Colors} from "../../../styles";
 
 type DoctorCardDetailsProps = {
@@ -21,23 +26,36 @@ type DoctorCardDetailsProps = {
 
 const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
+  const dispatch = useDispatch();
 
   const onBookAppointmentPressed = () => {
     navigate("DoctorProfile", {
       id: item?.id,
     });
   };
-  const onBookTodayPressed = () => {
-    // dispatch action responsible for apointment data and add the buttons date
-    // skip the doctor details screen and head to selectPackageScreen
-    navigate("SelectPackage");
+  // const onBookTodayPressed = () => {
+  // dispatch action responsible for apointment data and add the buttons date
+  // skip the doctor details screen and head to selectPackageScreen
+  //   navigate("SelectPackage");
+  // };
+
+  const onFavouritePress = (value?: boolean) => {
+    //dispatch action logic updating isFavourite props
+    console.warn("like button  is pressed", value);
+    if (value) {
+      dispatch(addFavourite(item));
+    } else {
+      dispatch(removeFavourite(item?.id));
+    }
   };
-  const onBookAgainPressed = () => {};
 
   return (
     <Card style={styles.cardContainer} onPress={onBookAppointmentPressed}>
       <ViewRow style={styles.topRowViewContainerStyle}>
-        <Image source={Images.default} style={styles.image} />
+        <Image
+          source={item?.image ? {uri: item?.image} : Images.default}
+          style={styles.image}
+        />
 
         {/* Middle Section Info */}
         <View>
@@ -59,11 +77,9 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
         {/* Actions Button Section  */}
         <View style={styles.actionsButton}>
           <FavoriteButton
-            isFavorite={true}
-            style={[styles.notifications, styles.favourite]}
-            onPress={() => {
-              console.log("this doctor is added to favourite");
-            }}
+            isFavorite={item?.is_favourite}
+            style={[styles.favourite, styles.notifications]}
+            onPress={onFavouritePress}
           />
           <Button
             iconName="phone"

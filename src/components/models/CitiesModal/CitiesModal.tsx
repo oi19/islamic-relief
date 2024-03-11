@@ -16,7 +16,7 @@ const CitiesModal = ({
 }: {
   forwardRef: RefObject<BottomSheetModal>;
   onSelect: (selectedCity: CityType) => void;
-  selectedId?: string;
+  selectedId?: number;
 }) => {
   const {cities} = useAppSelector(selectCombinedAccountData);
 
@@ -50,7 +50,7 @@ const CitiesModal = ({
       <SelectedItem
         key={`RenderCityItem_${index}`}
         item={item}
-        selectedId={selectedId}
+        isSelected={selectedId === item?.id}
         onPress={() => onSelectedCity(item)}
       />
     );
@@ -78,7 +78,15 @@ const CitiesModal = ({
           style={styles.flatlistStyle}
           contentContainerStyle={styles.contentContainerStyle}
           renderItem={RenderCityItem}
-          data={citiesList}
+          data={[
+            {
+              id: -1,
+              country_id: -1,
+              is_active: 1,
+              name: translate("Common.withoutCity"),
+            },
+            ...citiesList,
+          ]}
         />
       </View>
     </BaseModal>

@@ -9,7 +9,9 @@ export function changeLanguage(language: "ar" | "en") {
       .then(async () => {
         I18nManager.forceRTL(language === "ar");
         I18nManager.allowRTL(language === "ar");
-        RNRestart.restart();
+        setTimeout(() => {
+          RNRestart.restart();
+        }, 100);
       })
       .catch(error => {
         console.log("Error When Change Language : ", error);

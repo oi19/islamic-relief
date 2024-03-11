@@ -1,3 +1,4 @@
+import {isRTL} from "../../locals/i18n-config";
 import {getHeight, getWidth, scale} from "../../styles/dimensions";
 import {Colors, Spacing} from "../../styles/index";
 import {StyleSheet} from "react-native";
@@ -28,14 +29,12 @@ export const styles = StyleSheet.create({
     borderWidth: 1,
     marginHorizontal: Spacing.S11,
   },
-  bottomSectionContainer: {
-    backgroundColor: Colors.WHITE,
-    width: "100%",
-  },
   inputContainer: {
     minHeight: getHeight(100),
+    backgroundColor: Colors.WHITE,
     alignItems: "center",
     justifyContent: "space-evenly",
+    flexDirection: isRTL() ? "row" : "row-reverse",
   },
 
   input: {
@@ -60,12 +59,9 @@ export const styles = StyleSheet.create({
     paddingVertical: Spacing.S11,
     justifyContent: "space-between",
     alignItems: "flex-start",
-    paddingHorizontal: Spacing.S20,
   },
   closeButton: {
     paddingHorizontal: Spacing.S20,
-    width: "100%",
-    justifyContent: "flex-end",
   },
   selectedImage: {},
 });
