@@ -11,7 +11,6 @@ import {
   Favorites,
   ForgetPassword,
   Help,
-  Login,
   ManageCards,
   ManuallyLocation,
   OnBoarding,
@@ -21,9 +20,10 @@ import {
   ReviewSummary,
   SelectPackage,
   Signup,
-  Splash,
   ZoomRoom,
 } from "../screens";
+import Splash from "../presentaion/screens/Splash/Splash";
+import Login from "../presentaion/screens/Login/Login";
 import AllowLocation from "../screens/AllowLocation";
 import OTP from "../screens/OTP";
 import {useToken} from "../hooks";

@@ -39,7 +39,7 @@ export type ColorsTypes = {
   ORANGE_FEF3F2: string;
   GRAY_C2C2C2: string;
 };
-export const PRIMARY = "#FB6107";
+export const PRIMARY = "#2F76BC";
 export const PRIMARY1 = "#FABC99";
 export const PRIMARY2 = "#FF9E2D";
 
@@ -63,6 +63,9 @@ export const GREEN_E2F2E8 = "#E2F2E8";
 export const BLUE_4A5970 = "#4A5970";
 
 // GRAY COLORS
+export const INPUT_BACKGROUND = " #F7F8F9";
+export const INPUT_BORDER = "#C6C8CC";
+export const INPUT_TEXT = "#8391A1";
 export const GRAY_FBFBFB = "#FBFBFB";
 export const GRAY_F5F5F5 = "#F5F5F5";
 export const GRAY_F1F1F1 = "#F1F1F1";

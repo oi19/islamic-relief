@@ -6,6 +6,7 @@ module.exports = {
     quotes: ["error", "double"],
     "no-unused-vars": "off",
     "prettier/prettier": [
+      prettier, disable,
       "error",
       {
         singleQuote: false,

@@ -1,4 +1,4 @@
-package com.doctorapp;
+package com.islamic_relief;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
@@ -13,7 +13,7 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "DoctorApp";
+    return "islamic_relief";
   }
 
   /**

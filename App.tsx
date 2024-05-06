@@ -38,6 +38,5 @@ export default App;
 const styles = StyleSheet.create({
   rootScreen: {
     flex: 1,
-    backgroundColor: Colors.GRAY_EEEEEE,
   },
 });

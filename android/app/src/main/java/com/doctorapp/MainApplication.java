@@ -1,4 +1,4 @@
-package com.doctorapp;
+package com.islamic_relief;
 
 import android.app.Application;
 import com.facebook.react.PackageList;

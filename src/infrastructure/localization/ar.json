@@ -1,0 +1,390 @@
+{
+   "Common":{
+      "next":"التالي",
+      "getStart":"استمتع الان",
+      "skip":"تخطى",
+      "search":"بحث",
+      "Continue": "تابع",
+      "signup":"اشتراك",
+      "seeAll":"إظهار الكل",
+      "ok":"موافق",
+      "back":"عودة",
+      "about":"حول",
+      "day":"اليوم",
+      "time":"الوقت",
+      "readMore":"اقرا المزيد",
+      "readLess":"اقرا اقل",
+      "viewMore":"عرض المزيد",
+      "viewLess":"عرض اقل",
+      "patients":"المرضى",
+      "patient":"المريض",
+
+      "yearsExp.":"سنوات الخبرة.",
+      "rating":"التقييم",
+      "review":"المراجعة",
+      "messages":"رسالة",
+      "videoCall":"مكالمة فيديو",
+      "call":"اتصال",
+      "voiceCall":"مكالمة صوتية",
+      "messaging":"المراسلة",
+      "inPerson":"شخصيًا",
+      "withDoctor":" مع الطبيب",
+      "amount":"المبلغ",
+      "total":"المجموع",
+      "payNow":"ادفع الآن",
+      "cancel":"إلغاء",
+      "change":"تغيير",
+      "goHome":" العودة إلى الصفحه الرئيسية",
+      "viewAppointment":" عرض الموعد ",
+      "loginOrSignup":"الدخول التسجيل فى الموقع",
+      "schedule":"احجز الان",
+      "send":"ارسال",
+      "no":"لا",
+      "save":"حفظ",
+      "confirm":"تاكيد",
+      "chooseGender":"اختر الجنس",
+
+      "addPhotos":"إضافة الصور",
+      "sendReview":"إرسال المراجعة",
+      "submitApplication":"إرسال الطلب",
+      "selectYourTime":"اختار الوقت",
+      "startSession":"ابدأ الجلسة",
+      "endSession":"انهاء الجلسة",
+
+      "editTime":"تعديل الوقت",
+      "addClinicMessage":"ليس لديك أي عيادة حتى الآن، دعنا نضيف عيادة",
+      "addClinic":"إضافة عيادة",
+      "myClinic":"عيادتى",
+      "addScheduleMessage":"ليس لديك أي مواعيد حتى الآن، دعنا نضيف مواعيد",
+      "addSchedule":"اضافة مواعيد",
+      "durationPerMin":"فترة /بالدقائق",
+      "price":"السعر",
+      "isAvailable":"متاح",
+      "bankAccount":"حساب البنك",
+      "rejected":"مرفوضة",
+      "subscribeNow":"إشترك الآن",
+      "monthly":"شهريا",
+      "annual":"سنوي",
+      "free":"مجانا",
+      "toRenew":"للتجديد",
+      "days":"يوم",
+      "months":"شهر",
+      "years":"سنة",
+      "subscriber":"مشترك",
+      "reschedule":"إعادة تحديد موعد",
+      "finish":"انتهاء",
+      "edit":"تعديل",
+      "walletNumber":"رقم المحفظة",
+      "myBalance":"رصيدي",
+      "myWallet":"محفظتى",
+      "chooseDate":"اختر التاريخ",
+      "orderId":"رقم الطلب",
+      "Welcome":"مرحبا",
+      "doctor":"دكتور",
+      "CompleteProfile":"أكمل ملفك الشخصي",
+      "let'sComplete":"هيا نكمل",
+      "takePhoto":"التقط صورة",
+      "gallery":"معرض الصور",
+      "male":"ذكر",
+      "female":"أنثى",
+      "wallet":"المحفظة",
+      "pm":"مساءً",
+      "am":"صباحا",
+      "min":"دقيقة ",
+      "yrs":"سنة"
+   },
+
+   "OnBoarding":{
+      "findBestDoctor":"البحث عن أفضل طبيب",
+      "findBestDoctorMsg":"\"يمكنك العثور على أفضل طبيب. هناك الكثير,الأطباء ذوي الخبرة الذين يمكنك العثور عليهم\"",
+      "onlineConsultation":"التشاور عبر الإنترنت",
+      "onlineConsultationMsg":"\"مشغول جدًا لدرجة عدم القدرة على الذهاب إلى الطبيب. لدينا الحل،,يمكنك إجراء الاستشارات عبر الإنترنت\"",
+      "makeYourAppointment":"حدد موعدك",
+      "makeYourAppointmentMsg":"\"الآن أصبح من السهل تحديد موعد ,مع طبيبك وأدويتك\""
+    },
+
+    "AllowLocation":{
+      "whatIsYourLocation":"ما هو الموقع الخاص بك؟",
+      "allowLocationMessage":"السماح للمساعدة في الوصول إلى موقعك لاقتراح الخدمة القريبة",
+      "allowLocationAccess":"السماح أثناء استخدام التطبيق",
+      "enterLocationManually":"أدخل الموقع يدويًا",
+      "useCurrentLocation":"استخدام الموقع الحالي"
+    },
+
+    "Home":{
+      "searchTitle":"ابحث عن تخصص أو طبيب",
+      "ourServices":"خدماتنا",
+      "clinicVisit":"زيارة العيادة",
+      "homeVisit":"زيارة منزلية",
+      "signInMessage":"اشترك الآن واحصل على رصيد لاستشارة مجانية عبر الإنترنت",
+      "topRatedDoctors":"الأطباء الأعلى تقييمًا",
+      "thisMonth":"هذا الشهر",
+      "onLineMonth":"جلسة على الانترنت الشهري",
+      "patientsAppointment":"مواعيد المرضى",
+      "monthRevenue":"إيرادات الشهر",
+      "requestWithdrawal":"طلب سحب"
+    },
+
+    "Search":{
+      "mostPopular":"التخصصات الأكثر شعبية",
+      "otherSpecialties":"تخصصات أخرى",
+      "searchForCity":"ابحث عن المدينة",
+      "mostRecommended":"الأكثر توصية",
+      "priceToHigh":"السعر من الأقل إلى الأعلى",
+      "priceToLow":"السعر من الأعلى إلى الأقل",
+      "shortTimes": "أوقات انتظار قصيرة",
+      "bookAppointment":"حجز موعد"
+
+
+    },
+
+    "DoctorProfile": {
+      "title": "الملف الشخصي للطبيب ",
+      "sub-specialties":"التخصصات الفرعية",
+      "experience":"الخبرة",
+      "consultationFees":"رسوم الاستشارة",
+      "makeAppointment":"تحديد موعد",
+      "latestReviews":"أحدث التقييمات",
+      "addReview":"اضافه تعليق",
+      "waitingTime":"وقت الانتظار"
+    },
+
+    "Model":{
+      "warningTitle":"تنبيه",
+      "dateAndTimeMessage":"الرجاء التأكد من تحديد التاريخ والوقت.",
+      "congratulations":"مبروك ",
+      "congratulationsMessage":"تهانينا، تم إنشاء حسابك بنجاح.",
+      "congratulationsClinicMessage":"تهانينا، تم إنشاء عيادتك بنجاح.",
+
+      "congratulationsClinicTimesMessage":"تهانينا، تم إنشاء مواعيد عيادتك بنجاح.",
+
+      "successfullyBooked": "لقد قمت بحجز موعد بنجاح مع",
+      "leaveYourMessage":"اترك رسالتك",
+
+      "cancelModelTitle":"قم بإلغاء هذا القسم",
+      "appointmentCancelMessage":"هل أنت متأكد أنك تريد إلغاء هذا الموعد؟",
+
+      "whatIsRate":"ما هو تقييمك؟",
+      "shareYourOpinion":"شاركنا برأيك حول الطبيب",
+      "enterValidTimes":"الرجاء إدخال كافة اوقاتك التي قمت بتحديدها",
+      "logoutMessage":"هل أنت متأكد أنك تريد تسجيل الخروج؟",
+      "updateDoctorMessage":"تم تحديث بيانات بنجاح",
+      "paymentMessage":"تم تحديث بيانات بنجاح",
+      "showPaymentMethodRequired":"يجب إدخال طريقة دفع واحدة على الأقل",
+      "nothingToUpdate":"ليس هناك شيء للتحديث",
+      "rescheduledSuccessfully":"تمت إعادة تحديد الموعد بنجاح",
+      "waitingAdminApproval":"انتظار",
+      "waitAdminMessage":"لقد قمت بالتسجيل بنجاح وسنرسل إليك إشعارًا عند موافقة المسؤول",
+      "enterAmount":"الرجاء إدخال المبلغ الذي تريد سحبه",
+      "requestSuccessfully":"تم إرسال الطلب بنجاح",
+      "paidSubscription":"اشترك مجانًا الآن، وسيتوفر الإصدار المدفوع قريبًا",
+      "messageSend":"تم إرسال الرسالة بنجاح",
+      "vaildMessage":"أدخل الرسالة لإرسال ملاحظتك"
+
+    },
+
+    "Form":{
+      "createAccountMessage":"إنشاء حساب أو تسجيل الدخول",
+      "password":"كلمة المرور",
+      "rememberMe":"تذكرني",
+      "forgotPassword":"نسيت كلمة المرور",
+      "login":"تسجيل الدخول",
+      "createAccount":"إنشاء حساب",
+      "enterPassword":"أدخل كلمة المرور",
+      "mobile":"رقم الهاتف",
+      "enterOldPassword":"أدخل كلمة المرور القديمة",
+      "old_password":"كلمة المرور القديمة",
+      "password_confirmation":"تأكيد كلمة المرور",
+      "orSignIn":"أو تسجيل الدخول باستخدام",
+      "byContinuing":"من خلال الاستمرار، فإنك توافق على الأطباء",
+      "terms&Conditions":"شروط وأحكام",
+      "name":"الاسم الكامل",
+      "enterFullName":"أدخل الاسم الكامل",
+      "email":"بريد إلكتروني",
+      "enterEmail":"أدخل بريدك الإلكتروني",
+      "birthday":"تاريخ الميلاد",
+      "experience":"الخبرة",
+      "gender":"الجنس",
+      "enterExperienceYears":"أدخل سنوات الخبرة",
+      "profile_description":"وصف الملف الشخصي",
+      "bio":"السيرة الذاتية",
+      "clinicName":"اسم العيادة",
+      "city":"المدينة",
+      "district_id":"المنطقة",
+      "country":"الدولة",
+      "chooseCountry":" اختر الدولة",
+      "enterClinicName":"أدخل اسم العيادة",
+      "chooseCity":"اختر المدينة ",
+      "chooseArea":"اختر المنطقة",
+      "address":"عنوان العيادة",
+      "enterClinicAddress":"أدخل عنوان العيادة",
+      "video":"رابط الفيديو",
+      "enterVideoUrl":"أدخل رابط الفيديو",
+      "certificates":"درجة الشهادة",    
+      "vezzeta":"فيزيتا",
+      "enterClinicVezzeta":"أدخل فيزيتا العيادة",
+      "duration":"فترة /بالدقائق",
+      "enterClinicDuration":"أدخل فترة العيادة",
+
+      "image":"صورة",
+      "title_id":"الدرجة العلمية",
+      "specialty_id":"التخصص الرئيسي",
+      "sub_specialty_id":"التخصص الفرعي ",
+      "medical_card":"كارنية نقابة الأطباء",
+      "updatePassword":"قم بتحديث كلمة المرور الخاصة بك",
+      "resetPassword":"إعادة تعيين كلمة المرور"
+
+    },
+
+    "validation": {
+      "required": "{{path}} مطلوب",
+      "email": "يجب أن يكون عنوان بريد إلكتروني صحيح",
+      "length": "{{path}} يجب أن يكون بالضبط {{length}} حرف",
+      "minString": "{{path}} يجب يكون على الأقل {{min}} احرف",
+      "maxString": "{{path}} يجب يكون على الأكثر {{max}} حرف",
+      "minNumber": "{{path}} يجب أن يكون أكبر من أو يساوي {{min}}",
+      "maxNumber": "{{path}} يجب أن يكون أقل من أو يساوي {{max}}",
+      "confirmPasswordNotMatch": "تأكيد كلمة المرور لا تتطابق مع كلمة المرور",
+      "imageRequired": "الصورة حقل مطلوب",
+      "enterValidPhoneNumber":"أدخل رقم هاتف صحيح",
+      "enterValidVezzeta":"أدخل السعر الصحيح للعيادة",
+      "enterValidDuration":"أدخل الفترة الصحيح للعيادة",
+      "enterValidUrl":"تنسيق عنوان URL غير صالح. الرجاء إدخال عنوان URL صالح لـ HTTP أو HTTPS.",
+      "thisWalletNotRegister":"رقم المحفظة هذا غير مسجل",
+      "notHaveEnoughMoney":"ليس لديك ما يكفي من المال في المحفظة"
+
+
+
+    },
+
+    "selectPackage":{
+      "title":"حدد العرض"
+    },
+
+    "completePatientDetails":{
+      "title":"تفاصيل المريض",
+      "bookingFor":"الحجز",
+      "gender":"الجنس",
+      "yourAge":"عمرك",
+      "writeYourProblem":"اكتب مشكلتك",
+      "writeHere":"اكتب هنا...",
+      "uploadDocuments":"تحميل المستند"
+    },
+
+    "paymentMethods":{
+      "title":"طرق الدفع ",
+      "creditDebitCard":"بطاقة الائتمان والخصم",
+      "morePaymentOptions":"المزيد من خيارات الدفع",
+      "cash":"نقدي",
+      "emptyTransactionMessage":"لا توجد معاملات حتى الآن"
+
+    },
+
+
+    "reviewSummary":{
+      "title":"ملخص المراجعة",
+      "duration":"مدة",
+      "dateHour": "التاريخ والساعة",
+      "package":"طَرد"
+    },
+
+
+    "myAppointment":{
+      "title":"مواعيدى",
+      "loginMessage": " قم بتسجيل الدخول لعرض أنشطتك السابقة",
+      "support":"الدعم",
+      "supportMessage":"من فضلك اترك رسالتك وسنقوم بالرد عليك خلال 48 ساعة.",
+      "emptyMessage":"لا يوجد مواعيد حتى الآن",
+      "all":"الكل",
+      "upcoming":"القادم",
+      "completed":"مكتمل",
+      "cancelled":"ملغى",
+      "pending":"قيد الانتظار",
+      "patientDocuments":"مستندات المريض",
+      "appointmentDetails":"تفاصيل الموعد",
+      "patientProblem":"مشكلة المريض",
+      "accepted":"تم القبول"
+    },
+
+
+    "myChat":{
+      "title":"دردشتي",
+      "myChatLoginMessage":"قم بتسجيل الدخول لعرض الدردشة السابقة",
+      "emptyMessage": "لا يوجد دردشة حتى الآن"
+      },
+
+
+      "Profile":{
+        "title":"الملف الشخصي",
+        "location":"الموقع",
+        "notifications":"إشعارات",
+        "language":"لغة",
+        "manageCards":"إدارة البطاقات",
+        "favorites":"المفضلة",
+        "yourPoints":"نقاطك",
+        "help":"المساعدة",
+        "logout":"تسجيل خروج",
+        "welcomeToDoctors":"مرحبًا بك في موقع الأطباء",
+        "loginMessage":"تسجيل الدخول لاستكشاف تجربتنا بهيجة.",
+        "changePhoto":"اخترالصورة",
+        "account":"حساب",
+        "selectYourBirthday":"اختر عيد ميلادك",
+        "egyptionPound":"جنيه",
+
+        "personal":"شخصي",
+        "education":"التعليم",
+        "information":"معلومات",
+        "packages":"الباقات",
+        "withdrawalControl":"المعاملات الماليه",
+        "mySchedule":"جدولي",
+        "myServices":"خدماتي",
+        "sendtoUs":"أرسل إلينا",
+        "callUs":"اتصل بنا"
+
+      },
+
+      
+      "Notifications":{
+        "title":"الإشعارات",
+        "notificationsLoginMessage":"قم بتسجيل الدخول لعرض إشعاراتك السابقة",
+        "emptyMessage":"لا يوجد إشعارات حتى الآن"
+  
+      },
+
+      "WithdrawalControl":{
+        "payment":"طريقة الدفع",
+        "request":"الطلبات",
+        "transaction":"المعاملات"
+      },
+
+      "AddSchedule":{
+        "title":"إضافة جدول المواعيد",
+        "selectedDaysShift":"تحديد ايام العمل",
+        "selectedTimeForDate":"الوقت المحدد ل {{day}}",
+        "from":"من",
+        "to":"الى",
+        "chooseDays":"اختر أيام"
+      },
+      "DoctorScene":{
+        "chooseTitle":"اختار الدرجة العلمية",
+        "chooseMainSpecialty":"اختار التخصص الرئيسي",
+        "chooseSubSpecialty":"اختار التخصص الفرعي"
+      },
+      "Days":{
+        "sun": "الأحد",
+        "mon": "الاثنين",
+        "tue": "الثلاثاء",
+        "wed": "الأربعاء",
+        "thu": "الخميس",
+        "fri": "الجمعة",
+        "sat": "السبت"
+      },
+      "Help":{
+        "title":""
+      },
+      "OTP": {
+        "title": "تأكيد الكود",
+        "SMSMessage_description": "سيتم إرسال رسالة للتحقق من بريدك الإلكتروني",
+        "resendCode": "اعادة ارسال الكود"
+      }
+}

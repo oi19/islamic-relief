@@ -4,7 +4,8 @@ import {store} from "../redux/store/configureStore";
 import axios from "axios";
 
 export const API = axios.create({
-  baseURL: "https://doctors.fmceg.com/api",
+  // baseURL: "https://doctors.fmceg.com/api",
+  baseURL: "",
 });
 
 API.interceptors.request.use(config => {

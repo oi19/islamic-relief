@@ -111,8 +111,9 @@ const Splash: React.FC = () => {
         ]}>
         <Svgs name="slug" />
       </Animated.View>
+      
 
-      {chooseLanguageFirstTime && (
+      {/* {chooseLanguageFirstTime && (
         <ViewRow style={styles.buttonGroup}>
           <Button
             type={isRTL() ? "standard" : "border"}
@@ -133,7 +134,7 @@ const Splash: React.FC = () => {
             }}
           />
         </ViewRow>
-      )}
+      )} */}
     </View>
   );
 };
