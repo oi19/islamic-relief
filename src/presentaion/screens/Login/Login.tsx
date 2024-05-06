@@ -66,7 +66,7 @@ const Login = () => {
         <Text fontFamily="BOLD" fontSize="FS24">
           {translate("Form.welcomMessage")}
         </Text>
-        <Text fontFamily="MEDIUM" fontSize="H3" color="RED">
+        <Text fontFamily="MEDIUM" fontSize="H3" color="INPUT_TEXT">
           {translate("Form.createAccountMessage")}
         </Text>
         <Input
@@ -134,9 +134,8 @@ const Login = () => {
           justifyContent: "center",
           position: "absolute",
           bottom: 0,
-          backgroundColor: "red",
         }}>
-        <Text fontSize="FS13" style={styles.hintText}>
+        <Text fontSize="FS14" style={styles.hintText}>
           {translate("Form.dontHaveAccountMessage")}
         </Text>
         <Button
@@ -144,7 +143,7 @@ const Login = () => {
           textStyle={{
             color: "PRIMARY",
           }}></Button>
-        <Text fontSize="FS12" color="PRIMARY">
+        <Text fontSize="FS14" color="PRIMARY">
           {" "}
         </Text>
       </ViewRow>

@@ -1,4 +1,8 @@
 export type ColorsTypes = {
+  INPUT_BORDER: string;
+  INPUT_BACKGROUND: string;
+  INPUT_TEXT: string;
+  LINE: string;
   PRIMARY: string;
   PRIMARY1: string;
   PRIMARY2: string;
@@ -64,7 +68,7 @@ export const BLUE_4A5970 = "#4A5970";
 
 // GRAY COLORS
 export const INPUT_BACKGROUND = " #F7F8F9";
-export const INPUT_BORDER = "#C6C8CC";
+export const INPUT_BORDER = "#E8ECF4";
 export const INPUT_TEXT = "#8391A1";
 export const line = "#EAEDEF";
 export const GRAY_FBFBFB = "#FBFBFB";

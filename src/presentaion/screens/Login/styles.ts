@@ -39,6 +39,8 @@ export const styles = StyleSheet.create({
     width: getWidth(105),
     height: 56,
     backgroundColor: Colors.WHITE,
+    borderColor: Colors.INPUT_BORDER,
+    borderWidth: 1,
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 12,
@@ -47,10 +49,10 @@ export const styles = StyleSheet.create({
       width: 0,
       height: 2,
     },
-    shadowOpacity: 0.25,
+    shadowOpacity: 0.1,
     shadowRadius: 3.84,
 
-    elevation: 5,
+    elevation: 1,
   },
   socialIconStyle: {
     // width: getWidth(105),
@@ -67,6 +69,16 @@ export const styles = StyleSheet.create({
   },
   inputContainer: {
     borderWidth: 1,
+    // backgroundColor: Colors.RED,
+    // shadowColor: "#000",
+    // shadowOffset: {
+    //   width: 0,
+    //   height: 2,
+    // },
+    // shadowOpacity: 0.1,
+    // shadowRadius: 3.84,
+
+    // elevation: 1,
   },
   disableClicks: {
     position: "absolute",

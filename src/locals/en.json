@@ -130,10 +130,10 @@
     "shareYourOpinion": "Please share your opinion about the doctor"
   },
   "Form": {
-    "welcomMessage": "اهلا بك",
-    "loginToYourAccount": "تسجيل الدخول لحسابك",
-    "dontHaveAccountMessage": " لديك حساب؟",
-    "signupNow": "سجل الان",
+    "welcomMessage": " Welcome ",
+    "loginToYourAccount": "Login to your account",
+    "dontHaveAccountMessage": "Don't have an Account",
+    "signupNow": "Sign up",
     "createAccountMessage": "Create an account or log in",
     "phone": "Phone Number",
     "password": "Password",
