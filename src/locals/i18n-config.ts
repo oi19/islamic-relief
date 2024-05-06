@@ -22,8 +22,8 @@ export const isRTL = function () {
 I18n.use(initReactI18next).init({
   compatibilityJSON: "v3",
   supportedLngs: ["en", "ar"],
-  lng: I18nManager.isRTL ? "ar" : "en",
-  fallbackLng: "en",
+  lng: I18nManager.isRTL ? "ar" : "ar",
+  fallbackLng: "ar",
   resources,
   interpolation: {
     escapeValue: false, // react already safes from xss

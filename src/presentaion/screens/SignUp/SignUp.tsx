@@ -1,7 +1,7 @@
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {yupResolver} from "@hookform/resolvers/yup";
 import {RouteProp, useRoute} from "@react-navigation/native";
-import React, {useEffect, useState} from "react";
+import React from "react";
 import {useForm} from "react-hook-form";
 import {Keyboard, ScrollView, View} from "react-native";
 import {LoginTypes} from "../../../@types";
@@ -23,24 +23,17 @@ import {
 import {userLogin} from "../../../redux";
 import {Colors, Spacing} from "../../../styles";
 import {styles} from "./styles";
-import CountryModal from "../../components/shared/CountryModal/CountryModal";
 
 const Login = () => {
-  const {
-    params: {navigateTo},
-  } = useRoute<RouteProp<MainAppStackTypes, "Login">>();
   const {goBack, navigate} =
     useNavigationHooks<MainNavigationAllScreensTypes>();
-  const [isMobile, setIsMobile] = useState<boolean>(true);
 
   const errorModalRef = React.useRef<BottomSheetModal>(null);
-  const countryModalRef = React.useRef<BottomSheetModal>(null);
   const loginLoader = useLoader("login");
 
   const {
     setValue,
     handleSubmit,
-    getValues,
     clearErrors,
     formState: {errors},
   } = useForm({
@@ -56,11 +49,6 @@ const Login = () => {
     });
   };
 
-  // useEffect(() => {
-
-  //   if(getValues)
-  // }, [getValues("mobile")]);
-
   const handlerforgetPasswordPressed = () => {
     navigate("ForgetPassword");
   };
@@ -68,32 +56,10 @@ const Login = () => {
   const onChangeTextHandler = (fieldName: any, text: string) => {
     clearErrors(fieldName);
     setValue(fieldName, text);
-    mobileOrEmailInputChecker(text);
-  };
-
-  const mobileOrEmailInputChecker = (fieldInput: string | number) => {
-    const str = String(fieldInput);
-
-    // Use a regular expression to test if the string contains only numbers
-    const containsOnlyNumbers = /^\d+$/.test(str);
-
-    if (containsOnlyNumbers && str == "") {
-      console.log("Input contains only numbers");
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-      console.log(
-        "Input contains characters or a combination of characters and numbers",
-      );
-    }
   };
 
   const goToSignUp = () => {
     navigate("SignUp");
-  };
-
-  const onCloseCountryModal = () => {
-    countryModalRef.current?.close();
   };
 
   return (
@@ -112,23 +78,23 @@ const Login = () => {
         contentContainerStyle={{justifyContent: "center"}}>
         <Text fontFamily="BOLD" fontSize="FS24">
           {"اهلا بك"}
+          {/* {translate("Form.welcomeMessage")} */}
         </Text>
         <Text fontFamily="MEDIUM" fontSize="H3" color="INPUT_TEXT">
           {"تسجيل الدخول لحسابك"}
         </Text>
         <Input
-          placeholder={"ادخل بريدك الالكتروني / رقم التليفون"}
+          placeholder={`+20 ${translate("Form.mobile")}`}
           style={styles.input}
           keyboardType="phone-pad"
           maxLength={11}
-          isMobile={isMobile}
           inputContainerStyle={styles.inputContainer}
           onChangeText={text => onChangeTextHandler("mobile", text)}
           error={errors?.mobile?.message?.toString()}
         />
         <Input
           password
-          placeholder={"كلمة المرور "}
+          placeholder={translate("Form.enterPassword")}
           style={styles.input}
           inputContainerStyle={styles.inputContainer}
           onChangeText={text => onChangeTextHandler("password", text)}
@@ -197,11 +163,6 @@ const Login = () => {
           </Text>
         </ViewRow>
       </ScrollView>
-      <CountryModal
-        forwardRef={countryModalRef}
-        onSelect={onCloseCountryModal}
-        selectedId={0}
-      />
 
       <ErrorMessageModal
         forwardRef={errorModalRef}

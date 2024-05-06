@@ -49,7 +49,7 @@ Text.defaultProps = {
 const customStyles = ({fontFamily, fontSize, color}: TextProps) => {
   const _styles: TextStyleTypes = {
     color: Colors[color || "FONT_07101A"],
-    fontFamily: Typography[fontFamily || "System"],
+    fontFamily: Typography[fontFamily || "NORMAL"],
     fontSize: Typography[fontSize || "P"],
   };
   return _styles;

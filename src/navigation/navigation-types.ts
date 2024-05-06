@@ -29,7 +29,7 @@ export type MainAppStackTypes = {
   };
   CompletePatientDetails: undefined;
   Login: {navigateTo?: MainNavigationKeys};
-  Signup: undefined;
+  SignUp: undefined;
   PaymentMethods: undefined;
   ReviewSummary: undefined;
   ManageCards: undefined;

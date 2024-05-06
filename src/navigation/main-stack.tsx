@@ -19,12 +19,12 @@ import {
   ResetPassword,
   ReviewSummary,
   SelectPackage,
-  Signup,
   ZoomRoom,
 } from "../screens";
 import Splash from "../presentaion/screens/Splash/Splash";
 import Login from "../presentaion/screens/Login/Login";
 import AllowLocation from "../screens/AllowLocation";
+import SignUp from "../presentaion/screens/SignUp/SignUp";
 import OTP from "../screens/OTP";
 import {useToken} from "../hooks";
 import {useAppSelector} from "../redux";
@@ -47,7 +47,7 @@ const MainStack = () => {
       <Stack.Screen name="AllowLocation" component={AllowLocation} />
       <Stack.Screen name="ManuallyLocation" component={ManuallyLocation} />
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Signup" component={Signup} />
+      <Stack.Screen name="SignUp" component={SignUp} />
 
       <Stack.Screen name="TabsBottomStack" component={TabButtonsStack} />
       <Stack.Screen name="Account" component={Account} />

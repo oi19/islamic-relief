@@ -17,8 +17,9 @@ import {scale} from "../../../../styles/dimensions";
 import Button from "../Button/Button";
 import Text, {TextProps} from "../Text/Text";
 import styles from "./styles";
-import {isRTL} from "../../../../infrastructure/localization/i18n-config";
+import {isRTL} from "../../../../locals/i18n-config";
 import {Controller} from "react-hook-form";
+import {Line} from "../../../../components";
 
 type InputProps = {
   password?: boolean;
@@ -33,6 +34,7 @@ type InputProps = {
   inputRef?: React.RefObject<TextInput>;
   value?: string;
   onChangeText?: (text: string) => void;
+  isMobile?: boolean;
 };
 const Input: FC<TextInputProps & InputProps> = ({
   password,
@@ -47,6 +49,7 @@ const Input: FC<TextInputProps & InputProps> = ({
   labelStyle,
   value,
   onChangeText,
+  isMobile,
   ...props
 }) => {
   let [showPassword, setShowPassword] = useState(password);
@@ -111,6 +114,16 @@ const Input: FC<TextInputProps & InputProps> = ({
             iconName={showPassword ? "showPassword" : "hidePassword"}
             style={styles.passwordButton}
           />
+        )}
+        {true && (
+          <>
+            <Button
+              onPress={onShowPassword}
+              iconStyle={styles.passwordIcon}
+              style={styles.passwordButton}
+            />
+            <Line type="vertical" />
+          </>
         )}
       </View>
       {error && (

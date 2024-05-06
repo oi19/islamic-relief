@@ -71,6 +71,7 @@ import Change from "./change";
 import Volume from "./volume";
 import EmptyNotification from "./emptyNotification";
 import Share from "./share";
+import FaceID from "./faceID";
 
 export type IconsName =
   | "remove"
@@ -141,7 +142,8 @@ export type IconsName =
   | "volume"
   | "microphone"
   | "emptyNotification"
-  | "share";
+  | "share"
+  | "faceID";
 
 export type RotateTypes = "left" | "right" | "top" | "bottom";
 
@@ -175,6 +177,8 @@ function Svgs(props: IconsProps & SvgProps) {
   switch (props.name) {
     case "logo":
       return <Logo {...props} style={[props.rotate && style, props.style]} />;
+    case "faceID":
+      return <FaceID {...props} style={[props.rotate && style, props.style]} />;
     case "circles":
       return (
         <Circles {...props} style={[props.rotate && style, props.style]} />

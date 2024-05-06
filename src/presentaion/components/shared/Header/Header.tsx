@@ -30,7 +30,7 @@ const DefaultHeader: FC<TouchableOpacityProps & DefaultHeaderProps> = memo(
           ]}>
           {title && (
             <Button
-              iconStyle={{rotate: isRTL() ? "right" : "left"}}
+              iconStyle={{rotate: isRTL() ? "right" : "left", color: "black"}}
               onPress={goBack}
               textStyle={{color: "WHITE"}}
               iconName="arrow"
