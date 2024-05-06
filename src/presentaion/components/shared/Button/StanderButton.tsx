@@ -1,14 +1,14 @@
-import React, { FC, memo } from "react"
-import { ActivityIndicator, TouchableOpacityProps, View } from "react-native"
-import LinearGradient from "react-native-linear-gradient"
+import React, {FC, memo} from "react";
+import {ActivityIndicator, TouchableOpacityProps, View} from "react-native";
+import LinearGradient from "react-native-linear-gradient";
 
-import Text from "../Text/Text"
-import { ButtonProps } from "./Button"
-import { ScaleButton } from "./ScaleButton"
-import styles from "./styles"
-import { Colors, Spacing } from "../../../../styles/index"
-import { getHeight } from "../../../../styles/dimensions"
-import Svgs from "../../../../assets/svgs"
+import Text from "../Text/Text";
+import {ButtonProps} from "./Button";
+import {ScaleButton} from "./ScaleButton";
+import styles from "./styles";
+import {Colors, Spacing} from "../../../../styles/index";
+import {getHeight} from "../../../../styles/dimensions";
+import Svgs from "../../../../assets/svgs";
 
 const StanderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
   ({
@@ -28,15 +28,14 @@ const StanderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
         style={[
           styles.standerButtonContainer,
           props.style,
-          { opacity: props.disabled ? 0.8 : 1 },
-        ]}
-      >
+          {opacity: props.disabled ? 0.8 : 1},
+        ]}>
         {type === "standerGradient" && (
           <LinearGradient
-            start={{ x: 1, y: 1 }}
-            end={{ x: 0, y: 0 }}
+            start={{x: 1, y: 1}}
+            end={{x: 0, y: 0}}
             colors={Colors.PRIMARY_GRADIENT}
-            style={[styles.linearGradient, props.style, { borderWidth: 0 }]}
+            style={[styles.linearGradient, props.style, {borderWidth: 0}]}
           />
         )}
         {!isLoading && iconName && (
@@ -44,8 +43,7 @@ const StanderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
             style={{
               flex: 0.5,
               alignItems: "flex-end",
-            }}
-          >
+            }}>
             <Svgs
               name={iconName}
               style={[props.iconContainerStyle]}
@@ -60,18 +58,16 @@ const StanderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
               flex: 1,
               alignItems: "center",
               marginEnd: iconName ? Spacing.S70 : 0,
-            }}
-          >
+            }}>
             <Text
               fontSize="FS14"
-              fontFamily={"MEDIUM"}
+              fontFamily="BOLD"
               color={"WHITE"}
               {...textStyle}
               style={{
                 paddingHorizontal: Spacing.S8,
                 textAlign: "center",
-              }}
-            >
+              }}>
               {text}
             </Text>
             {subText ? (
@@ -83,8 +79,7 @@ const StanderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
                 style={{
                   paddingHorizontal: Spacing.S8,
                   textAlign: "center",
-                }}
-              >
+                }}>
                 {subText}
               </Text>
             ) : null}
@@ -93,11 +88,11 @@ const StanderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
         {isLoading && <ActivityIndicator size={"small"} color={Colors.WHITE} />}
         {props.children}
       </ScaleButton>
-    )
-  }
-)
+    );
+  },
+);
 
 StanderButton.defaultProps = {
-  style: { borderRadius: getHeight(12) },
-}
-export { StanderButton }
+  style: {borderRadius: getHeight(12)},
+};
+export {StanderButton};

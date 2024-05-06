@@ -66,6 +66,7 @@ export const BLUE_4A5970 = "#4A5970";
 export const INPUT_BACKGROUND = " #F7F8F9";
 export const INPUT_BORDER = "#C6C8CC";
 export const INPUT_TEXT = "#8391A1";
+export const line = "#EAEDEF";
 export const GRAY_FBFBFB = "#FBFBFB";
 export const GRAY_F5F5F5 = "#F5F5F5";
 export const GRAY_F1F1F1 = "#F1F1F1";

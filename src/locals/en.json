@@ -15,7 +15,7 @@
     "in": "in",
     "expiryDate": "expiry",
     "skip": "Skip",
-    "rejected":"Rejected",
+    "rejected": "Rejected",
     "day": "Day",
     "time": "Time",
     "readMore": "Read More",
@@ -51,18 +51,17 @@
     "addPhotos": "Add Photos",
     "sendReview": "Send Review",
     "new": "New",
-    "takePhoto":"Take Photo",
-    "gallery":"Gallery",
-    "male":"Male",
-    "female":"Female",
-    "wallet":"Wallet",
-    "egp":"L.E",
-    "min":"Min",
-    "waiting":"Waiting",
-    "pm":"PM",
-    "am":"AM",
-    "withoutCity":"Without City"
-
+    "takePhoto": "Take Photo",
+    "gallery": "Gallery",
+    "male": "Male",
+    "female": "Female",
+    "wallet": "Wallet",
+    "egp": "L.E",
+    "min": "Min",
+    "waiting": "Waiting",
+    "pm": "PM",
+    "am": "AM",
+    "withoutCity": "Without City"
   },
 
   "OnBoarding": {
@@ -118,19 +117,23 @@
     "pleaseSelectPackageMessage": "Please Select a Package for your booking",
     "pleaseSelectCardMessage": "Please Select a Card for your booking",
     "allFieldsAreRequired": "All Fields are Required",
-    "logoutMessage":"Are You sure you want to logout?",
+    "logoutMessage": "Are You sure you want to logout?",
     "congratulations": "Congratulations",
     "congratulationsMessage": "Congratulations,Your account created successfully.",
-    "updateDoctorMessage":"Data updated successfully",
+    "updateDoctorMessage": "Data updated successfully",
     "successfullyBooked": "You have successfully booked an appointment with.",
     "leaveYourMessage": "Leave your message",
     "cancelModelTitle": "Cancel This Section",
     "appointmentCancelMessage": "Are you sure you want to cancel this appointment ?",
-    "nothingToUpdate":"There is nothing to update",
+    "nothingToUpdate": "There is nothing to update",
     "whatIsRate": "What is you rate?",
     "shareYourOpinion": "Please share your opinion about the doctor"
   },
   "Form": {
+    "welcomMessage": "اهلا بك",
+    "loginToYourAccount": "تسجيل الدخول لحسابك",
+    "dontHaveAccountMessage": " لديك حساب؟",
+    "signupNow": "سجل الان",
     "createAccountMessage": "Create an account or log in",
     "phone": "Phone Number",
     "password": "Password",
@@ -143,9 +146,9 @@
     "byContinuing": "By Continuing, you agree to Doctors",
     "terms&Conditions": "Terms & Conditions",
     "chooseCity": "Choose City ",
-    "image":"image",
-    "notes":"Notes",
-    "is_myself":"BookingFor",
+    "image": "image",
+    "notes": "Notes",
+    "is_myself": "BookingFor",
 
     "fullName": "Full Name",
     "enterFullName": "Enter Full Name",
@@ -156,26 +159,21 @@
     "oldPassword": "Old Password",
     "confirmPassword": "Confirm Password",
     "name": "Name",
-    "mobile":"Phone Number",
-    "old_password":"Old Password",
-    "enterOldPassword":"Enter Old Password",
-    "password_confirmation":"Confirm Password",
-    "updatePassword":"Update your Password",
-    "rate":"Rating",
-    "review":"Review"
-
-
-
+    "mobile": "Phone Number",
+    "old_password": "Old Password",
+    "enterOldPassword": "Enter Old Password",
+    "password_confirmation": "Confirm Password",
+    "updatePassword": "Update your Password",
+    "rate": "Rating",
+    "review": "Review"
   },
   "selectPackage": {
     "title": "Select Package"
   },
 
-
-  "Booking":{
-    "itself":"Itself",
-    "other":"other" 
-
+  "Booking": {
+    "itself": "Itself",
+    "other": "other"
   },
   "completePatientDetails": {
     "title": "Patient Details",
@@ -208,11 +206,11 @@
     "completed": "Completed",
     "cancelled": "Cancelled"
   },
-  "myChat":{
-    "title":"My Chat",
-    "myChatLoginMessage":"Login to view your previous chat",
+  "myChat": {
+    "title": "My Chat",
+    "myChatLoginMessage": "Login to view your previous chat",
     "emptyMessage": "No Chats Available"
-    },
+  },
   "Profile": {
     "title": "Profile",
     "location": "Location",
@@ -237,8 +235,7 @@
     "notificationsLoginMessage": "Login to view your previous Notifications",
     "unread": "Unread",
     "read": "Read",
-    "emptyMessage":"No Notifications Available"
-
+    "emptyMessage": "No Notifications Available"
   },
 
   "PaymentCards": {
@@ -282,22 +279,21 @@
     "SMSMessage_description": "An Mail will be sent to verify your email",
     "resendCode": "Resend Code"
   },
-  "myAppointment":{
-    "title":"My Appointments",
+  "myAppointment": {
+    "title": "My Appointments",
     "loginMessage": "Login to view your previous activities",
-    "support":"Support",
-    "supportMessage":"Please leave your message and we will get back to you within 48 hours.",
-    "all":"All",
-    "upcoming":"Upcoming",
-    "completed":"Completed",
-    "cancelled":"Cancelled",
-    "pending":"Pending",
-    "emptyMessage":"No Appointments Available",
-    "patientDocuments":"Patient Documents",
-    "appointmentDetails":"Appointment Details",
-    "patientProblem":"Patient Problem",
-    "accepted":"accepted",
-    "emptySlots":"We Haven't Appointments in this Day"
-
+    "support": "Support",
+    "supportMessage": "Please leave your message and we will get back to you within 48 hours.",
+    "all": "All",
+    "upcoming": "Upcoming",
+    "completed": "Completed",
+    "cancelled": "Cancelled",
+    "pending": "Pending",
+    "emptyMessage": "No Appointments Available",
+    "patientDocuments": "Patient Documents",
+    "appointmentDetails": "Appointment Details",
+    "patientProblem": "Patient Problem",
+    "accepted": "accepted",
+    "emptySlots": "We Haven't Appointments in this Day"
   }
 }

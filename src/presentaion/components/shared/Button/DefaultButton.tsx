@@ -24,7 +24,7 @@ const DefaultButton: FC<TouchableOpacityProps & ButtonProps> = memo(
         {iconName && !isLoading && (
           <Svgs
             name={iconName}
-            style={[{marginLeft: Spacing.S16}, iconContainerStyle]}
+            style={[iconContainerStyle]}
             {...props.iconStyle}
           />
         )}
@@ -32,7 +32,7 @@ const DefaultButton: FC<TouchableOpacityProps & ButtonProps> = memo(
         {text && !isLoading && (
           <Text
             fontSize="H2"
-            fontFamily="MEDIUM"
+            fontFamily="BOLD"
             color="PRIMARY1"
             {...props.textStyle}
             style={[

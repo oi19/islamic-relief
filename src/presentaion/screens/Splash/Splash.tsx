@@ -45,6 +45,9 @@ const Splash: React.FC = () => {
     //     // }
     //   }
     // });
+    if (firstTime) {
+      setLanguageFirstTime("ar");
+    }
     setTimeout(() => {
       navigate("Login", {
         navigateTo: undefined,
@@ -52,15 +55,15 @@ const Splash: React.FC = () => {
     }, 1000);
   }, []);
 
-  // const setLanguageFirstTime = (language: "ar" | "en") => {
-  //   dispatch(setChooseLanguageFirstTime());
+  const setLanguageFirstTime = (language: "ar" | "en") => {
+    dispatch(setChooseLanguageFirstTime());
 
-  //   if (I18n.language !== language) {
-  //     changeLanguage(language);
-  //   } else {
-  //     navigate("OnBoarding");
-  //   }
-  // };
+    if (I18n.language !== language) {
+      changeLanguage(language);
+    } else {
+      navigate("OnBoarding");
+    }
+  };
 
   React.useEffect(() => {
     Promise.all([getSpecialties(), getCountries(), getCities(), getAreas(1)]);

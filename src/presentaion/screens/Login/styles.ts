@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
   rootScreen: {
     flex: 1,
     backgroundColor: "white",
-    paddingHorizontal: Spacing.S20,
     paddingTop: Spacing.S40,
   },
   closeButton: {
@@ -31,15 +30,18 @@ export const styles = StyleSheet.create({
     marginVertical: Spacing.S20,
   },
   line: {
-    width: "33%",
+    width: "45%",
+    backgroundColor: Colors.INPUT_BORDER,
+    height: 1,
+    opacity: 0.8,
   },
   socialButton: {
     width: getWidth(105),
-    height: getHeight(65),
+    height: 56,
     backgroundColor: Colors.WHITE,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: scale(12),
+    borderRadius: 12,
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -61,6 +63,7 @@ export const styles = StyleSheet.create({
   content: {
     justifyContent: "center",
     marginTop: Spacing.S40,
+    paddingHorizontal: Spacing.S20,
   },
   inputContainer: {
     borderWidth: 1,

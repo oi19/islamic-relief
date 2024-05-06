@@ -5,17 +5,12 @@ import React from "react";
 import {useForm} from "react-hook-form";
 import {Keyboard, View} from "react-native";
 import {LoginTypes} from "../../../@types";
-import {
-  // Button,
-  CheckBox,
-  Line,
-  RoundedIcon,
-  SuccessModel,
-  Text,
-  ViewRow,
-} from "../../../components";
+
 import Button from "../../components/shared/Button/Button";
 import Input from "../../components/shared/Input/Input";
+import Text from "../../components/shared/Text/Text";
+import Line from "../../components/shared/Line";
+import ViewRow from "../../components/shared/ViewRow/ViewRow";
 import ErrorMessageModal from "../../../components/models/ErrorMessageModal";
 import {translate} from "../../../helpers";
 import {AccountLoginSchema} from "../../../helpers/validationSchema";
@@ -68,11 +63,14 @@ const Login = () => {
   return (
     <View style={styles.rootScreen}>
       <View style={styles.content}>
-        <Text fontFamily="MEDIUM" fontSize="H1">
+        <Text fontFamily="BOLD" fontSize="FS24">
+          {translate("Form.welcomMessage")}
+        </Text>
+        <Text fontFamily="MEDIUM" fontSize="H3" color="RED">
           {translate("Form.createAccountMessage")}
         </Text>
         <Input
-          placeholder={`+20 ${translate("Form.phone")}`}
+          placeholder={`+20 ${translate("Form.mobile")}`}
           style={styles.input}
           keyboardType="phone-pad"
           maxLength={11}
@@ -90,10 +88,10 @@ const Login = () => {
         />
         <ViewRow style={styles.row}>
           <Button
-            text={translate("Form.forgotPassword")}
+            text={translate("Form.forgotPassword") + "؟"}
             textStyle={{
               fontFamily: "BOLD",
-              fontSize: "FS16",
+              fontSize: "FS11",
               color: "PRIMARY",
             }}
             onPress={handlerforgetPasswordPressed}
@@ -130,15 +128,26 @@ const Login = () => {
             iconStyle={styles.socialIconStyle}
           />
         </ViewRow>
-        <Text fontSize="FS13" style={styles.hintText}>
-          {translate("Form.byContinuing")}
-          <Text fontSize="FS13" color="PRIMARY">
-            {" "}
-            {translate("Form.terms&Conditions")}
-          </Text>
-        </Text>
       </View>
-
+      <ViewRow
+        style={{
+          justifyContent: "center",
+          position: "absolute",
+          bottom: 0,
+          backgroundColor: "red",
+        }}>
+        <Text fontSize="FS13" style={styles.hintText}>
+          {translate("Form.dontHaveAccountMessage")}
+        </Text>
+        <Button
+          text={translate("Form.signupNow")}
+          textStyle={{
+            color: "PRIMARY",
+          }}></Button>
+        <Text fontSize="FS12" color="PRIMARY">
+          {" "}
+        </Text>
+      </ViewRow>
       <ErrorMessageModal
         forwardRef={errorModalRef}
         message={translate("Modal.Error")}

@@ -7,8 +7,7 @@ const styles = StyleSheet.create<{
   horizontal: {
     width: "100%",
     height: 1,
-    backgroundColor: Colors.GRAY_A7A7A7,
-    opacity: 0.2,
+    backgroundColor: Colors.DARK_GRAY,
     marginTop: Spacing.S8,
   },
   vertical: {

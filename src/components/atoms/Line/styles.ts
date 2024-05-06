@@ -7,7 +7,7 @@ const styles = StyleSheet.create<{
   horizontal: {
     width: "100%",
     height: 1,
-    backgroundColor: Colors.GRAY_A7A7A7,
+    backgroundColor: Colors.INPUT_TEXT,
     opacity: 0.2,
     marginTop: Spacing.S8,
   },

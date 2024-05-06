@@ -1,15 +1,14 @@
-import React, { FC, memo } from "react"
-import { ActivityIndicator, TouchableOpacityProps, View } from "react-native"
-import { ButtonProps } from "./Button"
-import { ScaleButton } from "./ScaleButton"
-import styles from "./styles"
-import { Colors, Spacing } from "../../../../styles"
-// import {Colors, Spacing} from "../../../../styles/index";
-import Svgs from "../../../../assets/svgs"
-import Text from "../Text/Text"
+import React, {FC, memo} from "react";
+import {ActivityIndicator, TouchableOpacityProps, View} from "react-native";
+import {ButtonProps} from "./Button";
+import {ScaleButton} from "./ScaleButton";
+import styles from "./styles";
+import {Colors, Spacing} from "../../../../styles";
+import Svgs from "../../../../assets/svgs";
+import Text from "../Text/Text";
 
 const BorderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
-  ({ text, iconName, isLoading, iconContainerStyle, subText, ...props }) => {
+  ({text, iconName, isLoading, iconContainerStyle, subText, ...props}) => {
     return (
       <ScaleButton
         {...props}
@@ -19,8 +18,7 @@ const BorderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
             borderColor: Colors[props.color || "PRIMARY"],
           },
           props.style,
-        ]}
-      >
+        ]}>
         {isLoading ? (
           <ActivityIndicator size={"small"} color={Colors.PRIMARY} />
         ) : (
@@ -30,8 +28,7 @@ const BorderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
                 style={{
                   flex: 0.5,
                   alignItems: "flex-end",
-                }}
-              >
+                }}>
                 <Svgs
                   name={iconName}
                   style={[iconContainerStyle]}
@@ -45,20 +42,18 @@ const BorderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
                   flex: 1,
                   alignItems: "center",
                   marginEnd: Spacing.S70,
-                }}
-              >
+                }}>
                 <View>
                   <Text
                     fontSize="FS14"
-                    fontFamily={"MEDIUM"}
+                    fontFamily="BOLD"
                     color={props.color || "PRIMARY"}
                     {...props.textStyle}
                     // eslint-disable-next-line react-native/no-inline-styles
                     style={{
                       paddingHorizontal: Spacing.S8,
                       textAlign: "center",
-                    }}
-                  >
+                    }}>
                     {text}
                   </Text>
                   {subText ? (
@@ -71,8 +66,7 @@ const BorderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
                       style={{
                         paddingHorizontal: Spacing.S8,
                         textAlign: "center",
-                      }}
-                    >
+                      }}>
                       {subText}
                     </Text>
                   ) : null}
@@ -83,8 +77,8 @@ const BorderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
           </>
         )}
       </ScaleButton>
-    )
-  }
-)
+    );
+  },
+);
 
-export { BorderButton }
+export {BorderButton};
