@@ -3,11 +3,12 @@ import React, {FC, memo, RefObject} from "react";
 import {BottomSheetBackdrop, BottomSheetModal} from "@gorhom/bottom-sheet";
 import {Easing} from "react-native-reanimated";
 import {View, ViewProps, ViewStyle} from "react-native";
-import {Button, Text} from "../../atoms";
+import Button from "../Button/Button";
+import Text from "../Text/Text";
 import styles from "./styles";
-import {Spacing} from "../../../styles";
-import {isRTL} from "../../../locals/i18n-config";
-import {IconsName} from "../../../assets/svgs";
+import {Spacing} from "../../../../styles";
+import {isRTL} from "../../../../locals/i18n-config";
+import {IconsName} from "../../../../assets/svgs";
 
 const BaseModal: FC<
   ViewProps & {

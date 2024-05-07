@@ -1,27 +1,26 @@
-import React from "react"
-import { View, ActivityIndicator, Text } from "react-native"
-//import { BlurView } from "@react-native-community/blur"
-import { BlurView } from "expo-blur"
+import React, {FC} from "react";
+import {View, ActivityIndicator, Text} from "react-native";
+import {BlurView} from "@react-native-community/blur";
 
-import { styles } from "./styles"
-import { Colors } from "../../../../shared/styles"
+import {styles} from "./styles";
+import {Colors} from "../../../../styles";
 
 export interface InputProps {
-  loadingDisabled?: boolean
+  loadingDisabled?: boolean;
 }
-const BlurProgressView = (props: InputProps) => {
+const BlurProgressView: FC<InputProps> = ({loadingDisabled}) => {
   return (
     <BlurView
       style={styles.container}
-      // blurType="light"
-      // blurAmount={10}
-      intensity={10}
-      // reducedTransparencyFallbackColor="white"
-    >
-      <View style={styles.container}>
-        <ActivityIndicator size="large" color={Colors.AZURE} />
-      </View>
+      blurType="light"
+      blurAmount={10}
+      reducedTransparencyFallbackColor="white">
+      {!loadingDisabled ? (
+        <View style={styles.container}>
+          <ActivityIndicator size="large" color={Colors.PRIMARY} />
+        </View>
+      ) : null}
     </BlurView>
-  )
-}
-export default BlurProgressView
+  );
+};
+export default BlurProgressView;

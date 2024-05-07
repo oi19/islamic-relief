@@ -133,7 +133,7 @@ export function handlePagination<T>(
 //   const formattedDate = year + "-" + month + "-" + day;
 
 //   return formattedDate;
-// } 
+// }
 
 export async function requestStoragePermission() {
   try {
@@ -170,4 +170,24 @@ export async function requestStoragePermission() {
   } catch (error) {
     console.warn(error);
   }
+}
+
+export class AsyncStorageKeys {
+  static USER_KEY = "@user_Key";
+  static LANGUAGE_KEY = "@language_Key";
+  static BIOMETRIC_KEY = "@bioMetric_key";
+  static FIRST_TIME_LOGIN_KEY = "@firstTimeLogin_key";
+  static SWITCH_LANGUAGE_KEY = "@switchLanguage_key";
+  static FLIP_CARD_KEY = "@flipCard_key";
+  static LANG_DIRECTION_APPLIED_KEY = "@lang_direction_applied_key";
+}
+
+export enum BiometricErrors {
+  LIMIT_EXCEEDED = "Application retry limit exceeded",
+}
+
+export enum BioMetricType {
+  TOUCH_ID = "TouchID",
+  FACE_ID = "FaceID",
+  BIOMETRICS = "Biometrics",
 }

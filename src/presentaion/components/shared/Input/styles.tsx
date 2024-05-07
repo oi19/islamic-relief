@@ -12,7 +12,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingLeft: Spacing.S20,
+    paddingEnd: Spacing.S20,
     backgroundColor: Colors.INPUT_BACKGROUND,
     marginTop: Spacing.S8,
   },
@@ -28,7 +28,12 @@ const styles = StyleSheet.create({
     color: Colors.BLACK,
   },
   passwordButton: {
+    // paddingRight: Spacing.S20,
+    // backgroundColor: "red",
+  },
+  mobileNumberButton: {
     paddingRight: Spacing.S20,
+    // backgroundColor: "red",
   },
   passwordIcon: {
     width: 17,

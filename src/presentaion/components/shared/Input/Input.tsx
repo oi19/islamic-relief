@@ -35,6 +35,8 @@ type InputProps = {
   value?: string;
   onChangeText?: (text: string) => void;
   isMobile?: boolean;
+  countryCode?: number | string;
+  countryButtonHandler?: (item: any) => void;
 };
 const Input: FC<TextInputProps & InputProps> = ({
   password,
@@ -50,6 +52,8 @@ const Input: FC<TextInputProps & InputProps> = ({
   value,
   onChangeText,
   isMobile,
+  countryCode = "+20",
+  countryButtonHandler,
   ...props
 }) => {
   let [showPassword, setShowPassword] = useState(password);
@@ -69,6 +73,7 @@ const Input: FC<TextInputProps & InputProps> = ({
         style={StyleSheet.flatten([
           styles.inputContainer,
           inputContainerStyle,
+          isMobile && {flexDirection: "row-reverse"},
         ])}>
         {icon && (
           <Svgs
@@ -78,6 +83,34 @@ const Input: FC<TextInputProps & InputProps> = ({
             name={icon}
           />
         )}
+        {isMobile ? (
+          <>
+            <Button
+              onPress={countryButtonHandler}
+              iconStyle={styles.passwordIcon}
+              style={styles.mobileNumberButton}>
+              <Svgs
+                width={scale(20)}
+                height={scale(20)}
+                color={Colors.GRAY_292D32}
+                name="arrow"
+                style={{transform: [{rotate: "90deg"}], marginHorizontal: 10}}
+              />
+
+              <Text fontSize="FS14" fontFamily="MEDIUM" {...labelStyle}>
+                {countryCode}
+              </Text>
+            </Button>
+
+            <Line
+              type="vertical"
+              style={{
+                backgroundColor: "#8C8C8C",
+                height: "35%",
+              }}
+            />
+          </>
+        ) : null}
 
         <TextInput
           placeholderTextColor={Colors.INPUT_TEXT}
@@ -93,7 +126,7 @@ const Input: FC<TextInputProps & InputProps> = ({
           onChangeText={onChangeText}
           style={[
             styles.inputStyle,
-            {textAlign: isRTL() ? "right" : "left"},
+            {textAlign: isRTL() && !isMobile ? "right" : "left"},
             props.inputStyle,
           ]}
         />
@@ -114,16 +147,6 @@ const Input: FC<TextInputProps & InputProps> = ({
             iconName={showPassword ? "showPassword" : "hidePassword"}
             style={styles.passwordButton}
           />
-        )}
-        {true && (
-          <>
-            <Button
-              onPress={onShowPassword}
-              iconStyle={styles.passwordIcon}
-              style={styles.passwordButton}
-            />
-            <Line type="vertical" />
-          </>
         )}
       </View>
       {error && (
