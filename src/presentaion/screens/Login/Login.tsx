@@ -41,8 +41,9 @@ import {
   checkBiometricType,
   confirmBiometric,
 } from "../../../services/biometric";
+import {IconsName} from "../../../assets/svgs";
 
-const socialMediaList: string[] = ["apple", "google", "facebook"];
+const socialMediaList: IconsName[] = ["apple", "google", "facebook"];
 
 const Login = () => {
   const {
@@ -50,7 +51,7 @@ const Login = () => {
   } = useRoute<RouteProp<MainAppStackTypes, "Login">>();
   const {goBack, navigate} =
     useNavigationHooks<MainNavigationAllScreensTypes>();
-  const [isMobile, setIsMobile] = useState<boolean>(true);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
 
   const errorModalRef = React.useRef<BottomSheetModal>(null);
   const countryModalRef = React.useRef<BottomSheetModal>(null);
@@ -70,6 +71,7 @@ const Login = () => {
     setValue,
     handleSubmit,
     clearErrors,
+    getValues,
     formState: {errors},
   } = useForm({
     resolver: yupResolver(AccountLoginSchema),
@@ -121,7 +123,7 @@ const Login = () => {
   const checkBiometricSupport = async () => {
     const biometric = await checkBiometric();
     checkBiometricType(
-      (isSupport: boolean) => {
+      (isSupport: Boolean) => {
         if (biometric && isSupport) {
           setBiometricEnabled(true);
           setBiometricSupport(isSupport);
@@ -147,7 +149,7 @@ const Login = () => {
 
   const onBiometricSubmitPress = () => {
     confirmBiometric(
-      (isValidBiometric: boolean) => {
+      (isValidBiometric: Boolean) => {
         if (isValidBiometric) {
           // completionHandler(
           //   credentials["password"],
@@ -157,57 +159,62 @@ const Login = () => {
           // setLoadingVisible(false);
         }
       },
-      (BreakException: boolean) => {
+      (BreakException: Boolean) => {
         setBiometricSupport(false);
         if (Platform.OS === "ios") {
-          Alert.alert(localizedString(LocalizationKeys.BIOMETRIC_ERROR));
+          Alert.alert("Biometric Error");
         }
       },
     );
   };
 
   const onBiometricActivate = () => {
+    console.warn("3ed");
+
     checkBiometricType(
-      async (isSupport: boolean) => {
+      async (isSupport: Boolean) => {
+        console.warn("3omda");
+
         if (isSupport) {
+          console.warn("emad");
           confirmBiometric(
-            (isValidBiometric: boolean) => {
+            (isValidBiometric: Boolean) => {
               if (isValidBiometric) {
                 console.log("omar");
                 // setIsEnable(true);
                 // enableBiometric();
                 // // updateProfileData(Settings_Type.BIOMETRIC, true)
               } else {
+                console.log("omarr");
+
                 // setIsEnable(false);
                 // updateProfileData(Settings_Type.BIOMETRIC, false)
               }
             },
-            (BreakException: boolean) => {},
+            (BreakException: Boolean) => {
+              console.log(BreakException);
+            },
           );
         } else {
-          Alert.alert(
-            `${""}`,
-            `${localizedString(LocalizationKeys.BIOMETRIC_PERMISSION_DENIED)}`,
-            [
-              {
-                text: `${localizedString(LocalizationKeys.CANCEL)}`,
-                onPress: () => {
-                  setIsEnable(false);
-                },
-                style: "cancel",
+          Alert.alert(`${""}`, `BIOMETRIC_PERMISSION_DENIED`, [
+            {
+              text: `Cancel`,
+              onPress: () => {
+                // setIsEnable(false);
               },
-              {
-                text: `${localizedString(LocalizationKeys.GO_TO_SETTING)}`,
-                onPress: () => {
-                  if (Platform.OS === "ios") {
-                    Linking.openURL("App-Prefs:setting");
-                  } else {
-                    AndroidOpenSettings.generalSettings();
-                  }
-                },
+              style: "cancel",
+            },
+            {
+              text: `Go To Settings`,
+              onPress: () => {
+                if (Platform.OS === "ios") {
+                  Linking.openURL("App-Prefs:setting");
+                } else {
+                  AndroidOpenSettings.generalSettings();
+                }
               },
-            ],
-          );
+            },
+          ]);
         }
       },
       (biometricTypeText: string) => {},
@@ -217,8 +224,19 @@ const Login = () => {
   const onChangeTextHandler = (fieldName: any, text: string) => {
     clearErrors(fieldName);
     setValue(fieldName, text);
-    mobileOrEmailInputChecker(text);
+    // mobileOrEmailInputChecker(text);
   };
+
+  useEffect(() => {
+    const mobileOrEmailInput: string = getValues("mobile");
+    if (
+      mobileOrEmailInput != null ||
+      mobileOrEmailInput !== "" ||
+      String(mobileOrEmailInput).length > 1
+    ) {
+      mobileOrEmailInputChecker(mobileOrEmailInput);
+    }
+  }, [getValues("mobile")]);
 
   const mobileOrEmailInputChecker = (fieldInput: string | number) => {
     const str = String(fieldInput);
@@ -227,11 +245,12 @@ const Login = () => {
     const containsOnlyNumbers = /^\d+$/.test(str);
 
     if (containsOnlyNumbers && str !== "") {
-      console.warn("Input contains only numbers");
+      console.log("Input contains only numbers");
+
       setIsMobile(true);
     } else {
       setIsMobile(false);
-      console.warn(
+      console.log(
         "Input contains characters or a combination of characters and numbers",
       );
     }
@@ -275,7 +294,7 @@ const Login = () => {
         <Input
           placeholder={"ادخل بريدك الالكتروني / رقم التليفون"}
           style={styles.input}
-          keyboardType="phone-pad"
+          keyboardType={isMobile ? "phone-pad" : "default"}
           maxLength={isMobile ? 11 : 100}
           isMobile={isMobile}
           inputContainerStyle={styles.inputContainer}
@@ -304,7 +323,7 @@ const Login = () => {
           />
         </ViewRow>
         <Button
-          onPress={onBiometricActivate}
+          onPress={() => onBiometricActivate()}
           iconName="faceID"
           iconStyle={styles.socialIconStyle}
         />

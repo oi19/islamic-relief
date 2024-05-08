@@ -6,53 +6,54 @@ import {
   // iphoneModelsWithTouchId,
 } from "../helpers";
 import ReactNativeBiometrics from "react-native-biometrics";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import * as all from "react-native-biometrics";
+import AsyncStorage from "@react-native-community/async-storage";
 import {Alert, Platform} from "react-native";
-import deviceInfoModule from "react-native-device-info";
+// import deviceInfoModule from "react-native-device-info";
 import {isIphoneX} from "../styles/dimensions";
 
+console.log(ReactNativeBiometrics["isSensorAvailable"]);
 const checkBiometricType = async (
-  isBiometricSupport: (Boolean) => void,
-  biometricTypeChanged: (string) => void,
+  isBiometricSupport: (arg0: Boolean) => void,
+  biometricTypeChanged: (arg0: string) => void,
 ) => {
-  await ReactNativeBiometrics.isSensorAvailable().then(
-    (biometricObject: {available: any; biometryType: any}) => {
-      const {available, biometryType} = biometricObject;
-      if (available && biometryType === ReactNativeBiometrics.TouchID) {
-        isBiometricSupport(true);
-        biometricTypeChanged(BioMetricType.TOUCH_ID);
-      } else if (available && biometryType === ReactNativeBiometrics.FaceID) {
-        biometricTypeChanged(BioMetricType.FACE_ID);
-        isBiometricSupport(true);
-      } else if (
-        available &&
-        biometryType === ReactNativeBiometrics.Biometrics
+  try {
+    const {available, biometryType} =
+      await ReactNativeBiometrics.isSensorAvailable();
+    if (available && biometryType === ReactNativeBiometrics.TouchID) {
+      isBiometricSupport(true);
+      biometricTypeChanged(BioMetricType.TOUCH_ID);
+    } else if (available && biometryType === ReactNativeBiometrics.FaceID) {
+      biometricTypeChanged(BioMetricType.FACE_ID);
+      isBiometricSupport(true);
+    } else if (available && biometryType === ReactNativeBiometrics.Biometrics) {
+      biometricTypeChanged(BioMetricType.BIOMETRICS);
+      isBiometricSupport(true);
+    } else {
+      isBiometricSupport(false);
+      if (
+        //   Platform.OS == "ios" &&
+        //   iphoneModelsWithTouchId.includes(deviceInfoModule.getModel()) == false
+        isIphoneX()
       ) {
-        biometricTypeChanged(BioMetricType.BIOMETRICS);
-        isBiometricSupport(true);
+        biometricTypeChanged(BioMetricType.FACE_ID);
       } else {
-        isBiometricSupport(false);
-        if (
-          //   Platform.OS == "ios" &&
-          //   iphoneModelsWithTouchId.includes(deviceInfoModule.getModel()) == false
-          isIphoneX()
-        ) {
-          biometricTypeChanged(BioMetricType.FACE_ID);
-        } else {
-          biometricTypeChanged(BioMetricType.TOUCH_ID);
-        }
+        biometricTypeChanged(BioMetricType.TOUCH_ID);
       }
-    },
-  );
+    }
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const confirmBiometric = (
-  isValidBiometric: (Boolean) => void,
-  BreakException: (Boolean) => void,
+  isValidBiometric: (arg0: Boolean) => void,
+  BreakException: (arg0: Boolean) => void,
 ) => {
   ReactNativeBiometrics.simplePrompt({
     promptMessage: " ",
-    cancelButtonText: localizedString(LocalizationKeys.CANCEL),
+    // cancelButtonText: localizedString(LocalizationKeys.CANCEL),
+    cancelButtonText: "Cancel",
   })
     .then(resultObject => {
       const {success} = resultObject;

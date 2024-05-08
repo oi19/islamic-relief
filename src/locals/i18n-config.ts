@@ -22,7 +22,7 @@ export const isRTL = function () {
 I18n.use(initReactI18next).init({
   compatibilityJSON: "v3",
   supportedLngs: ["en", "ar"],
-  lng: I18nManager.isRTL ? "ar" : "ar",
+  lng: I18nManager.isRTL ? "ar" : "en",
   fallbackLng: "ar",
   resources,
   interpolation: {
