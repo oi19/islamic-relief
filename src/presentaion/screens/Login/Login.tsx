@@ -31,8 +31,6 @@ import {userLogin} from "../../../redux";
 import {Colors, Spacing} from "../../../styles";
 import {styles} from "./styles";
 import CountryModal from "../../components/shared/CountryModal/CountryModal";
-import useBiometricAuth from "../../../hooks/useBiometricAuth";
-import useKeychain from "../../../hooks/useKeychain";
 import {UserCredentials} from "react-native-keychain";
 import {retreiveCredentials} from "../../../services/keychain";
 import AndroidOpenSettings from "react-native-android-open-settings";
@@ -40,8 +38,10 @@ import {
   checkBiometric,
   checkBiometricType,
   confirmBiometric,
+  enableBiometric,
 } from "../../../services/biometric";
 import {IconsName} from "../../../assets/svgs";
+import {isValidNumber} from "libphonenumber-js";
 
 const socialMediaList: IconsName[] = ["apple", "google", "facebook"];
 
@@ -64,14 +64,15 @@ const Login = () => {
   const [biometricType, setBiometricType] = useState<string>("");
   const [credentials, setCredentials] = useState<any>();
   const [error, setError] = useState<any>(null);
-
+  const [countryCode, setCountryCode] = useState<string>("+20");
+  const [mobileOrEmailFieldInput, setMobileOrEmailFieldInput] =
+    useState<string>();
   const loginLoader = useLoader("login");
 
   const {
     setValue,
     handleSubmit,
     clearErrors,
-    getValues,
     formState: {errors},
   } = useForm({
     resolver: yupResolver(AccountLoginSchema),
@@ -79,11 +80,16 @@ const Login = () => {
 
   const handleLoginPressed = async (data: LoginTypes) => {
     Keyboard.dismiss();
-    userLogin(data, res => {
-      if (res) {
-        navigate("TabsBottomStack");
-      }
-    });
+    console.warn(errors);
+    onLoginSubmit(data);
+  };
+
+  const onLoginSubmit = (data: LoginTypes) => {
+    // userLogin(data, res => {
+    // if (res) {
+    navigate("TabsBottomStack");
+    // }
+    // });
   };
 
   const onFocuseHandler = () => {
@@ -151,6 +157,7 @@ const Login = () => {
     confirmBiometric(
       (isValidBiometric: Boolean) => {
         if (isValidBiometric) {
+          // onLoginSubmit()
           // completionHandler(
           //   credentials["password"],
           //   navigation,
@@ -169,20 +176,15 @@ const Login = () => {
   };
 
   const onBiometricActivate = () => {
-    console.warn("3ed");
-
     checkBiometricType(
       async (isSupport: Boolean) => {
-        console.warn("3omda");
-
         if (isSupport) {
-          console.warn("emad");
           confirmBiometric(
             (isValidBiometric: Boolean) => {
               if (isValidBiometric) {
                 console.log("omar");
                 // setIsEnable(true);
-                // enableBiometric();
+                enableBiometric();
                 // // updateProfileData(Settings_Type.BIOMETRIC, true)
               } else {
                 console.log("omarr");
@@ -196,16 +198,16 @@ const Login = () => {
             },
           );
         } else {
-          Alert.alert(`${""}`, `BIOMETRIC_PERMISSION_DENIED`, [
+          Alert.alert(`${""}`, `يلزم اضافه اذن البيومترية`, [
             {
-              text: `Cancel`,
+              text: `الغاء`,
               onPress: () => {
                 // setIsEnable(false);
               },
               style: "cancel",
             },
             {
-              text: `Go To Settings`,
+              text: `الذهاب إلى الاعدادات`,
               onPress: () => {
                 if (Platform.OS === "ios") {
                   Linking.openURL("App-Prefs:setting");
@@ -221,32 +223,28 @@ const Login = () => {
     );
   };
 
-  const onChangeTextHandler = (fieldName: any, text: string) => {
-    clearErrors(fieldName);
+  const onChangeTextHandler = (
+    fieldName: "identifier" | "password",
+    text: string,
+  ) => {
+    clearErrors();
+    if (fieldName == "identifier") {
+      mobileOrEmailInputChecker(fieldName, text);
+      return;
+    }
     setValue(fieldName, text);
-    // mobileOrEmailInputChecker(text);
   };
 
-  useEffect(() => {
-    const mobileOrEmailInput: string = getValues("mobile");
-    if (
-      mobileOrEmailInput != null ||
-      mobileOrEmailInput !== "" ||
-      String(mobileOrEmailInput).length > 1
-    ) {
-      mobileOrEmailInputChecker(mobileOrEmailInput);
-    }
-  }, [getValues("mobile")]);
-
-  const mobileOrEmailInputChecker = (fieldInput: string | number) => {
+  const mobileOrEmailInputChecker = (
+    fieldName: "identifier" | "password",
+    fieldInput: any,
+  ) => {
+    let checkedInput = fieldInput;
     const str = String(fieldInput);
-
-    // Use a regular expression to test if the string contains only numbers
     const containsOnlyNumbers = /^\d+$/.test(str);
-
     if (containsOnlyNumbers && str !== "") {
       console.log("Input contains only numbers");
-
+      checkedInput = countryCode + fieldInput;
       setIsMobile(true);
     } else {
       setIsMobile(false);
@@ -254,6 +252,8 @@ const Login = () => {
         "Input contains characters or a combination of characters and numbers",
       );
     }
+    setValue(fieldName, checkedInput);
+    setMobileOrEmailFieldInput(fieldInput);
   };
 
   const signUpPressed = () => {
@@ -262,6 +262,12 @@ const Login = () => {
 
   const handlerforgetPasswordPressed = () => {
     navigate("ForgetPassword");
+  };
+
+  const onCountryModalSelect = (item: any) => {
+    setCountryCode(item?.countryCode);
+    setValue("identifier", countryCode);
+    onCloseCountryModal();
   };
 
   const onCloseCountryModal = () => {
@@ -284,76 +290,85 @@ const Login = () => {
       <ScrollView
         showsVerticalScrollIndicator={false}
         style={styles.content}
-        contentContainerStyle={{justifyContent: "center"}}>
-        <Text fontFamily="BOLD" fontSize="FS24">
-          {"اهلا بك"}
-        </Text>
-        <Text fontFamily="MEDIUM" fontSize="H3" color="INPUT_TEXT">
-          {"تسجيل الدخول لحسابك"}
-        </Text>
-        <Input
-          placeholder={"ادخل بريدك الالكتروني / رقم التليفون"}
-          style={styles.input}
-          keyboardType={isMobile ? "phone-pad" : "default"}
-          maxLength={isMobile ? 11 : 100}
-          isMobile={isMobile}
-          inputContainerStyle={styles.inputContainer}
-          onChangeText={text => onChangeTextHandler("mobile", text)}
-          error={errors?.mobile?.message?.toString()}
-          countryButtonHandler={onOpenCountryModal}
-        />
-        <Input
-          password
-          placeholder={"كلمة المرور "}
-          style={styles.input}
-          inputContainerStyle={styles.inputContainer}
-          onChangeText={text => onChangeTextHandler("password", text)}
-          error={errors?.password?.message?.toString()}
-        />
-
-        <ViewRow style={styles.row}>
-          <Button
-            text={translate("Form.forgotPassword") + "؟"}
-            textStyle={{
-              fontFamily: "BOLD",
-              fontSize: "FS11",
-              color: "PRIMARY",
-            }}
-            onPress={handlerforgetPasswordPressed}
+        contentContainerStyle={{
+          justifyContent: "space-between",
+          flexGrow: 1,
+        }}>
+        <>
+          <Text fontFamily="BOLD" fontSize="FS24">
+            {"اهلا بك"}
+          </Text>
+          <Text fontFamily="MEDIUM" fontSize="H3" color="INPUT_TEXT">
+            {"تسجيل الدخول لحسابك"}
+          </Text>
+          <Input
+            placeholder={"ادخل بريدك الالكتروني / رقم التليفون"}
+            style={styles.input}
+            keyboardType={isMobile ? "phone-pad" : "default"}
+            isMobile={isMobile}
+            inputContainerStyle={styles.inputContainer}
+            onChangeText={text => onChangeTextHandler("identifier", text)}
+            error={errors?.identifier?.message?.toString()}
+            countryButtonHandler={onOpenCountryModal}
+            countryCode={countryCode}
+            value={mobileOrEmailFieldInput}
           />
-        </ViewRow>
-        <Button
-          onPress={() => onBiometricActivate()}
-          iconName="faceID"
-          iconStyle={styles.socialIconStyle}
-        />
-        <Button
-          text={translate("Form.login")}
-          type="standard"
-          onPress={handleSubmit(handleLoginPressed)}
-          style={styles.button}
-        />
-        <ViewRow style={styles.row}>
-          <Line style={styles.line} />
-          <Text fontSize="FS14">{"أو"}</Text>
-          <Line style={styles.line} />
-        </ViewRow>
-
-        <ViewRow style={styles.soicalContainer}>
-          {socialMediaList.map(iconName => {
-            return (
-              <Button
-                iconName={iconName}
-                style={styles.socialButton}
-                iconStyle={styles.socialIconStyle}
+          {isMobile === false ? (
+            <>
+              <Input
+                password
+                placeholder={"كلمة المرور "}
+                style={styles.input}
+                inputContainerStyle={styles.inputContainer}
+                onChangeText={text => onChangeTextHandler("password", text)}
+                error={errors?.password?.message?.toString()}
               />
-            );
-          })}
-        </ViewRow>
+
+              <ViewRow style={styles.row}>
+                <Button
+                  text={translate("Form.forgotPassword") + "؟"}
+                  textStyle={{
+                    fontFamily: "BOLD",
+                    fontSize: "FS11",
+                    color: "PRIMARY",
+                  }}
+                  onPress={handlerforgetPasswordPressed}
+                />
+              </ViewRow>
+            </>
+          ) : null}
+          <Button
+            onPress={() => onBiometricActivate()}
+            iconName="faceID"
+            iconStyle={styles.socialIconStyle}
+          />
+          <Button
+            text={translate("Form.login")}
+            type="standard"
+            onPress={handleSubmit(handleLoginPressed)}
+            style={styles.button}
+          />
+          <ViewRow style={styles.row}>
+            <Line style={styles.line} />
+            <Text fontSize="FS14">{"أو"}</Text>
+            <Line style={styles.line} />
+          </ViewRow>
+
+          <ViewRow style={styles.soicalContainer}>
+            {socialMediaList.map(iconName => {
+              return (
+                <Button
+                  iconName={iconName}
+                  style={styles.socialButton}
+                  iconStyle={styles.socialIconStyle}
+                />
+              );
+            })}
+          </ViewRow>
+        </>
         <ViewRow
           style={{
             justifyContent: "center",
-            // position: "absolute",
             bottom: 0,
           }}>
           <Text fontSize="FS14" style={styles.hintText}>
@@ -373,7 +388,7 @@ const Login = () => {
       </ScrollView>
       <CountryModal
         forwardRef={countryModalRef}
-        onSelect={onCloseCountryModal}
+        onSelect={item => onCountryModalSelect(item)}
         selectedId={0}
       />
 

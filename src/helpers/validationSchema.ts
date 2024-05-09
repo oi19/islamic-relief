@@ -1,5 +1,11 @@
 import * as yup from "yup";
 import {translate} from ".";
+import parsePhoneNumber, {
+  CountryCode,
+  isValidPhoneNumber,
+  NationalNumber,
+  parsePhoneNumberFromString,
+} from "libphonenumber-js";
 
 yup.setLocale({
   mixed: {
@@ -45,13 +51,95 @@ yup.setLocale({
 const phoneRegExp = /^01[0-25]\d{8}$/;
 const uriRegExp = /^(https?|http):\/\/[^\s/$.?#].[^\s]*$/;
 
+export const validatePhoneNumber = (value: string) => {
+  // Parse the phone number
+  const parsedPhoneNumber = parsePhoneNumberFromString(value);
+  console.warn(parsedPhoneNumber?.country);
+  // Adjust the country code as needed
+
+  if (!parsedPhoneNumber) {
+    // Invalid phone number format
+    return "الرجاء إدخال رقم هاتف صالح";
+  }
+
+  // Check if the parsed phone number is valid
+  const isValid = isValidPhoneNumber(
+    parsedPhoneNumber.nationalNumber,
+    parsedPhoneNumber?.country,
+  );
+
+  if (parsedPhoneNumber.country === "EG") {
+    const nationalNumberLength = parsedPhoneNumber.nationalNumber.length;
+    if (nationalNumberLength !== 10 && nationalNumberLength !== 11) {
+      return "الرجاء إدخال رقم هاتف صالح";
+    }
+  }
+
+  // Return appropriate message based on validity
+  return isValid ? "" : "الرجاء إدخال رقم هاتف صالح";
+};
+
 export const AccountLoginSchema = yup.object().shape({
-  mobile: yup
+  identifier: yup
     .string()
-    .trim()
-    .matches(phoneRegExp, translate("validation.enterValidPhoneNumber"))
-    .required(),
-  password: yup.string().min(8).max(24).required(),
+    .required("الرجاء إدخال رقم هاتف صالح أو بريد إلكتروني")
+    .test(
+      "identifier",
+      "الرجاء إدخال رقم هاتف صالح أو بريد إلكتروني",
+      function (value, {parent}) {
+        if (!value) {
+          throw new yup.ValidationError(
+            "الرجاء إدخال رقم هاتف صالح أو بريد إلكتروني",
+            value,
+            "identifier",
+          );
+        }
+
+        // Check if the value consists only of numbers (phone number)
+        if (parsePhoneNumber(value)?.nationalNumber) {
+          const phoneNumberError = validatePhoneNumber(value);
+          if (phoneNumberError) {
+            throw new yup.ValidationError(
+              phoneNumberError,
+              value,
+              "identifier",
+            );
+          }
+        } else {
+          // Validate as an email
+          const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailRegex.test(value)) {
+            throw new yup.ValidationError(
+              "الرجاء إدخال بريد إلكتروني صالح",
+              value,
+              "identifier",
+            );
+          }
+          // Mark password as required when identifier is an email
+          parent.password = yup
+            .string()
+            .min(8)
+            .max(24)
+            .required("كلمة المرور مطلوبة");
+        }
+
+        return true;
+      },
+    ),
+
+  password: yup
+    .string()
+    .test((value, {parent}) => {
+      if (parsePhoneNumber(parent.identifier)?.nationalNumber) {
+        const phoneNumberError = validatePhoneNumber(parent.identifier);
+        if (phoneNumberError) {
+          return false;
+        }
+      }
+    })
+    .min(8)
+    .max(24)
+    .required("كلمة المرور مطلوبة"),
 });
 
 export const userRegisterSchema = yup.object().shape({
