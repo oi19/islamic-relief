@@ -20,11 +20,11 @@ export const styles = StyleSheet.create({
     marginTop: 0,
   },
   input: {
-    marginTop: Spacing.S20,
+    marginTop: Spacing.S16,
   },
   row: {justifyContent: "space-between"},
   button: {
-    marginVertical: Spacing.S8,
+    marginVertical: Spacing.S20,
   },
   buttonGroup: {},
   line: {

@@ -9,7 +9,6 @@ import {
   CompletePatientDetails,
   ConfirmOtp,
   Favorites,
-  ForgetPassword,
   Help,
   ManageCards,
   ManuallyLocation,
@@ -23,9 +22,10 @@ import {
 } from "../screens";
 import Splash from "../presentaion/screens/Splash/Splash";
 import Login from "../presentaion/screens/Login/Login";
+import ForgetPassword from "../presentaion/screens/ForgetPassword/ForgetPassword";
 import AllowLocation from "../screens/AllowLocation";
 import SignUp from "../presentaion/screens/SignUp/SignUp";
-import OTP from "../screens/OTP";
+import OTP from "../presentaion/screens/OTP/OTP";
 import {useToken} from "../hooks";
 import {useAppSelector} from "../redux";
 

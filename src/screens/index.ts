@@ -25,7 +25,7 @@ export {default as Notifications} from "./Notifications";
 export {default as ChatRoom} from "./ChatRoom";
 export {default as Points} from "./Points";
 export {default as Help} from "./Help";
-export {default as ForgetPassword} from "./ForgetPassword";
+// export {default as ForgetPassword} from "./ForgetPassword";
 export {default as ConfirmOtp} from "./ConfirmOtp";
 export {default as ChangePassword} from "./ChangePassword";
 

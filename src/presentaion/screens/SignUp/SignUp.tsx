@@ -1,16 +1,8 @@
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {yupResolver} from "@hookform/resolvers/yup";
-import {RouteProp, useRoute} from "@react-navigation/native";
-import React, {useEffect, useState} from "react";
+import React, {useState} from "react";
 import {useForm} from "react-hook-form";
-import {
-  Alert,
-  Keyboard,
-  Linking,
-  Platform,
-  ScrollView,
-  View,
-} from "react-native";
+import {Keyboard, ScrollView, View} from "react-native";
 import {LoginTypes} from "../../../@types";
 
 import Button from "../../components/shared/Button/Button";
@@ -21,25 +13,16 @@ import ViewRow from "../../components/shared/ViewRow/ViewRow";
 import Header from "../../components/shared/Header";
 import ErrorMessageModal from "../../../components/models/ErrorMessageModal";
 import {translate} from "../../../helpers";
-import {AccountLoginSchema} from "../../../helpers/validationSchema";
+import {AccountSignUpSchema} from "../../../helpers/validationSchema";
 import {useLoader, useNavigationHooks} from "../../../hooks";
-import {
-  MainAppStackTypes,
-  MainNavigationAllScreensTypes,
-} from "../../../navigation/navigation-types";
+import {MainNavigationAllScreensTypes} from "../../../navigation/navigation-types";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+
 import {userLogin} from "../../../redux";
 import {Colors, Spacing} from "../../../styles";
 import {styles} from "./styles";
 import CountryModal from "../../components/shared/CountryModal/CountryModal";
-import {UserCredentials} from "react-native-keychain";
-import {retreiveCredentials} from "../../../services/keychain";
-import AndroidOpenSettings from "react-native-android-open-settings";
-import {
-  checkBiometric,
-  checkBiometricType,
-  confirmBiometric,
-  enableBiometric,
-} from "../../../services/biometric";
+
 import {IconsName} from "../../../assets/svgs";
 
 const socialMediaList: IconsName[] = ["apple", "google", "facebook"];
@@ -51,15 +34,7 @@ const SignUp = () => {
 
   const errorModalRef = React.useRef<BottomSheetModal>(null);
   const countryModalRef = React.useRef<BottomSheetModal>(null);
-  const [isBiometricSupport, setBiometricSupport] = useState<Boolean | null>(
-    null,
-  );
-  const [isBiometricEnabled, setBiometricEnabled] = useState<Boolean | null>(
-    null,
-  );
-  const [biometricType, setBiometricType] = useState<string>("");
-  const [credentials, setCredentials] = useState<any>();
-  const [error, setError] = useState<any>(null);
+
   const [countryCode, setCountryCode] = useState<string>("+20");
   const [mobileOrEmailFieldInput, setMobileOrEmailFieldInput] =
     useState<string>();
@@ -71,12 +46,12 @@ const SignUp = () => {
     clearErrors,
     formState: {errors},
   } = useForm({
-    resolver: yupResolver(AccountLoginSchema),
+    resolver: yupResolver(AccountSignUpSchema),
   });
 
   const handleLoginPressed = async (data: LoginTypes) => {
     Keyboard.dismiss();
-    console.warn(errors);
+
     onLoginSubmit(data);
   };
 
@@ -88,139 +63,8 @@ const SignUp = () => {
     // });
   };
 
-  const onFocuseHandler = () => {
-    // setLoadingVisible(false);
-
-    completionCredentialsHandler(credentials => {
-      return setCredentials(credentials);
-    });
-  };
-
-  const completionCredentialsHandler = (
-    completionFunction: (credentials: UserCredentials) => void,
-  ) => {
-    retreiveCredentials(
-      (credentials: UserCredentials) => {
-        completionFunction(credentials);
-      },
-      (error: any) => {
-        if (error) {
-          // setLoadingVisible(false);
-          // showError(localizedString(LocalizationKeys.LOGIN_FAIL));
-        }
-      },
-    );
-  };
-
-  useEffect(() => {
-    checkBiometricSupport();
-  }, []);
-
-  useEffect(() => {
-    if (error) {
-      // setLoadingVisible(false);
-    }
-  }, [error]);
-
-  const checkBiometricSupport = async () => {
-    const biometric = await checkBiometric();
-    checkBiometricType(
-      (isSupport: Boolean) => {
-        if (biometric && isSupport) {
-          setBiometricEnabled(true);
-          setBiometricSupport(isSupport);
-        } else {
-          setBiometricEnabled(false);
-        }
-      },
-      (biometricTypeText: string) => {
-        setBiometricType(biometricTypeText);
-      },
-    );
-  };
-
-  useEffect(() => {
-    openBiometric();
-  }, [isBiometricSupport, isBiometricEnabled]);
-
-  const openBiometric = async () => {
-    if (isBiometricSupport && isBiometricEnabled) {
-      onBiometricSubmitPress();
-    }
-  };
-
-  const onBiometricSubmitPress = () => {
-    confirmBiometric(
-      (isValidBiometric: Boolean) => {
-        if (isValidBiometric) {
-          // onLoginSubmit()
-          // completionHandler(
-          //   credentials["password"],
-          //   navigation,
-          //   credentials["username"],
-          // );
-          // setLoadingVisible(false);
-        }
-      },
-      (BreakException: Boolean) => {
-        setBiometricSupport(false);
-        if (Platform.OS === "ios") {
-          Alert.alert("Biometric Error");
-        }
-      },
-    );
-  };
-
-  const onBiometricActivate = () => {
-    checkBiometricType(
-      async (isSupport: Boolean) => {
-        if (isSupport) {
-          confirmBiometric(
-            (isValidBiometric: Boolean) => {
-              if (isValidBiometric) {
-                console.log("omar");
-                // setIsEnable(true);
-                enableBiometric();
-                // // updateProfileData(Settings_Type.BIOMETRIC, true)
-              } else {
-                console.log("omarr");
-
-                // setIsEnable(false);
-                // updateProfileData(Settings_Type.BIOMETRIC, false)
-              }
-            },
-            (BreakException: Boolean) => {
-              console.log(BreakException);
-            },
-          );
-        } else {
-          Alert.alert(`${""}`, `يلزم اضافه اذن البيومترية`, [
-            {
-              text: `الغاء`,
-              onPress: () => {
-                // setIsEnable(false);
-              },
-              style: "cancel",
-            },
-            {
-              text: `الذهاب إلى الاعدادات`,
-              onPress: () => {
-                if (Platform.OS === "ios") {
-                  Linking.openURL("App-Prefs:setting");
-                } else {
-                  AndroidOpenSettings.generalSettings();
-                }
-              },
-            },
-          ]);
-        }
-      },
-      (biometricTypeText: string) => {},
-    );
-  };
-
   const onChangeTextHandler = (
-    fieldName: "identifier" | "password",
+    fieldName: "identifier" | "password" | "password_confirmation",
     text: string,
   ) => {
     clearErrors();
@@ -232,7 +76,7 @@ const SignUp = () => {
   };
 
   const mobileOrEmailInputChecker = (
-    fieldName: "identifier" | "password",
+    fieldName: "identifier",
     fieldInput: any,
   ) => {
     let checkedInput = fieldInput;
@@ -252,12 +96,9 @@ const SignUp = () => {
     setMobileOrEmailFieldInput(fieldInput);
   };
 
-  const signUpPressed = () => {
-    navigate("SignUp");
-  };
-
-  const handlerforgetPasswordPressed = () => {
-    navigate("ForgetPassword");
+  const loginPressed = () => {
+    clearErrors();
+    goBack();
   };
 
   const onCountryModalSelect = (item: any) => {
@@ -283,21 +124,22 @@ const SignUp = () => {
         }}
         onBack={goBack}
       />
-      <ScrollView
+      <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
         style={styles.content}
         contentContainerStyle={{
           justifyContent: "space-between",
           flexGrow: 1,
         }}>
-        <>
+        <View>
           <Text fontFamily="BOLD" fontSize="FS24">
             {"اهلا بك"}
           </Text>
           <Text fontFamily="MEDIUM" fontSize="H3" color="INPUT_TEXT">
-            {"تسجيل الدخول لحسابك"}
+            {"انشئ حسابك الان بكل سهولة"}
           </Text>
           <Input
+            key={"signup_mobile"}
             placeholder={"ادخل بريدك الالكتروني / رقم التليفون"}
             style={styles.input}
             keyboardType={isMobile ? "phone-pad" : "default"}
@@ -312,6 +154,7 @@ const SignUp = () => {
           {isMobile === false ? (
             <>
               <Input
+                key={"signup_password"}
                 password
                 placeholder={"كلمة المرور "}
                 style={styles.input}
@@ -319,27 +162,22 @@ const SignUp = () => {
                 onChangeText={text => onChangeTextHandler("password", text)}
                 error={errors?.password?.message?.toString()}
               />
-
-              <ViewRow style={styles.row}>
-                <Button
-                  text={translate("Form.forgotPassword") + "؟"}
-                  textStyle={{
-                    fontFamily: "BOLD",
-                    fontSize: "FS11",
-                    color: "PRIMARY",
-                  }}
-                  onPress={handlerforgetPasswordPressed}
-                />
-              </ViewRow>
+              <Input
+                key={"signup_password_confirmation"}
+                password
+                placeholder={"تأكيد كلمة المرور "}
+                style={styles.input}
+                inputContainerStyle={styles.inputContainer}
+                onChangeText={text =>
+                  onChangeTextHandler("password_confirmation", text)
+                }
+                error={errors?.password_confirmation?.message?.toString()}
+              />
             </>
           ) : null}
+
           <Button
-            onPress={() => onBiometricActivate()}
-            iconName="faceID"
-            iconStyle={styles.socialIconStyle}
-          />
-          <Button
-            text={translate("Form.login")}
+            text={"انشاء حساب"}
             type="standard"
             onPress={handleSubmit(handleLoginPressed)}
             style={styles.button}
@@ -361,27 +199,27 @@ const SignUp = () => {
               );
             })}
           </ViewRow>
-        </>
+        </View>
         <ViewRow
           style={{
             justifyContent: "center",
             bottom: 0,
           }}>
           <Text fontSize="FS14" style={styles.hintText}>
-            {"ليس لديك حساب؟"}
+            {"لديك حساب بالفعل؟  "}
           </Text>
           <Button
-            text={"سجل الان"}
+            text={" تسجيل الدخول"}
             textStyle={{
               color: "PRIMARY",
             }}
-            onPress={signUpPressed}
+            onPress={loginPressed}
           />
           <Text fontSize="FS14" color="PRIMARY">
             {" "}
           </Text>
         </ViewRow>
-      </ScrollView>
+      </KeyboardAwareScrollView>
       <CountryModal
         forwardRef={countryModalRef}
         onSelect={item => onCountryModalSelect(item)}

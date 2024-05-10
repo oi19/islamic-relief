@@ -62,7 +62,7 @@ const Splash: React.FC = () => {
     if (I18n.language !== language) {
       changeLanguage(language);
     } else {
-      navigate("OnBoarding");
+      navigate("Login", {navigateTo: undefined});
     }
   };
 

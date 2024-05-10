@@ -43,12 +43,13 @@ export type MainAppStackTypes = {
   Points: undefined;
   Help: undefined;
   Account: undefined;
-  OTP: {
-    onCompletionCallback: (data: any) => void;
-    onResendCallback: () => void;
-    loadingApi: keyof ApisTypes;
-    resendLoadingApi: keyof ApisTypes;
-  };
+  // OTP: {
+  //   onCompletionCallback: (data: any) => void;
+  //   onResendCallback: () => void;
+  //   loadingApi: keyof ApisTypes;
+  //   resendLoadingApi: keyof ApisTypes;
+  // };
+  OTP: undefined;
 
   ChangePassword: undefined;
   ConfirmOtp: undefined;

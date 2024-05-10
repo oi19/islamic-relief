@@ -34,6 +34,8 @@ import CountryModal from "../../components/shared/CountryModal/CountryModal";
 import {UserCredentials} from "react-native-keychain";
 import {retreiveCredentials} from "../../../services/keychain";
 import AndroidOpenSettings from "react-native-android-open-settings";
+import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
+
 import {
   checkBiometric,
   checkBiometricType,
@@ -55,15 +57,8 @@ const Login = () => {
 
   const errorModalRef = React.useRef<BottomSheetModal>(null);
   const countryModalRef = React.useRef<BottomSheetModal>(null);
-  const [isBiometricSupport, setBiometricSupport] = useState<Boolean | null>(
-    null,
-  );
-  const [isBiometricEnabled, setBiometricEnabled] = useState<Boolean | null>(
-    null,
-  );
+
   const [biometricType, setBiometricType] = useState<string>("");
-  const [credentials, setCredentials] = useState<any>();
-  const [error, setError] = useState<any>(null);
   const [countryCode, setCountryCode] = useState<string>("+20");
   const [mobileOrEmailFieldInput, setMobileOrEmailFieldInput] =
     useState<string>();
@@ -74,102 +69,36 @@ const Login = () => {
     handleSubmit,
     clearErrors,
     formState: {errors},
+
+    reset,
   } = useForm({
     resolver: yupResolver(AccountLoginSchema),
   });
 
   const handleLoginPressed = async (data: LoginTypes) => {
     Keyboard.dismiss();
-    console.warn(errors);
     onLoginSubmit(data);
   };
 
   const onLoginSubmit = (data: LoginTypes) => {
     // userLogin(data, res => {
     // if (res) {
+    console.warn(data);
     navigate("TabsBottomStack");
     // }
     // });
   };
 
-  const onFocuseHandler = () => {
-    // setLoadingVisible(false);
-
-    completionCredentialsHandler(credentials => {
-      return setCredentials(credentials);
-    });
-  };
-
-  const completionCredentialsHandler = (
-    completionFunction: (credentials: UserCredentials) => void,
-  ) => {
+  const completionCredentialsHandler = () => {
     retreiveCredentials(
       (credentials: UserCredentials) => {
-        completionFunction(credentials);
+        console.warn("credentials");
+        onLoginSubmit(credentials);
       },
       (error: any) => {
         if (error) {
           // setLoadingVisible(false);
           // showError(localizedString(LocalizationKeys.LOGIN_FAIL));
-        }
-      },
-    );
-  };
-
-  useEffect(() => {
-    checkBiometricSupport();
-  }, []);
-
-  useEffect(() => {
-    if (error) {
-      // setLoadingVisible(false);
-    }
-  }, [error]);
-
-  const checkBiometricSupport = async () => {
-    const biometric = await checkBiometric();
-    checkBiometricType(
-      (isSupport: Boolean) => {
-        if (biometric && isSupport) {
-          setBiometricEnabled(true);
-          setBiometricSupport(isSupport);
-        } else {
-          setBiometricEnabled(false);
-        }
-      },
-      (biometricTypeText: string) => {
-        setBiometricType(biometricTypeText);
-      },
-    );
-  };
-
-  useEffect(() => {
-    openBiometric();
-  }, [isBiometricSupport, isBiometricEnabled]);
-
-  const openBiometric = async () => {
-    if (isBiometricSupport && isBiometricEnabled) {
-      onBiometricSubmitPress();
-    }
-  };
-
-  const onBiometricSubmitPress = () => {
-    confirmBiometric(
-      (isValidBiometric: Boolean) => {
-        if (isValidBiometric) {
-          // onLoginSubmit()
-          // completionHandler(
-          //   credentials["password"],
-          //   navigation,
-          //   credentials["username"],
-          // );
-          // setLoadingVisible(false);
-        }
-      },
-      (BreakException: Boolean) => {
-        setBiometricSupport(false);
-        if (Platform.OS === "ios") {
-          Alert.alert("Biometric Error");
         }
       },
     );
@@ -182,13 +111,12 @@ const Login = () => {
           confirmBiometric(
             (isValidBiometric: Boolean) => {
               if (isValidBiometric) {
-                console.log("omar");
                 // setIsEnable(true);
                 enableBiometric();
-                // // updateProfileData(Settings_Type.BIOMETRIC, true)
+                onLoginSubmit({});
+                completionCredentialsHandler();
+                // updateProfileData(Settings_Type.BIOMETRIC, true)
               } else {
-                console.log("omarr");
-
                 // setIsEnable(false);
                 // updateProfileData(Settings_Type.BIOMETRIC, false)
               }
@@ -201,9 +129,7 @@ const Login = () => {
           Alert.alert(`${""}`, `يلزم اضافه اذن البيومترية`, [
             {
               text: `الغاء`,
-              onPress: () => {
-                // setIsEnable(false);
-              },
+              onPress: () => {},
               style: "cancel",
             },
             {
@@ -257,6 +183,8 @@ const Login = () => {
   };
 
   const signUpPressed = () => {
+    clearErrors();
+    reset();
     navigate("SignUp");
   };
 
@@ -287,14 +215,14 @@ const Login = () => {
         }}
         onBack={goBack}
       />
-      <ScrollView
+      <KeyboardAwareScrollView
         showsVerticalScrollIndicator={false}
         style={styles.content}
         contentContainerStyle={{
           justifyContent: "space-between",
           flexGrow: 1,
         }}>
-        <>
+        <View>
           <Text fontFamily="BOLD" fontSize="FS24">
             {"اهلا بك"}
           </Text>
@@ -302,6 +230,7 @@ const Login = () => {
             {"تسجيل الدخول لحسابك"}
           </Text>
           <Input
+            key={"login_mobile"}
             placeholder={"ادخل بريدك الالكتروني / رقم التليفون"}
             style={styles.input}
             keyboardType={isMobile ? "phone-pad" : "default"}
@@ -316,6 +245,7 @@ const Login = () => {
           {isMobile === false ? (
             <>
               <Input
+                key={"login_password"}
                 password
                 placeholder={"كلمة المرور "}
                 style={styles.input}
@@ -365,7 +295,7 @@ const Login = () => {
               );
             })}
           </ViewRow>
-        </>
+        </View>
         <ViewRow
           style={{
             justifyContent: "center",
@@ -385,7 +315,7 @@ const Login = () => {
             {" "}
           </Text>
         </ViewRow>
-      </ScrollView>
+      </KeyboardAwareScrollView>
       <CountryModal
         forwardRef={countryModalRef}
         onSelect={item => onCountryModalSelect(item)}
