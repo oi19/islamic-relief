@@ -57,7 +57,14 @@ const ChangePassword = () => {
   const onLoginSubmit = (data: LoginTypes) => {
     // userLogin(data, res => {
     // if (res) {
-    navigate("TabsBottomStack");
+    navigate("CongratsScreen", {
+      isShowSuccessSign: true,
+      isDestructiveButton: false,
+      title: "تم تغيير كلمة السر!",
+      subTitle: "لقد تم تغيير كلمة المرور الخاصة بك بنجاح.",
+      buttonTitle: "العودة إلى تسجيل الدخول",
+      onCompletionHandler: () => navigate("Login", {navigateTo: undefined}),
+    });
     // }
     // });
   };
@@ -122,6 +129,7 @@ const ChangePassword = () => {
           <Button
             text={"إعادة تعيين كلمة المرور"}
             type="standard"
+            textStyle={{fontSize: "FS16"}}
             onPress={handleSubmit(handleLoginPressed)}
             style={styles.button}
           />

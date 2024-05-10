@@ -54,6 +54,14 @@ export type MainAppStackTypes = {
   ChangePassword: undefined;
   ConfirmOtp: undefined;
   ForgetPassword: undefined;
+  CongratsScreen: {
+    isShowSuccessSign: boolean;
+    title: string;
+    subTitle: string;
+    isDestructiveButton: boolean;
+    buttonTitle: string;
+    onCompletionHandler: () => void;
+  };
 
   ChatRoom: {chatData?: ChatType};
 };

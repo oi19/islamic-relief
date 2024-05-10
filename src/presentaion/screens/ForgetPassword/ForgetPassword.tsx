@@ -98,6 +98,7 @@ const ForgetPassword = () => {
           <Button
             text={"إرسال الرمز"}
             type="standard"
+            textStyle={{fontSize: "FS16"}}
             onPress={handleSubmit(handleLoginPressed)}
             style={styles.button}
           />

@@ -33,7 +33,7 @@ const DefaultButton: FC<TouchableOpacityProps & ButtonProps> = memo(
           <Text
             fontSize="H2"
             fontFamily="BOLD"
-            color="PRIMARY1"
+            color="PRIMARY"
             {...props.textStyle}
             style={[
               {

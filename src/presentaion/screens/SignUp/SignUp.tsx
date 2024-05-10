@@ -181,6 +181,7 @@ const SignUp = () => {
             type="standard"
             onPress={handleSubmit(handleLoginPressed)}
             style={styles.button}
+            textStyle={{fontSize: "FS16"}}
           />
           <ViewRow style={styles.row}>
             <Line style={styles.line} />

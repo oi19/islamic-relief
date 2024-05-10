@@ -23,6 +23,7 @@ import Splash from "../presentaion/screens/Splash/Splash";
 import Login from "../presentaion/screens/Login/Login";
 import ForgetPassword from "../presentaion/screens/ForgetPassword/ForgetPassword";
 import ChangePassword from "../presentaion/screens/ChangePassword/ChangePassword";
+import CongratsScreen from "../presentaion/screens/CongratsScreen/CongratsScreen";
 import AllowLocation from "../screens/AllowLocation";
 import SignUp from "../presentaion/screens/SignUp/SignUp";
 import OTP from "../presentaion/screens/OTP/OTP";
@@ -48,6 +49,7 @@ const MainStack = () => {
       <Stack.Screen name="ManuallyLocation" component={ManuallyLocation} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="CongratsScreen" component={CongratsScreen} />
 
       <Stack.Screen name="TabsBottomStack" component={TabButtonsStack} />
       <Stack.Screen name="Account" component={Account} />

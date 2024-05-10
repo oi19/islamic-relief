@@ -43,7 +43,6 @@ import {
   enableBiometric,
 } from "../../../services/biometric";
 import {IconsName} from "../../../assets/svgs";
-import {isValidNumber} from "libphonenumber-js";
 
 const socialMediaList: IconsName[] = ["apple", "google", "facebook"];
 
@@ -277,6 +276,7 @@ const Login = () => {
             type="standard"
             onPress={handleSubmit(handleLoginPressed)}
             style={styles.button}
+            textStyle={{fontSize: "FS16"}}
           />
           <ViewRow style={styles.row}>
             <Line style={styles.line} />

@@ -86,6 +86,7 @@ const OTP = () => {
             text={"تحقق"}
             type="standard"
             onPress={onSubmit}
+            textStyle={{fontSize: "FS16"}}
             style={styles.button}
           />
         </View>
