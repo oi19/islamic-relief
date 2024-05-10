@@ -1,64 +1,54 @@
-import {BottomSheetModal} from "@gorhom/bottom-sheet";
-import {yupResolver} from "@hookform/resolvers/yup";
 import React, {useState} from "react";
-import {useForm} from "react-hook-form";
-import {Keyboard, View} from "react-native";
-import {LoginTypes} from "../../../@types";
+import {BackHandler, Keyboard, View} from "react-native";
 
 import Button from "../../components/shared/Button/Button";
-import Input from "../../components/shared/Input/Input";
 import Text from "../../components/shared/Text/Text";
 import ViewRow from "../../components/shared/ViewRow/ViewRow";
 import Header from "../../components/shared/Header";
-import ErrorMessageModal from "../../../components/models/ErrorMessageModal";
-import {translate} from "../../../helpers";
-import {confirmEmailSchema} from "../../../helpers/validationSchema";
 import {useLoader, useNavigationHooks} from "../../../hooks";
-import {MainNavigationAllScreensTypes} from "../../../navigation/navigation-types";
+import {MainAppStackTypes} from "../../../navigation/navigation-types";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
-import {userLogin} from "../../../redux";
 import {Colors, Spacing} from "../../../styles";
 import {styles} from "./styles";
+import OTPInputPanel from "../../components/common/OTPInputPanel";
 
 const OTP = () => {
-  const {goBack, navigate} =
-    useNavigationHooks<MainNavigationAllScreensTypes>();
+  const {navigate, goBack} = useNavigationHooks<MainAppStackTypes>();
+  const forgetPasswordLoader = useLoader("confirmOtp");
 
-  const errorModalRef = React.useRef<BottomSheetModal>(null);
+  const [otp, setOtp] = React.useState<string>("");
 
-  const loginLoader = useLoader("login");
+  // Handle Back Of Default user
+  React.useEffect(() => {
+    const backAction = () => {
+      goBack();
+      return true; // Prevent default behavior (i.e., don't exit the app)
+    };
 
-  const {
-    setValue,
-    handleSubmit,
-    clearErrors,
-    formState: {errors},
-  } = useForm({
-    resolver: yupResolver(confirmEmailSchema),
-  });
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      backAction,
+    );
 
-  const handleLoginPressed = async (data: any) => {
-    Keyboard.dismiss();
-    onSendOTPHandler(data);
-  };
+    return () => backHandler.remove();
+  }, [goBack]);
 
-  const onSendOTPHandler = (data: LoginTypes) => {
-    // userLogin(data, res => {
-    // if (res) {
-    navigate("OTP");
-    // }
-    // });
-  };
 
-  const onChangeTextHandler = (fieldName: "email", text: string) => {
-    clearErrors();
-    setValue(fieldName, text);
-  };
-
-  const loginPressed = () => {
-    clearErrors();
-    goBack();
+  const onSubmit = () => {
+    if (otp?.length == 4) {
+      navigate("ChangePassword");
+      // confirmDoctorOTP(
+      //   {
+      //     otp,
+      //   },
+      //   res => {
+      //     if (res.status === 200) {
+      //       navigate("ChangePassword");
+      //     }
+      //   },
+      // );
+    }
   };
 
   return (
@@ -80,42 +70,40 @@ const OTP = () => {
         }}>
         <View>
           <Text fontFamily="BOLD" fontSize="FS24">
-            {"نسيت كلمة المرور؟"}
+            {"رمز التأكيد"}
           </Text>
           <Text fontFamily="MEDIUM" fontSize="H3" color="INPUT_TEXT">
-            {"الرجاء إدخال عنوان البريد الإلكتروني المرتبط بحسابك"}
+            {"تم ارسال رمز التأكيد للبريد الالكتروني"}
           </Text>
-          <Input
-            key={"signup_mobile"}
-            placeholder={"ادخل بريدك الالكتروني "}
-            style={styles.input}
-            keyboardType={"default"}
-            inputContainerStyle={styles.inputContainer}
-            onChangeText={text => onChangeTextHandler("email", text)}
-            error={errors?.email?.message?.toString()}
+          <OTPInputPanel
+            isLoading={false}
+            onOTPSubmit={otpText => {
+              setOtp(otpText);
+            }}
+            length={4}
           />
-
           <Button
-            text={"إرسال الرمز"}
+            text={"تحقق"}
             type="standard"
-            onPress={handleSubmit(handleLoginPressed)}
+            onPress={onSubmit}
             style={styles.button}
           />
         </View>
+
         <ViewRow
           style={{
             justifyContent: "center",
             bottom: 0,
           }}>
           <Text fontSize="FS14" style={styles.hintText}>
-            {"تذكرت كلمة المرور؟"}
+            {"لم تتلق الرمز؟ "}
           </Text>
           <Button
-            text={"تسجيل الدخول"}
+            text={"اعادة ارسال"}
             textStyle={{
               color: "PRIMARY",
             }}
-            onPress={loginPressed}
+            // onPress={loginPressed}
           />
           <Text fontSize="FS14" color="PRIMARY">
             {" "}
@@ -123,11 +111,11 @@ const OTP = () => {
         </ViewRow>
       </KeyboardAwareScrollView>
 
-      <ErrorMessageModal
-        forwardRef={errorModalRef}
-        message={translate("Modal.Error")}
-      />
-      {/* {<BlurProgressView loadingDisabled={true} />} */}
+      {/* // <ErrorMessageModal
+      //   forwardRef={errorModalRef}
+      //   message={translate("Modal.Error")}
+      // />
+      // {<BlurProgressView loadingDisabled={true} />} */}
     </View>
   );
 };

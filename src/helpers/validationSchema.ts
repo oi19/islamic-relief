@@ -295,14 +295,15 @@ export const forgetPasswordSchema2 = yup.object().shape({
 });
 
 export const changePasswordSchema = yup.object().shape({
-  password: yup.string().min(8).max(24).required(),
+  password: yup
+    .string()
+    .min(8, "يجب أن تتكون كلمة المرور من الأقل 8 أحرف")
+    .max(24, "يجب أن تتكون كلمة المرور من الأكثر 24 حرف")
+    .required("كلمة المرور مطلوبة"),
   password_confirmation: yup
     .string()
-    .oneOf(
-      [yup.ref("password")],
-      translate("validation.confirmPasswordNotMatch"),
-    )
-    .required(),
+    .oneOf([yup.ref("password")], "تأكيد كلمة المرور لا تتطابق مع كلمة المرور")
+    .required("تأكيد كلمة المرور لا تتطابق مع كلمة المرور"),
 });
 
 export const createItselfAppointmentSchema = yup.object().shape({

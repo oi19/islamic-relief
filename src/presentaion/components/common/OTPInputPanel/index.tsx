@@ -116,7 +116,7 @@ const OTPInputPanel: React.FC<OTPProps> = ({
         renderItem={_renderItem}
         keyExtractor={(_, index) => `otp-item-${index.toString()}`}
         contentContainerStyle={styles.otpContainer}
-        // horizontal={true}
+        horizontal={true}
         inverted={true}
       />
     </View>

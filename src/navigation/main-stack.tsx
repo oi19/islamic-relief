@@ -4,7 +4,6 @@ import {MainAppStackTypes} from "./navigation-types";
 import TabButtonsStack from "./tab-buttons-stack";
 import {
   Account,
-  ChangePassword,
   ChatRoom,
   CompletePatientDetails,
   ConfirmOtp,
@@ -23,6 +22,7 @@ import {
 import Splash from "../presentaion/screens/Splash/Splash";
 import Login from "../presentaion/screens/Login/Login";
 import ForgetPassword from "../presentaion/screens/ForgetPassword/ForgetPassword";
+import ChangePassword from "../presentaion/screens/ChangePassword/ChangePassword";
 import AllowLocation from "../screens/AllowLocation";
 import SignUp from "../presentaion/screens/SignUp/SignUp";
 import OTP from "../presentaion/screens/OTP/OTP";
