@@ -46,10 +46,10 @@ const AddReviewModel: React.FC<AddReviewModelModelProps> = ({forwardRef}) => {
 
   const handleError = (err: unknown) => {
     if (isCancel(err)) {
-      console.warn("cancelled");
+      console.log("cancelled");
       // User cancelled the picker, exit any dialogs or menus and move on
     } else if (isInProgress(err)) {
-      console.warn(
+      console.log(
         "multiple pickers were opened, only the last will be considered",
       );
     } else {
@@ -71,7 +71,7 @@ const AddReviewModel: React.FC<AddReviewModelModelProps> = ({forwardRef}) => {
   };
 
   const onSendReview = async (data: any) => {
-    console.warn("Send Review Button is pressed");
+    console.log("Send Review Button is pressed");
 
     if (doctorProfile?.id) {
       addReview(data, doctorProfile?.id, res => {

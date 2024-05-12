@@ -41,7 +41,7 @@ const DoctorCardDetails: React.FC<DoctorCardDetailsProps> = ({item}) => {
 
   const onFavouritePress = (value?: boolean) => {
     //dispatch action logic updating isFavourite props
-    console.warn("like button  is pressed", value);
+    console.log("like button  is pressed", value);
     if (value) {
       dispatch(addFavourite(item));
     } else {

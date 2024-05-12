@@ -37,7 +37,7 @@ const ManageCards = () => {
       warningModalRef.current?.present();
       return;
     }
-    console.warn(selectedItem.isDefault);
+    console.log(selectedItem.isDefault);
     // bussinessLogicHere
     navigate("CompletePatientDetails");
   };

@@ -116,7 +116,7 @@ const DoctorProfile = () => {
 
   const onFavouritePress = async (value?: boolean) => {
     //dispatch action logic updating isFavourite props
-    console.warn("like button  is pressed", value);
+    console.log("like button  is pressed", value);
     if (value) {
       addToFavourite(id, () => {
         dispatch(setDoctorProfile({is_favourite: true, ...doctorProfile}));

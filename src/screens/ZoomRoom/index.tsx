@@ -62,7 +62,7 @@ const ZoomRoom = () => {
         }}
         onHttpError={syntheticEvent => {
           const {nativeEvent} = syntheticEvent;
-          console.warn(
+          console.log(
             "WebView received error status code: ",
             nativeEvent.statusCode,
           );

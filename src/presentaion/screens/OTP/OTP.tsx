@@ -36,7 +36,6 @@ const OTP = () => {
 
 
   const onSubmit = () => {
-    console.warn(otp)
     if (otp?.length == 4) {
       replace("ChangePassword");
       // confirmDoctorOTP(

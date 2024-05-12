@@ -82,7 +82,7 @@ const Login = () => {
   const onLoginSubmit = (data: LoginTypes) => {
     // userLogin(data, res => {
     // if (res) {
-    console.warn(data);
+    console.log(data);
     navigate("TabsBottomStack");
     // }
     // });
@@ -91,7 +91,7 @@ const Login = () => {
   const completionCredentialsHandler = () => {
     retreiveCredentials(
       (credentials: UserCredentials) => {
-        console.warn("credentials");
+        console.log("credentials");
         onLoginSubmit(credentials);
       },
       (error: any) => {

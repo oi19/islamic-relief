@@ -67,7 +67,7 @@ const ResetPassword = () => {
           replace("Login", {navigateTo: "TabsBottomStack"});
         }
       } else {
-        console.warn("this is response in" + res.data.data.message);
+        console.log("this is response in" + res.data.data.message);
       }
     };
 

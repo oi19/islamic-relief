@@ -168,7 +168,7 @@ export async function requestStoragePermission() {
       console.log("Storage permission denied");
     }
   } catch (error) {
-    console.warn(error);
+    console.log(error);
   }
 }
 

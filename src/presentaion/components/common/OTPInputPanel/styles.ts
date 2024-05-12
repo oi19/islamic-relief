@@ -36,7 +36,7 @@ export const styles = StyleSheet.create({
   },
   input: {
   textAlign: "center",
-    color: Colors.INPUT_TEXT,
+    color: Colors.PRIMARY,
     fontFamily: Typography.BOLD,
     fontSize: Typography.FS24
 

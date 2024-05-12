@@ -57,7 +57,7 @@ const CameraModal = ({
         onSetImage(image);
       }
     } catch (error) {
-      console.warn("cancelled");
+      console.log("cancelled");
     }
   };
 
@@ -74,7 +74,7 @@ const CameraModal = ({
       }
     } catch (error) {
       console.log("Error while opening gallery: ", error);
-      console.warn("cancelled");
+      console.log("cancelled");
     }
   };
 
