@@ -33,6 +33,22 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string></string>
+	<key>NSCameraUsageDescription</key>
+	<string>$(APP_DISPLAY_NAME) wants to access your camera in order to be able to change you profile photo and submit request attachments</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>$(APP_DISPLAY_NAME) wants to access Authentication with TouchId or FaceID</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>$(APP_DISPLAY_NAME) watns to access your location in order to be able to allow you clockin and clockout</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>$(APP_DISPLAY_NAME) watns to access your location in order to be able to allow you clockin and clockout</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>$(APP_DISPLAY_NAME) watns to access your location in order to be able to allow you clockin and clockout</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>$(APP_DISPLAY_NAME) wants to access your microphone in order to be able to submit request attachments</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>$(APP_DISPLAY_NAME) wants to access your camera in order to be able to change you profile photo and submit request attachments</string>
+	<key>NSContactsUsageDescription</key>
+	<string>$(APP_DISPLAY_NAME) wants to access your contacts in order to send invitations</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Cairo-Bold.ttf</string>

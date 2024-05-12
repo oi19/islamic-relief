@@ -12,7 +12,6 @@ import {Alert, Platform} from "react-native";
 // import deviceInfoModule from "react-native-device-info";
 import {isIphoneX} from "../styles/dimensions";
 
-console.log(ReactNativeBiometrics["isSensorAvailable"]);
 const checkBiometricType = async (
   isBiometricSupport: (arg0: Boolean) => void,
   biometricTypeChanged: (arg0: string) => void,
