@@ -86,10 +86,11 @@ const ForgetPassword = () => {
             {"الرجاء إدخال عنوان البريد الإلكتروني المرتبط بحسابك"}
           </Text>
           <Input
+          autoFocus={true}
             key={"signup_mobile"}
             placeholder={"ادخل بريدك الالكتروني "}
             style={styles.input}
-            keyboardType={"default"}
+            keyboardType={"email-address"}
             inputContainerStyle={styles.inputContainer}
             onChangeText={text => onChangeTextHandler("email", text)}
             error={errors?.email?.message?.toString()}
