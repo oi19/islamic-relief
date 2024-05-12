@@ -1,15 +1,20 @@
-import React, {memo} from "react";
-import {
-  FlatList,
-  NativeSyntheticEvent,
-  TextInput,
-  TextInputKeyPressEventData,
-  View,
-} from "react-native";
-
-import {styles} from "./styles";
-
-import {isRTL as rtl} from "../../../../locals/i18n-config";
+import React, { useEffect, useState } from 'react';
+import { TextInput, View, Text, TouchableOpacity, ScrollView, StatusBar, Platform, BackHandler, DeviceEventEmitter, Keyboard } from 'react-native';
+import { useSelector } from 'react-redux';
+import { AsyncStorageKeys } from '../../../../helpers';
+import {styles} from './styles';
+import { useNavigation } from '@react-navigation/native';
+import { CodeField, Cursor, useBlurOnFulfill, useClearByFocusCell, } from 'react-native-confirmation-code-field';
+import BlurProgressView from '../../common/blur-activity-indicator/BlurProgressView';
+// import { setRegistrationAccessToken } from '../../../application/redux/actions/registrationDataAction';
+import { useDispatch } from 'react-redux';
+// import { resetVerificationFlowToken } from '../../../application/redux/actions/verificationTokenActions';
+// import { clearStackHistory } from '../../../navigation/rootNavigator';
+import AsyncStorage from '@react-native-community/async-storage';
+// import { setCurrentUser } from '../../../application/redux/actions/userActions';
+import { resetCredentials } from '../../../../services/keychain';
+import { changeNumberLanguage } from '../../../../helpers';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 interface OTPProps {
   length: number;
@@ -20,107 +25,74 @@ interface OTPProps {
 const OTPInputPanel: React.FC<OTPProps> = ({
   length = 4,
   onOTPSubmit,
-  isLoading,
-}) => {
-  const [otpValues, setOTPValues] = React.useState<string[]>(
-    Array(length).fill(""),
-  );
-  const inputRefs = React.useRef<Array<TextInput | null>>(
-    Array.from({length}, () => null),
-  );
-  const [focusedIndex, setFocusedIndex] = React.useState<number | null>(null);
-
-  const isRTL = rtl();
-  const unfocusAll = () => {
-    inputRefs.current.forEach(ref => {
-      if (ref) {
-        ref.blur();
-      }
+  isLoading,})=>{
+    let navigation = useNavigation()
+    let dispatch = useDispatch()
+    // const { completionHandler, navigationHandler, resendHandler, tokenHandler, phoneNumber } = route.params
+    const [otpValue, setOTPValue] = useState<string>('');
+    const ref = useBlurOnFulfill({ value: otpValue, cellCount: 4 });
+    const [inputprops, getCellOnLayoutHandler] = useClearByFocusCell({
+        value: otpValue,
+        setValue: setOTPValue,
     });
-  };
+ 
 
-  const handleFocus = (index: number) => {
-    // Clear the content of the focused box and the next boxes
-    const updatedOTPValues = [...otpValues];
-    for (let i = index; i < length; i++) {
-      updatedOTPValues[i] = "";
+    // const suspendedUserHanlder = async () => {
+    //     DeviceEventEmitter.emit(EVENTS.LOGOUT)
+    //     await AsyncStorage.removeItem(AsyncStorageKeys.USER_KEY);
+    //     await resetCredentials();
+    //     // dispatch(setCurrentUser(null))
+    // }
+
+    const handleChangeText = (text: string) => {
+            setOTPValue(changeNumberLanguage(text, "en"))
     }
-    setOTPValues(updatedOTPValues);
-    setFocusedIndex(index);
-  };
 
-  const handleBlur = () => {
-    setFocusedIndex(null);
-  };
-
-  const onSubmit = () => {
-    unfocusAll();
-    onOTPSubmit(otpValues.join(""));
-  };
-
-  React.useEffect(() => {
-    const isAllBoxesFilled = otpValues.every(value => value !== "");
-    if (isAllBoxesFilled) {
-      onSubmit();
+    const validateOtpCode = (code: string) => {
+        if (code.length > 3) {
+          Keyboard.dismiss()
+          onOTPSubmit(code)
+        }
     }
-  }, [otpValues]);
 
-  const handleKeyPress = (
-    event: NativeSyntheticEvent<TextInputKeyPressEventData>,
-    index: number,
-  ) => {
-    const {key} = event.nativeEvent;
-    const updatedOTPValues = [...otpValues];
+    useEffect(() => {
+        validateOtpCode(otpValue)
+    }, [otpValue])
 
-    if (key === "Backspace" && index > 0) {
-      // Clear the content of the current box
-      updatedOTPValues[index] = "";
-      setOTPValues(updatedOTPValues);
-
-      // Move the focus to the previous box
-      inputRefs.current[index - 1]?.focus();
-    } else if (key.length === 1) {
-      // Update the current box value
-      updatedOTPValues[index] = key;
-
-      setOTPValues(updatedOTPValues);
-
-      // Move the focus to the next box if available
-      if (index < length - 1) {
-        inputRefs.current[index + 1]?.focus();
-      }
-    }
-  };
-
-  const _renderItem = ({index}: {index: number}) => {
     return (
-      <TextInput
-        key={"OTP_CELL" + index}
-        ref={ref => (inputRefs.current[index] = ref || null)}
-        style={[styles.input, focusedIndex == index && styles.inputFocused]}
-        maxLength={1}
-        keyboardType="numeric"
-        onFocus={() => handleFocus(index)}
-        onBlur={handleBlur}
-        value={otpValues[index]}
-        editable={!isLoading}
-        onKeyPress={event => handleKeyPress(event, index)}
-      />
+
+           
+           
+                    <View style={[styles.otpCode,styles.otpDirectionStyle ]}>
+                        <CodeField
+                            ref={ref}
+                            {...inputprops}
+                            caretHidden={false}
+                            value={changeNumberLanguage(otpValue, "en")}
+                            onChangeText={handleChangeText}
+                            autoFocus={true}
+                            cellCount={4}
+                            rootStyle={styles.codeFieldContainer}
+                            keyboardType="number-pad"
+                            textContentType="oneTimeCode"
+                            renderCell={({ index, symbol, isFocused }) => (
+                             <View style={[styles.inputContainer]}>
+
+<Text
+                                    key={index}
+                                    style={[styles.input]}
+                                    onLayout={getCellOnLayoutHandler(index)}>
+                                    {symbol || (isFocused ? <Cursor /> : '-')}
+                                </Text> 
+
+                             </View>
+                              
+
+                            )}
+                        />
+                     </View>
+                   
+               
     );
-  };
-
-  return (
-    <View style={styles.container}>
-      <FlatList
-        data={otpValues}
-        renderItem={_renderItem}
-        keyExtractor={(_, index) => `otp-item-${index.toString()}`}
-        contentContainerStyle={styles.otpContainer}
-        horizontal={true}
-        inverted={true}
-      />
-    </View>
-  );
-};
-
+}
 export default OTPInputPanel;

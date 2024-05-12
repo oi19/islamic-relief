@@ -191,3 +191,28 @@ export enum BioMetricType {
   FACE_ID = "FaceID",
   BIOMETRICS = "Biometrics",
 }
+
+export const changeNumberLanguage = (number: string, lang: "en"|"ar") => {
+  const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
+  const englishNumerals = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+
+  let convertedNumber = '';
+  if (lang == "en") {
+    for (let i = 0; i < number?.length; i++) {
+      const index = arabicNumerals.indexOf(number[i]);
+      if (index !== -1) {
+        convertedNumber += englishNumerals[index];
+      } else {
+        convertedNumber += number[i];
+      }
+    }
+    return convertedNumber
+  }
+  else {
+    const arabicNumbers =
+      '\u0660\u0661\u0662\u0663\u0664\u0665\u0666\u0667\u0668\u0669';
+    return number?.replace(/[0123456789]/g, d => {
+      return arabicNumbers[d];
+    })
+  }
+};

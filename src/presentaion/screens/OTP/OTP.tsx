@@ -14,7 +14,7 @@ import {styles} from "./styles";
 import OTPInputPanel from "../../components/common/OTPInputPanel";
 
 const OTP = () => {
-  const {navigate, goBack} = useNavigationHooks<MainAppStackTypes>();
+  const {navigate, goBack,replace} = useNavigationHooks<MainAppStackTypes>();
   const forgetPasswordLoader = useLoader("confirmOtp");
 
   const [otp, setOtp] = React.useState<string>("");
@@ -36,8 +36,9 @@ const OTP = () => {
 
 
   const onSubmit = () => {
+    console.warn(otp)
     if (otp?.length == 4) {
-      navigate("ChangePassword");
+      replace("ChangePassword");
       // confirmDoctorOTP(
       //   {
       //     otp,
