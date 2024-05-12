@@ -7,11 +7,11 @@
 #define TIMEOUT_SECONDS 600
 #define TEXT_TO_LOOK_FOR @"Welcome to React"
 
-@interface islamic_reliefTests : XCTestCase
+@interface IslamicReliefTests : XCTestCase
 
 @end
 
-@implementation islamic_reliefTests
+@implementation IslamicReliefTests
 
 - (BOOL)findSubviewInView:(UIView *)view matching:(BOOL (^)(UIView *view))test
 {

@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
   },
   content: {
     // marginTop: getHeight(250),
-    paddingHorizontal: Spacing.S20,
+    marginHorizontal: Spacing.S20,
     width: "100%",
     alignItems: "center",
     position: "absolute",

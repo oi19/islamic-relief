@@ -73,9 +73,9 @@ android {
 
     compileSdkVersion rootProject.ext.compileSdkVersion
 
-    namespace "com.islamic_relief"
+    namespace "com.IslamicRelief"
     defaultConfig {
-        applicationId "com.islamic_relief"
+        applicationId "com.IslamicRelief"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

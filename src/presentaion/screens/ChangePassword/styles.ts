@@ -62,7 +62,7 @@ export const styles = StyleSheet.create({
   },
   content: {
     marginTop: Spacing.S40,
-    paddingHorizontal: Spacing.S20,
+    marginHorizontal: Spacing.S20,
   },
   inputContainer: {
     borderWidth: 1,

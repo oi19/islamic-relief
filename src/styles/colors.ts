@@ -67,7 +67,8 @@ export const GREEN_E2F2E8 = "#E2F2E8";
 export const BLUE_4A5970 = "#4A5970";
 
 // GRAY COLORS
-export const INPUT_BACKGROUND = " #F7F8F9";
+export const INPUT_BACKGROUND = "#F7F8F9"
+
 export const INPUT_BORDER = "#E8ECF4";
 export const INPUT_TEXT = "#8391A1";
 export const line = "#EAEDEF";
