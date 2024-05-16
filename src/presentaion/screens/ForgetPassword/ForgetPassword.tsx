@@ -65,6 +65,7 @@ const ForgetPassword = () => {
     <View style={styles.rootScreen}>
       <Header
         title={" "}
+        authHeader={true}
         style={{
           backgroundColor: Colors.WHITE,
           paddingHorizontal: Spacing.S16,
@@ -86,7 +87,7 @@ const ForgetPassword = () => {
             {"الرجاء إدخال عنوان البريد الإلكتروني المرتبط بحسابك"}
           </Text>
           <Input
-          autoFocus={true}
+            autoFocus={true}
             key={"signup_mobile"}
             placeholder={"ادخل بريدك الالكتروني "}
             style={styles.input}

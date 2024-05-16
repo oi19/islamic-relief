@@ -1,7 +1,8 @@
 import React from "react";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {HomeStackTypes} from "./navigation-types";
-import {DoctorProfile, Home, Search, SpecialDetails} from "../screens";
+import {DoctorProfile, Search, SpecialDetails} from "../screens";
+import Home from "../presentaion/screens/Home";
 
 const HomeStack = () => {
   const Stack = createNativeStackNavigator<HomeStackTypes>();

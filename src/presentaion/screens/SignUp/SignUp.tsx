@@ -118,6 +118,7 @@ const SignUp = () => {
     <View style={styles.rootScreen}>
       <Header
         title={" "}
+        authHeader={true}
         style={{
           backgroundColor: Colors.WHITE,
           paddingHorizontal: Spacing.S16,

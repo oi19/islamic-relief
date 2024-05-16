@@ -5,8 +5,7 @@ import {getHeight, getWidth, scale} from "../../../styles/dimensions";
 export const styles = StyleSheet.create({
   rootScreen: {
     flex: 1,
-    backgroundColor: "white",
-    paddingTop: Spacing.S40,
+    backgroundColor: Colors.WHITE,
   },
   closeButton: {
     borderColor: Colors.PRIMARY,

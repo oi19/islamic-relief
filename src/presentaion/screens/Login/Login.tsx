@@ -208,6 +208,7 @@ const Login = () => {
     <View style={styles.rootScreen}>
       <Header
         title={" "}
+        authHeader={true}
         style={{
           backgroundColor: Colors.WHITE,
           paddingHorizontal: Spacing.S16,
@@ -270,6 +271,11 @@ const Login = () => {
             onPress={() => onBiometricActivate()}
             iconName="faceID"
             iconStyle={styles.socialIconStyle}
+            style={{
+              alignItems: "center",
+              justifyContent: "center",
+              backgroundColor: "red",
+            }}
           />
           <Button
             text={translate("Form.login")}

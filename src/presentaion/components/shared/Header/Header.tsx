@@ -9,17 +9,27 @@ import {getHeight, getWidth} from "../../../../styles/dimensions";
 import Button from "../Button/Button";
 import Image from "../Image";
 import styles from "./styles";
+import {Spacing} from "../../../../styles";
 
 type DefaultHeaderProps = {
   title?: string;
+  authHeader?: boolean;
   renderHeaderSideIcons?: () => React.ReactNode;
 };
 
 const DefaultHeader: FC<TouchableOpacityProps & DefaultHeaderProps> = memo(
-  ({title, renderHeaderSideIcons, ...props}) => {
+  ({title, authHeader = false, renderHeaderSideIcons, ...props}) => {
     const {goBack} = useNavigationHooks<MainAppStackTypes>();
     return (
-      <View style={StyleSheet.flatten([styles.headerContainer, props.style])}>
+      <View
+        style={StyleSheet.flatten([
+          styles.headerContainer,
+          {
+            elevation: authHeader ? 0 : 10,
+            marginTop: authHeader ? Spacing.S40 : 0,
+          },
+          props.style,
+        ])}>
         <View
           style={[
             styles.row,

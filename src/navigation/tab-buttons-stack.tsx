@@ -26,32 +26,34 @@ function TabButtonsStack() {
       }}
       tabBar={(props: any) => <TabBottomComponent {...props} />}>
       <Tab.Screen
+        initialParams={{icon: "home", text: translate("Home")}}
+        name="HomeStack"
+        component={HomeStack}
+      />
+      {/* <Tab.Screen
         initialParams={{icon: "document", text: translate("My Activity")}}
         name="MyActivityStack"
         component={MyAppointmentStack}
-      />
+      /> */}
       <Tab.Screen
         initialParams={{icon: "chat", text: translate("Chat")}}
         name="ChatStackTypes"
         component={ChatStack}
       />
-      <Tab.Screen
-        initialParams={{icon: "home", text: translate("Home")}}
-        name="HomeStack"
-        component={HomeStack}
-      />
-      <Tab.Screen
-        initialParams={{icon: "profile", text: translate("Profile")}}
-        name="Profile"
-        component={Profile}
-      />
-      <Tab.Screen
+
+      {/* <Tab.Screen
         initialParams={{
           icon: "notifications",
           text: translate("Notifications"),
         }}
         name="Notifications"
         component={Notifications}
+      /> */}
+
+      <Tab.Screen
+        initialParams={{icon: "profile", text: translate("Profile")}}
+        name="Profile"
+        component={Profile}
       />
     </Tab.Navigator>
   );

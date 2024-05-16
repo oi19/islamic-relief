@@ -4,15 +4,13 @@ import {getHeight, getWidth, scale} from "../../../../styles/dimensions";
 const styles = StyleSheet.create({
   headerContainer: {
     width: "100%",
-    height: getHeight(86),
+    height: 86,
     justifyContent: "center",
     alignItems: "flex-start",
     // position: "absolute",
     // zIndex: 10,
     paddingHorizontal: scale(16),
-    backgroundColor: Colors.RED,
-    borderBottomRightRadius: scale(15),
-    borderBottomLeftRadius: scale(15),
+    backgroundColor: Colors.WHITE,
   },
   header: {
     position: "absolute",

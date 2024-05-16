@@ -10,7 +10,7 @@ import {
 const styles = StyleSheet.create({
   buttonItem: {
     width: getWidth() / 5,
-    height: getHeight(90),
+    height: 78,
 
     flex: 1,
     justifyContent: "center",
@@ -32,15 +32,13 @@ const styles = StyleSheet.create({
 
     justifyContent: "space-between",
     position: "absolute",
-    borderRadius: 100,
+    // borderRadius: 100,
     left: 0,
     bottom: 0,
     right: 0,
     borderTopWidth: 0,
     backgroundColor: Colors.TRANSPARENT,
-    height: getHeight(90),
-    // borderRadius: 12,
-
+    height: 78,
     shadowColor: Colors.BLACK,
     shadowOffset: {
       width: 0,
@@ -71,8 +69,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     width: scale(70),
-    height: scale(70),
-    borderRadius: scale(50),
+    height: 70,
+    // borderRadius: scale(50),
   },
 });
 

@@ -11,6 +11,7 @@ const Header: FC<{
   y?: SharedValue<number>;
   title?: string;
   placeholder?: string;
+  authHeader?: boolean;
   onReset?: () => void;
   onFilter?: () => void;
   onBack?: () => void;

@@ -6,7 +6,6 @@ export const styles = StyleSheet.create({
   rootScreen: {
     flex: 1,
     backgroundColor: "white",
-    paddingTop: Spacing.S40,
   },
   closeButton: {
     borderColor: Colors.PRIMARY,

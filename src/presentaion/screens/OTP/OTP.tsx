@@ -14,7 +14,7 @@ import {styles} from "./styles";
 import OTPInputPanel from "../../components/common/OTPInputPanel";
 
 const OTP = () => {
-  const {navigate, goBack,replace} = useNavigationHooks<MainAppStackTypes>();
+  const {navigate, goBack, replace} = useNavigationHooks<MainAppStackTypes>();
   const forgetPasswordLoader = useLoader("confirmOtp");
 
   const [otp, setOtp] = React.useState<string>("");
@@ -33,7 +33,6 @@ const OTP = () => {
 
     return () => backHandler.remove();
   }, [goBack]);
-
 
   const onSubmit = () => {
     if (otp?.length == 4) {
@@ -55,6 +54,7 @@ const OTP = () => {
     <View style={styles.rootScreen}>
       <Header
         title={" "}
+        authHeader={true}
         style={{
           backgroundColor: Colors.WHITE,
           paddingHorizontal: Spacing.S16,

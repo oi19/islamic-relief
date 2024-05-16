@@ -1,28 +1,26 @@
 import React from "react";
 import {ListRenderItem, View} from "react-native";
 
-import {Doctor, ServiceType} from "../../@types";
-import {Svgs} from "../../assets";
-import {
-  Button,
-  DoctorCard,
-  Header,
-  Scroll,
-  Section,
-  ServiceItem,
-  Text,
-} from "../../components";
-import {serviceList} from "../../dummyData";
-import {useNavigationHooks, useToken} from "../../hooks";
-import {MainNavigationAllScreensTypes} from "../../navigation/navigation-types";
-import {Colors, Spacing} from "../../styles";
-import {getHeight, getWidth} from "../../styles/dimensions";
+import {Doctor, ServiceType} from "../../../@types";
+import {Svgs} from "../../../assets";
+import {DoctorCard, Scroll, Section, ServiceItem} from "../../../components";
+import Button from "../../components/shared/Button/Button";
+import Header from "../../components/shared/Header";
+import Text from "../../components/shared/Text/Text";
+
+import {serviceList} from "../../../dummyData";
+import {useNavigationHooks, useToken} from "../../../hooks";
+import {MainNavigationAllScreensTypes} from "../../../navigation/navigation-types";
+import {Colors, Spacing} from "../../../styles";
+import {getHeight, getWidth} from "../../../styles/dimensions";
 import {styles} from "./styles";
-import {translate} from "../../helpers";
+import {translate} from "../../../helpers";
 
 import {useFocusEffect} from "@react-navigation/native";
-import {getHomePageData, getUserProfile, useAppSelector} from "../../redux";
-import HeaderSection from "../../presentaion/components/shared/HeaderSection/HeaderSection";
+import {getHomePageData, getUserProfile, useAppSelector} from "../../../redux";
+import HeaderSection from "../../../presentaion/components/shared/HeaderSection/HeaderSection";
+import ViewRow from "../../components/shared/ViewRow/ViewRow";
+import Image from "../../components/shared/Image";
 
 const Home = () => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
@@ -57,10 +55,72 @@ const Home = () => {
   const topRatedDoctor: ListRenderItem<Doctor> = ({item, index}) => {
     return <DoctorCard item={item} index={index} />;
   };
+
+  const renderHeaderEndIcons = () => {
+    return (
+      <ViewRow
+        style={
+          {
+            // flexDirection: "row-reverse",
+            // flex: 1,
+            // marginHorizontal: Spacing.S16,
+          }
+        }>
+        <Button>
+          <Svgs
+            strokeWidth={2}
+            name="notifications"
+            // style={{marginEnd: getWidth(20)}}
+          />
+        </Button>
+        <Button>
+          <Svgs
+            strokeWidth={2}
+            name="search"
+            // style={{marginEnd: getWidth(50)}}
+          />
+        </Button>
+      </ViewRow>
+    );
+  };
+
+  const renderHeaderStartIcons = () => {
+    return (
+      <ViewRow
+        style={{
+          justifyContent: "space-between",
+        }}>
+        <View>
+          <Image
+            resizeMode="contain"
+            style={{width: 24}}
+            source={require("../../../assets/images/logo.png")}
+          />
+        </View>
+
+        <View
+          style={{
+            flexDirection: "row",
+          }}>
+          <Button>
+            <Svgs
+              strokeWidth={2}
+              name="search"
+              style={{marginEnd: getWidth(10)}}
+            />
+          </Button>
+          <Button>
+            <Svgs strokeWidth={2} name="notifications" />
+          </Button>
+        </View>
+      </ViewRow>
+    );
+  };
   return (
     <View style={styles.rootScreen}>
-      {/* <Header style={{height: getHeight(130), paddingTop: Spacing.S20}} /> */}
       <Header
+        style={{height: 100, paddingTop: Spacing.S20}}
+        renderHeaderSideIcons={renderHeaderStartIcons}
       />
 
       <View style={styles.container}>
