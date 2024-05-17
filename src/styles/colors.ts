@@ -3,6 +3,7 @@ export type ColorsTypes = {
   INPUT_BACKGROUND: string;
   INPUT_TEXT: string;
   LINE: string;
+  PROGRESS_BAR: string;
   PRIMARY: string;
   PRIMARY1: string;
   PRIMARY2: string;
@@ -47,6 +48,8 @@ export const PRIMARY = "#2F76BC";
 export const PRIMARY1 = "#FABC99";
 export const PRIMARY2 = "#FF9E2D";
 
+export const PROGRESS_BAR = "#29976A";
+
 export const ORANGE_FDEEDE = "#FDEEDE";
 export const ORANGE_FEF3F2 = "#FEF3F2";
 export const WHITE = "#FFFFFF";
@@ -67,7 +70,7 @@ export const GREEN_E2F2E8 = "#E2F2E8";
 export const BLUE_4A5970 = "#4A5970";
 
 // GRAY COLORS
-export const INPUT_BACKGROUND = "#F7F8F9"
+export const INPUT_BACKGROUND = "#F7F8F9";
 
 export const INPUT_BORDER = "#E8ECF4";
 export const INPUT_TEXT = "#8391A1";

@@ -1,41 +1,37 @@
-import React, {useEffect, useState} from "react";
-import {View, Text, StyleSheet, Animated, I18nManager} from "react-native";
+import React, {useEffect, useRef} from "react";
+import {View, Text, StyleSheet, Animated} from "react-native";
 import {Easing} from "react-native-reanimated";
 import {Colors, Spacing} from "../../../../styles";
 import {getHeight} from "../../../../styles/dimensions";
 
 interface AppLoadingProgressBarProps {
   onCompletion: () => void;
-  progressValue?: number;
+  progressPercentage: number;
 }
 
 const AppLoadingProgressBar: React.FC<AppLoadingProgressBarProps> = ({
   onCompletion,
-  ...props
+  progressPercentage,
 }) => {
-  const [progress] = useState(new Animated.Value(0));
+  const progress = useRef(new Animated.Value(0)).current;
 
   useEffect(() => {
     const animateProgress = () => {
       Animated.timing(progress, {
-        toValue: 1,
-        duration: 2000,
+        toValue: progressPercentage,
+        duration: 500,
         easing: Easing.linear,
-        useNativeDriver: true,
+        useNativeDriver: false, // Use false to animate the width
       }).start(finished => {
         // Call onCompletion when the animation is complete
-        if (finished && onCompletion) {
+        if (finished && progressPercentage === 100 && onCompletion) {
           onCompletion();
         }
       });
     };
 
     animateProgress();
-
-    return () => {
-      progress.removeAllListeners();
-    };
-  }, []);
+  }, [progressPercentage]);
 
   return (
     <View style={styles.container}>
@@ -44,18 +40,13 @@ const AppLoadingProgressBar: React.FC<AppLoadingProgressBarProps> = ({
           style={[
             styles.progressBar,
             {
-              transform: [
-                {
-                  translateX: progress.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0, 200],
-                  }),
-                },
-              ],
+              width: progress.interpolate({
+                inputRange: [0, 100],
+                outputRange: ["0%", "100%"],
+              }),
             },
           ]}
         />
-        <Text style={styles.loadingText}>Loading...</Text>
       </View>
     </View>
   );
@@ -70,17 +61,15 @@ const styles = StyleSheet.create({
     marginBottom: getHeight(10),
   },
   progressBarContainer: {
-    width: "100%",
-    height: getHeight(10),
-    backgroundColor: Colors.PRIMARY,
+    width: "100%", // Use 100% to be responsive
+    height: 6,
+    backgroundColor: Colors.WHITE,
     borderRadius: 5,
     overflow: "hidden",
-    borderWidth: 1,
-    borderColor: Colors.BLACK,
   },
   progressBar: {
     height: "100%",
-    backgroundColor: Colors.WHITE,
+    backgroundColor: Colors.PROGRESS_BAR,
   },
 });
 

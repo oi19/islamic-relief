@@ -21,6 +21,7 @@ import {getHomePageData, getUserProfile, useAppSelector} from "../../../redux";
 import HeaderSection from "../../../presentaion/components/shared/HeaderSection/HeaderSection";
 import ViewRow from "../../components/shared/ViewRow/ViewRow";
 import Image from "../../components/shared/Image";
+import {CampainSectionCard} from "../../components/common/CampainSection/CampainSection";
 
 const Home = () => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
@@ -56,32 +57,8 @@ const Home = () => {
     return <DoctorCard item={item} index={index} />;
   };
 
-  const renderHeaderEndIcons = () => {
-    return (
-      <ViewRow
-        style={
-          {
-            // flexDirection: "row-reverse",
-            // flex: 1,
-            // marginHorizontal: Spacing.S16,
-          }
-        }>
-        <Button>
-          <Svgs
-            strokeWidth={2}
-            name="notifications"
-            // style={{marginEnd: getWidth(20)}}
-          />
-        </Button>
-        <Button>
-          <Svgs
-            strokeWidth={2}
-            name="search"
-            // style={{marginEnd: getWidth(50)}}
-          />
-        </Button>
-      </ViewRow>
-    );
+  const _renderImportantFundsItem: ListRenderItem<any> = () => {
+    return <></>;
   };
 
   const renderHeaderStartIcons = () => {
@@ -97,7 +74,6 @@ const Home = () => {
             source={require("../../../assets/images/logo.png")}
           />
         </View>
-
         <View
           style={{
             flexDirection: "row",
@@ -116,6 +92,7 @@ const Home = () => {
       </ViewRow>
     );
   };
+
   return (
     <View style={styles.rootScreen}>
       <Header
@@ -147,11 +124,40 @@ const Home = () => {
         <Scroll>
           {/* Our Service Section List */}
           <Section
-            title={translate("Home.ourServices")}
-            numColumns={2}
-            renderItem={OurServiceItem}
+            // title={translate("Home.ourServices")}
+            renderItem={() => (
+              <CampainSectionCard
+                data={[1, 2, 3]}
+                isLoading={false}
+                index={0}
+                type={"target"}
+                backgroundType={"image"}
+              />
+            )}
             data={serviceList}
-            horizontal={false}
+            horizontal={true}
+          />
+          <CampainSectionCard
+            data={[]}
+            isLoading={false}
+            index={0}
+            type={"target"}
+            backgroundType={"image"}
+          />
+          <Section
+            title={translate("Home.ourServices")}
+            // numColumns={2}
+            renderItem={item => (
+              <CampainSectionCard
+                data={[]}
+                isLoading={false}
+                index={0}
+                type={"target"}
+                backgroundType={"video"}
+              />
+            )}
+            data={[]}
+            horizontal={true}
           />
           {/* Sign up Card*/}
 

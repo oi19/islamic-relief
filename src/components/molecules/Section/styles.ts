@@ -14,12 +14,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: Spacing.S16,
   },
   contentContainerStyle: {
-    paddingRight: Spacing.S35,
-    paddingLeft: Spacing.S11,
+    paddingHorizontal: Spacing.S16,
     paddingTop: Spacing.S8,
     minWidth: getWidth(),
     paddingBottom: Spacing.S20,
     alignItems: "center",
+    justifyContent: "flex-start",
+    backgroundColor: "red",
   },
   contentVerticalContainerStyle: {
     paddingBottom: Spacing.S20,

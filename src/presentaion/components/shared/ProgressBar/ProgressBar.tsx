@@ -1,18 +1,20 @@
-import React, { FC, memo } from "react"
-import AppLoadingProgressBar from "./AppLoadingProgressBar"
-import SegmentedProgressBar from "./SegmentedProgressBar"
+import React, {FC, memo} from "react";
+import AppLoadingProgressBar from "./AppLoadingProgressBar";
+import SegmentedProgressBar from "./SegmentedProgressBar";
 
 export type ProgressBarProps = {
-  type?: "segmented" | "appLoading"
-  totalSteps: number
-  currentStep: number
-  onCompletion: () => void
-}
+  type?: "segmented" | "appLoading";
+  totalSteps?: number;
+  currentStep?: number;
+  progressPercentage?: number;
+  onCompletion?: () => void;
+};
 
 const ProgressBar: FC<ProgressBarProps> = ({
   type,
   totalSteps,
   currentStep,
+  progressPercentage,
   onCompletion,
   ...props
 }) => {
@@ -20,19 +22,21 @@ const ProgressBar: FC<ProgressBarProps> = ({
     case "segmented":
       return (
         <SegmentedProgressBar
-          totalSteps={totalSteps}
-          currentStep={currentStep}
+          totalSteps={totalSteps!}
+          currentStep={currentStep!}
           {...props}
         />
-      )
+      );
     case "appLoading":
       return (
         <AppLoadingProgressBar
-          progressValue={currentStep}
-          onCompletion={onCompletion}
+          progressPercentage={progressPercentage!}
+          onCompletion={() => {
+            onCompletion && onCompletion();
+          }}
           {...props}
         />
-      )
+      );
     default:
       return (
         <SegmentedProgressBar
@@ -40,8 +44,8 @@ const ProgressBar: FC<ProgressBarProps> = ({
           currentStep={currentStep}
           {...props}
         />
-      )
+      );
   }
-}
+};
 
-export default memo(ProgressBar)
+export default memo(ProgressBar);

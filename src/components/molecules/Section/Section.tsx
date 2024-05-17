@@ -40,7 +40,7 @@ const Section: FC<
           horizontal
           initialNumToRender={100}
           contentContainerStyle={styles.contentContainerStyle}
-          data={data.slice(0, 26)}
+          data={data}
           {...props}
         />
       );
