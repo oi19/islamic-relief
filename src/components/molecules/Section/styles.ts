@@ -3,11 +3,12 @@ import {Spacing} from "../../../styles";
 import {getWidth} from "../../../styles/dimensions";
 const styles = StyleSheet.create({
   sectionContainer: {
-    width: getWidth(363),
+    width: "100%",
     // alignItems: "center",
   },
   headerSection: {
     alignItems: "center",
+    paddingStart: Spacing.S16,
     // marginTop: Spacing.S8,
   },
   viewAllButton: {
@@ -20,7 +21,6 @@ const styles = StyleSheet.create({
     paddingBottom: Spacing.S20,
     alignItems: "center",
     justifyContent: "flex-start",
-    backgroundColor: "red",
   },
   contentVerticalContainerStyle: {
     paddingBottom: Spacing.S20,

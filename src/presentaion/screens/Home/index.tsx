@@ -21,7 +21,12 @@ import {getHomePageData, getUserProfile, useAppSelector} from "../../../redux";
 import HeaderSection from "../../../presentaion/components/shared/HeaderSection/HeaderSection";
 import ViewRow from "../../components/shared/ViewRow/ViewRow";
 import Image from "../../components/shared/Image";
-import {CampainSectionCard} from "../../components/common/CampainSection/CampainSection";
+import {
+  CampainSection,
+  ImportantFundsSections,
+  NewsSection,
+  SadakatSection,
+} from "../../components/common/CampainSection/CampainSection";
 
 const Home = () => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
@@ -55,10 +60,6 @@ const Home = () => {
 
   const topRatedDoctor: ListRenderItem<Doctor> = ({item, index}) => {
     return <DoctorCard item={item} index={index} />;
-  };
-
-  const _renderImportantFundsItem: ListRenderItem<any> = () => {
-    return <></>;
   };
 
   const renderHeaderStartIcons = () => {
@@ -103,66 +104,13 @@ const Home = () => {
       <View style={styles.container}>
         {/* Search Section  */}
 
-        <View style={styles.searchContainer}>
-          <Button
-            type="default"
-            iconName="search"
-            style={styles.searchButton}
-            text={translate("Home.searchTitle")}
-            onPress={() => navigate("Search")}
-            textStyle={{color: "GRAY_A7A7A7", fontSize: "FS14"}}
-            iconStyle={{
-              color: Colors.GRAY_A7A7A7,
-            }}
-          />
-          <Button
-            iconName="notifications"
-            iconContainerStyle={styles.iconContainerStyle}
-            style={styles.notifications}
-          />
-        </View>
         <Scroll>
-          {/* Our Service Section List */}
-          <Section
-            // title={translate("Home.ourServices")}
-            renderItem={() => (
-              <CampainSectionCard
-                data={[1, 2, 3]}
-                isLoading={false}
-                index={0}
-                type={"target"}
-                backgroundType={"image"}
-              />
-            )}
-            data={serviceList}
-            horizontal={true}
-          />
-          <CampainSectionCard
-            data={[]}
-            isLoading={false}
-            index={0}
-            type={"target"}
-            backgroundType={"image"}
-          />
-          <Section
-            title={translate("Home.ourServices")}
-            // numColumns={2}
-            renderItem={item => (
-              <CampainSectionCard
-                data={[]}
-                isLoading={false}
-                index={0}
-                type={"target"}
-                backgroundType={"video"}
-              />
-            )}
-            data={[]}
-            horizontal={true}
-          />
-          {/* Sign up Card*/}
+          <CampainSection data={[1, 2, 3]} isLoading={false} />
+          <ImportantFundsSections data={[1, 2, 3, 4, 5, 6]} isLoading={true} />
+          <NewsSection data={[1, 2, 3, 4, 5]} isLoading={false} />
+          <SadakatSection data={[1, 2, 3, 4, 5, 6, 7]} isLoading={false} />
 
-          {/* {!isLogged ? ( */}
-          {!isLogged && (
+          {/* {!isLogged && (
             <View style={styles.signUpContainer}>
               <Svgs name="circles" />
               <View style={styles.signUpMessage}>
@@ -183,7 +131,7 @@ const Home = () => {
                 />
               </View>
             </View>
-          )}
+          )} */}
 
           {/* ) : null} */}
 

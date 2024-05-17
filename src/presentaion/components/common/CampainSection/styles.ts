@@ -7,7 +7,6 @@ export const styles = StyleSheet.create({
     width: getWidth(252),
     height: 364,
     borderRadius: scale(8),
-    backgroundColor: "red",
   },
   CampainSectionCardBackgroundStyle: {
     width: getWidth(252),
@@ -28,5 +27,40 @@ export const styles = StyleSheet.create({
   },
   progressBarContainer: {
     marginVertical: Spacing.S8,
+  },
+  importantFundsItemContainer: {
+    height: 90,
+    width: "100%",
+    borderRadius: 8,
+  },
+  importantFundsCardStyle: {
+    width: "100%",
+    // backgroundColor: "red",
+    borderRadius: 8,
+  },
+  newsCardStyle: {
+    width: getWidth(156),
+  },
+  newsImageStyle: {
+    height: "100%",
+    width: "100%",
+    borderRadius: 12,
+  },
+  sadakatColomnContainer: {
+    height: 53,
+  },
+  sadakatCardStyle: {
+    height: 53,
+    width: getWidth(130),
+    backgroundColor: "none",
+    borderWidth: 0,
+    // opacity: 1,
+    // backgroundColor: "red",
+  },
+  sadakatImage: {
+    height: "100%",
+    width: "100%",
+    // width: getWidth(60),
+    borderRadius: 8,
   },
 });

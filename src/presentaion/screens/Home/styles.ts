@@ -10,7 +10,7 @@ export const styles = StyleSheet.create({
   container: {
     paddingTop: getHeight(20),
     alignItems: "flex-start",
-    paddingHorizontal: Spacing.S16,
+    // paddingHorizontal: Spacing.S16,
     flex: 1,
   },
   searchContainer: {

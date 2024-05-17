@@ -6,10 +6,12 @@ import {MainNavigationKeys} from "../../../navigation/navigation-types";
 import {TextProps} from "../../atoms/Text/Text";
 import HeaderSection from "../HeaderSection/HeaderSection";
 import styles from "./styles";
+import {Spacing} from "../../../styles";
 
 const Section: FC<
   FlatListProps<any> & {
     title?: string;
+    description?: string;
     data?: ReadonlyArray<any>;
     renderItem?: ListRenderItem<any> | null | undefined;
     navigateTo?: MainNavigationKeys;
@@ -25,6 +27,7 @@ const Section: FC<
   navigateTo,
   params,
   type = "horizontal",
+  description,
   ...props
 }) => {
   const handleFlatlistType = () => {
@@ -41,6 +44,7 @@ const Section: FC<
           initialNumToRender={100}
           contentContainerStyle={styles.contentContainerStyle}
           data={data}
+          ItemSeparatorComponent={() => <View style={{width: Spacing.S8}} />}
           {...props}
         />
       );
@@ -54,7 +58,8 @@ const Section: FC<
         decelerationRate={0}
         initialNumToRender={100}
         contentContainerStyle={styles.contentVerticalContainerStyle}
-        data={data.slice(0, 26)}
+        ItemSeparatorComponent={() => <View style={{height: Spacing.S8}} />}
+        data={data}
         {...props}
         style={styles.listVerticalStyle}
       />
@@ -68,7 +73,7 @@ const Section: FC<
           navigateTo={navigateTo}
           title={title}
           textStyle={textStyle}
-          // style={styles.headerSection}
+          style={styles.headerSection}
         />
       )}
 

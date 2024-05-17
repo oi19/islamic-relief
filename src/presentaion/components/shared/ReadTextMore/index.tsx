@@ -1,4 +1,4 @@
-import {StyleSheet, View} from "react-native";
+import {StyleSheet, TextStyle, View} from "react-native";
 import React from "react";
 import Text from "../Text/Text";
 import {Spacing} from "../../../../styles";
@@ -7,8 +7,15 @@ import {translate} from "../../../../helpers";
 type ReadTextMoreProps = {
   text?: string;
   title?: string;
+  titleStyle?: TextStyle;
+  textStyle?: TextStyle;
 };
-const ReadTextMore: React.FC<ReadTextMoreProps> = ({title, text}) => {
+const ReadTextMore: React.FC<ReadTextMoreProps> = ({
+  title,
+  text,
+  titleStyle,
+  textStyle,
+}) => {
   const [showFullText, setShowFullText] = React.useState(false);
 
   const isLoadMore = text && text?.length >= 125;
@@ -19,11 +26,13 @@ const ReadTextMore: React.FC<ReadTextMoreProps> = ({title, text}) => {
 
   return (
     <View style={styles.textsContainer}>
-      <Text fontFamily="MEDIUM" fontSize="FS16">
-        {title}
-      </Text>
+      {title ? (
+        <Text style={[titleStyle]} fontFamily="MEDIUM" fontSize="FS16">
+          {title}
+        </Text>
+      ) : null}
       <View>
-        <Text style={styles.fullText}>
+        <Text style={[styles.fullText, textStyle]}>
           {isLoadMore ? (
             <>
               {showFullText ? text : text?.slice(0, 100)}
@@ -59,7 +68,7 @@ const styles = StyleSheet.create({
   },
   fullText: {
     textAlign: "left",
-    width: "95%",
-    marginTop: Spacing.S11,
+    flexWrap: "wrap",
+    marginTop: Spacing.S4,
   },
 });

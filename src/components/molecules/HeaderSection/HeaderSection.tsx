@@ -39,11 +39,12 @@ const HeaderSection: FC<
           // eslint-disable-next-line react-native/no-inline-styles
           textStyle={{
             color: "PRIMARY",
-            fontFamily: "NORMAL",
+            fontFamily: "BOLD",
             fontSize: "FS14",
           }}
           textContainerStyle={styles.viewAllButton}
-          text={translate("Common.seeAll") || undefined}
+          // text={translate("Common.seeAll") || undefined}
+          text={"عرض المزيد" || undefined}
         />
       )}
     </View>
