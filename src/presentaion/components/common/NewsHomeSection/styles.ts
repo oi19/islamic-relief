@@ -40,6 +40,7 @@ export const styles = StyleSheet.create({
   },
   newsCardStyle: {
     width: getWidth(156),
+    justifyContent: "space-between",
   },
   newsImageStyle: {
     height: "100%",

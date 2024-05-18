@@ -73,7 +73,7 @@ const _renderSadakatItem: React.FC<PairRowsItemsProps> = ({
                 console.warn(index + i);
               }}
               style={[styles.sadakatCardStyle]}>
-              {false ? (
+              {isLoading ? (
                 <CardSkeletonPlaceholder width={"100%"} height={"100%"} />
               ) : (
                 <ViewRow style={{paddingTop: 0}}>

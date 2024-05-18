@@ -6,9 +6,7 @@ import Image from "../../shared/Image";
 import CardSkeletonPlaceholder from "../../shared/CardSkeletonPlaceholder/CardSkeletonPlaceholder";
 import Text from "../../shared/Text/Text";
 import {styles} from "./styles";
-import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import {Spacing, Typography} from "../../../../styles";
-import {getWidth, scale} from "../../../../styles/dimensions";
 import ReadTextMore from "../../shared/ReadTextMore";
 
 interface CampainItemProps {
@@ -28,7 +26,14 @@ interface PairRowsItemsProps extends CampainItemProps {
 
 const renderCardImage = (isLoading: boolean) => {
   return (
-    <View style={{width: "100%", height: 87, borderRadius: 12}}>
+    <View
+      style={{
+        width: "100%",
+        height: 87,
+        borderRadius: 12,
+        flex: 1,
+        alignSelf: "flex-start",
+      }}>
       {isLoading ? (
         <CardSkeletonPlaceholder width={"100%"} height={"100%"} />
       ) : (
@@ -53,18 +58,28 @@ const _renderNewsItem: React.FC<PairRowsItemsProps> = ({
       <Card
         style={[
           styles.newsCardStyle,
-          {marginStart: index == 0 ? Spacing.S16 : 0},
+          {
+            marginStart: index == 0 ? Spacing.S16 : 0,
+          },
         ]}>
         <>
           {renderCardImage(isLoading)}
           {isLoading == false ? (
-            <ReadTextMore
-              textStyle={{
-                flexWrap: "wrap",
-                fontFamily: "MEDIUM",
-              }}
-              text="hdfjksfalfkasdklfmasdklfmaslFDJKSFNDSJKFSdsfjksdfdsDFKJSDKFJ"
-            />
+            <View
+              style={{
+                width: "100%",
+                // alignItems: "center",
+              }}>
+              <ReadTextMore
+                enableReadMore={false}
+                textStyle={{
+                  flexWrap: "wrap",
+                  fontFamily: "MEDIUM",
+                  fontSize: Typography.FS12,
+                }}
+                text="يتنبتسيبنتميسبينلتوسى يبتلسيلتنيب سمينبتسليب منيتسبلسيبتنيبنسيةبيسنمة بيةسوبىسي "
+              />
+            </View>
           ) : null}
         </>
       </Card>

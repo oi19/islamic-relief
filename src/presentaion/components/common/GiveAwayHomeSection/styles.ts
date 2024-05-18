@@ -4,23 +4,25 @@ import {getHeight, getWidth, scale} from "../../../../styles/dimensions";
 
 export const styles = StyleSheet.create({
   CampainSectionCard: {
-    width: getWidth(252),
-    height: 364,
-    borderRadius: scale(8),
+    height: 223,
+    marginHorizontal: Spacing.S16,
+    borderRadius: 12,
+    overflow: "hidden",
   },
   CampainSectionCardBackgroundStyle: {
-    width: getWidth(252),
-    height: 364,
+    width: "100%",
+    height: "100%",
+    borderRadius: 12,
   },
   textSectionContainer: {
-    position: "absolute",
-    height: 100,
-    // top: getHeight(245),
-    width: "100%",
+    paddingVertical: Spacing.S20,
     paddingHorizontal: Spacing.S16,
+    paddingEnd: Spacing.S40,
+    flexWrap: "wrap",
     alignItems: "flex-start",
-    marginTop: Spacing.S16,
-    bottom: Spacing.S20,
+    justifyContent: "space-between",
+    // backgroundColor: "red",
+    flex: 1,
   },
   textSectionSubContainer: {
     justifyContent: "space-between",
@@ -60,22 +62,12 @@ export const styles = StyleSheet.create({
   sadakatImage: {
     height: "100%",
     width: "100%",
-    // width: getWidth(130),
     // width: getWidth(60),
     borderRadius: 8,
   },
-  bottomSectionContainer: {
-    paddingTop: 0,
-    backgroundColor: "#736930",
-    height: 40,
-    position: "absolute",
-    bottom: 0,
-    justifyContent: "flex-end",
-    alignItems: "center",
-  },
-  sectionContainer: {
-    height: 375,
-    backgroundColor: "#A59852",
-    paddingTop: scale(24),
+  fundsItemContainer: {
+    width: getWidth(106),
+    height: 254,
+    justifyContent: "space-between",
   },
 });

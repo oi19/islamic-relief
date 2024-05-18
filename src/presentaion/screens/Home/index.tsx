@@ -26,6 +26,7 @@ import {ImportantFundsSections} from "../../components/common/FundsHomeSection/F
 import {NewsSection} from "../../components/common/NewsHomeSection/NewsHomeSection";
 import {SadakatSection} from "../../components/common/SadakatHomeSection/SadakatHomeSection";
 import {ProjectSection} from "../../components/common/ProjectsHomeSection/ProjectsHomeSection";
+import {GiveAwayCard} from "../../components/common/GiveAwayHomeSection/GiveAwayHomeSection";
 
 const Home = () => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
@@ -105,10 +106,11 @@ const Home = () => {
 
         <Scroll>
           <CampainSection data={[1, 2, 3]} isLoading={false} />
-          <ImportantFundsSections data={[1, 2, 3, 4, 5, 6]} isLoading={true} />
-          <NewsSection data={[1, 2, 3, 4, 5]} isLoading={true} />
-          <SadakatSection data={[1, 2, 3, 4, 5, 6, 7]} isLoading={true} />
-          <ProjectSection data={[1, 2, 3]} isLoading={true} />
+          <ImportantFundsSections data={[1, 2, 3, 4, 5, 6]} isLoading={false} />
+          <NewsSection data={[1, 2, 3, 4, 5]} isLoading={false} />
+          <SadakatSection data={[1, 2, 3, 4, 5, 6, 7]} isLoading={false} />
+          <ProjectSection data={[1, 2, 3]} isLoading={false} />
+          <GiveAwayCard isLoading={false} />
 
           {/* {!isLogged && (
             <View style={styles.signUpContainer}>

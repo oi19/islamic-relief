@@ -72,7 +72,7 @@ const _renderImportantFundsItem: React.FC<PairRowsItemsProps> = ({
                 console.warn(index + i);
               }}
               style={[styles.importantFundsItemContainer]}>
-              {false ? (
+              {isLoading ? (
                 <CardSkeletonPlaceholder width={"100%"} height={"100%"} />
               ) : (
                 <ImageBackground
@@ -81,13 +81,17 @@ const _renderImportantFundsItem: React.FC<PairRowsItemsProps> = ({
                 />
               )}
             </Card>
-            <Text
-              style={{marginTop: Spacing.S4, textAlign: "center"}}
-              fontSize="FS14"
-              fontFamily="MEDIUM"
-              color="BLACK">
-              {"omarsahdjkas"}
-            </Text>
+            <View>
+              {isLoading == false ? (
+                <Text
+                  style={{marginTop: Spacing.S4, textAlign: "center"}}
+                  fontSize="FS14"
+                  fontFamily="MEDIUM"
+                  color="BLACK">
+                  {"omarsahdjkas"}
+                </Text>
+              ) : null}
+            </View>
           </>
         );
       })}
