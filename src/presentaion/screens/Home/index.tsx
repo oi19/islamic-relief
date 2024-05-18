@@ -21,12 +21,11 @@ import {getHomePageData, getUserProfile, useAppSelector} from "../../../redux";
 import HeaderSection from "../../../presentaion/components/shared/HeaderSection/HeaderSection";
 import ViewRow from "../../components/shared/ViewRow/ViewRow";
 import Image from "../../components/shared/Image";
-import {
-  CampainSection,
-  ImportantFundsSections,
-  NewsSection,
-  SadakatSection,
-} from "../../components/common/CampainSection/CampainSection";
+import {CampainSection} from "../../components/common/CampainSection/CampainSection";
+import {ImportantFundsSections} from "../../components/common/FundsHomeSection/FundsHomeSection";
+import {NewsSection} from "../../components/common/NewsHomeSection/NewsHomeSection";
+import {SadakatSection} from "../../components/common/SadakatHomeSection/SadakatHomeSection";
+import {ProjectSection} from "../../components/common/ProjectsHomeSection/ProjectsHomeSection";
 
 const Home = () => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
@@ -107,8 +106,9 @@ const Home = () => {
         <Scroll>
           <CampainSection data={[1, 2, 3]} isLoading={false} />
           <ImportantFundsSections data={[1, 2, 3, 4, 5, 6]} isLoading={true} />
-          <NewsSection data={[1, 2, 3, 4, 5]} isLoading={false} />
-          <SadakatSection data={[1, 2, 3, 4, 5, 6, 7]} isLoading={false} />
+          <NewsSection data={[1, 2, 3, 4, 5]} isLoading={true} />
+          <SadakatSection data={[1, 2, 3, 4, 5, 6, 7]} isLoading={true} />
+          <ProjectSection data={[1, 2, 3]} isLoading={true} />
 
           {/* {!isLogged && (
             <View style={styles.signUpContainer}>
