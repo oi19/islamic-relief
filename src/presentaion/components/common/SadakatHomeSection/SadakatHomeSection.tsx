@@ -1,7 +1,9 @@
 import React, {useEffect} from "react";
 import {FlatList, ListRenderItem, View, ImageBackground} from "react-native";
-import {Button, Card, Section, ViewRow} from "../../../../components";
-import Video from "react-native-video";
+import Card from "../../shared/Card/Card";
+import ViewRow from "../../shared/ViewRow/ViewRow";
+import Section from "../../shared/Section/Section";
+import Button from "../../shared/Button/Button";
 import Image from "../../shared/Image";
 import CardSkeletonPlaceholder from "../../shared/CardSkeletonPlaceholder/CardSkeletonPlaceholder";
 import Text from "../../shared/Text/Text";
@@ -58,7 +60,6 @@ const _renderSadakatItem: React.FC<PairRowsItemsProps> = ({
       style={{
         height: 130,
         justifyContent: "space-between",
-        marginStart: index == 0 ? Spacing.S16 : 0,
         marginEnd: nextItem ? scale(56) : 0,
       }}>
       {[item, nextItem].map((item, i) => {
