@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.WHITE,
   },
   container: {
-    paddingTop: getHeight(20),
+    // paddingTop: getHeight(20),
     alignItems: "flex-start",
     // paddingHorizontal: Spacing.S16,
     flex: 1,

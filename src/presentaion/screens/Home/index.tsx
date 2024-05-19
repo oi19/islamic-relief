@@ -39,28 +39,9 @@ const Home = () => {
     }, []),
   );
 
-  const {homePageData} = useAppSelector(state => state.homeReducer);
-
-  const {doctors, service_images} = homePageData;
-
   React.useEffect(() => {
     getHomePageData();
   }, []);
-
-  const OurServiceItem: ListRenderItem<ServiceType> = ({item, index}) => {
-    const listLength = serviceList.length;
-    return (
-      <ServiceItem
-        item={item}
-        index={index}
-        isOddAndLastItem={listLength % 2 === 1 && index === listLength - 1}
-      />
-    );
-  };
-
-  const topRatedDoctor: ListRenderItem<Doctor> = ({item, index}) => {
-    return <DoctorCard item={item} index={index} />;
-  };
 
   const renderHeaderStartIcons = () => {
     return (
@@ -99,12 +80,10 @@ const Home = () => {
       <Header
         style={{height: 100, paddingTop: Spacing.S20}}
         renderHeaderSideIcons={renderHeaderStartIcons}
+        authHeader={false}
       />
-
       <View style={styles.container}>
-        {/* Search Section  */}
-
-        <Scroll>
+        <Scroll contentContainerStyle={{flexGrow:1,paddingTop:Spacing.S20}}>
           <CampainSection data={[1, 2, 3]} isLoading={false} />
           <ImportantFundsSections data={[1, 2, 3, 4, 5, 6]} isLoading={false} />
           <NewsSection data={[1, 2, 3, 4, 5]} isLoading={false} />
@@ -139,17 +118,7 @@ const Home = () => {
 
           {/* Top doctor Rated Section List */}
 
-          <Section
-            title={translate("Home.topRatedDoctors")}
-            renderItem={topRatedDoctor}
-            data={doctors}
-            horizontal={true}
-            navigateTo={"SpecialDetails"}
-            params={{
-              name: translate("Home.topRatedDoctors"),
-              filterType: "rating",
-            }}
-          />
+       
         </Scroll>
       </View>
     </View>

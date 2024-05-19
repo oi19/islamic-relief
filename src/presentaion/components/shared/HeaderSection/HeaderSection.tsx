@@ -5,11 +5,10 @@ import {
   MainNavigationAllScreensTypes,
   MainNavigationKeys,
 } from "../../../../navigation/navigation-types";
-import Text from "../Text/Text";
 import Button from "../Button/Button";
-import {TextProps} from "../Text/Text";
+import Text from "../Text/Text";
+import { TextProps } from "../Text/Text";
 import styles from "./styles";
-import {translate} from "../../../../helpers";
 
 const HeaderSection: FC<
   ViewProps & {
@@ -40,11 +39,12 @@ const HeaderSection: FC<
           // eslint-disable-next-line react-native/no-inline-styles
           textStyle={{
             color: "PRIMARY",
-            fontFamily: "NORMAL",
+            fontFamily: "BOLD",
             fontSize: "FS14",
           }}
           textContainerStyle={styles.viewAllButton}
-          text={translate("Common.seeAll") || undefined}
+          // text={translate("Common.seeAll") || undefined}
+          text={"عرض المزيد" || undefined}
         />
       )}
     </View>

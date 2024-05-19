@@ -7,6 +7,7 @@ export const styles = StyleSheet.create({
     width: getWidth(252),
     height: 364,
     borderRadius: scale(8),
+    borderWidth:0
   },
   CampainSectionCardBackgroundStyle: {
     width: getWidth(252),

@@ -11,7 +11,6 @@ const styles = StyleSheet.create({
     paddingTop: 0,
     overflow: "hidden",
     flexDirection: "column",
-    borderWidth: 1,
     paddingBottom: 0,
   },
 });

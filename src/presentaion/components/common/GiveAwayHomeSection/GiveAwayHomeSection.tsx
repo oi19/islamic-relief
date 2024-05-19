@@ -1,21 +1,11 @@
 import React, {useEffect} from "react";
-import {
-  FlatList,
-  ListRenderItem,
-  View,
-  ImageBackground,
-  TextInput,
-} from "react-native";
-import {Button, Card, Section, ViewRow} from "../../../../components";
-import Video from "react-native-video";
-import Image from "../../shared/Image";
+import {View,ImageBackground} from "react-native";
+import Button from "../../shared/Button/Button";
 import CardSkeletonPlaceholder from "../../shared/CardSkeletonPlaceholder/CardSkeletonPlaceholder";
 import Text from "../../shared/Text/Text";
 import {styles} from "./styles";
-import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import {Colors, Spacing, Typography} from "../../../../styles";
 import {getWidth, scale} from "../../../../styles/dimensions";
-import ReadTextMore from "../../shared/ReadTextMore";
 
 interface GiveAwayCardProps {
   isLoading: boolean;

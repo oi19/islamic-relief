@@ -24,10 +24,8 @@ const DefaultHeader: FC<TouchableOpacityProps & DefaultHeaderProps> = memo(
       <View
         style={StyleSheet.flatten([
           styles.headerContainer,
-          {
-            elevation: authHeader ? 0 : 10,
-            marginTop: authHeader ? Spacing.S40 : 0,
-          },
+          !authHeader&&styles.headerShadow,
+          {marginTop: authHeader? Spacing.S40:0},
           props.style,
         ])}>
         <View

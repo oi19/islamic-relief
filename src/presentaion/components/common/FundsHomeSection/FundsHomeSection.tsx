@@ -1,15 +1,11 @@
 import React, {useEffect} from "react";
 import {FlatList, ListRenderItem, View, ImageBackground} from "react-native";
-import {Button, Card, Section, ViewRow} from "../../../../components";
-import Video from "react-native-video";
-import Image from "../../shared/Image";
+import Card from "../../shared/Card/Card";
+import Section from "../../shared/Section/Section";
 import CardSkeletonPlaceholder from "../../shared/CardSkeletonPlaceholder/CardSkeletonPlaceholder";
 import Text from "../../shared/Text/Text";
 import {styles} from "./styles";
-import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import {Spacing, Typography} from "../../../../styles";
-import {getWidth, scale} from "../../../../styles/dimensions";
-import ReadTextMore from "../../shared/ReadTextMore";
 
 interface CampainItemProps {
   item: any;
@@ -59,7 +55,7 @@ const _renderImportantFundsItem: React.FC<PairRowsItemsProps> = ({
       style={[
         styles.fundsItemContainer,
         {
-          // marginStart: index == 0 ? Spacing.S16 : 0,
+          // marginStart: index == 0 ? Spacing.S8 : 0,
         },
       ]}>
       {[item, nextItem].map((item, i) => {
