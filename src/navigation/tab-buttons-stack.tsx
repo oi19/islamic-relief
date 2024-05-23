@@ -36,7 +36,7 @@ function TabButtonsStack() {
         component={MyAppointmentStack}
       /> */}
       <Tab.Screen
-        initialParams={{icon: "chat", text: translate("Chat")}}
+        initialParams={{icon: "raiseFundBox", text: translate("صندوق التبرع")}}
         name="ChatStackTypes"
         component={ChatStack}
       />

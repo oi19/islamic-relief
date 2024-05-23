@@ -8,6 +8,7 @@ import {
   Keyboard,
   Linking,
   Platform,
+  Pressable,
   ScrollView,
   View,
 } from "react-native";
@@ -42,7 +43,7 @@ import {
   confirmBiometric,
   enableBiometric,
 } from "../../../services/biometric";
-import {IconsName} from "../../../assets/svgs";
+import Svgs, {IconsName} from "../../../assets/svgs";
 
 const socialMediaList: IconsName[] = ["apple", "google", "facebook"];
 
@@ -274,7 +275,7 @@ const Login = () => {
             style={{
               alignItems: "center",
               justifyContent: "center",
-              backgroundColor: "red",
+              alignSelf: "center",
             }}
           />
           <Button

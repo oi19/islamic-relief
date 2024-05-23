@@ -41,7 +41,7 @@ import Chat from "./chat";
 import Document from "./document";
 import User from "./user";
 import Circles from "./circles";
-import Prescription from "./prescription";
+import Prescription from "./raiseFundBox";
 import Wallet from "./wallet";
 import Video from "./video";
 import Favorite from "./favorite";
@@ -73,6 +73,7 @@ import EmptyNotification from "./emptyNotification";
 import Share from "./share";
 import FaceID from "./faceID";
 import SuccessSign from "./successSign";
+import RaiseFundBox from "./raiseFundBox";
 
 export type IconsName =
   | "remove"
@@ -145,7 +146,8 @@ export type IconsName =
   | "emptyNotification"
   | "share"
   | "faceID"
-  | "successSign";
+  | "successSign"
+  | "raiseFundBox";
 
 export type RotateTypes = "left" | "right" | "top" | "bottom";
 
@@ -184,6 +186,10 @@ function Svgs(props: IconsProps & SvgProps) {
     case "successSign":
       return (
         <SuccessSign {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "raiseFundBox":
+      return (
+        <RaiseFundBox {...props} style={[props.rotate && style, props.style]} />
       );
     case "circles":
       return (

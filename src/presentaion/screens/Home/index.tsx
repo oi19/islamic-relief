@@ -115,10 +115,6 @@ const Home = () => {
           )} */}
 
           {/* ) : null} */}
-
-          {/* Top doctor Rated Section List */}
-
-       
         </Scroll>
       </View>
     </View>

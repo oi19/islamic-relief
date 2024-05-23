@@ -52,8 +52,8 @@ export const styles = StyleSheet.create({
     elevation: 1,
   },
   socialIconStyle: {
-    // width: getWidth(105),
-    // height: getHeight(65),
+    width: getWidth(30),
+    height: getHeight(30),
   },
   hintText: {
     textAlign: "center",
