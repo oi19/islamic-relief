@@ -74,6 +74,7 @@ import Share from "./share";
 import FaceID from "./faceID";
 import SuccessSign from "./successSign";
 import RaiseFundBox from "./raiseFundBox";
+import ProfileUserIcon from "./profileUserIcon";
 
 export type IconsName =
   | "remove"
@@ -147,7 +148,8 @@ export type IconsName =
   | "share"
   | "faceID"
   | "successSign"
-  | "raiseFundBox";
+  | "raiseFundBox"
+  | "profileUserIcon";
 
 export type RotateTypes = "left" | "right" | "top" | "bottom";
 
@@ -190,6 +192,13 @@ function Svgs(props: IconsProps & SvgProps) {
     case "raiseFundBox":
       return (
         <RaiseFundBox {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "profileUserIcon":
+      return (
+        <ProfileUserIcon
+          {...props}
+          style={[props.rotate && style, props.style]}
+        />
       );
     case "circles":
       return (

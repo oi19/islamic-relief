@@ -54,7 +54,7 @@ const ProfileRowCard: React.FC<ProfileRowCardProps> = ({
           <Svgs
             name={item?.icon || "arrow"}
             color={Colors.PRIMARY}
-            rotate={isRTL() ? "left" : "right"}
+            rotate={isRTL() ? "right" : "left"}
             width={scale(15)}
             height={scale(15)}
           />

@@ -62,11 +62,10 @@ export const styles = StyleSheet.create({
   },
   content: {
     // marginTop: getHeight(250),
+    flex: 1,
     marginHorizontal: Spacing.S20,
-    width: "100%",
     alignItems: "center",
-    position: "absolute",
-    bottom: getHeight(250),
+    justifyContent: "center",
   },
   inputContainer: {
     borderWidth: 1,

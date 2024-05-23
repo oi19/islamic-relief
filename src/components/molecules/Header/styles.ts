@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     // position: "absolute",
     // zIndex: 10,
-    backgroundColor: Colors.PRIMARY,
+    backgroundColor: Colors.WHITE,
     borderBottomRightRadius: scale(15),
     borderBottomLeftRadius: scale(15),
   },

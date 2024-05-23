@@ -20,6 +20,7 @@ import {useLoader, useNavigationHooks, useToken} from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
 import {convertObjToFormData, translate} from "../../helpers";
 import {selectCityById, updateUserData, useAppSelector} from "../../redux";
+import {PRIMARY} from "../../styles/colors";
 
 const Profile: React.FC = () => {
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
@@ -38,37 +39,54 @@ const Profile: React.FC = () => {
   const renderHeader = () => {
     return (
       <>
-        {isLogin ? (
+        {true ? (
           <>
             <Header
               title={translate("Profile.title")}
-              style={{height: getHeight(120), paddingTop: Spacing.S20}}
+              style={{
+                height: 86,
+                paddingTop: Spacing.S20,
+                justifyContent: "flex-end",
+              }}
             />
             <Card
               onPress={() => {
                 navigate("Account");
               }}
               style={styles.card}>
-              <ViewRow>
-                <Image
-                  source={profile.image ? {uri: profile.image} : Images.default}
-                  style={styles.avatar}
-                />
+              <>
+                {profile.image ? (
+                  <Image source={{uri: profile.image}} style={styles.avatar} />
+                ) : (
+                  <Svgs name="profileUserIcon" />
+                )}
+
                 <View style={{marginHorizontal: Spacing.S8}}>
                   <Text color="BLUE_4A5970" fontSize="FS16">
                     {profile?.email}
                   </Text>
                   <Text color="BLUE_4A5970">{profile?.mobile}</Text>
                 </View>
-              </ViewRow>
+              </>
               <Svgs
-                name={"arrow"}
+                name={"settings"}
                 color={Colors.PRIMARY}
                 rotate={isRTL() ? "left" : "right"}
                 width={scale(15)}
                 height={scale(15)}
               />
             </Card>
+            <View
+              style={[
+                styles.headerShadow,
+                {
+                  marginTop: Spacing.S16,
+                  height: 2.5,
+                  backgroundColor: Colors.PRIMARY,
+                  opacity: 0.2,
+                },
+              ]}
+            />
           </>
         ) : (
           <View style={styles.headerWithoutLogin}>
@@ -107,10 +125,7 @@ const Profile: React.FC = () => {
         <ProfileList
           selectedCity={selectedCity}
           onSelectedCity={onSelectCity}
-          listItems={getProfileListWithoutLogin(
-            selectedCity?.name,
-            Boolean(isLogin),
-          )}
+          listItems={getProfileListWithoutLogin(selectedCity?.name, true)}
         />
       </View>
       {profileLoading && <View style={styles.disableClicks} />}

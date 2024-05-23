@@ -24,15 +24,15 @@ const DefaultHeader: FC<TouchableOpacityProps & DefaultHeaderProps> = memo(
             styles.row,
             {
               justifyContent:
-                title || renderHeaderSideIcons ? "space-between" : "center",
+                !title || renderHeaderSideIcons ? "space-between" : "center",
             },
           ]}>
           {title && (
             <Button
               iconStyle={{rotate: isRTL() ? "right" : "left"}}
               onPress={goBack}
-              textStyle={{color: "WHITE"}}
-              iconName="arrow"
+              textStyle={{color: "BLACK"}}
+              iconName={!title ? "arrow" : undefined}
               text={title}
             />
           )}
