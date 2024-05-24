@@ -1,6 +1,10 @@
 import * as React from "react";
 import Svg, {SvgProps, G, Path, Circle} from "react-native-svg";
-const ProfileUserIcon = (props: SvgProps) => (
+
+export interface SvgEnhancedProps extends SvgProps {
+  circleBackground?: string;
+}
+const ProfileUserIcon = (props: SvgEnhancedProps) => (
   <Svg width={40} height={40} viewBox="0 0 40 40" fill="none" {...props}>
     {/* <G */}
     {/* // stroke={props.color || "gray"} */}
@@ -29,7 +33,7 @@ const ProfileUserIcon = (props: SvgProps) => (
     />
     </G> */}
 
-    <Circle cx="20" cy="20" r="20" fill={props?.circleColor || "#DDEEFB"} />
+    <Circle cx="20" cy="20" r="20" fill={props.circleBackground || "#DDEEFB"} />
     <Path
       d="M28 29V27C28 25.9391 27.5786 24.9217 26.8284 24.1716C26.0783 23.4214 25.0609 23 24 23H16C14.9391 23 13.9217 23.4214 13.1716 24.1716C12.4214 24.9217 12 25.9391 12 27V29"
       stroke={props.color || "#2F76BC"}

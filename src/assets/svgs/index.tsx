@@ -74,7 +74,17 @@ import Share from "./share";
 import FaceID from "./faceID";
 import SuccessSign from "./successSign";
 import RaiseFundBox from "./raiseFundBox";
-import ProfileUserIcon from "./profileUserIcon";
+import ProfileUserIcon, {SvgEnhancedProps} from "./profileUserIcon";
+import ReportIcon from "./reportIcon";
+import RecieptIcon from "./recieptIcon";
+import RegularFundsIcon from "./regularFundsIcon";
+import About from "./about";
+import LangIcon from "./langIcon";
+import RateIcon from "./rateIcon";
+import ShareIcon from "./shareIcon";
+import LogoutIcon from "./logoutIcon";
+import SupportIcon from "./supportIcon";
+import CameraIcon from "./cameraIcon";
 
 export type IconsName =
   | "remove"
@@ -149,7 +159,17 @@ export type IconsName =
   | "faceID"
   | "successSign"
   | "raiseFundBox"
-  | "profileUserIcon";
+  | "profileUserIcon"
+  | "reportIcon"
+  | "recieptIcon"
+  | "regularFundsIcon"
+  | "about"
+  | "langIcon"
+  | "rateIcon"
+  | "shareIcon"
+  | "supportIcon"
+  | "logoutIcon"
+  | "cameraIcon";
 
 export type RotateTypes = "left" | "right" | "top" | "bottom";
 
@@ -177,7 +197,7 @@ const getRotate = (rotate: string) => {
   }
 };
 
-function Svgs(props: IconsProps & SvgProps) {
+function Svgs(props: IconsProps & SvgEnhancedProps) {
   const style = {transform: [{rotate: getRotate(props.rotate || "")}]};
 
   switch (props.name) {
@@ -203,6 +223,47 @@ function Svgs(props: IconsProps & SvgProps) {
     case "circles":
       return (
         <Circles {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "reportIcon":
+      return (
+        <ReportIcon {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "recieptIcon":
+      return (
+        <RecieptIcon {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "regularFundsIcon":
+      return (
+        <RegularFundsIcon
+          {...props}
+          style={[props.rotate && style, props.style]}
+        />
+      );
+    case "about":
+      return <About {...props} style={[props.rotate && style, props.style]} />;
+    case "langIcon":
+      return (
+        <LangIcon {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "rateIcon":
+      return (
+        <RateIcon {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "shareIcon":
+      return (
+        <ShareIcon {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "supportIcon":
+      return (
+        <SupportIcon {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "cameraIcon":
+      return (
+        <CameraIcon {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "logoutIcon":
+      return (
+        <LogoutIcon {...props} style={[props.rotate && style, props.style]} />
       );
     case "reset":
       return <Reset {...props} style={[props.rotate && style, props.style]} />;
@@ -421,7 +482,7 @@ function Svgs(props: IconsProps & SvgProps) {
     case "share":
       return <Share {...props} style={[props.rotate && style, props.style]} />;
     default:
-      return <NotFound {...props} />;
+      return;
   }
 }
 

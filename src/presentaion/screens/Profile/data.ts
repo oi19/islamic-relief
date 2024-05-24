@@ -1,6 +1,6 @@
-import {profileRowType} from "../../@types";
-import {translate} from "../../helpers";
-import {isRTL} from "../../locals/i18n-config";
+import {profileRowType} from "../../../@types";
+import {translate} from "../../../helpers";
+import {isRTL} from "../../../locals/i18n-config";
 
 export function getProfileListWithoutLogin(
   location?: string,
@@ -36,6 +36,7 @@ export function getProfileListWithoutLogin(
       arrowWithHint: location,
       onPress: "location",
       icon: "reportIcon",
+      isShowArrow: true,
     },
     {
       name: "إيصالاتي",
@@ -43,12 +44,14 @@ export function getProfileListWithoutLogin(
       // renderRightElement: true,
       icon: "recieptIcon",
       onPress: "Notifications",
+      isShowArrow: true,
     },
     {
       name: "التبرعات الدورية",
       desc: "يوميا اسبوعيا شهريا كل جمعة",
       navigateTo: "Favorites",
       icon: "regularFundsIcon",
+      isShowArrow: true,
     },
     {
       name: "عن الإغاثة الاسلامية",
@@ -56,6 +59,7 @@ export function getProfileListWithoutLogin(
       arrowWithHint: false,
       navigateTo: "Help",
       icon: "about",
+      isShowArrow: true,
     },
 
     {
@@ -64,6 +68,7 @@ export function getProfileListWithoutLogin(
       desc: isRTL() ? "العربية" : "En",
       onPress: "language",
       icon: "langIcon",
+      isShowArrow: true,
     },
 
     // profileListWithoutLogin[1],
@@ -72,6 +77,7 @@ export function getProfileListWithoutLogin(
       desc: "قيمنا في المتجر",
       navigateTo: "ManageCards",
       icon: "rateIcon",
+      isShowArrow: true,
     },
 
     {
@@ -79,6 +85,7 @@ export function getProfileListWithoutLogin(
       desc: "كن دالا على الخير وعرف الناس بخدمتنا",
       navigateTo: "Points",
       icon: "shareIcon",
+      isShowArrow: true,
     },
     // profileListWithoutLogin[2],
 
@@ -88,6 +95,7 @@ export function getProfileListWithoutLogin(
       arrowWithHint: false,
       icon: "supportIcon",
       onPress: "logout",
+      isShowArrow: true,
     },
     {
       name: translate("Profile.logout"),

@@ -102,6 +102,16 @@ const Account = () => {
     setImage(selectedImage);
   };
 
+  const onCameraPress = () => {
+    requestStoragePermission()
+      .then(() => {
+        cameraModelRef?.current?.present();
+      })
+      .catch(error => {
+        console.log("error", error);
+      });
+  };
+
   const onChangeTextHandler = (fieldName: any, text: string) => {
     clearErrors(fieldName);
     setValue(fieldName, text);
@@ -139,7 +149,7 @@ const Account = () => {
         />
         <View style={styles.actionsContainer}>
           <RoundedIcon
-            onPress={onImageChange}
+            onPress={onCameraPress}
             size={32}
             style={styles.roundedIcon}
             iconStyle={styles.icon}

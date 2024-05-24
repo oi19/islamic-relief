@@ -9,23 +9,37 @@ import {getHeight, getWidth} from "../../../../styles/dimensions";
 import Button from "../Button/Button";
 import Image from "../Image";
 import styles from "./styles";
-import {Spacing} from "../../../../styles";
+import {Colors, Spacing} from "../../../../styles";
+import Text, {TextProps} from "../Text/Text";
 
 type DefaultHeaderProps = {
   title?: string;
   authHeader?: boolean;
+  isBackArrow?: boolean;
+  centeredTitle?: string;
+  isShowHeaderShadow?: boolean;
   renderHeaderSideIcons?: () => React.ReactNode;
 };
 
 const DefaultHeader: FC<TouchableOpacityProps & DefaultHeaderProps> = memo(
-  ({title, authHeader = false, renderHeaderSideIcons, ...props}) => {
+  ({
+    title,
+    authHeader = false,
+    isBackArrow = true,
+    centeredTitle,
+    isShowHeaderShadow,
+    renderHeaderSideIcons,
+    ...props
+  }) => {
     const {goBack} = useNavigationHooks<MainAppStackTypes>();
     return (
       <View
         style={StyleSheet.flatten([
           styles.headerContainer,
-          !authHeader&&styles.headerShadow,
-          {marginTop: authHeader? Spacing.S40:0},
+          isShowHeaderShadow && styles.headerBottomLine,
+          {
+            paddingTop: authHeader ? Spacing.S40 : 0,
+          },
           props.style,
         ])}>
         <View
@@ -40,11 +54,31 @@ const DefaultHeader: FC<TouchableOpacityProps & DefaultHeaderProps> = memo(
             <Button
               iconStyle={{rotate: isRTL() ? "left" : "right", color: "black"}}
               onPress={goBack}
-              textStyle={{color: "WHITE"}}
-              iconName="arrow"
+              textStyle={{color: "BLACK"}}
+              iconName={isBackArrow ? "arrow" : undefined}
               text={title}
+              style={{alignItems: "flex-start"}}
             />
           )}
+          {centeredTitle && (
+            <View
+              style={{
+                position: "absolute",
+                width: "100%",
+                justifyContent: "center",
+              }}>
+              <Text
+                color="BLACK"
+                fontSize="FS16"
+                fontFamily="BOLD"
+                style={{
+                  alignSelf: "center",
+                }}>
+                {centeredTitle}
+              </Text>
+            </View>
+          )}
+
           {!title && !renderHeaderSideIcons && (
             <View
               style={{

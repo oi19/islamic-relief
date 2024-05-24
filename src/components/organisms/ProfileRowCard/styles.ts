@@ -4,10 +4,10 @@ import {Spacing} from "../../../styles";
 
 export const styles = StyleSheet.create({
   card: {
-    height: getHeight(55),
+    height: getHeight(40),
     width: "100%",
     flexDirection: "row",
-    // marginVertical: Spacing.S8,
+    marginVertical: Spacing.S11,
     alignItems: "center",
     justifyContent: "space-between",
     paddingHorizontal: Spacing.S16,

@@ -54,7 +54,10 @@ export type Review = {
 
 export type profileRowType = {
   name?: string;
+  desc?: string;
   icon?: IconsName;
+  isShowArrow?: boolean;
+  isArrowRed?: boolean;
   arrowWithHint?: boolean | string;
   renderRightElement?: boolean;
   onPress?: string;

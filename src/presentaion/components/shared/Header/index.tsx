@@ -8,8 +8,12 @@ import {TransparentHeader} from "./TransparentHeader";
 
 const Header: FC<{
   type?: "transparent" | "animatedHeader";
+  isBackArrow?: boolean;
+  isShowHeaderShadow?: boolean;
   y?: SharedValue<number>;
+  centeredTitle?: string;
   title?: string;
+  textStyle?: ViewStyle;
   placeholder?: string;
   authHeader?: boolean;
   onReset?: () => void;

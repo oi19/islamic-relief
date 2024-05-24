@@ -12,7 +12,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: scale(16),
     backgroundColor: Colors.WHITE,
   },
-  headerShadow:{
+  headerBottomLine: {
+    borderBottomColor: "#DDEEFB",
+    borderBottomWidth: 2.5,
+  },
+  headerShadow: {
     shadowColor: Colors.BLACK,
     shadowOffset: {
       width: 0,
@@ -21,7 +25,6 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.2,
     shadowRadius: 3,
     elevation: 10,
-     
   },
   header: {
     position: "absolute",

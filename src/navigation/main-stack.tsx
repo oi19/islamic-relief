@@ -29,6 +29,8 @@ import SignUp from "../presentaion/screens/SignUp/SignUp";
 import OTP from "../presentaion/screens/OTP/OTP";
 import {useToken} from "../hooks";
 import {useAppSelector} from "../redux";
+import Settings from "../presentaion/screens/Settings";
+import PersonalInfo from "../presentaion/screens/PersonalInfo/PersonalInfo";
 
 const MainStack = () => {
   const Stack = createNativeStackNavigator<MainAppStackTypes>();
@@ -53,6 +55,8 @@ const MainStack = () => {
 
       <Stack.Screen name="TabsBottomStack" component={TabButtonsStack} />
       <Stack.Screen name="Account" component={Account} />
+      <Stack.Screen name="Settings" component={Settings} />
+      <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
 
       {/* {isValid ? (
         <Stack.Screen name="TabsBottomStack" component={TabButtonsStack} />

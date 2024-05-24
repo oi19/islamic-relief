@@ -1,26 +1,23 @@
-import {View} from "react-native";
+import {ScrollView, View} from "react-native";
 import React from "react";
-import {getHeight, getWidth, scale} from "../../styles/dimensions";
-import {Colors, Spacing} from "../../styles";
-import {
-  Button,
-  Card,
-  Header,
-  Image,
-  ProfileList,
-  Text,
-  ViewRow,
-} from "../../components";
+import {getHeight, getWidth, scale} from "../../../styles/dimensions";
+import {Colors, Spacing} from "../../../styles";
+import {ProfileList, Text, ViewRow} from "../../../components";
+import Button from "../../components/shared/Button/Button";
+import Card from "../../components/shared/Card/Card";
+// import Header from "../../components/shared/Header";
+import Image from "../../components/shared/Image";
 import {styles} from "./styles";
 import {getProfileListWithoutLogin} from "./data";
-import {Images} from "../../assets/images";
-import {Svgs} from "../../assets";
-import {isRTL} from "../../locals/i18n-config";
-import {useLoader, useNavigationHooks, useToken} from "../../hooks";
-import {MainAppStackTypes} from "../../navigation/navigation-types";
-import {convertObjToFormData, translate} from "../../helpers";
-import {selectCityById, updateUserData, useAppSelector} from "../../redux";
-import {PRIMARY} from "../../styles/colors";
+import {Svgs} from "../../../assets";
+import {isRTL} from "../../../locals/i18n-config";
+import {useLoader, useNavigationHooks, useToken} from "../../../hooks";
+import {MainAppStackTypes} from "../../../navigation/navigation-types";
+import {convertObjToFormData, translate} from "../../../helpers";
+import {selectCityById, updateUserData, useAppSelector} from "../../../redux";
+import {PRIMARY} from "../../../styles/colors";
+import Header from "../../components/shared/Header";
+// import {Header} from "../../../components";
 
 const Profile: React.FC = () => {
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
@@ -42,7 +39,10 @@ const Profile: React.FC = () => {
         {true ? (
           <>
             <Header
-              title={translate("Profile.title")}
+              centeredTitle={"الملف الشخصي"}
+              title=" "
+              isBackArrow={false}
+              isShowHeaderShadow={false}
               style={{
                 height: 86,
                 paddingTop: Spacing.S20,
@@ -51,17 +51,17 @@ const Profile: React.FC = () => {
             />
             <Card
               onPress={() => {
-                navigate("Account");
+                navigate("Settings");
               }}
               style={styles.card}>
               <View style={{flexDirection: "row"}}>
-                {profile.image ? (
+                {profile?.image ? (
                   <Image source={{uri: profile.image}} style={styles.avatar} />
                 ) : (
                   <Svgs name="profileUserIcon" />
                 )}
 
-                <View style={{marginHorizontal: Spacing.S8}}>
+                <View style={{marginHorizontal: Spacing.S16}}>
                   <Text color="RED" fontSize="FS14" fontFamily="MEDIUM">
                     {"تسجيل الدخول"}
                   </Text>
@@ -123,13 +123,13 @@ const Profile: React.FC = () => {
     <View style={styles.rootScreen}>
       {renderHeader()}
       {/* Main Screen Content */}
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <ProfileList
           selectedCity={selectedCity}
           onSelectedCity={onSelectCity}
           listItems={getProfileListWithoutLogin(selectedCity?.name, true)}
         />
-      </View>
+      </ScrollView>
       {profileLoading && <View style={styles.disableClicks} />}
     </View>
   );

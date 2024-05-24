@@ -81,7 +81,8 @@ const ProfileList: React.FC<ProfileListProps> = ({
         data={listItems}
         renderItem={_renderProfileItem}
         contentContainerStyle={{
-          paddingBottom: Spacing.S40 * 3.5,
+          // paddingBottom: Spacing.S40 * 3.5,
+          paddingTop: Spacing.S11,
         }}
         keyExtractor={(_, index) => `profile-row-item${index}`}
         showsVerticalScrollIndicator={false}

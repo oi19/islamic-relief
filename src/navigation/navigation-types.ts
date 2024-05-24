@@ -33,6 +33,7 @@ export type MainAppStackTypes = {
   PaymentMethods: undefined;
   ReviewSummary: undefined;
   ManageCards: undefined;
+  // Settings: undefined;
   ResetPassword: {
     passwordActionIndicator: keyof ApisTypes<
       "resetPassword" | "changePassword"
@@ -62,7 +63,8 @@ export type MainAppStackTypes = {
     buttonTitle: string;
     onCompletionHandler: () => void;
   };
-
+  Settings: undefined;
+  PersonalInfo: undefined;
   ChatRoom: {chatData?: ChatType};
 };
 
@@ -82,6 +84,8 @@ export type HomeStackTypes = {
     servicesType?: ServicesTypesEnums;
   };
   DoctorProfile: {id: number};
+  Profile: undefined;
+  Settings: undefined;
 };
 
 export type MyActivityStackTypes = {

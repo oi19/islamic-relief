@@ -139,24 +139,24 @@ export async function requestStoragePermission() {
   try {
     const writeGranted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
-      {
-        title: "Storage Permission",
-        message: "This App needs access to your device storage",
-        buttonNeutral: "Ask Me Later",
-        buttonNegative: "Cancel",
-        buttonPositive: "OK",
-      },
+      // {
+      //   title: "Storage Permission",
+      //   message: "This App needs access to your device storage",
+      //   buttonNeutral: "Ask Me Later",
+      //   buttonNegative: "Cancel",
+      //   buttonPositive: "OK",
+      // },
     );
 
     const readGranted = await PermissionsAndroid.request(
       PermissionsAndroid.PERMISSIONS.READ_EXTERNAL_STORAGE,
-      {
-        title: "Storage Permission",
-        message: "This App needs access to your device storage",
-        buttonNeutral: "Ask Me Later",
-        buttonNegative: "Cancel",
-        buttonPositive: "OK",
-      },
+      // {
+      //   title: "Storage Permission",
+      //   message: "This App needs access to your device storage",
+      //   buttonNeutral: "Ask Me Later",
+      //   buttonNegative: "Cancel",
+      //   buttonPositive: "OK",
+      // },
     );
 
     if (
@@ -192,11 +192,11 @@ export enum BioMetricType {
   BIOMETRICS = "Biometrics",
 }
 
-export const changeNumberLanguage = (number: string, lang: "en"|"ar") => {
-  const arabicNumerals = ['٠', '١', '٢', '٣', '٤', '٥', '٦', '٧', '٨', '٩'];
-  const englishNumerals = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9'];
+export const changeNumberLanguage = (number: string, lang: "en" | "ar") => {
+  const arabicNumerals = ["٠", "١", "٢", "٣", "٤", "٥", "٦", "٧", "٨", "٩"];
+  const englishNumerals = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9"];
 
-  let convertedNumber = '';
+  let convertedNumber = "";
   if (lang == "en") {
     for (let i = 0; i < number?.length; i++) {
       const index = arabicNumerals.indexOf(number[i]);
@@ -206,13 +206,12 @@ export const changeNumberLanguage = (number: string, lang: "en"|"ar") => {
         convertedNumber += number[i];
       }
     }
-    return convertedNumber
-  }
-  else {
+    return convertedNumber;
+  } else {
     const arabicNumbers =
-      '\u0660\u0661\u0662\u0663\u0664\u0665\u0666\u0667\u0668\u0669';
+      "\u0660\u0661\u0662\u0663\u0664\u0665\u0666\u0667\u0668\u0669";
     return number?.replace(/[0123456789]/g, d => {
       return arabicNumbers[d];
-    })
+    });
   }
 };
