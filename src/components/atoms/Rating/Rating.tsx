@@ -3,6 +3,7 @@ import React, {FC, memo} from "react";
 import {Button} from "../../atoms";
 import {scale} from "../../../styles/dimensions";
 import {View, ViewProps} from "react-native";
+import {Spacing} from "../../../styles";
 
 const Rating: FC<
   ViewProps & {
@@ -26,16 +27,24 @@ const Rating: FC<
           <Button
             onPress={() => onChangeValue(`${index + 1}`)}
             key={`rating_${index}`}
-            style={{paddingVertical: 0}}
+            style={{
+              marginVertical: 0,
+              backgroundColor: "white",
+            }}
             disabled={disabled}
             iconName="activeStar"
-            iconContainerStyle={{
-              marginLeft: 0,
-            }}
+            iconContainerStyle={
+              {
+                // backgroundColor: "red",
+                // marginLeft: 0,
+                // paddingVertical: 10,
+                // marginEnd: Spacing.S20,
+              }
+            }
             iconStyle={{
-              color: index < rate ? "#ffc107" : "#cbcbcb",
-              width: size,
-              height: size,
+              color: index < rate ? "#ffc107" : "white",
+              width: 20,
+              height: 20,
             }}
           />
         ))}

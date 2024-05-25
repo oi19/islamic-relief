@@ -65,7 +65,6 @@ export const styles = StyleSheet.create({
   },
   inputContainer: {
     borderWidth: 1,
-
     // backgroundColor: Colors.RED,
     // shadowColor: "#000",
     // shadowOffset: {
@@ -83,62 +82,24 @@ export const styles = StyleSheet.create({
     width: "100%",
     backgroundColor: Colors.TRANSPARENT,
   },
-
-  avatarContainer: {
-    // position: "absolute",
-    // alignSelf: "center",
-    // top: "7%",
-    width: "100%",
-    justifyContent: "center",
+  recieptContainer: {
+    padding: Spacing.S16,
+    // borderWidth: 1,
+    borderColor: Colors.INPUT_BORDER,
+    justifyContent: "space-between",
+    marginTop: Spacing.S16,
+    borderRadius: 4,
     alignItems: "center",
   },
-  changePhoto: {
-    textDecorationLine: "underline",
-    textAlign: "center",
-    marginVertical: Spacing.S8,
+  recieptRowStyle: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+    marginTop: Spacing.S16,
   },
-  actionsContainer: {
-    bottom: "15%",
-    end: "12%",
-  },
-  image: {
-    width: scale(140),
-    height: scale(140),
-    borderRadius: scale(70),
-  },
-  icon: {
-    width: scale(15),
-    height: scale(15),
-    color: Colors.WHITE,
-  },
-
-  // input: {
-  //   marginTop: Spacing.S11,
-  // },
-  // inputContainer: {
-  //   // borderWidth: 1,
-  //   borderColor: Colors.GRAY_EEEEEE,
-  //   shadowColor: "#000",
-  //   shadowOffset: {
-  //     width: 0,
-  //     height: 1,
-  //   },
-  //   shadowOpacity: 0.22,
-  //   shadowRadius: 2.22,
-  //   elevation: 3,
-  // },
-  password: {
-    shadowColor: "#000",
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-    elevation: 3,
-    width: getWidth(340),
-    marginHorizontal: Spacing.S11,
-    marginTop: Spacing.S20,
-    height: getHeight(48),
+  lineSaperatorStyle: {
+    height: 2,
+    opacity: 0.15,
+    marginTop: Spacing.S16,
   },
 });

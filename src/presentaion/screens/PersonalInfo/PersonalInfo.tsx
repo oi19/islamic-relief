@@ -15,11 +15,15 @@ import ErrorMessageModal from "../../../components/models/ErrorMessageModal";
 import {
   areObjectsEqual,
   convertObjToFormData,
+  formateDate,
   formateImage,
   requestStoragePermission,
   translate,
 } from "../../../helpers";
-import {AccountSignUpSchema} from "../../../helpers/validationSchema";
+import {
+  AccountSignUpSchema,
+  userAccountSchema,
+} from "../../../helpers/validationSchema";
 import {useLoader, useNavigationHooks} from "../../../hooks";
 import {MainNavigationAllScreensTypes} from "../../../navigation/navigation-types";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
@@ -38,10 +42,11 @@ import CountryModal from "../../components/shared/CountryModal/CountryModal";
 import Svgs, {IconsName} from "../../../assets/svgs";
 import Image from "../../components/shared/Image";
 // import Image from "../../../components";
-import {RoundedIcon} from "../../../components";
+import {CalenderModel, RoundedIcon} from "../../../components";
 import CameraModel, {
   ImageCropResponse,
 } from "../../../components/models/CameraModel";
+import {TouchableOpacity} from "react-native-gesture-handler";
 
 const socialMediaList: IconsName[] = ["apple", "google", "facebook"];
 
@@ -53,16 +58,19 @@ const PersonalInfo = () => {
   const errorModalRef = React.useRef<BottomSheetModal>(null);
   const countryModalRef = React.useRef<BottomSheetModal>(null);
   const cameraModelRef = React.useRef<BottomSheetModal>(null);
+  const calenderModelRef = React.useRef<BottomSheetModal>(null);
 
-  const [isMobile, setIsMobile] = useState<boolean>(false);
   const [countryCode, setCountryCode] = useState<string>("+20");
-  const [mobileOrEmailFieldInput, setMobileOrEmailFieldInput] =
-    useState<string>();
+  const [selectedCountry, setSelectedCountry] = useState<any>();
   const loginLoader = useLoader("login");
 
   const [image, setImage] = React.useState<
     ImageCropResponse | null | undefined
   >(null);
+
+  const [date, setDate] = React.useState<string | null>(
+    profile.birthday || null,
+  );
 
   const {
     setValue,
@@ -70,12 +78,10 @@ const PersonalInfo = () => {
     clearErrors,
     formState: {errors},
   } = useForm({
-    resolver: yupResolver(AccountSignUpSchema),
+    resolver: yupResolver(userAccountSchema),
   });
 
   const defaultValues = {
-    email: profile.email,
-    mobile: profile.mobile,
     name: profile.name,
     gender: profile.gender?.toString(),
     birthday: profile.birthday,
@@ -101,79 +107,36 @@ const PersonalInfo = () => {
       });
   };
 
-  const onLoginSubmit = (data: LoginTypes) => {
-    // userLogin(data, res => {
-    // if (res) {
-    navigate("TabsBottomStack");
-    // }
-    // });
-  };
-
-  // const onChangeTextHandler = (
-  //   fieldName: "identifier" | "password" | "password_confirmation",
-  //   text: string,
-  // ) => {
-  //   clearErrors();
-  //   if (fieldName == "identifier") {
-  //     mobileOrEmailInputChecker(fieldName, text);
-  //     return;
-  //   }
-  //   setValue(fieldName, text);
-  // };
-
-  // const mobileOrEmailInputChecker = (
-  //   fieldName: "identifier",
-  //   fieldInput: any,
-  // ) => {
-  //   let checkedInput = fieldInput;
-  //   const str = String(fieldInput);
-  //   const containsOnlyNumbers = /^\d+$/.test(str);
-  //   if (containsOnlyNumbers && str !== "") {
-  //     console.log("Input contains only numbers");
-  //     checkedInput = countryCode + fieldInput;
-  //     setIsMobile(true);
-  //   } else {
-  //     setIsMobile(false);
-  //     console.log(
-  //       "Input contains characters or a combination of characters and numbers",
-  //     );
-  //   }
-  //   setValue(fieldName, checkedInput);
-  //   setMobileOrEmailFieldInput(fieldInput);
-  // };
-
-  // const loginPressed = () => {
-  //   clearErrors();
-  //   goBack();
-  // };
-
-  // const onCountryModalSelect = (item: any) => {
-  //   setCountryCode(item?.countryCode);
-  //   setValue("identifier", countryCode);
-  //   onCloseCountryModal();
-  // };
-
-  // const onCloseCountryModal = () => {
-  //   countryModalRef.current?.close();
-  // };
-  // const onOpenCountryModal = () => {
-  //   countryModalRef.current?.present();
-  // };
-  const onSubmit = (data: UserAccountType) => {
+  const onSubmit = (data: any) => {
     const isEqual = areObjectsEqual(data, defaultValues);
     if (isEqual) {
-      dispatch(showToast(translate("Model.nothingToUpdate")));
+      // dispatch(showToast(translate("Model.nothingToUpdate")));
+
       return;
     }
     const _data = convertObjToFormData(data);
     if (image) {
       _data.append("image", formateImage(image?.path));
     }
+    goBack();
     updateUserData(_data, res => {
       if (res.status === 200) {
-        dispatch(showToast(translate("Model.updateDoctorMessage")));
+        goBack();
+        // dispatch(showToast(translate("Model.updateDoctorMessage")));
       }
     });
+  };
+
+  const onConfirmDate = (_date: Date) => {
+    clearErrors("birthday");
+    setValue("birthday", formateDate(_date));
+    setDate(formateDate(_date));
+  };
+
+  const onConfirmConutry = (_country: any) => {
+    clearErrors("nationality");
+    setValue("nationality", _country?.name);
+    setSelectedCountry(_country);
   };
 
   const renderAvatar = () => {
@@ -235,55 +198,93 @@ const PersonalInfo = () => {
               key={"signup_mobile"}
               placeholder={"الاسم كامل"}
               style={styles.input}
-              keyboardType={isMobile ? "phone-pad" : "default"}
-              isMobile={isMobile}
+              keyboardType={"default"}
               inputContainerStyle={styles.inputContainer}
-              // onChangeText={text => onChangeTextHandler("identifier", text)}
-              error={errors?.identifier?.message?.toString()}
+              onChangeText={text => {
+                clearErrors();
+                setValue("name", text);
+              }}
+              error={errors?.name?.message?.toString()}
               // countryButtonHandler={onOpenCountryModal}
-              countryCode={countryCode}
-              value={mobileOrEmailFieldInput}
+              // value={mobileOrEmailFieldInput}
             />
-            {isMobile === false ? (
-              <>
-                <Input
-                  key={"signup_password"}
-                  password
-                  placeholder={"الجنسية"}
-                  style={styles.input}
-                  inputContainerStyle={styles.inputContainer}
-                  // onChangeText={text => onChangeTextHandler("password", text)}
-                  error={errors?.password?.message?.toString()}
-                />
-                <Input
-                  key={"signup_password_confirmation"}
-                  password
-                  placeholder={"تأكيد كلمة المرور "}
-                  style={styles.input}
-                  inputContainerStyle={styles.inputContainer}
-                  // onChangeText={text =>
-                  //   onChangeTextHandler("password_confirmation", text)
-                  // }
-                  error={errors?.password_confirmation?.message?.toString()}
-                />
-              </>
+
+            <Button
+              type="border"
+              style={[
+                styles.inputContainer,
+                {
+                  justifyContent: "flex-start",
+                  backgroundColor: Colors.INPUT_BACKGROUND,
+                  borderColor: Colors.INPUT_BORDER,
+                  marginTop: Spacing.S16,
+                },
+              ]}
+              onPress={() => {
+                countryModalRef.current?.present();
+              }}>
+              <Input
+                key={"signup_password_confirmation"}
+                placeholder={"الجنسية"}
+                style={{flex: 1}}
+                readOnly={true}
+                value={selectedCountry?.name}
+                // inputContainerStyle={{flex: 1}}
+              />
+            </Button>
+            {errors.nationality?.message ? (
+              <Text color="RED" fontFamily="MEDIUM" style={styles.error}>
+                {errors?.nationality?.message?.toString()}
+              </Text>
+            ) : null}
+            <Button
+              type="border"
+              style={[
+                styles.inputContainer,
+                {
+                  justifyContent: "flex-start",
+                  backgroundColor: Colors.INPUT_BACKGROUND,
+                  borderColor: Colors.INPUT_BORDER,
+                  marginTop: Spacing.S16,
+                },
+              ]}
+              onPress={() => {
+                calenderModelRef.current?.present();
+              }}>
+              <Input
+                key={"signup_password_confirmation"}
+                placeholder={"تاريخ الميلاد"}
+                style={{flex: 1}}
+                readOnly={true}
+                value={date && date?.toString()}
+                // inputContainerStyle={{flex: 1}}
+              />
+            </Button>
+            {errors.birthday?.message ? (
+              <Text color="RED" fontFamily="MEDIUM" style={styles.error}>
+                {errors?.birthday?.message?.toString()}
+              </Text>
             ) : null}
           </View>
         </View>
         <Button
-          text={"انشاء حساب"}
+          text={"حفظ"}
           type="standard"
-          // onPress={handleSubmit(handleLoginPressed)}
+          onPress={handleSubmit(onSubmit)}
           style={styles.button}
           textStyle={{fontSize: "FS16"}}
         />
       </KeyboardAwareScrollView>
-      <CountryModal
-        forwardRef={countryModalRef}
-        // onSelect={item => onCountryModalSelect(item)}
-        selectedId={0}
-      />
 
+      <CalenderModel
+        handleOnSelectDate={onConfirmDate}
+        forwardRef={calenderModelRef}
+      />
+      <CountryModal
+        onSelect={onConfirmConutry}
+        forwardRef={countryModalRef}
+        selectedCountry={selectedCountry}
+      />
       <ErrorMessageModal
         forwardRef={errorModalRef}
         message={translate("Modal.Error")}

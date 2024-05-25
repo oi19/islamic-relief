@@ -44,6 +44,7 @@ export function getProfileListWithoutLogin(
       // renderRightElement: true,
       icon: "recieptIcon",
       onPress: "Notifications",
+      navigateTo: "MyReciepts",
       isShowArrow: true,
     },
     {
@@ -75,8 +76,9 @@ export function getProfileListWithoutLogin(
     {
       name: "قيم التطبيق",
       desc: "قيمنا في المتجر",
-      navigateTo: "ManageCards",
+      // navigateTo: "ManageCards",
       icon: "rateIcon",
+      onPress: "review",
       isShowArrow: true,
     },
 

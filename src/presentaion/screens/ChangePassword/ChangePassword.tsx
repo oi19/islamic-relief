@@ -2,35 +2,38 @@ import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import {yupResolver} from "@hookform/resolvers/yup";
 import React, {useState} from "react";
 import {useForm} from "react-hook-form";
-import {Keyboard, ScrollView, View} from "react-native";
+import {Keyboard, View} from "react-native";
 import {LoginTypes} from "../../../@types";
 
 import Button from "../../components/shared/Button/Button";
 import Input from "../../components/shared/Input/Input";
 import Text from "../../components/shared/Text/Text";
-import Line from "../../components/shared/Line";
-import ViewRow from "../../components/shared/ViewRow/ViewRow";
 import Header from "../../components/shared/Header";
 import ErrorMessageModal from "../../../components/models/ErrorMessageModal";
 import {translate} from "../../../helpers";
 import {
-  AccountSignUpSchema,
   changePasswordSchema,
+  forgetPasswordSchema,
+  ResetPasswordSchema,
 } from "../../../helpers/validationSchema";
 import {useLoader, useNavigationHooks} from "../../../hooks";
-import {MainNavigationAllScreensTypes} from "../../../navigation/navigation-types";
+import {
+  MainAppStackTypes,
+  MainNavigationAllScreensTypes,
+} from "../../../navigation/navigation-types";
 import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 
 import {userLogin} from "../../../redux";
 import {Colors, Spacing} from "../../../styles";
 import {styles} from "./styles";
-import CountryModal from "../../components/shared/CountryModal/CountryModal";
 
 import {IconsName} from "../../../assets/svgs";
-
-const socialMediaList: IconsName[] = ["apple", "google", "facebook"];
+import {RouteProp, useRoute} from "@react-navigation/native";
 
 const ChangePassword = () => {
+  const {
+    params: {type},
+  } = useRoute<RouteProp<MainAppStackTypes, "ChangePassword">>();
   const {goBack, navigate} =
     useNavigationHooks<MainNavigationAllScreensTypes>();
 
@@ -39,24 +42,34 @@ const ChangePassword = () => {
   useState<string>();
   const loginLoader = useLoader("login");
 
+  const validationSchema: any =
+    type === "update" ? changePasswordSchema : forgetPasswordSchema;
+
   const {
     setValue,
     handleSubmit,
     clearErrors,
+    getValues,
     formState: {errors},
   } = useForm({
-    resolver: yupResolver(changePasswordSchema),
+    resolver: yupResolver(validationSchema),
   });
 
-  const handleLoginPressed = async (data: LoginTypes) => {
+  const onSubmit = async (data: {
+    oldPassword?: string | undefined;
+    password: string | undefined;
+    password_confirmation: string | undefined;
+  }) => {
     Keyboard.dismiss();
-
-    onLoginSubmit(data);
+    type == "reset" ? onResetPasswordSuccess(data) : onUpdatePassword(data);
   };
 
-  const onLoginSubmit = (data: LoginTypes) => {
+  const onResetPasswordSuccess = (data: {
+    password: string | undefined;
+    password_confirmation: string | undefined;
+  }) => {
     // userLogin(data, res => {
-    // if (res) {
+    //   if (res) {
     navigate("CongratsScreen", {
       isShowSuccessSign: true,
       isDestructiveButton: false,
@@ -64,28 +77,56 @@ const ChangePassword = () => {
       subTitle: "لقد تم تغيير كلمة المرور الخاصة بك بنجاح.",
       buttonTitle: "العودة إلى تسجيل الدخول",
       onCompletionHandler: () => navigate("Login", {navigateTo: undefined}),
+      //   });
+      // }
     });
+  };
+
+  const onUpdatePassword = (data: {
+    oldPassword?: string | undefined;
+    password: string | undefined;
+    password_confirmation: string | undefined;
+  }) => {
+    // userLogin(data, res => {
+    //   if (res) {
+    goBack();
     // }
     // });
   };
 
   const onChangeTextHandler = (
-    fieldName: "password" | "password_confirmation",
+    fieldName: "old_password" | "password" | "password_confirmation",
     text: string,
   ) => {
-    clearErrors();
+    clearErrors(fieldName);
     setValue(fieldName, text);
   };
 
-  const loginPressed = () => {
-    clearErrors();
-    goBack();
+  const renderSubmitButton = (conditionalType: "reset" | "update") => {
+    const text =
+      type == "reset" ? "إعادة تعيين كلمة المرور" : "تغيير كلمة المرور";
+
+    return (
+      <>
+        {conditionalType == "update" ? (
+          <Button
+            text={text}
+            type="standard"
+            textStyle={{fontSize: "FS16"}}
+            onPress={handleSubmit(onSubmit)}
+            style={[styles.button, {}]}
+          />
+        ) : null}
+      </>
+    );
   };
 
   return (
     <View style={styles.rootScreen}>
       <Header
         title={" "}
+        centeredTitle="تغيير كلمة المرور"
+        isShowHeaderShadow
         authHeader={true}
         style={{
           backgroundColor: Colors.WHITE,
@@ -101,16 +142,21 @@ const ChangePassword = () => {
           flexGrow: 1,
         }}>
         <View>
-          <Text fontFamily="BOLD" fontSize="FS24">
-            {"إنشاء كلمة مرور جديدة"}
-          </Text>
-          <Text fontFamily="MEDIUM" fontSize="H3" color="INPUT_TEXT">
-            {"يجب أن تكون كلمة المرور الجديدة فريدة من نوعها"}
-          </Text>
+          {type == "update" ? (
+            <Input
+              key={"current_password"}
+              password
+              placeholder={"كلمة السر"}
+              style={styles.input}
+              inputContainerStyle={styles.inputContainer}
+              onChangeText={text => onChangeTextHandler("old_password", text)}
+              error={errors?.old_password?.message?.toString()}
+            />
+          ) : null}
           <Input
             key={"change_password"}
             password
-            placeholder={"كلمة السر الجديدة"}
+            placeholder={type == "update" ? "كلمة السر الجديدة" : "كلمة السر"}
             style={styles.input}
             inputContainerStyle={styles.inputContainer}
             onChangeText={text => onChangeTextHandler("password", text)}
@@ -127,14 +173,9 @@ const ChangePassword = () => {
             }
             error={errors?.password_confirmation?.message?.toString()}
           />
-          <Button
-            text={"إعادة تعيين كلمة المرور"}
-            type="standard"
-            textStyle={{fontSize: "FS16"}}
-            onPress={handleSubmit(handleLoginPressed)}
-            style={styles.button}
-          />
+          {renderSubmitButton("reset")}
         </View>
+        {renderSubmitButton("update")}
       </KeyboardAwareScrollView>
 
       <ErrorMessageModal

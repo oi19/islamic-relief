@@ -60,6 +60,7 @@ const Login = () => {
 
   const [biometricType, setBiometricType] = useState<string>("");
   const [countryCode, setCountryCode] = useState<string>("+20");
+  const [selectedCountry, setSelectedCountry] = useState<any>();
   const [mobileOrEmailFieldInput, setMobileOrEmailFieldInput] =
     useState<string>();
   const loginLoader = useLoader("login");
@@ -326,7 +327,7 @@ const Login = () => {
       <CountryModal
         forwardRef={countryModalRef}
         onSelect={item => onCountryModalSelect(item)}
-        selectedId={0}
+        selectedCountry={countryCode}
       />
 
       <ErrorMessageModal

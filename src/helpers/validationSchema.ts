@@ -174,6 +174,19 @@ export const AccountSignUpSchema = yup.object().shape({
   // Password confirmation not required if identifier is a number or password is not provided
 });
 
+export const changeMobileNumberSchema = yup.object().shape({
+  mobileNumber: yup
+    .string()
+    .required("الرجاء إدخال رقم هاتف صالح أو بريد إلكتروني"),
+  // .max(10),
+  // .test("mobileNumber", function (value, {parent}) {
+  // const phoneNumberError = validatePhoneNumber(value);
+  // if (phoneNumberError) {
+  //   throw new yup.ValidationError(phoneNumberError, value, "identifier");
+  // }
+  // }),
+});
+
 export const confirmEmailSchema = yup.object().shape({
   email: yup
     .string()
@@ -264,15 +277,9 @@ export const UpdateClinicSchema = yup.object().shape({
 });
 
 export const userAccountSchema = yup.object().shape({
-  mobile: yup
-    .string()
-    .trim()
-    .matches(phoneRegExp, translate("validation.enterValidPhoneNumber"))
-    .required(),
-  email: yup.string().trim().email().required(),
   name: yup.string().required(),
   birthday: yup.string().required(),
-  gender: yup.string().required(),
+  nationality: yup.string().required(),
 });
 
 export const ResetPasswordSchema = yup.object().shape({
@@ -280,7 +287,11 @@ export const ResetPasswordSchema = yup.object().shape({
   password: yup.string().min(8).max(24).required(),
 });
 export const forgetPasswordSchema = yup.object().shape({
-  password: yup.string().min(8).max(24).required(),
+  password: yup
+    .string()
+    .min(8, "يجب أن تتكون كلمة المرور من الأقل 8 أحرف")
+    .max(24, "لا يجب أن تتكون كلمة المرور من الأكثر 24 حرف")
+    .required('كلمة المرور مطلوبة"'),
   password_confirmation: yup
     .string()
     .oneOf(
@@ -295,9 +306,14 @@ export const forgetPasswordSchema2 = yup.object().shape({
 });
 
 export const changePasswordSchema = yup.object().shape({
-  password: yup
+  old_password: yup
     .string()
     .min(8, "يجب أن تتكون كلمة المرور من الأقل 8 أحرف")
+    .max(24, "لا يجب أن تتكون كلمة المرور من الأكثر 24 حرف")
+    .required("كلمة المرور مطلوبة"),
+  password: yup
+    .string()
+    .min(8, "لا يجب أن تتكون كلمة المرور من الأقل 8 أحرف")
     .max(24, "يجب أن تتكون كلمة المرور من الأكثر 24 حرف")
     .required("كلمة المرور مطلوبة"),
   password_confirmation: yup

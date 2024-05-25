@@ -15,16 +15,16 @@ const Switch: React.FC<SwitchProps> = ({value, onValueChange}) => {
 
   const switchTranslateX = useState(
     new Animated.Value(
-      active ? scale(23 * isRtlNumber) : scale(-3 * isRtlNumber),
+      active ? scale(23 * isRtlNumber) : scale(-2 * isRtlNumber),
     ),
   )[0];
 
   const toggleSwitch = () => {
     const newValue = !active;
     setActive(newValue);
-    onValueChange(newValue);
+    onValueChange(active);
     Animated.timing(switchTranslateX, {
-      toValue: newValue ? scale(18 * isRtlNumber) : scale(0),
+      toValue: newValue ? scale(23 * isRtlNumber) : scale(0),
       duration: 200,
       useNativeDriver: true,
     }).start();

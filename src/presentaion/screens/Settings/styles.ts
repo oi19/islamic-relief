@@ -8,7 +8,7 @@ export const styles = StyleSheet.create({
     backgroundColor: Colors.WHITE,
   },
   container: {
-    flex: 1,
+    // flex: 1,
     // paddingTop: Spacing.S20,
     // paddingHorizontal: getWidth(Spacing.S20),
   },

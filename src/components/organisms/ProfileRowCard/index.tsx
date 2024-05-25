@@ -14,12 +14,16 @@ type ProfileRowCardProps = {
   index?: number;
   style?: ViewStyle;
   handleOnRowPressed: () => void;
+  onToggleHandler?: () => void;
+  isToggle?: boolean;
 };
 
 const ProfileRowCard: React.FC<ProfileRowCardProps> = ({
   item,
   style,
+  isToggle,
   handleOnRowPressed,
+  onToggleHandler,
 }) => {
   return (
     <Card
@@ -54,9 +58,10 @@ const ProfileRowCard: React.FC<ProfileRowCardProps> = ({
         <View>
           <Switch
             onValueChange={(value: boolean) => {
-              console.log(value);
+              onToggleHandler && onToggleHandler();
+              console.warn(value);
             }}
-            value={false}
+            value={isToggle}
           />
         </View>
       ) : (

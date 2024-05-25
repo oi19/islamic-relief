@@ -31,6 +31,10 @@ import {useToken} from "../hooks";
 import {useAppSelector} from "../redux";
 import Settings from "../presentaion/screens/Settings";
 import PersonalInfo from "../presentaion/screens/PersonalInfo/PersonalInfo";
+import ChangeMobileNumber from "../presentaion/screens/ChangeMobileNumber/ChangeMobileNumber";
+import ChangeEmail from "../presentaion/screens/ChangeEmail/ChangeEmail";
+import MyReciepts from "../presentaion/screens/MyReciepts/MyReciepts";
+import RecieptDetail from "../presentaion/screens/RecieptDetail/RecieptDetail";
 
 const MainStack = () => {
   const Stack = createNativeStackNavigator<MainAppStackTypes>();
@@ -57,6 +61,8 @@ const MainStack = () => {
       <Stack.Screen name="Account" component={Account} />
       <Stack.Screen name="Settings" component={Settings} />
       <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
+      <Stack.Screen name="MyReciepts" component={MyReciepts} />
+      <Stack.Screen name="RecieptDetail" component={RecieptDetail} />
 
       {/* {isValid ? (
         <Stack.Screen name="TabsBottomStack" component={TabButtonsStack} />
@@ -80,6 +86,9 @@ const MainStack = () => {
 
       <Stack.Screen name="ForgetPassword" component={ForgetPassword} />
       <Stack.Screen name="ChangePassword" component={ChangePassword} />
+      <Stack.Screen name="ChangeEmail" component={ChangeEmail} />
+      {/* <Stack.Screen name="AddPaymentCard" component={AddPaymentCard} /> */}
+      <Stack.Screen name="ChangeMobileNumber" component={ChangeMobileNumber} />
       <Stack.Screen name="ConfirmOtp" component={ConfirmOtp} />
       <Stack.Screen name="ZoomRoom" component={ZoomRoom} />
     </Stack.Navigator>

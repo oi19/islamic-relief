@@ -1,6 +1,6 @@
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
 import React, {RefObject} from "react";
-import {View} from "react-native";
+import {Image, ImageBackground, View} from "react-native";
 
 import {yupResolver} from "@hookform/resolvers/yup";
 import {useForm} from "react-hook-form";
@@ -15,8 +15,8 @@ import {ReviewSchema} from "../../../helpers/validationSchema";
 import {useLoader} from "../../../hooks";
 import {addReview, useAppSelector} from "../../../redux";
 import {Colors, Spacing} from "../../../styles";
-import {scale} from "../../../styles/dimensions";
-import {Button, ControlledInput, Rating, Text} from "../../atoms";
+import {getHeight, getWidth, scale} from "../../../styles/dimensions";
+import {Button, ControlledInput, Line, Rating, Text} from "../../atoms";
 import {Scroll} from "../../molecules";
 import BaseModal from "../BaseModal/BaseModal";
 import {styles} from "./styles";
@@ -94,22 +94,41 @@ const AddReviewModel: React.FC<AddReviewModelModelProps> = ({forwardRef}) => {
   return (
     <BaseModal
       forwardRef={forwardRef}
-      snapPoints={["80%"]}
+      snapPoints={["100%"]}
       backgroundStyle={{
-        backgroundColor: Colors.GRAY_EEEEEE,
-        borderRadius: scale(20),
+        backgroundColor: Colors.TRANSPARENT,
       }}>
-      <Scroll>
+      <View style={styles.root}>
         <View style={styles.container}>
+          <View
+            style={{
+              width: getWidth(60),
+              height: getHeight(60),
+              justifyContent: "center",
+              backgroundColor: Colors.PRIMARY,
+              borderRadius: scale(18),
+              marginTop: Spacing.S20,
+            }}>
+            <ImageBackground
+              resizeMode="contain"
+              style={{
+                height: getHeight(40),
+              }}
+              source={require("../../../assets/images/logo_white.png")}
+            />
+          </View>
           <Text
             style={{
               marginVertical: Spacing.S20,
+              paddingHorizontal: scale(60),
+              textAlign: "center",
             }}
-            fontSize="FS18"
+            fontSize="FS14"
             color="FONT_07101A"
             fontFamily="MEDIUM">
-            {translate("Model.whatIsRate")}
+            قيم تطبيق الإغاثة الاسلامية على متجر ابل ستور
           </Text>
+          <Line style={{height: 2}} />
           <Rating
             size={scale(36)}
             disabled={false}
@@ -121,58 +140,24 @@ const AddReviewModel: React.FC<AddReviewModelModelProps> = ({forwardRef}) => {
               setRating(rating);
             }}
           />
-          <Text color="RED">{errors?.rate?.message}</Text>
-          <Text
-            style={styles.shareOpinionText}
-            fontSize="FS18"
-            color="FONT_07101A">
-            {translate("Model.shareYourOpinion")}
-          </Text>
-          <ControlledInput
-            fieldName="review"
-            control={control}
-            multiline
-            numberOfLines={4}
-            placeholder={translate("completePatientDetails.writeHere")}
-            textAlignVertical="top"
-            inputContainerStyle={styles.inputContainerStyle}
-            inputStyle={styles.problemInputStyle}
-            // inputRef={problemInputRef}
-          />
-          {/* <FlatList
-          data={null}
-          renderItem={null}
-          showsHorizontalScrollIndicator={false}
-          horizontal
-          ListHeaderComponent={
-            <ViewRow style={{paddingHorizontal: Spacing.S20}}>
-              {images && <SelectedMultiPhotos listItems={images} />}
-              <Card
-                onPress={() => {
-                  handleUploadDocuments();
-                }}
-                style={styles.cameraButton}>
-                <RoundedIcon
-                  icon="camera"
-                  backgroundColor="PRIMARY"
-                  title={translate("Common.addPhotos")}
-                  iconStyle={{
-                    color: Colors.WHITE,
-                  }}
-                />
-              </Card>
-            </ViewRow>
-          }
-        /> */}
+          <Line style={{height: 2}} />
           <Button
-            type="standard"
-            isLoading={addReviewLoader}
-            text={translate("Common.sendReview")}
+            // type="standard"
+            // isLoading={addReviewLoader}
+            // text={ translate("Common.sendReview")}
+            text={"ليس الان"}
+            textStyle={{
+              color: "PRIMARY",
+              fontFamily: "MEDIUM",
+              fontSize: "FS16",
+            }}
             style={styles.sendReview}
-            onPress={handleSubmit(onSendReview)}
+            onPress={() => {
+              forwardRef.current?.close();
+            }}
           />
         </View>
-      </Scroll>
+      </View>
     </BaseModal>
   );
 };

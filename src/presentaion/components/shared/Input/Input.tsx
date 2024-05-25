@@ -150,7 +150,7 @@ const Input: FC<TextInputProps & InputProps> = ({
         )}
       </View>
       {error && (
-        <Text color="RED" style={styles.error}>
+        <Text color="RED" fontFamily="MEDIUM" style={styles.error}>
           {error}
         </Text>
       )}

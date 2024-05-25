@@ -42,31 +42,23 @@ export function getProfileListWithoutLogin(
       name: "تغيير كلمة المرور",
       desc: "اختر كلمة مرور لحماية حسابك",
       // renderRightElement: true,
-      onPress: "Notifications",
+      navigateTo: "ChangePassword",
+      onPress: "changePassword",
       isShowArrow: true,
     },
     {
       name: "غير رقم الهاتف",
-      navigateTo: "Favorites",
+      navigateTo: "ChangeMobileNumber",
       isShowArrow: true,
     },
     {
       name: "تغيير البريد الإلكتروني",
       desc: "التبرعات العامة صدقة كفارات",
       arrowWithHint: false,
-      navigateTo: "Help",
+      navigateTo: "ChangeEmail",
       isShowArrow: true,
     },
 
-    {
-      name: "لغة التطبيق",
-      arrowWithHint: isRTL() ? "Ar" : "En",
-      desc: isRTL() ? "العربية" : "En",
-      onPress: "language",
-      isShowArrow: true,
-    },
-
-    // profileListWithoutLogin[1],
     {
       name: "بطاقة ائتمان",
       desc: "أضف بطاقة ائتمان",

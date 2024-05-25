@@ -11,6 +11,9 @@ import {Spacing} from "../../../styles";
 import {logout, userLogout} from "../../../redux";
 import {translate} from "../../../helpers";
 
+// import AddReviewModel from "../../../presentaion/components/common/AddReviewModel";
+import {AddReviewModel} from "../../models";
+
 type ProfileListProps = {
   listItems: profileRowType[];
   selectedCity?: CityType;
@@ -26,6 +29,7 @@ const ProfileList: React.FC<ProfileListProps> = ({
   const languageModalRef = React.useRef<BottomSheetModal>(null);
   const citiesModalRef = React.useRef<BottomSheetModal>(null);
   const logoutModalRef = React.useRef<BottomSheetModal>(null);
+  const addReviewModalRef = React.useRef<BottomSheetModal>(null);
 
   const logoutLoading = useLoader("logout");
 
@@ -38,12 +42,19 @@ const ProfileList: React.FC<ProfileListProps> = ({
   const onLogoutRowPressed = () => {
     logoutModalRef.current?.present();
   };
+  const onReviewRowPressed = () => {
+    addReviewModalRef.current?.present();
+  };
 
   const handleOnRowPressed = (item: profileRowType) => {
     const itemPressedOrNavigate = item?.navigateTo;
 
     if (itemPressedOrNavigate) {
-      navigate(item.navigateTo);
+      item.onPress == "changePassword"
+        ? navigate(item.navigateTo, {
+            type: "update",
+          })
+        : navigate(item.navigateTo);
       return;
     }
 
@@ -54,8 +65,12 @@ const ProfileList: React.FC<ProfileListProps> = ({
       case "language":
         onLanguageRowPressed();
         break;
+
       case "logout":
         onLogoutRowPressed();
+        break;
+      case "review":
+        onReviewRowPressed();
         break;
       default:
         console.log("Will Add This Action Soon");
@@ -82,7 +97,7 @@ const ProfileList: React.FC<ProfileListProps> = ({
         renderItem={_renderProfileItem}
         contentContainerStyle={{
           // paddingBottom: Spacing.S40 * 3.5,
-          paddingTop: Spacing.S11,
+          paddingTop: Spacing.S16,
         }}
         keyExtractor={(_, index) => `profile-row-item${index}`}
         showsVerticalScrollIndicator={false}
@@ -93,6 +108,7 @@ const ProfileList: React.FC<ProfileListProps> = ({
         onSelect={onSelectedCity}
         selectedId={selectedCity?.id?.toString()}
       />
+      <AddReviewModel forwardRef={addReviewModalRef} />
       <ConfirmModal
         forwardRef={logoutModalRef}
         onConfirm={() => {

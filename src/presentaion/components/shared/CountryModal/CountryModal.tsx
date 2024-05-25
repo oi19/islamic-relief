@@ -14,28 +14,28 @@ import {Spacing} from "../../../../styles";
 const CountryModal = ({
   forwardRef,
   onSelect,
-  selectedId,
+  selectedCountry,
 }: {
   forwardRef: RefObject<BottomSheetModal>;
-  onSelect: (id: number) => void;
-  selectedId: number;
+  onSelect: (item: any) => void;
+  selectedCountry: any;
 }) => {
   // const genders = useAppSelector(state => state.userReducer.genders);
 
-  const onSelectedCity = (id: number) => {
-    onSelect(id);
+  const onSelectCountry = (item: any) => {
+    onSelect(item);
     setTimeout(() => {
       forwardRef.current?.close();
     }, 1);
   };
 
-  const renderCountryItem: ListRenderItem<GenderTypes> = ({item, index}) => {
+  const renderCountryItem: ListRenderItem<any> = ({item, index}) => {
     return (
       <SelectedItem
         key={`renderCountryItem_${index}`}
         item={item}
-        isSelected={selectedId === item?.id}
-        onPress={() => onSelectedCity(item.id)}
+        isSelected={selectedCountry?.id === item?.id}
+        onPress={() => onSelectCountry(item)}
       />
     );
   };
@@ -43,6 +43,7 @@ const CountryModal = ({
   return (
     <BaseModal
       // title={translate("gender")}
+
       snapPoints={["25%"]}
       forwardRef={forwardRef}>
       <View style={styles.container}>

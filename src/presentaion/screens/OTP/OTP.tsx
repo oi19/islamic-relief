@@ -12,8 +12,12 @@ import {KeyboardAwareScrollView} from "react-native-keyboard-aware-scroll-view";
 import {Colors, Spacing} from "../../../styles";
 import {styles} from "./styles";
 import OTPInputPanel from "../../components/common/OTPInputPanel";
+import {RouteProp, useRoute} from "@react-navigation/native";
 
 const OTP = () => {
+  const {
+    params: {navigateTo},
+  } = useRoute<RouteProp<MainAppStackTypes, "OTP">>();
   const {navigate, goBack, replace} = useNavigationHooks<MainAppStackTypes>();
   const forgetPasswordLoader = useLoader("confirmOtp");
 
@@ -36,7 +40,7 @@ const OTP = () => {
 
   const onSubmit = () => {
     if (otp?.length == 4) {
-      replace("ChangePassword");
+      replace(navigateTo);
       // confirmDoctorOTP(
       //   {
       //     otp,

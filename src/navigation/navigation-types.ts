@@ -50,10 +50,20 @@ export type MainAppStackTypes = {
   //   loadingApi: keyof ApisTypes;
   //   resendLoadingApi: keyof ApisTypes;
   // };
-  OTP: undefined;
+  OTP: {
+    navigateTo: MainNavigationAllScreensTypes;
+  };
 
-  ChangePassword: undefined;
+  ChangePassword: {
+    type?: "reset" | "update";
+  };
+  MyReciepts: undefined;
+  RecieptDetail: {id: number};
+  ChangeMobileNumber: undefined;
+  ChangeEmail: undefined;
+  ChangeLang: undefined;
   ConfirmOtp: undefined;
+  AddPaymentCard: undefined;
   ForgetPassword: undefined;
   CongratsScreen: {
     isShowSuccessSign: boolean;
