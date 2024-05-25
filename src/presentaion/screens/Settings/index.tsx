@@ -1,5 +1,5 @@
-import {ScrollView, View} from "react-native";
-import React from "react";
+import {Alert, Linking, Platform, ScrollView, View} from "react-native";
+import React, {useEffect, useState} from "react";
 import {getHeight, getWidth, scale} from "../../../styles/dimensions";
 import {Colors, Spacing} from "../../../styles";
 import {ProfileList, ProfileRowCard, Text, ViewRow} from "../../../components";
@@ -18,6 +18,11 @@ import {convertObjToFormData, translate} from "../../../helpers";
 import {selectCityById, updateUserData, useAppSelector} from "../../../redux";
 import {PRIMARY} from "../../../styles/colors";
 import Line from "../../components/shared/Line";
+import {
+  checkBiometricType,
+  confirmBiometric,
+  enableBiometric,
+} from "../../../services/biometric";
 
 const Settings: React.FC = () => {
   const {navigate} = useNavigationHooks<MainAppStackTypes>();
@@ -25,6 +30,8 @@ const Settings: React.FC = () => {
   const selectedCity = useAppSelector(state =>
     selectCityById(state, Number(profile.city_id)),
   );
+  const [biometricType, setBiometricType] = useState<string>("");
+  const [isEnable, setIsEnable] = useState<boolean>(false);
 
   const isLogin = useToken();
   const profileLoading = useLoader("userProfile");
@@ -33,6 +40,68 @@ const Settings: React.FC = () => {
     updateUserData(convertObjToFormData(profile));
   };
 
+  useEffect(() => {
+    checkBiometricType(
+      (isSupport: Boolean) => {},
+      (biometricTypeText: string) => {
+        setBiometricType(biometricTypeText);
+      },
+    );
+    setTimeout(() => {
+      // setLoadingVisible(false);
+    }, 300);
+  }, []);
+
+  const onBiometricActivate = () => {
+    checkBiometricType(
+      async (isSupport: Boolean) => {
+        if (isSupport) {
+          confirmBiometric(
+            (isValidBiometric: Boolean) => {
+              if (isValidBiometric) {
+                setIsEnable(true);
+                enableBiometric();
+                // updateProfileData(Settings_Type.BIOMETRIC, true);
+              } else {
+                setIsEnable(false);
+                // updateProfileData(Settings_Type.BIOMETRIC, false);
+              }
+            },
+            (BreakException: boolean) => {},
+          );
+        } else {
+          Alert.alert(`${""}`, `Biometric Permission Denied`, [
+            {
+              text: `Cancel`,
+              onPress: () => {
+                setIsEnable(!isEnable);
+              },
+              style: "cancel",
+            },
+            {
+              text: `go To settings`,
+              onPress: () => {
+                if (Platform.OS === "ios") {
+                  Linking.openURL("App-Prefs:setting");
+                } else {
+                  // AndroidOpenSettings.generalSettings();
+                }
+              },
+            },
+          ]);
+        }
+      },
+      (biometricTypeText: string) => {},
+    );
+  };
+
+  const toggle = () => {
+    if (isEnable) {
+      setIsEnable(false);
+    } else {
+      onBiometricActivate();
+    }
+  };
   const renderHeader = () => {
     return (
       <>
@@ -55,14 +124,16 @@ const Settings: React.FC = () => {
       <>
         <Line style={styles.saperatorStyle} />
         <View style={{paddingVertical: Spacing.S20}}>
-          <ProfileRowCard
+          {/* <ProfileRowCard
             item={{
               name: "تسجيل الدخول بالبصمة",
               desc: "فعال",
               renderRightElement: true,
             }}
             handleOnRowPressed={() => {}}
-          />
+            onToggleHandler={() => {}}
+            isToggle
+          /> */}
           <ProfileRowCard
             item={{
               name: "تسجيل الدخول بالوجه",
@@ -71,6 +142,8 @@ const Settings: React.FC = () => {
               renderRightElement: true,
             }}
             handleOnRowPressed={() => {}}
+            onToggleHandler={toggle}
+            isToggle={isEnable}
           />
         </View>
         <Line style={styles.saperatorStyle} />
