@@ -85,6 +85,9 @@ import ShareIcon from "./shareIcon";
 import LogoutIcon from "./logoutIcon";
 import SupportIcon from "./supportIcon";
 import CameraIcon from "./cameraIcon";
+import WhatsApp from "./whatsApp";
+import ContactUs from "./contactUs";
+import ChatIcon from "./chatIcon";
 
 export type IconsName =
   | "remove"
@@ -169,7 +172,10 @@ export type IconsName =
   | "shareIcon"
   | "supportIcon"
   | "logoutIcon"
-  | "cameraIcon";
+  | "cameraIcon"
+  | "whatsApp"
+  | "contactUs"
+  | "chatIcon";
 
 export type RotateTypes = "left" | "right" | "top" | "bottom";
 
@@ -223,6 +229,18 @@ function Svgs(props: IconsProps & SvgEnhancedProps) {
     case "circles":
       return (
         <Circles {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "whatsApp":
+      return (
+        <WhatsApp {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "contactUs":
+      return (
+        <ContactUs {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "chatIcon":
+      return (
+        <ChatIcon {...props} style={[props.rotate && style, props.style]} />
       );
     case "reportIcon":
       return (

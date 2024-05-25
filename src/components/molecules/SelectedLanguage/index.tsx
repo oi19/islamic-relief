@@ -1,29 +1,23 @@
 import {FlatList, ListRenderItem, StyleSheet} from "react-native";
 import React from "react";
 import {Spacing} from "../../../styles";
-import {
-  SelectedCheckLangau,
-  SelectedCheckPaymentCardType,
-} from "../../../@types";
+import {SelectedCheckPaymentCardType} from "../../../@types";
 import SelectedPaymentCardWithCheck from "../../organisms/SelectedPaymentCardWithCheck";
 
 const list = [
   {id: 1, name: "العربية"},
   {id: 2, name: "English"},
 ];
-
 type SelectCheckedOptionsProps = {
-  listItems: SelectedCheckLangau[];
+  listItems: SelectedCheckPaymentCardType[];
   selectedItem: number;
   onSelectedItem: (index: number) => void;
-  onSetAsDefaultPressed: (index: number) => void;
   onEditPressed: () => void;
 };
-const SelectCheckedPaymentCard: React.FC<SelectCheckedOptionsProps> = ({
+const SelectedLanguage: React.FC<SelectCheckedOptionsProps> = ({
   listItems,
   onSelectedItem,
-  onEditPressed,
-  onSetAsDefaultPressed,
+
   selectedItem,
 }) => {
   const _selectedItemRender: ListRenderItem<SelectedCheckPaymentCardType> = ({
@@ -36,13 +30,11 @@ const SelectCheckedPaymentCard: React.FC<SelectCheckedOptionsProps> = ({
         active={active}
         item={item}
         index={index}
-        onSetAsDefaultPressed={() => {
-          onSetAsDefaultPressed(index);
-        }}
+        onSetAsDefaultPressed={() => {}}
         onSelected={() => {
           onSelectedItem(index);
         }}
-        onEditPressed={onEditPressed}
+        onEditPressed={() => {}}
       />
     );
   };
@@ -58,7 +50,7 @@ const SelectCheckedPaymentCard: React.FC<SelectCheckedOptionsProps> = ({
   );
 };
 
-export default SelectCheckedPaymentCard;
+export default SelectedLanguage;
 
 const styles = StyleSheet.create({
   listStyle: {width: "100%", height: "85%", marginBottom: Spacing.S8},

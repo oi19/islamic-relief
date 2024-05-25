@@ -58,6 +58,9 @@ export type MainAppStackTypes = {
     type?: "reset" | "update";
   };
   MyReciepts: undefined;
+  Support: undefined;
+  Language: undefined;
+  About: undefined;
   RecieptDetail: {id: number};
   ChangeMobileNumber: undefined;
   ChangeEmail: undefined;

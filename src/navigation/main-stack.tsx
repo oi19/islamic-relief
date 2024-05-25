@@ -35,6 +35,9 @@ import ChangeMobileNumber from "../presentaion/screens/ChangeMobileNumber/Change
 import ChangeEmail from "../presentaion/screens/ChangeEmail/ChangeEmail";
 import MyReciepts from "../presentaion/screens/MyReciepts/MyReciepts";
 import RecieptDetail from "../presentaion/screens/RecieptDetail/RecieptDetail";
+import Support from "../presentaion/screens/Support/Support";
+import About from "../presentaion/screens/About/About";
+import Language from "../presentaion/screens/Language/Language";
 
 const MainStack = () => {
   const Stack = createNativeStackNavigator<MainAppStackTypes>();
@@ -63,6 +66,9 @@ const MainStack = () => {
       <Stack.Screen name="PersonalInfo" component={PersonalInfo} />
       <Stack.Screen name="MyReciepts" component={MyReciepts} />
       <Stack.Screen name="RecieptDetail" component={RecieptDetail} />
+      <Stack.Screen name="Support" component={Support} />
+      <Stack.Screen name="About" component={About} />
+      <Stack.Screen name="Language" component={Language} />
 
       {/* {isValid ? (
         <Stack.Screen name="TabsBottomStack" component={TabButtonsStack} />

@@ -6,6 +6,7 @@ import {AppointmentStatus} from "./appointment-types";
 import {TransactionStatus} from "./transaction-types";
 import {translate} from "../helpers";
 import {Doctor} from "./doctor";
+import {ColorsTypes} from "../styles/colors";
 
 export type TabOptionType = {
   id?: number;
@@ -41,6 +42,11 @@ export type SelectedCheckPaymentCardType = {
   lastDigits?: string;
 };
 
+export type SelectedCheckLangau = {
+  id?: number;
+  name?: string;
+};
+
 export type Review = {
   created_at: Date;
   doctor_id: number;
@@ -61,6 +67,7 @@ export type profileRowType = {
   arrowWithHint?: boolean | string;
   renderRightElement?: boolean;
   onPress?: string;
+  arrowColor?: string;
   navigateTo?: MainNavigationKeys;
 };
 

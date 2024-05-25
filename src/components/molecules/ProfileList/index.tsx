@@ -18,12 +18,14 @@ type ProfileListProps = {
   listItems: profileRowType[];
   selectedCity?: CityType;
   onSelectedCity: (selectedCity: CityType) => void;
+  isSupportStyle?: boolean;
 };
 
 const ProfileList: React.FC<ProfileListProps> = ({
   listItems,
   selectedCity,
   onSelectedCity,
+  isSupportStyle,
 }) => {
   const {navigate, goBack} = useNavigationHooks<MainAppStackTypes>();
   const languageModalRef = React.useRef<BottomSheetModal>(null);
@@ -84,6 +86,7 @@ const ProfileList: React.FC<ProfileListProps> = ({
   }) => {
     return (
       <ProfileRowCard
+        isSupport={isSupportStyle!}
         item={item}
         index={index}
         handleOnRowPressed={() => handleOnRowPressed(item)}

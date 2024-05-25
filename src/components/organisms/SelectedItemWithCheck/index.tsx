@@ -5,6 +5,11 @@ import {styles} from "./styles";
 import {SelectedCheckItemType} from "../../../@types";
 import {Spacing} from "../../../styles";
 
+const list = [
+  {id: 1, name: "العربية"},
+  {id: 2, name: "English"},
+];
+
 type SelectedItemWithCheckProps = {
   item: SelectedCheckItemType;
   index?: number;
@@ -28,7 +33,7 @@ const SelectedItemWithCheck: React.FC<SelectedItemWithCheckProps> = ({
       )}
       <Card style={styles.card} onPress={onSelected}>
         <ViewRow style={styles.container}>
-          <RoundedIcon
+          {/* <RoundedIcon
             backgroundColor="PRIMARY"
             icon={item?.icon}
             style={styles.roundedIcon}
@@ -37,18 +42,21 @@ const SelectedItemWithCheck: React.FC<SelectedItemWithCheckProps> = ({
             titleStyle={{marginTop: 0}}
             iconStyle={styles.icon}
             textContainerStyle={styles.textContainer}
-          />
-          <View style={styles.row}>
-            <View>
+          /> */}
+          <Text fontFamily="MEDIUM" fontSize="FS16">
+            {item.name}
+          </Text>
+          {/* <View style={styles.row}> */}
+          {/* <View>
               {item?.cost && (
                 <>
                   <Text>{item?.cost || 500} $</Text>
                   <Text>/ {item?.duration} mins</Text>
                 </>
               )}
-            </View>
-            <RadioButton isChecked={active} onChecked={onSelected} />
-          </View>
+            </View> */}
+          <RadioButton isChecked={active} onChecked={onSelected} />
+          {/* </View> */}
         </ViewRow>
       </Card>
     </>

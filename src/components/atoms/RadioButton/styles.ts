@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     borderRadius: scale(6),
   },
   text: {
-    paddingHorizontal: Spacing.S8,
+    // paddingHorizontal: Spacing.S8,
   },
 });
 

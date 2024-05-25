@@ -5,7 +5,7 @@ import {profileRowType} from "../../../@types";
 import {Svgs} from "../../../assets";
 import {isRTL} from "../../../locals/i18n-config";
 import {Colors, Spacing} from "../../../styles";
-import {scale} from "../../../styles/dimensions";
+import {getHeight, scale} from "../../../styles/dimensions";
 import {Card, Switch, Text, ViewRow} from "../../atoms";
 import {styles} from "./styles";
 
@@ -16,6 +16,7 @@ type ProfileRowCardProps = {
   handleOnRowPressed: () => void;
   onToggleHandler?: () => void;
   isToggle?: boolean;
+  isSupport: boolean;
 };
 
 const ProfileRowCard: React.FC<ProfileRowCardProps> = ({
@@ -24,6 +25,7 @@ const ProfileRowCard: React.FC<ProfileRowCardProps> = ({
   isToggle,
   handleOnRowPressed,
   onToggleHandler,
+  isSupport = false,
 }) => {
   return (
     <Card
@@ -32,15 +34,20 @@ const ProfileRowCard: React.FC<ProfileRowCardProps> = ({
       style={[
         styles.card,
         {
+          paddingHorizontal: isSupport ? Spacing.S8 : Spacing.S16,
           backgroundColor: item?.renderRightElement
             ? Colors.TRANSPARENT
             : Colors.WHITE,
         },
         style,
       ]}>
-      <View style={{flexDirection: "row"}}>
-        {item.icon && (
-          <View style={{marginEnd: Spacing.S16}}>
+      <View style={{flexDirection: "row", alignItems: "center"}}>
+        {item?.icon && (
+          <View
+            style={{
+              marginEnd: Spacing.S16,
+              marginTop: isSupport == true ? getHeight(6) : 0,
+            }}>
             <Svgs name={item?.icon} />
           </View>
         )}
@@ -48,9 +55,11 @@ const ProfileRowCard: React.FC<ProfileRowCardProps> = ({
           <Text color="BLACK" fontSize="FS14" fontFamily="MEDIUM">
             {item?.name}
           </Text>
-          <Text color="INPUT_TEXT" fontSize="FS10" fontFamily="REGULAR">
-            {item?.desc}
-          </Text>
+          {item?.desc ? (
+            <Text color="INPUT_TEXT" fontSize="FS10" fontFamily="REGULAR">
+              {item?.desc}
+            </Text>
+          ) : null}
         </View>
       </View>
 
@@ -72,7 +81,13 @@ const ProfileRowCard: React.FC<ProfileRowCardProps> = ({
           {item?.isShowArrow && (
             <Svgs
               name={"arrow"}
-              color={item?.isArrowRed ? "red" : Colors.PRIMARY}
+              color={
+                item?.arrowColor
+                  ? item.arrowColor
+                  : item?.isArrowRed
+                  ? "red"
+                  : Colors.PRIMARY
+              }
               rotate={isRTL() ? "right" : "left"}
               width={scale(20)}
               height={scale(20)}

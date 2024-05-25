@@ -1,6 +1,6 @@
 import {StyleSheet} from "react-native";
 import {Colors, Spacing} from "../../../styles";
-import {getHeight} from "../../../styles/dimensions";
+import {getHeight, scale} from "../../../styles/dimensions";
 
 export const styles = StyleSheet.create({
   card: {
@@ -9,10 +9,16 @@ export const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: Spacing.S8,
     marginVertical: Spacing.S8,
-    height: getHeight(70),
+    height: getHeight(56),
+    borderWidth: 2,
+    borderColor: Colors.INPUT_BORDER,
+    borderRadius: scale(12),
   },
   container: {
+    width: "100%",
     justifyContent: "space-between",
+    alignItems: "center",
+    paddingHorizontal: Spacing.S16,
   },
   icon: {
     color: Colors.WHITE,
@@ -28,7 +34,7 @@ export const styles = StyleSheet.create({
   row: {
     width: "30%",
     flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
+    // alignItems: "center",
+    // justifyContent: "space-between",
   },
 });
