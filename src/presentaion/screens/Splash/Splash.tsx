@@ -45,7 +45,7 @@ const Splash: React.FC = () => {
     //     // }
     //   }
     // });
-    if (firstTime) {
+    if (true) {
       console.log("lang");
       setLanguageFirstTime("ar");
     }

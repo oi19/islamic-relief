@@ -88,6 +88,8 @@ import CameraIcon from "./cameraIcon";
 import WhatsApp from "./whatsApp";
 import ContactUs from "./contactUs";
 import ChatIcon from "./chatIcon";
+import CheckedIcon from "./checkedIcon";
+import AddPaymentIcon from "./addPaymentIcon";
 
 export type IconsName =
   | "remove"
@@ -175,7 +177,9 @@ export type IconsName =
   | "cameraIcon"
   | "whatsApp"
   | "contactUs"
-  | "chatIcon";
+  | "chatIcon"
+  | "checkedIcon"
+  | "addPaymentIcon";
 
 export type RotateTypes = "left" | "right" | "top" | "bottom";
 
@@ -218,6 +222,17 @@ function Svgs(props: IconsProps & SvgEnhancedProps) {
     case "raiseFundBox":
       return (
         <RaiseFundBox {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "checkedIcon":
+      return (
+        <CheckedIcon {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "addPaymentIcon":
+      return (
+        <AddPaymentIcon
+          {...props}
+          style={[props.rotate && style, props.style]}
+        />
       );
     case "profileUserIcon":
       return (

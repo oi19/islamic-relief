@@ -3,12 +3,11 @@ import React from "react";
 import {styles} from "./styles";
 import {
   Button,
-  Header,
   SelectCheckedPaymentCard,
   Text,
+  ViewRow,
   WarningMessageModel,
 } from "../../components";
-import {getHeight} from "../../styles/dimensions";
 import {Colors, Spacing} from "../../styles";
 import {Svgs} from "../../assets";
 import {paymentCards} from "../../dummyData";
@@ -16,9 +15,10 @@ import {useNavigationHooks, useToken} from "../../hooks";
 import {MainAppStackTypes} from "../../navigation/navigation-types";
 import {translate} from "../../helpers";
 import {BottomSheetModal} from "@gorhom/bottom-sheet";
+import Header from "../../presentaion/components/shared/Header";
 
 const ManageCards = () => {
-  const {navigate} = useNavigationHooks<MainAppStackTypes>();
+  const {goBack, navigate} = useNavigationHooks<MainAppStackTypes>();
   const isLogged = useToken();
 
   const [selectedItem, setSelectedItem] = React.useState<{
@@ -71,26 +71,45 @@ const ManageCards = () => {
             setSelectedItem({index: index, isDefault: true})
           }
         />
-        <Button
-          // disabled={selectedItem === -1}
-          type="standard"
-          text={translate("Common.next")}
-          style={{marginBottom: Spacing.S35}}
-          onPress={onNextPressed}
-        />
       </>
+    );
+  };
+
+  const renderAddCardSection = () => {
+    return (
+      <ViewRow>
+        <Button iconName="addPaymentIcon" />
+        <Text>اضف بطاقة ائتمان</Text>
+      </ViewRow>
     );
   };
 
   return (
     <View style={styles.rootScreen}>
       <Header
-        title={translate("Profile.manageCards")}
-        style={{height: getHeight(120), paddingTop: Spacing.S20}}
+        title={" "}
+        centeredTitle="بطاقة  ائتمان"
+        isShowHeaderShadow
+        authHeader={true}
+        style={{
+          backgroundColor: Colors.WHITE,
+          paddingHorizontal: Spacing.S16,
+        }}
+        onBack={goBack}
       />
       <View style={styles.container}>
         {true ? renderPaymentCardsList() : renderEmptyList()}
       </View>
+      <Button
+        type="standard"
+        text={"تاكيد"}
+        style={{
+          bottom: Spacing.S35,
+          position: "absolute",
+          alignSelf: "center",
+        }}
+        onPress={() => {}}
+      />
       <WarningMessageModel
         forwardRef={warningModalRef}
         title={translate("Model.warningTitle")}

@@ -5,7 +5,7 @@ import {getWidth} from "../../styles/dimensions";
 export const styles = StyleSheet.create({
   rootScreen: {
     flex: 1,
-    backgroundColor: Colors.GRAY_EEEEEE,
+    backgroundColor: Colors.WHITE,
   },
   container: {
     paddingTop: Spacing.S20,

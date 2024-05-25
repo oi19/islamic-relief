@@ -4,17 +4,22 @@ import {getHeight, getWidth, scale} from "../../../styles/dimensions";
 
 export const styles = StyleSheet.create({
   card: {
+    flexDirection: "row",
     alignItems: "center",
+    justifyContent: "space-between",
     marginVertical: getHeight(Spacing.S8),
-    marginHorizontal: getWidth(Spacing.S20),
-    marginEnd: getWidth(Spacing.S20),
+    paddingHorizontal: Spacing.S16,
+    width: "100%",
+    borderWidth: 2,
+    borderColor: Colors.INPUT_BORDER,
+    height: 56,
   },
   container: {
     justifyContent: "space-between",
-    alignItems: "flex-start",
-    paddingStart: getWidth(Spacing.S16),
-    paddingTop: getHeight(Spacing.S20),
-    paddingBottom: getHeight(Spacing.S20),
+    alignItems: "center",
+    // paddingStart: getWidth(Spacing.S16),
+    // paddingTop: getHeight(Spacing.S20),
+    // paddingBottom: getHeight(Spacing.S20),
   },
   image: {
     width: scale(32),

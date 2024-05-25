@@ -13,6 +13,7 @@ import {styles} from "./styles";
 import {SelectedCheckPaymentCardType} from "../../../@types";
 import {Colors, Spacing} from "../../../styles";
 import {translate} from "../../../helpers";
+import {Svgs} from "../../../assets";
 
 type SelectedPaymentCardWithCheckProps = {
   item: SelectedCheckPaymentCardType;
@@ -29,75 +30,57 @@ const SelectedPaymentCardWithCheck: React.FC<
   return (
     <>
       <Card style={styles.card} onPress={onSelected}>
-        <ViewRow style={styles.container}>
-          {/* <View>
-            {item?.image ? (
-              <Image source={{uri: item.image}} style={styles.image} />
-            ) : (
-              <RoundedIcon
-                iconStyle={{
-                  color: Colors.PRIMARY,
-                }}
-                icon="notifications"
-                backgroundColor="GRAY_EEEEEE"
-              />
-            )}
-          </View> */}
+        {/* middle section */}
 
-          {/* middle section */}
-
-          {item.name && (
-            <View
+        <View
+          style={{
+            flex: 1,
+            // marginStart: Spacing.S20,
+            // paddingHorizontal: Spacing.S11,
+            flexDirection: "row",
+            alignItems: "center",
+            // justifyContent: "space-between",
+          }}>
+          {active && (
+            <Svgs
               style={{
-                flex: 1,
-                marginStart: Spacing.S20,
-                paddingHorizontal: Spacing.S11,
-                justifyContent: "space-between",
-              }}>
-              <Text fontFamily="MEDIUM" fontSize="FS16">
-                {item.name} {translate("Common.ending")}{" "}
-                {translate("Common.in")} {item.lastDigits}
-              </Text>
-              <Text fontFamily="MEDIUM" fontSize="FS14">
-                {translate("Common.expiryDate")} {item.expiryDate} 06/2024
-              </Text>
-
-              {/* button section */}
-
-              <View style={[styles.row]}>
-                <Button
-                  style={styles.baseButton}
-                  type="default"
-                  text={translate("Common.setAsDefault")}
-                  textStyle={{
-                    fontFamily: "BOLD",
-                    color: "BLACK",
-                    fontSize: "FS14",
-                  }}
-                  onPress={() => {
-                    onSelected();
-                    onSetAsDefaultPressed();
-                  }}
-                />
-                <Button
-                  style={styles.baseButton}
-                  type="default"
-                  text={translate("Common.edit")}
-                  textStyle={{
-                    fontFamily: "BOLD",
-                    color: "PRIMARY",
-                    fontSize: "FS14",
-                  }}
-                  onPress={() => {
-                    onEditPressed();
-                  }}
-                />
-              </View>
-            </View>
+                marginTop: Spacing.S20,
+                marginEnd: Spacing.S11,
+              }}
+              strokeWidth={2}
+              width={20}
+              name="checkedIcon"
+            />
           )}
 
-          <RadioButton isChecked={active} onChecked={onSelected} />
-        </ViewRow>
+          <Text fontFamily="MEDIUM" fontSize="FS14">
+            {/* {item.lastDigits} */}
+            {"xxxx-7546"}
+            {}
+          </Text>
+          <Text fontFamily="MEDIUM" fontSize="FS14">
+            {/* {item.name} {translate("Common.ending")}{" "} */}
+            {/* {item.lastDigits} */}
+            {"   الانتهاء في :11/12"}
+            {}
+          </Text>
+
+          {/* button section */}
+        </View>
+
+        <Button
+          style={styles.baseButton}
+          type="default"
+          text={"حذف"}
+          textStyle={{
+            fontFamily: "MEDIUM",
+            color: "RED",
+            fontSize: "FS14",
+          }}
+          onPress={() => {
+            // onEditPressed();
+          }}
+        />
       </Card>
     </>
   );
