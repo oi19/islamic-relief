@@ -7,6 +7,9 @@ import CardSkeletonPlaceholder from "../../shared/CardSkeletonPlaceholder/CardSk
 import {styles} from "./styles";
 import {Spacing, Typography} from "../../../../styles";
 import ReadTextMore from "../../shared/ReadTextMore";
+import {useNavigationHooks} from "../../../../hooks";
+import {MainNavigationAllScreensTypes} from "../../../../navigation/navigation-types";
+import {newsList} from "./data";
 
 interface CampainItemProps {
   item: any;
@@ -52,13 +55,23 @@ const _renderNewsItem: React.FC<PairRowsItemsProps> = ({
   isLoading,
   index,
 }) => {
+  const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
+
   return (
     <>
       <Card
+        onPress={() => {
+          navigate("ItemDetail", {
+            itemID: index,
+            title: item.title,
+            hasProgress: false,
+            isNews: true,
+          });
+        }}
         style={[
           styles.newsCardStyle,
           {
-            // marginStart: index == 0 ? Spacing.S16 : 0,
+            marginStart: index == 0 ? Spacing.S16 : 0,
           },
         ]}>
         <>
@@ -76,7 +89,7 @@ const _renderNewsItem: React.FC<PairRowsItemsProps> = ({
                   fontFamily: "MEDIUM",
                   fontSize: Typography.FS12,
                 }}
-                text="يتنبتسيبنتميسبينلتوسى يبتلسيلتنيب سمينبتسليب منيتسبلسيبتنيبنسيةبيسنمة بيةسوبىسي "
+                text={item.desc}
               />
             </View>
           ) : null}
@@ -95,7 +108,7 @@ export const NewsSection: React.FC<CampainListProps> = ({data, isLoading}) => {
       }}
       title="الاخبار"
       key={`news_section_key`}
-      data={data}
+      data={newsList}
       horizontal={true}
       navigateTo={"SpecialDetails"}
       params={{
@@ -104,7 +117,7 @@ export const NewsSection: React.FC<CampainListProps> = ({data, isLoading}) => {
       }}
       renderItem={({item, index}) => (
         <_renderNewsItem
-          data={data}
+          data={newsList}
           item={item}
           isLoading={isLoading}
           index={index}

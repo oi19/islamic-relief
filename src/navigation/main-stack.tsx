@@ -38,6 +38,9 @@ import RecieptDetail from "../presentaion/screens/RecieptDetail/RecieptDetail";
 import Support from "../presentaion/screens/Support/Support";
 import About from "../presentaion/screens/About/About";
 import Language from "../presentaion/screens/Language/Language";
+import ItemDetail from "../presentaion/screens/ItemDetails/ItemDetails";
+import CardList from "../presentaion/screens/CardList/CardList";
+import Payment from "../presentaion/screens/Payment/Payment";
 
 const MainStack = () => {
   const Stack = createNativeStackNavigator<MainAppStackTypes>();
@@ -69,6 +72,9 @@ const MainStack = () => {
       <Stack.Screen name="Support" component={Support} />
       <Stack.Screen name="About" component={About} />
       <Stack.Screen name="Language" component={Language} />
+      <Stack.Screen name="ItemDetail" component={ItemDetail} />
+      <Stack.Screen name="CardList" component={CardList} />
+      <Stack.Screen name="Payment" component={Payment} />
 
       {/* {isValid ? (
         <Stack.Screen name="TabsBottomStack" component={TabButtonsStack} />

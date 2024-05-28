@@ -1,5 +1,5 @@
 import React, {useEffect, useRef} from "react";
-import {View, Text, StyleSheet, Animated} from "react-native";
+import {View, Text, StyleSheet, Animated, ViewStyle} from "react-native";
 import {Easing} from "react-native-reanimated";
 import {Colors, Spacing} from "../../../../styles";
 import {getHeight} from "../../../../styles/dimensions";
@@ -7,11 +7,13 @@ import {getHeight} from "../../../../styles/dimensions";
 interface AppLoadingProgressBarProps {
   onCompletion: () => void;
   progressPercentage: number;
+  progressStyle?: ViewStyle;
 }
 
 const AppLoadingProgressBar: React.FC<AppLoadingProgressBarProps> = ({
   onCompletion,
   progressPercentage,
+  progressStyle,
 }) => {
   const progress = useRef(new Animated.Value(0)).current;
 
@@ -35,7 +37,7 @@ const AppLoadingProgressBar: React.FC<AppLoadingProgressBarProps> = ({
 
   return (
     <View style={styles.container}>
-      <View style={styles.progressBarContainer}>
+      <View style={[styles.progressBarContainer, progressStyle]}>
         <Animated.View
           style={[
             styles.progressBar,

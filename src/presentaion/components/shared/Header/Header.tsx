@@ -52,7 +52,10 @@ const DefaultHeader: FC<TouchableOpacityProps & DefaultHeaderProps> = memo(
           ]}>
           {title && (
             <Button
-              iconStyle={{rotate: isRTL() ? "left" : "right", color: "black"}}
+              iconStyle={{
+                rotate: isRTL() ? "left" : "right",
+                color: props.iconColor || "black",
+              }}
               onPress={goBack}
               textStyle={{color: "BLACK"}}
               iconName={isBackArrow ? "arrow" : undefined}

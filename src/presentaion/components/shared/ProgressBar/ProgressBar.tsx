@@ -1,12 +1,14 @@
 import React, {FC, memo} from "react";
 import AppLoadingProgressBar from "./AppLoadingProgressBar";
 import SegmentedProgressBar from "./SegmentedProgressBar";
+import {ViewStyle} from "react-native";
 
 export type ProgressBarProps = {
   type?: "segmented" | "appLoading";
   totalSteps?: number;
   currentStep?: number;
   progressPercentage?: number;
+  progressStyle?: ViewStyle;
   onCompletion?: () => void;
 };
 
@@ -15,6 +17,7 @@ const ProgressBar: FC<ProgressBarProps> = ({
   totalSteps,
   currentStep,
   progressPercentage,
+  progressStyle,
   onCompletion,
   ...props
 }) => {
@@ -30,6 +33,7 @@ const ProgressBar: FC<ProgressBarProps> = ({
     case "appLoading":
       return (
         <AppLoadingProgressBar
+          progressStyle={progressStyle}
           progressPercentage={progressPercentage!}
           onCompletion={() => {
             onCompletion && onCompletion();
@@ -40,6 +44,7 @@ const ProgressBar: FC<ProgressBarProps> = ({
     default:
       return (
         <SegmentedProgressBar
+          progressStyle={progressStyle}
           totalSteps={totalSteps}
           currentStep={currentStep}
           {...props}

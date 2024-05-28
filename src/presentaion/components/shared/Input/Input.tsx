@@ -25,6 +25,7 @@ type InputProps = {
   password?: boolean;
   dismissKeyboard?: boolean;
   icon?: IconsName;
+  amountIcon?: IconsName;
   inputStyle?: StyleProp<TextStyle>;
   error?: string;
   leftText?: string;
@@ -54,6 +55,7 @@ const Input: FC<TextInputProps & InputProps> = ({
   isMobile,
   countryCode = "+20",
   countryButtonHandler,
+  amountIcon,
   ...props
 }) => {
   let [showPassword, setShowPassword] = useState(password);
@@ -147,6 +149,14 @@ const Input: FC<TextInputProps & InputProps> = ({
             iconName={showPassword ? "showPassword" : "hidePassword"}
             style={styles.passwordButton}
           />
+        )}
+        {amountIcon && (
+          <Text
+            fontFamily="MEDIUM"
+            fontSize="FS14"
+            style={{color: Colors.INPUT_TEXT}}>
+            {"$"}
+          </Text>
         )}
       </View>
       {error && (

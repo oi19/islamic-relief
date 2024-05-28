@@ -5,6 +5,7 @@ import {ViewStyle} from "react-native";
 import {AnimatedHeader} from "./AnimatedHeader";
 import {DefaultHeader} from "./Header";
 import {TransparentHeader} from "./TransparentHeader";
+import {ColorsTypes} from "../../../../styles/colors";
 
 const Header: FC<{
   type?: "transparent" | "animatedHeader";
@@ -13,6 +14,7 @@ const Header: FC<{
   y?: SharedValue<number>;
   centeredTitle?: string;
   title?: string;
+  iconColor?: ColorsTypes;
   textStyle?: ViewStyle;
   placeholder?: string;
   authHeader?: boolean;

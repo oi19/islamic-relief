@@ -9,6 +9,7 @@ import Text from "../Text/Text";
 
 const BorderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
   ({text, iconName, isLoading, iconContainerStyle, subText, ...props}) => {
+    console.warn(text);
     return (
       <ScaleButton
         {...props}
@@ -36,7 +37,7 @@ const BorderButton: FC<TouchableOpacityProps & ButtonProps> = memo(
                 />
               </View>
             )}
-            {text && (
+            {(text || true) && (
               <View
                 style={{
                   flex: 1,

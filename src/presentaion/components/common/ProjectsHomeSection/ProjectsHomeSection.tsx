@@ -5,6 +5,10 @@ import Section from "../../shared/Section/Section";
 import Image from "../../shared/Image";
 import CardSkeletonPlaceholder from "../../shared/CardSkeletonPlaceholder/CardSkeletonPlaceholder";
 import {styles} from "./styles";
+import {useNavigationHooks} from "../../../../hooks";
+import {MainNavigationAllScreensTypes} from "../../../../navigation/navigation-types";
+import {projects} from "./data";
+import {Spacing} from "../../../../styles";
 
 interface CampainItemProps {
   item: any;
@@ -27,13 +31,20 @@ const _renderProjectSectionItem: React.FC<PairRowsItemsProps> = ({
   isLoading,
   index,
 }) => {
+  const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
+
   return (
     <>
       <Card
+        onPress={() => {
+          navigate("CardList", {
+            title: item?.title,
+          });
+        }}
         style={[
           styles.projectCard,
           {
-            // marginStart: index == 0 ? Spacing.S16 : 0,
+            marginStart: index == 0 ? Spacing.S16 : 0,
           },
         ]}>
         <View style={{width: "100%", height: "100%", borderRadius: 12}}>
@@ -42,7 +53,7 @@ const _renderProjectSectionItem: React.FC<PairRowsItemsProps> = ({
           ) : (
             <Image
               resizeMode="cover"
-              source={require("../../../../assets/images/logo.png")}
+              source={item.imageSource}
               style={styles.newsImageStyle}
             />
           )}
@@ -64,7 +75,7 @@ export const ProjectSection: React.FC<CampainListProps> = ({
       }}
       title="المشاريع"
       key={`news_section_key`}
-      data={data}
+      data={projects}
       horizontal={true}
       navigateTo={"SpecialDetails"}
       params={{
@@ -73,7 +84,7 @@ export const ProjectSection: React.FC<CampainListProps> = ({
       }}
       renderItem={({item, index}) => (
         <_renderProjectSectionItem
-          data={data}
+          data={projects}
           item={item}
           isLoading={isLoading}
           index={index}

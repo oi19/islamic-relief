@@ -51,8 +51,8 @@ export const styles = StyleSheet.create({
   },
   sadakatCardStyle: {
     height: 53,
-    width: getWidth(130),
-    backgroundColor: "none",
+    // width: getWidth(130),
+    backgroundColor: "transparent",
     borderWidth: 0,
     // opacity: 1,
     // backgroundColor: "red",

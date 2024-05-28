@@ -68,6 +68,24 @@ export type MainAppStackTypes = {
   ConfirmOtp: undefined;
   AddPaymentCard: undefined;
   ForgetPassword: undefined;
+  Payment: {
+    title: string;
+    isFixed: boolean;
+    regularType?: string;
+  };
+  CardList: {
+    title: string;
+  };
+  ItemDetail: {
+    title: string;
+    itemID: number | string;
+    isCard?: boolean;
+    isFixed?: boolean;
+    hasPorgress?: boolean;
+    buttonTitle?: string;
+    isNews?: boolean;
+    fixedValue?: string;
+  };
   CongratsScreen: {
     isShowSuccessSign: boolean;
     title: string;

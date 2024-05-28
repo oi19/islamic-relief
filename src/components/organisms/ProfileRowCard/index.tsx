@@ -68,7 +68,7 @@ const ProfileRowCard: React.FC<ProfileRowCardProps> = ({
           <Switch
             onValueChange={(value: boolean) => {
               onToggleHandler && onToggleHandler();
-              console.warn(value);
+              // console.warn(value);
             }}
             value={isToggle}
           />

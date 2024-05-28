@@ -6,6 +6,9 @@ import CardSkeletonPlaceholder from "../../shared/CardSkeletonPlaceholder/CardSk
 import Text from "../../shared/Text/Text";
 import {styles} from "./styles";
 import {Spacing, Typography} from "../../../../styles";
+import {useNavigationHooks} from "../../../../hooks";
+import {MainNavigationAllScreensTypes} from "../../../../navigation/navigation-types";
+import {fundsList} from "./data";
 
 interface CampainItemProps {
   item: any;
@@ -20,6 +23,7 @@ interface CampainListProps {
 
 interface PairRowsItemsProps extends CampainItemProps {
   data: any;
+  onPress: Function;
 }
 
 const _renderEmptyCard = () => {
@@ -41,6 +45,7 @@ const _renderImportantFundsItem: React.FC<PairRowsItemsProps> = ({
   data,
   index,
   isLoading,
+  onPress,
 }) => {
   if (index % 2 !== 0) {
     return null;
@@ -48,6 +53,7 @@ const _renderImportantFundsItem: React.FC<PairRowsItemsProps> = ({
 
   const item = data[index];
   const nextItem = data[index + 1];
+  // console.warn(data);
 
   return (
     <View
@@ -65,7 +71,7 @@ const _renderImportantFundsItem: React.FC<PairRowsItemsProps> = ({
             <Card
               key={`importantFundsItem_${index}`}
               onPress={() => {
-                console.warn(index + i);
+                onPress(item?.title);
               }}
               style={[styles.importantFundsItemContainer]}>
               {isLoading ? (
@@ -84,7 +90,7 @@ const _renderImportantFundsItem: React.FC<PairRowsItemsProps> = ({
                   fontSize="FS14"
                   fontFamily="MEDIUM"
                   color="BLACK">
-                  {"omarsahdjkas"}
+                  {item?.title}
                 </Text>
               ) : null}
             </View>
@@ -99,12 +105,23 @@ export const ImportantFundsSections: React.FC<CampainListProps> = ({
   data,
   isLoading,
 }) => {
+  const {navigate, goBack} =
+    useNavigationHooks<MainNavigationAllScreensTypes>();
+  const onPress = (title: string) => {
+    navigate("ItemDetail", {
+      title,
+      isCard: true,
+      isFixed: true,
+      fixedValue: "100",
+      hasProgress: false,
+    });
+  };
   return (
     <Section
       scrollEnabled={false}
       title="تبرعات تهمك"
       key={`campain_section_key`}
-      data={data}
+      data={fundsList}
       horizontal={true}
       navigateTo={"SpecialDetails"}
       params={{
@@ -117,10 +134,11 @@ export const ImportantFundsSections: React.FC<CampainListProps> = ({
       }}
       renderItem={({item, index}) => (
         <_renderImportantFundsItem
-          data={data}
+          data={fundsList}
           item={item}
           isLoading={isLoading}
           index={index}
+          onPress={onPress}
         />
       )}
     />

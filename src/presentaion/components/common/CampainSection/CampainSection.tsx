@@ -10,7 +10,9 @@ import Text from "../../shared/Text/Text";
 import {styles} from "./styles";
 import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import {Spacing, Typography} from "../../../../styles";
-
+import {useNavigationHooks} from "../../../../hooks";
+import {MainNavigationAllScreensTypes} from "../../../../navigation/navigation-types";
+import {campaginList} from "./data";
 
 interface CampainItemProps {
   item: any;
@@ -28,10 +30,23 @@ const _renderCampainSectionCard: React.FC<CampainItemProps> = ({
   isLoading,
   index,
 }) => {
+  const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
   return (
     <Card
+      onPress={() => {
+        navigate("ItemDetail", {
+          hasProgress: true,
+          itemID: index,
+          title: item?.title,
+          isFixed: true,
+        
+        });
+      }}
       style={[
         styles.CampainSectionCard,
+        {
+          marginStart: index == 0 ? Spacing.S16 : 0,
+        },
       ]}>
       {isLoading ? (
         <CardSkeletonPlaceholder width={"100%"} height={"100%"} />
@@ -54,17 +69,18 @@ const _renderCampainSectionCard: React.FC<CampainItemProps> = ({
           <View style={styles.textSectionContainer}>
             {true ? (
               <Text fontSize="FS18" fontFamily="BOLD" color="WHITE">
-                {"omar"}
+                {item.title}
               </Text>
             ) : null}
-            {item?.type === "target" || true ? (
+            {/* {item?.type === "target" || true ? ( */}
+            {item?.hasProgress === "target" || true ? (
               <View>
                 <ViewRow style={styles.textSectionSubContainer}>
                   <Text fontSize="FS12" fontFamily="MEDIUM" color="WHITE">
-                    omar
+                    2,043,684$
                   </Text>
                   <Text fontSize="FS12" fontFamily="MEDIUM" color="WHITE">
-                    omar
+                    30% تم التبرع بهم
                   </Text>
                 </ViewRow>
                 <View style={styles.progressBarContainer}>
@@ -79,7 +95,8 @@ const _renderCampainSectionCard: React.FC<CampainItemProps> = ({
                 </View>
 
                 <Text fontSize="FS12" fontFamily="MEDIUM" color="WHITE">
-                  {`الهدف الإجمالي` + `   $ ${item?.totalAmount}`}
+                  {/* {`الهدف الإجمالي` + `   $ ${item?.totalAmount}`} */}
+                  {`الهدف الإجمالي $5,000,000`}
                 </Text>
               </View>
             ) : (
@@ -105,9 +122,9 @@ export const CampainSection: React.FC<CampainListProps> = ({
   isLoading,
 }) => {
   return (
-         <Section
+    <Section
       key={`campain_section_key`}
-      data={data}
+      data={campaginList}
       horizontal={true}
       renderItem={({item, index}) => (
         <_renderCampainSectionCard

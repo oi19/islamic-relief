@@ -12,6 +12,9 @@ import ProgressBar from "../../shared/ProgressBar/ProgressBar";
 import {Spacing, Typography} from "../../../../styles";
 import {getWidth, scale} from "../../../../styles/dimensions";
 import ReadTextMore from "../../shared/ReadTextMore";
+import {sadakatList} from "./data";
+import {useNavigationHooks} from "../../../../hooks";
+import {MainNavigationAllScreensTypes} from "../../../../navigation/navigation-types";
 
 interface CampainItemProps {
   item: any;
@@ -48,6 +51,8 @@ const _renderSadakatItem: React.FC<PairRowsItemsProps> = ({
   index,
   isLoading,
 }) => {
+  const {goBack, navigate, push} =
+    useNavigationHooks<MainNavigationAllScreensTypes>();
   if (index % 2 !== 0) {
     return null;
   }
@@ -60,6 +65,7 @@ const _renderSadakatItem: React.FC<PairRowsItemsProps> = ({
       style={{
         height: 130,
         justifyContent: "space-between",
+        marginStart: index == 0 ? Spacing.S16 : 0,
         marginEnd: nextItem ? scale(56) : 0,
       }}>
       {[item, nextItem].map((item, i) => {
@@ -71,13 +77,22 @@ const _renderSadakatItem: React.FC<PairRowsItemsProps> = ({
             <Card
               key={`importantFundsItem_${index}`}
               onPress={() => {
-                console.warn(index + i);
+                navigate("Payment", {
+                  title: item.title,
+                });
+                // console.warn(index + i);
               }}
               style={[styles.sadakatCardStyle]}>
               {isLoading ? (
                 <CardSkeletonPlaceholder width={"100%"} height={"100%"} />
               ) : (
-                <ViewRow style={{paddingTop: 0}}>
+                <View
+                  style={{
+                    flexDirection: "row",
+                    alignItems: "center",
+                    paddingTop: 0,
+                    width: "100%",
+                  }}>
                   <View
                     style={{
                       height: "100%",
@@ -94,13 +109,14 @@ const _renderSadakatItem: React.FC<PairRowsItemsProps> = ({
                   <Text
                     style={{
                       marginStart: Spacing.S16,
+                      textAlign: "center",
                     }}
                     fontSize="FS14"
                     fontFamily="BOLD"
                     color="WHITE">
-                    {"OMAR omar"}
+                    {item?.title}
                   </Text>
-                </ViewRow>
+                </View>
               )}
             </Card>
           </>
@@ -133,12 +149,12 @@ export const SadakatSection: React.FC<CampainListProps> = ({
 
       <Section
         key={`campain_section_key`}
-        data={data}
+        data={sadakatList}
         horizontal={true}
         style={{marginTop: Spacing.S16}}
         renderItem={({item, index}) => (
           <_renderSadakatItem
-            data={data}
+            data={sadakatList}
             item={item}
             isLoading={isLoading}
             index={index}
