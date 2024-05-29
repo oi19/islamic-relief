@@ -41,6 +41,7 @@ import Language from "../presentaion/screens/Language/Language";
 import ItemDetail from "../presentaion/screens/ItemDetails/ItemDetails";
 import CardList from "../presentaion/screens/CardList/CardList";
 import Payment from "../presentaion/screens/Payment/Payment";
+import More from "../presentaion/screens/More/More";
 
 const MainStack = () => {
   const Stack = createNativeStackNavigator<MainAppStackTypes>();
@@ -75,6 +76,7 @@ const MainStack = () => {
       <Stack.Screen name="ItemDetail" component={ItemDetail} />
       <Stack.Screen name="CardList" component={CardList} />
       <Stack.Screen name="Payment" component={Payment} />
+      <Stack.Screen name="More" component={More} />
 
       {/* {isValid ? (
         <Stack.Screen name="TabsBottomStack" component={TabButtonsStack} />
