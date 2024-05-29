@@ -16,7 +16,7 @@ import {RouteProp, useRoute} from "@react-navigation/native";
 
 const OTP = () => {
   const {
-    params: {navigateTo},
+    params: {navigateTo, type},
   } = useRoute<RouteProp<MainAppStackTypes, "OTP">>();
   const {navigate, goBack, replace} = useNavigationHooks<MainAppStackTypes>();
   const forgetPasswordLoader = useLoader("confirmOtp");
@@ -40,7 +40,9 @@ const OTP = () => {
 
   const onSubmit = () => {
     if (otp?.length == 4) {
-      replace(navigateTo);
+      replace(navigateTo, {
+        type: type,
+      });
       // confirmDoctorOTP(
       //   {
       //     otp,

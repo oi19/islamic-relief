@@ -51,7 +51,8 @@ export type MainAppStackTypes = {
   //   resendLoadingApi: keyof ApisTypes;
   // };
   OTP: {
-    navigateTo: MainNavigationAllScreensTypes;
+    navigateTo?: MainNavigationAllScreensTypes;
+     type?: "reset" | "update";
   };
 
   ChangePassword: {

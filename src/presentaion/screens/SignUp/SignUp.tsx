@@ -180,7 +180,7 @@ const SignUp = () => {
           <Button
             text={"انشاء حساب"}
             type="standard"
-            onPress={handleSubmit(handleLoginPressed)}
+            onPress={handleSubmit(handleLoginPressed, e => console.warn(e))}
             style={styles.button}
             textStyle={{fontSize: "FS16"}}
           />
@@ -208,7 +208,7 @@ const SignUp = () => {
             bottom: 0,
           }}>
           <Text fontSize="FS14" style={styles.hintText}>
-            {"لديك حساب بالفعل؟  "}
+            {"لديك حساب بالفعل؟ "}
           </Text>
           <Button
             text={" تسجيل الدخول"}

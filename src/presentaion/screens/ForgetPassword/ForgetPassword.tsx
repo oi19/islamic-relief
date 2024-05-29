@@ -46,7 +46,10 @@ const ForgetPassword = () => {
   const onSendOTPHandler = (data: LoginTypes) => {
     // userLogin(data, res => {
     // if (res) {
-    navigate("OTP");
+    navigate("OTP", {
+      navigateTo: "ChangePassword",
+      type: "reset",
+    });
     // }
     // });
   };
