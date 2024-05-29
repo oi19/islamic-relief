@@ -91,6 +91,11 @@ import ChatIcon from "./chatIcon";
 import CheckedIcon from "./checkedIcon";
 import AddPaymentIcon from "./addPaymentIcon";
 import Arrow_down from "./arrow_down";
+import DailyIcon from "./dailyIcon";
+import WeeklyIcon from "./weeklyIcon";
+import FridayIcon from "./fridayIcon";
+import MonthlyIcon from "./monthlyIcon";
+import SideArrow from "./SideArrow";
 
 export type IconsName =
   | "remove"
@@ -181,7 +186,12 @@ export type IconsName =
   | "chatIcon"
   | "checkedIcon"
   | "addPaymentIcon"
-  | "arrow_down";
+  | "arrow_down"
+  | "dailyIcon"
+  | "weeklyIcon"
+  | "fridayIcon"
+  | "monthlyIcon"
+  | "sideArrow";
 
 export type RotateTypes = "left" | "right" | "top" | "bottom";
 
@@ -215,6 +225,26 @@ function Svgs(props: IconsProps & SvgEnhancedProps) {
   switch (props.name) {
     case "logo":
       return <Logo {...props} style={[props.rotate && style, props.style]} />;
+    case "dailyIcon":
+      return (
+        <DailyIcon {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "weeklyIcon":
+      return (
+        <WeeklyIcon {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "fridayIcon":
+      return (
+        <FridayIcon {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "sideArrow":
+      return (
+        <SideArrow {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "monthlyIcon":
+      return (
+        <MonthlyIcon {...props} style={[props.rotate && style, props.style]} />
+      );
     case "faceID":
       return <FaceID {...props} style={[props.rotate && style, props.style]} />;
     case "successSign":

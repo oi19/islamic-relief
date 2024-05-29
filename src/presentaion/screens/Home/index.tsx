@@ -27,6 +27,7 @@ import {NewsSection} from "../../components/common/NewsHomeSection/NewsHomeSecti
 import {SadakatSection} from "../../components/common/SadakatHomeSection/SadakatHomeSection";
 import {ProjectSection} from "../../components/common/ProjectsHomeSection/ProjectsHomeSection";
 import {GiveAwayCard} from "../../components/common/GiveAwayHomeSection/GiveAwayHomeSection";
+import {RegularSection} from "../../components/common/RegularSection/RegularSection";
 
 const Home = () => {
   const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
@@ -83,13 +84,14 @@ const Home = () => {
         authHeader={false}
       />
       <View style={styles.container}>
-        <Scroll contentContainerStyle={{flexGrow:1,paddingTop:Spacing.S20}}>
+        <Scroll contentContainerStyle={{flexGrow: 1, paddingTop: Spacing.S20}}>
           <CampainSection data={[1, 2, 3]} isLoading={false} />
           <ImportantFundsSections data={[1, 2, 3, 4, 5, 6]} isLoading={false} />
           <NewsSection data={[1, 2, 3, 4, 5]} isLoading={false} />
           <SadakatSection data={[1, 2, 3, 4, 5, 6, 7]} isLoading={false} />
           <ProjectSection data={[1, 2, 3]} isLoading={false} />
           <GiveAwayCard isLoading={false} />
+          <RegularSection data={[1, 2, 3, 4]} isLoading={false} />
 
           {/* {!isLogged && (
             <View style={styles.signUpContainer}>

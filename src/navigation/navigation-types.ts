@@ -5,7 +5,7 @@ import {
   ServicesTypesEnums,
 } from "../@types";
 import {ApisTypes} from "../api/api-types";
-import {IconsName} from "../assets/svgs";
+import {IconsName, IconsProps} from "../assets/svgs";
 
 export type MainNavigationTypes =
   | MainAppStackTypes
@@ -77,6 +77,7 @@ export type MainAppStackTypes = {
     isFixed: boolean;
     regularType?: "direct" | "inDirect" | "none";
     regularTypeName?: "once" | "daily" | "weekly" | "monthly";
+    iconName?:IconsName
   };
   CardList: {
     title: string;

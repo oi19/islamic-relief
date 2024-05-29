@@ -29,7 +29,7 @@ export const styles = StyleSheet.create({
     marginVertical: Spacing.S8,
   },
   importantFundsItemContainer: {
-    height: 90,
+    height: 96,
     width: "100%",
     borderRadius: 8,
   },
@@ -64,7 +64,7 @@ export const styles = StyleSheet.create({
     borderRadius: 8,
   },
   fundsItemContainer: {
-    width: getWidth(106),
+    width: getWidth(162),
     height: 254,
     justifyContent: "space-between",
   },

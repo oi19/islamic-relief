@@ -42,10 +42,11 @@ const Payment = () => {
   const {navigate, goBack} =
     useNavigationHooks<MainNavigationAllScreensTypes>();
   const {
-    params: {title, isFixed, regularType, regularTypeNames},
+    params: {title, isFixed, regularType, regularTypeNames, iconName},
   } = useRoute<RouteProp<MainAppStackTypes, "Payment">>();
   const params = useRoute().params;
 
+  // console.warn(params);
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [inputAmount, setInputAmount] = useState<number>(0);
   const [selectedPaymenWay, setSelectedPaymentWay] = useState<{
@@ -154,13 +155,13 @@ const Payment = () => {
         {regularType == "direct" ? (
           <View style={{backgroundColor: "#F3FDFC", padding: Spacing.S16}}>
             <View style={{flexDirection: "row", marginVertical: Spacing.S16}}>
-              <Svgs name="bag" />
+              <Svgs name={iconName} />
               <Text
                 style={{marginStart: Spacing.S16}}
                 fontFamily="BOLD"
                 fontSize="FS14"
                 color="#3DA599">
-                يومي{" "}
+                {title}
               </Text>
             </View>
             <Text fontFamily="BOLD" fontSize="FS14">

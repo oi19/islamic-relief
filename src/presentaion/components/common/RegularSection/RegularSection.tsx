@@ -9,6 +9,10 @@ import {Spacing, Typography} from "../../../../styles";
 import {useNavigationHooks} from "../../../../hooks";
 import {MainNavigationAllScreensTypes} from "../../../../navigation/navigation-types";
 import {fundsList} from "./data";
+import {TouchableOpacity} from "react-native-gesture-handler";
+import {Svgs} from "../../../../assets";
+import {getWidth} from "../../../../styles/dimensions";
+import navigation from "../../../../navigation";
 
 interface CampainItemProps {
   item: any;
@@ -71,29 +75,42 @@ const _renderRegularItem: React.FC<PairRowsItemsProps> = ({
             <Card
               key={`importantFundsItem_${index}`}
               onPress={() => {
-                onPress(item?.title);
+                onPress(item);
               }}
               style={[styles.importantFundsItemContainer]}>
               {isLoading ? (
                 <CardSkeletonPlaceholder width={"100%"} height={"100%"} />
               ) : (
-                <ImageBackground
-                  style={{width: "100%", height: "100%"}}
-                  source={require("../../../../assets/images/logo.png")}
-                />
+                <TouchableOpacity
+                  style={{
+                    padding: Spacing.S16,
+                    width: getWidth(162),
+                    height: 96,
+                    justifyContent: "center",
+                    backgroundColor: "#EBFFFD",
+                  }}
+                  // source={require("../../../../assets/images/logo.png")}
+                >
+                  <View
+                    style={{
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                      alignItems: "center",
+                    }}>
+                    <View>
+                      <Svgs name={item.iconName} />
+                      <Text
+                        style={{marginTop: Spacing.S16}}
+                        fontFamily="MEDIUM"
+                        fontSize="FS12">
+                        {item.title}
+                      </Text>
+                    </View>
+                    <Svgs name="sideArrow" circleBackground="black" />
+                  </View>
+                </TouchableOpacity>
               )}
             </Card>
-            <View>
-              {isLoading == false ? (
-                <Text
-                  style={{marginTop: Spacing.S4, textAlign: "center"}}
-                  fontSize="FS14"
-                  fontFamily="MEDIUM"
-                  color="BLACK">
-                  {item?.title}
-                </Text>
-              ) : null}
-            </View>
           </>
         );
       })}
@@ -101,29 +118,24 @@ const _renderRegularItem: React.FC<PairRowsItemsProps> = ({
   );
 };
 
-export const ImportantFundsSections: React.FC<CampainListProps> = ({
-  data,
-  isLoading,
-}) => {
-  const {navigate, goBack} =
-    useNavigationHooks<MainNavigationAllScreensTypes>();
-  const onPress = (title: string) => {
-    navigate("ItemDetail", {
-      title,
-      isCard: true,
-      isFixed: true,
-      fixedValue: "100",
-      hasProgress: false,
+export const RegularSection: React.FC<CampainListProps> = ({isLoading}) => {
+  const {navigate} = useNavigationHooks<MainNavigationAllScreensTypes>();
+  const onPress = (item: any) => {
+    navigate("Payment", {
+      title: item?.title,
+      isFixed: false,
+      regularType: "direct",
+      iconName: item?.iconName,
     });
   };
   return (
     <Section
       scrollEnabled={false}
-      title="تبرعات تهمك"
+      title="التبرعات الدورية"
       key={`campain_section_key`}
       data={fundsList}
       horizontal={true}
-      navigateTo={"More"}
+      // navigateTo={"More"}
       params={{
         list: fundsList,
         title: "تبرعات تهمك",
