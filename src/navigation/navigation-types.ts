@@ -71,7 +71,8 @@ export type MainAppStackTypes = {
   Payment: {
     title: string;
     isFixed: boolean;
-    regularType?: string;
+    regularType?: "direct" | "inDirect" | "none";
+    regularTypeName?: "once" | "daily" | "weekly" | "monthly";
   };
   CardList: {
     title: string;

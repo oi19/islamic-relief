@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useEffect, useRef, useState} from "react";
 import {
   View,
   Image,
@@ -6,7 +6,6 @@ import {
   TouchableOpacity,
   ActivityIndicator,
   ScrollView,
-  ImageBackground,
   TextInput,
 } from "react-native";
 import {RouteProp, useRoute} from "@react-navigation/native";
@@ -17,50 +16,108 @@ import {
   MainNavigationAllScreensTypes,
 } from "../../../navigation/navigation-types";
 import {useNavigationHooks} from "../../../hooks";
-// import {countries} from "./data";
 import Button from "../../components/shared/Button/Button";
 import Header from "../../components/shared/Header";
 import {Colors, Spacing, Typography} from "../../../styles";
-import {getHeight, getWidth} from "../../../styles/dimensions";
-import ViewRow from "../../components/shared/ViewRow/ViewRow";
+import {getHeight, getWidth, scale} from "../../../styles/dimensions";
 import Text from "../../components/shared/Text/Text";
 import Input from "../../components/shared/Input/Input";
 import {Svgs} from "../../../assets";
+import RegularPaymentModal from "../../../components/models/RegularPaymentModal/RegularPaymentModal";
 
-const normalList = ["10", "50", "100", "500"];
-const fixedList = ["5x", "10x", "15x", "20x"];
+const normalList = [
+  {id: 0, amount: 10},
+  {id: 1, amount: 50},
+  {id: 2, amount: 100},
+  {id: 3, amount: 500},
+];
+const fixedList = [
+  {id: 0, amount: 5},
+  {id: 1, amount: 10},
+  {id: 2, amount: 15},
+  {id: 3, amount: 20},
+];
 
 const Payment = () => {
   const {navigate, goBack} =
     useNavigationHooks<MainNavigationAllScreensTypes>();
   const {
-    params: {title, isCard, isFixed},
-  } = useRoute<RouteProp<MainAppStackTypes, "ItemDetail">>();
-  const [amount, setAmount] = useState();
+    params: {title, isFixed, regularType, regularTypeNames},
+  } = useRoute<RouteProp<MainAppStackTypes, "Payment">>();
 
-  const renderChooseOptions = (list: string[]) => {
+  const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
+  const [inputAmount, setInputAmount] = useState<number>(0);
+  const [selectedPaymenWay, setSelectedPaymentWay] = useState<{
+    id: number;
+    text: string;
+  }>();
+  const regularPaymentModalRef = useRef(null);
+
+  const handleAmountSelect = (amount: number) => {
+    setSelectedAmount(amount);
+    setInputAmount(amount);
+  };
+
+  const handleInputChange = (text: number) => {
+    setInputAmount(text);
+    if (!normalList.some(item => item.amount === text)) {
+      setSelectedAmount(null);
+    }
+  };
+
+  const onRegularPaymentSelect = (data: any) => {
+    // console.warn(data);
+    setSelectedPaymentWay(data);
+    setTimeout(() => {
+      regularPaymentModalRef?.current?.close();
+    }, 100);
+  };
+
+  const renderChooseOptions = (
+    list: {id: number; amount: number}[],
+    isFixedList?: boolean,
+  ) => {
     return (
       <View
         style={{
           width: "100%",
-          backgroundColor: "red",
-          padding: Spacing.S16,
+          // backgroundColor: "red",
+          marginTop: Spacing.S16,
         }}>
-        <Text fontFamily="MEDIUM" fontSize="FS13">
+        <Text fontFamily="MEDIUM" fontSize="FS14">
           المبالغ المقترحة
         </Text>
-        <View style={{flexDirection: "row", justifyContent: "space-between"}}>
-          {list.map((value: string | undefined, index: any) => {
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            marginTop: Spacing.S16,
+          }}>
+          {list.map((value: {id: number; amount: number}) => {
             return (
               <TouchableOpacity
+                key={value.id}
+                onPress={() => handleAmountSelect(value.amount)}
                 style={[
                   {
-                    backgroundColor: Colors.PRIMARY,
-                    paddingHorizontal: Spacing.S35,
-                    paddingVertical: Spacing.S16,
+                    backgroundColor:
+                      selectedAmount === value.amount
+                        ? Colors.PRIMARY
+                        : Colors.WHITE,
+                    borderWidth: selectedAmount !== value.amount ? 1 : 0,
+                    paddingHorizontal: scale(25),
+                    paddingVertical: Spacing.S11,
+                    borderRadius: 12,
+                    borderColor: Colors.PRIMARY,
+                    elevation: 1,
                   },
                 ]}>
-                <Text>{value}</Text>
+                <Text
+                  fontFamily="BOLD"
+                  fontSize="FS14"
+                  color={selectedAmount !== value.amount ? "PRIMARY" : "WHITE"}>
+                  {value.amount} {isFixed && "x"}
+                </Text>
               </TouchableOpacity>
             );
           })}
@@ -71,19 +128,17 @@ const Payment = () => {
 
   const renderNormalSection = () => {
     return (
-      <View style={{marginTop: Spacing.S16, paddingHorizontal: Spacing.S16}}>
+      <View style={{marginTop: Spacing.S16}}>
         <Text fontFamily="BOLD" fontSize="FS16">
           حدد مبلغ التبرع{" "}
         </Text>
         <Input
-          key={"amount"}
-          // password
           amountIcon="about"
-          keyboardType={"number-pad"}
-          placeholder={" المبلغ"}
-          style={{}}
-          // inputContainerStyle={{marginHorizontal: Spacing.S16}}
-          onChangeText={text => setAmount(text)}
+          value={inputAmount.toString()}
+          onChangeText={text => handleInputChange(Number(text))}
+          keyboardType="number-pad"
+          placeholder="المبلغ"
+          inputContainerStyle={{borderWidth: 1}}
         />
       </View>
     );
@@ -91,25 +146,150 @@ const Payment = () => {
 
   const renderRaiseCycle = () => {
     return (
-      <View>
+      <View style={{marginTop: Spacing.S16}}>
         <Text fontFamily="BOLD" fontSize="FS16">
           دورة التبرع
         </Text>
-        <View style={{backgroundColor: "#F3FDFC", padding: Spacing.S16}}>
-          <View style={{flexDirection: "row", marginVertical: Spacing.S16}}>
-            <Svgs name="bag" />
-            <Text
-              style={{marginStart: Spacing.S16}}
-              fontFamily="BOLD"
-              fontSize="FS14"
-              color="#3DA599">
-              {" "}
-              يومي{" "}
+        {regularType == "direct" ? (
+          <View style={{backgroundColor: "#F3FDFC", padding: Spacing.S16}}>
+            <View style={{flexDirection: "row", marginVertical: Spacing.S16}}>
+              <Svgs name="bag" />
+              <Text
+                style={{marginStart: Spacing.S16}}
+                fontFamily="BOLD"
+                fontSize="FS14"
+                color="#3DA599">
+                يومي{" "}
+              </Text>
+            </View>
+            <Text fontFamily="BOLD" fontSize="FS14">
+              تبرع يومي يخصم تلقائيا كل يوم
             </Text>
           </View>
+        ) : regularType == "inDirect" ? (
+          <TouchableOpacity
+            onPress={() => {
+              regularPaymentModalRef?.current?.present();
+            }}
+            style={{
+              height: 56,
+              width: "100%",
+              borderWidth: 2,
+              borderColor: Colors.INPUT_BORDER,
+              flexDirection: "row",
+              justifyContent: "space-between",
+              borderRadius: 12,
+              alignItems: "center",
+              paddingHorizontal: Spacing.S16,
+              marginTop: Spacing.S16,
+            }}>
+            <Text fontFamily="MEDIUM" fontSize="FS14" color="PRIMARY">
+              {selectedPaymenWay?.text ?? "اختر دورة تبرعك"}
+            </Text>
+            <Svgs style={{paddingTop: 11}} name="arrow_down" />
+            {/* //         transform: [{translateY: imageSlideAnim}], */}
+          </TouchableOpacity>
+        ) : null}
+      </View>
+    );
+  };
+
+  const renderFixedList = () => {
+    return (
+      <View style={{marginTop: Spacing.S16}}>
+        <Text fontFamily="BOLD" fontSize="FS16">
+          مبلغ التبرع
+        </Text>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginTop: Spacing.S16,
+          }}>
+          <View style={{width: getWidth(76), height: getHeight(79)}}>
+            <Image
+              source={require("../../.././assets/images/logo.png")}
+              style={{width: "100%", height: "100%", borderRadius: 12}}
+            />
+          </View>
+          <View style={{flex: 1, marginStart: Spacing.S16}}>
+            <Text fontFamily="MEDIUM" fontSize="FS14">
+              {title}
+            </Text>
+            <Text>{"ثمن الزكاة لفرد واحد"}</Text>
+          </View>
+          <Text>{"25$"}</Text>
+        </View>
+        <View style={{marginTop: Spacing.S35}}>
           <Text fontFamily="BOLD" fontSize="FS14">
-            تبرع يومي يخصم تلقائيا كل يوم
+            حدد العدد
           </Text>
+          <View
+            style={{
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+            }}>
+            <Button
+              style={{
+                // backgroundColor: Colors.PRIMARY,
+                borderColor: Colors.INPUT_BORDER,
+                padding: Spacing.S16,
+                borderRadius: 14,
+                paddingVertical: Spacing.S16,
+              }}
+              containerStyle={{
+                borderWidth: 1,
+                borderRadius: 12,
+                borderColor: Colors.INPUT_BORDER,
+              }}
+              textStyle={{color: "WHITE"}}>
+              <Svgs
+                name="minus"
+                color="white"
+                strokeWidth={1}
+                width={15}
+                height={15}
+              />
+            </Button>
+            <Button
+              disabled
+              style={{
+                borderColor: Colors.INPUT_BORDER,
+                paddingHorizontal: Spacing.S16,
+                borderRadius: 18,
+              }}
+              containerStyle={{
+                borderWidth: 1,
+                borderRadius: 14,
+                borderColor: Colors.INPUT_BORDER,
+                marginHorizontal: Spacing.S16,
+              }}
+              text={inputAmount.toString()}
+            />
+            <Button
+              containerStyle={{
+                borderRadius: 14,
+                backgroundColor: Colors.PRIMARY,
+              }}
+              style={{
+                backgroundColor: Colors.PRIMARY,
+                padding: Spacing.S16,
+                borderRadius: 14,
+                paddingVertical: Spacing.S16,
+              }}
+              textStyle={{color: "WHITE"}}
+              // text="+"
+            >
+              <Svgs
+                name="plus"
+                color="white"
+                strokeWidth={1}
+                width={15}
+                height={15}
+              />
+            </Button>
+          </View>
         </View>
       </View>
     );
@@ -131,10 +311,10 @@ const Payment = () => {
       <ScrollView
         style={styles.container}
         contentContainerStyle={{flexGrow: 1}}>
-        {renderRaiseCycle()}
-        {renderNormalSection()}
-        {renderChooseOptions(normalList)}
-        {/* <Image source={{uri: imageUrl}} style={styles.image} /> */}
+        {regularType == "direct" && renderRaiseCycle()}
+        {isFixed ? renderFixedList() : renderNormalSection()}
+        {renderChooseOptions(isFixed ? fixedList : normalList)}
+        {regularType == "inDirect" && renderRaiseCycle()}
       </ScrollView>
 
       <View
@@ -151,21 +331,29 @@ const Payment = () => {
           }}
           style={{}}
           type="standard"
-          text="تبرعات الحملة"
+          text={` تبرع ب ${isFixed ? inputAmount * 25 : inputAmount} $`}
+          textStyle={{fontFamily: "BOLD", fontSize: "FS16"}}
         />
         <View style={{width: Spacing.S8}} />
         <Button
           type="default"
-          text="تبرعات الحملة"
+          text="اضف الى السلة"
           style={{
             flex: 1,
             borderWidth: 1,
             borderColor: Colors.PRIMARY,
             borderRadius: 12,
-            paddingHorizontal: Spacing.S35,
+            paddingHorizontal: scale(30),
           }}
         />
       </View>
+      <RegularPaymentModal
+        forwardRef={regularPaymentModalRef}
+        onSelect={data => {
+          onRegularPaymentSelect(data);
+        }}
+        selectedId={selectedPaymenWay?.id}
+      />
     </View>
   );
 };
@@ -243,6 +431,12 @@ const styles = StyleSheet.create({
     color: "#FFFFFF",
     fontSize: 16,
     fontWeight: "bold",
+  },
+  input: {
+    // height: 40,
+    borderColor: Colors.INPUT_BORDER,
+    borderWidth: 1,
+    // borderWidth: 1,
   },
 });
 

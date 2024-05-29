@@ -90,6 +90,7 @@ import ContactUs from "./contactUs";
 import ChatIcon from "./chatIcon";
 import CheckedIcon from "./checkedIcon";
 import AddPaymentIcon from "./addPaymentIcon";
+import Arrow_down from "./arrow_down";
 
 export type IconsName =
   | "remove"
@@ -179,7 +180,8 @@ export type IconsName =
   | "contactUs"
   | "chatIcon"
   | "checkedIcon"
-  | "addPaymentIcon";
+  | "addPaymentIcon"
+  | "arrow_down";
 
 export type RotateTypes = "left" | "right" | "top" | "bottom";
 
@@ -411,6 +413,10 @@ function Svgs(props: IconsProps & SvgEnhancedProps) {
     case "onlineDoctor":
       return (
         <OnlineDoctor {...props} style={[props.rotate && style, props.style]} />
+      );
+    case "arrow_down":
+      return (
+        <Arrow_down {...props} style={[props.rotate && style, props.style]} />
       );
     case "makeAppointment":
       return (

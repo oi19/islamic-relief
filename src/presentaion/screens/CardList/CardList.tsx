@@ -160,7 +160,7 @@ const CardList = () => {
           </View>
           {item.hasProgress ? renderProgress() : null}
           <Button
-            style={{height: 44, marginTop: Spacing.S16}}
+            style={{height: getHeight(44), marginTop: Spacing.S16}}
             type="standard"
             text="تبرع الان"
             onPress={() => {

@@ -79,6 +79,8 @@ const _renderSadakatItem: React.FC<PairRowsItemsProps> = ({
               onPress={() => {
                 navigate("Payment", {
                   title: item.title,
+                  regularType: "inDirect",
+                  isFixed: false,
                 });
                 // console.warn(index + i);
               }}

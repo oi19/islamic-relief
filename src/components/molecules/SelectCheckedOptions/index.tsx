@@ -7,15 +7,19 @@ import SelectedServiceItem from "./SelectedServiceItem";
 
 type SelectCheckedOptionsProps = {
   listItems: any[];
-  onSelectedItem?: (index?: number, service?: ServiceTypes) => void;
+  onSelectedItem?: (data: any) => void;
   fromComponent?: "services" | "banks";
+  selectedId: number;
 };
 const SelectCheckedOptions: React.FC<SelectCheckedOptionsProps> = ({
   listItems,
   onSelectedItem,
   fromComponent,
+  selectedId,
 }) => {
-  const [selectedItem, setSelectedItem] = React.useState<number>(-1);
+  const [selectedItem, setSelectedItem] = React.useState<number>(
+    selectedId ?? -1,
+  );
 
   const _selectedServiceItemRender: ListRenderItem<ServiceTypes> = ({
     item,
@@ -31,7 +35,7 @@ const SelectCheckedOptions: React.FC<SelectCheckedOptionsProps> = ({
           index={index}
           onSelected={() => {
             if (onSelectedItem) {
-              onSelectedItem(item?.id, item);
+              onSelectedItem(item);
             }
             setSelectedItem(index);
           }}
@@ -49,7 +53,7 @@ const SelectCheckedOptions: React.FC<SelectCheckedOptionsProps> = ({
         index={index}
         onSelected={() => {
           if (onSelectedItem && item?.id) {
-            onSelectedItem(item?.id);
+            onSelectedItem({id: item.id, text: item.name});
           }
           setSelectedItem(index);
         }}
