@@ -102,7 +102,9 @@ const CardList = () => {
               itemID: index,
               title: item.title,
               isCard: true,
-              isFixed: true,
+              isFixed: false,
+              hasProgress: item?.hasProgress,
+              regularType: "inDirect",
             });
           }}
           style={{width: "100%", height: getHeight(196)}}>
@@ -166,6 +168,7 @@ const CardList = () => {
             onPress={() => {
               navigate("Payment", {
                 title: item.title,
+                regularType: "inDirect",
               });
             }}
           />

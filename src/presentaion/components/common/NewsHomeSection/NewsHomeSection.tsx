@@ -110,10 +110,10 @@ export const NewsSection: React.FC<CampainListProps> = ({data, isLoading}) => {
       key={`news_section_key`}
       data={newsList}
       horizontal={true}
-      navigateTo={"SpecialDetails"}
+      navigateTo={"More"}
       params={{
-        name: "Home.topRatedDoctors",
-        filterType: "rating",
+        list: newsList,
+        title: "الاخبار",
       }}
       renderItem={({item, index}) => (
         <_renderNewsItem

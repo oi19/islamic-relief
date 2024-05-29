@@ -10,7 +10,7 @@ export const campaginList = [
     desc: "هناك قلوب تنتظر النور والأمل شارك في سعادتهم",
   },
   {
-    hasProgress: false,
+    hasProgress: true,
     title: "مساعدة ذوي الهمم",
     desc: "هناك قلوب تنتظر النور والأمل شارك في سعادتهم",
   },

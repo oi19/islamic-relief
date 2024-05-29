@@ -35,11 +35,10 @@ const _renderCampainSectionCard: React.FC<CampainItemProps> = ({
     <Card
       onPress={() => {
         navigate("ItemDetail", {
-          hasProgress: true,
+          hasProgress: item?.hasProgress,
           itemID: index,
           title: item?.title,
           isFixed: true,
-        
         });
       }}
       style={[
@@ -73,7 +72,7 @@ const _renderCampainSectionCard: React.FC<CampainItemProps> = ({
               </Text>
             ) : null}
             {/* {item?.type === "target" || true ? ( */}
-            {item?.hasProgress === "target" || true ? (
+            {item?.hasProgress ? (
               <View>
                 <ViewRow style={styles.textSectionSubContainer}>
                   <Text fontSize="FS12" fontFamily="MEDIUM" color="WHITE">
@@ -105,9 +104,7 @@ const _renderCampainSectionCard: React.FC<CampainItemProps> = ({
                 fontSize="FS12"
                 fontFamily="MEDIUM"
                 color="WHITE">
-                {
-                  "omarsahdjkasdaskjdnasdklasd,adjfs,kdsfldskfdslkfdsfjskfdsjkfdsfkdnksjn"
-                }
+                {"هناك قلوب تنتظر النور والأمل شارك في سعادتهم"}
               </Text>
             )}
           </View>

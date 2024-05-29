@@ -32,11 +32,12 @@ const ItemDetail = () => {
     itemID,
     title,
     isCard,
-    isFixed = false,
+    isFixed,
     buttonTitle,
-    hasPorgress,
+    hasProgress,
     isNews = false,
     fixedValue,
+    regularType,
   } = useRoute<RouteProp<MainAppStackTypes, "ItemDetail">>().params;
   const params = useRoute().params;
   const {navigate, goBack} =
@@ -45,7 +46,7 @@ const ItemDetail = () => {
   const [loading, setLoading] = useState(false);
 
   // console.warn(useRoute().params);
-  // console.warn(params);
+  console.warn(hasProgress);
 
   // useEffect(() => {
   //   const fetchCampaignData = async () => {
@@ -112,7 +113,7 @@ const ItemDetail = () => {
         contentContainerStyle={{flexGrow: 1}}>
         {/* <Image source={{uri: imageUrl}} style={styles.image} /> */}
 
-        {params?.hasProgress ? (
+        {hasProgress ? (
           <View style={styles.progressContainer}>
             <View
               style={{flexDirection: "row", justifyContent: "space-between"}}>
@@ -210,18 +211,20 @@ const ItemDetail = () => {
       <View style={{paddingHorizontal: Spacing.S16}}>
         <Button
           onPress={() => {
+            console.log(isFixed);
             const navigateTo: MainNavigationAllScreensTypes = isCard
               ? "Payment"
               : "CardList";
 
-            const passedProp =
-              isCard == false
-                ? {
-                    isFixed: isFixed,
-                  }
-                : {
-                    title: title,
-                  };
+            const passedProp = isCard
+              ? {
+                  isFixed: isFixed,
+                  title: title,
+                  regularType: regularType,
+                }
+              : {
+                  title: title,
+                };
             navigate(navigateTo, passedProp);
           }}
           style={{

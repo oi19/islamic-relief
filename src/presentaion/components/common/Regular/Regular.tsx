@@ -41,7 +41,7 @@ const _renderEmptyCard = () => {
   );
 };
 
-const _renderImportantFundsItem: React.FC<PairRowsItemsProps> = ({
+const _renderRegularItem: React.FC<PairRowsItemsProps> = ({
   data,
   index,
   isLoading,
@@ -133,7 +133,7 @@ export const ImportantFundsSections: React.FC<CampainListProps> = ({
         fontSize: "FS18",
       }}
       renderItem={({item, index}) => (
-        <_renderImportantFundsItem
+        <_renderRegularItem
           data={fundsList}
           item={item}
           isLoading={isLoading}

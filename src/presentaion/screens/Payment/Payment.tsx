@@ -44,6 +44,7 @@ const Payment = () => {
   const {
     params: {title, isFixed, regularType, regularTypeNames},
   } = useRoute<RouteProp<MainAppStackTypes, "Payment">>();
+  const params = useRoute().params;
 
   const [selectedAmount, setSelectedAmount] = useState<number | null>(null);
   const [inputAmount, setInputAmount] = useState<number>(0);
@@ -59,10 +60,10 @@ const Payment = () => {
   };
 
   const handleInputChange = (text: number) => {
-    setInputAmount(text);
     if (!normalList.some(item => item.amount === text)) {
       setSelectedAmount(null);
     }
+    setInputAmount(text);
   };
 
   const onRegularPaymentSelect = (data: any) => {
@@ -194,6 +195,20 @@ const Payment = () => {
     );
   };
 
+  const onPlusMinusPressed = (type: "plus" | "minus") => {
+    if (type === "minus" && inputAmount > 0) {
+      setInputAmount(current => {
+        handleAmountSelect(current - 1);
+        return current - 1;
+      });
+    } else if (type == "plus") {
+      setInputAmount(current => {
+        handleAmountSelect(current + 1);
+        return current + 1;
+      });
+    }
+  };
+
   const renderFixedList = () => {
     return (
       <View style={{marginTop: Spacing.S16}}>
@@ -218,7 +233,9 @@ const Payment = () => {
             </Text>
             <Text>{"ثمن الزكاة لفرد واحد"}</Text>
           </View>
-          <Text>{"25$"}</Text>
+          <Text fontFamily="BOLD" fontSize="FS16" color="PRIMARY">
+            {"25 $"}
+          </Text>
         </View>
         <View style={{marginTop: Spacing.S35}}>
           <Text fontFamily="BOLD" fontSize="FS14">
@@ -231,6 +248,9 @@ const Payment = () => {
               alignItems: "center",
             }}>
             <Button
+              onPress={() => {
+                onPlusMinusPressed("minus");
+              }}
               style={{
                 // backgroundColor: Colors.PRIMARY,
                 borderColor: Colors.INPUT_BORDER,
@@ -268,6 +288,9 @@ const Payment = () => {
               text={inputAmount.toString()}
             />
             <Button
+              onPress={() => {
+                onPlusMinusPressed("plus");
+              }}
               containerStyle={{
                 borderRadius: 14,
                 backgroundColor: Colors.PRIMARY,
@@ -296,7 +319,7 @@ const Payment = () => {
   };
 
   return (
-    <View style={{flex: 1}}>
+    <View style={{flex: 1, backgroundColor: "white"}}>
       <Header
         title={" "}
         centeredTitle={title}
